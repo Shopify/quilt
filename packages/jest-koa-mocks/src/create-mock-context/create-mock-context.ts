@@ -21,7 +21,7 @@ export interface MockContext extends Context {
 
 export interface Options<
   CustomProperties extends object,
-  RequestBody = undefined
+  RequestBody = undefined,
 > {
   url?: string;
   method?: RequestMethod;
@@ -41,7 +41,7 @@ export interface Options<
 
 export default function createContext<
   CustomProperties extends object,
-  RequestBody = undefined
+  RequestBody = undefined,
 >(options: Options<CustomProperties, RequestBody> = {}) {
   const app = new Koa();
 

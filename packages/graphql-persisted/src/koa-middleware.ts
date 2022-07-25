@@ -42,7 +42,7 @@ function createOperationAssociationMiddleware({
     ctx: Context,
     next: Function,
   ) {
-    const {body} = (ctx.request as unknown) as {body: unknown};
+    const {body} = ctx.request as unknown as {body: unknown};
 
     if (!isPersistedBody(body)) {
       await next();

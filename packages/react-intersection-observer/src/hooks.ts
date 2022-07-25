@@ -36,17 +36,16 @@ export function useIntersection({
   const observer = useRef<IntersectionObserver | null>(null);
   const lastObserver = useRef<IntersectionObserver | null>(null);
 
-  const [intersectionEntry, setIntersectingEntry] = useState<
-    IntersectionObserverEntry
-  >(() => ({
-    boundingClientRect: emptyBoundingClientRect,
-    intersectionRatio: 0,
-    intersectionRect: emptyBoundingClientRect,
-    isIntersecting: false,
-    rootBounds: emptyBoundingClientRect,
-    target: null as any,
-    time: Date.now(),
-  }));
+  const [intersectionEntry, setIntersectingEntry] =
+    useState<IntersectionObserverEntry>(() => ({
+      boundingClientRect: emptyBoundingClientRect,
+      intersectionRatio: 0,
+      intersectionRect: emptyBoundingClientRect,
+      isIntersecting: false,
+      rootBounds: emptyBoundingClientRect,
+      target: null as any,
+      time: Date.now(),
+    }));
 
   useEffect(() => {
     if (!isSupported()) {

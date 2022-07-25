@@ -708,14 +708,8 @@ function CreateProductPage({initialValues}: Props) {
     >
       {(formDetails) => {
         const {fields, dirty, reset, submit, submitting, errors} = formDetails;
-        const {
-          title,
-          description,
-          sku,
-          quantity,
-          variants,
-          firstVariant,
-        } = fields;
+        const {title, description, sku, quantity, variants, firstVariant} =
+          fields;
 
         const submitAction = {
           content: 'Save',

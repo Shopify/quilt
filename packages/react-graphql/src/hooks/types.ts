@@ -28,7 +28,7 @@ export interface QueryHookResult<Data, Variables>
 
 export type MutationHookOptions<
   Data = any,
-  Variables = OperationVariables
+  Variables = OperationVariables,
 > = Omit<
   MutationOptions<Data, Variables>,
   'variables' | 'mutation' | 'fetchPolicy'

@@ -8,10 +8,8 @@ export function getLocaleIds(options: {
   translationFilePaths: string[];
   fallbackLocale?: string;
 }): string[] {
-  const {
-    translationFilePaths,
-    fallbackLocale = DEFAULT_FALLBACK_LOCALE,
-  } = options;
+  const {translationFilePaths, fallbackLocale = DEFAULT_FALLBACK_LOCALE} =
+    options;
 
   return translationFilePaths
     .map((filePath) => path.basename(filePath, path.extname(filePath)))

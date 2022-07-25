@@ -129,34 +129,27 @@ import {
 } from '@shopify/polaris';
 
 export default function MyComponent() {
-  const {
-    fields,
-    submit,
-    submitting,
-    dirty,
-    reset,
-    submitErrors,
-    makeClean,
-  } = useForm({
-    fields: {
-      title: useField({
-        value: '',
-        validates: [
-          notEmpty('Title is required'),
-          lengthMoreThan(3, 'Title must be more than 3 characters'),
-        ],
-      }),
-      description: useField(''),
-    },
-    async onSubmit(form) {
-      const remoteErrors = []; // your API call goes here
-      if (remoteErrors.length > 0) {
-        return {status: 'fail', errors: remoteErrors};
-      }
+  const {fields, submit, submitting, dirty, reset, submitErrors, makeClean} =
+    useForm({
+      fields: {
+        title: useField({
+          value: '',
+          validates: [
+            notEmpty('Title is required'),
+            lengthMoreThan(3, 'Title must be more than 3 characters'),
+          ],
+        }),
+        description: useField(''),
+      },
+      async onSubmit(form) {
+        const remoteErrors = []; // your API call goes here
+        if (remoteErrors.length > 0) {
+          return {status: 'fail', errors: remoteErrors};
+        }
 
-      return {status: 'success'};
-    },
-  });
+        return {status: 'success'};
+      },
+    });
 
   const contextBar = dirty ? (
     <ContextualSaveBar
@@ -977,23 +970,16 @@ import {
 import {useField, useForm} from '@shopify/react-form';
 
 function MyComponent() {
-  const {
-    fields,
-    submit,
-    submitting,
-    dirty,
-    reset,
-    submitErrors,
-    makeClean,
-  } = useForm({
-    fields: {
-      title: useField('some default title'),
-      description: useField('some default description'),
-    },
-    onSubmit: async (fieldValues) => {
-      return {status: 'fail', errors: [{message: 'bad form data'}]};
-    },
-  });
+  const {fields, submit, submitting, dirty, reset, submitErrors, makeClean} =
+    useForm({
+      fields: {
+        title: useField('some default title'),
+        description: useField('some default description'),
+      },
+      onSubmit: async (fieldValues) => {
+        return {status: 'fail', errors: [{message: 'bad form data'}]};
+      },
+    });
 
   const contextBar = dirty ? (
     <ContextualSaveBar

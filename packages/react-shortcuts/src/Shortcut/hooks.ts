@@ -26,13 +26,8 @@ export default function useShortcut(
 ) {
   const shortcutManager = React.useContext(ShortcutContext);
   const subscription = React.useRef<Subscription | null>(null);
-  const {
-    node,
-    held,
-    ignoreInput,
-    acceptedDefaultIgnoredTags,
-    allowDefault,
-  } = options;
+  const {node, held, ignoreInput, acceptedDefaultIgnoredTags, allowDefault} =
+    options;
 
   React.useEffect(() => {
     if (shortcutManager == null) {
@@ -70,7 +65,7 @@ export default function useShortcut(
 
 function getIgnoredTags(acceptedDefaultIgnoredTags?: DefaultIgnoredTag[]) {
   if (!acceptedDefaultIgnoredTags?.length) {
-    return (DEFAULT_IGNORED_TAGS as unknown) as DefaultIgnoredTag[];
+    return DEFAULT_IGNORED_TAGS as unknown as DefaultIgnoredTag[];
   }
 
   return DEFAULT_IGNORED_TAGS.filter(

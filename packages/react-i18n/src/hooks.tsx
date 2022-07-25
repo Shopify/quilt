@@ -41,9 +41,8 @@ function useComplexI18n(
   manager: I18nManager,
 ): Result {
   const managerRef = React.useRef<I18nManager | null>(null);
-  const unsubscribeRef = React.useRef<ReturnType<I18nManager['subscribe']>>(
-    noop,
-  );
+  const unsubscribeRef =
+    React.useRef<ReturnType<I18nManager['subscribe']>>(noop);
   const parentIds = React.useContext(I18nIdsContext);
 
   // Parent IDs can only change when a parent gets added/ removed,

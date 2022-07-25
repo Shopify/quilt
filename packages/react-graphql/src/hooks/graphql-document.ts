@@ -9,7 +9,7 @@ import {AsyncDocumentNode} from '../types';
 export default function useGraphQLDocument<
   Data = any,
   Variables = OperationVariables,
-  DeepPartial = {}
+  DeepPartial = {},
 >(
   documentOrAsyncDocument:
     | DocumentNode<Data, Variables>

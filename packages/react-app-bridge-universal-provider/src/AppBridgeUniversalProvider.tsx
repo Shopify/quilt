@@ -12,9 +12,8 @@ export function AppBridgeUniversalProvider({
   children,
   ...explicitConfig
 }: Props) {
-  const [serializedConfig, Serialize] = useSerialized<Partial<AppBridgeConfig>>(
-    'app-bridge',
-  );
+  const [serializedConfig, Serialize] =
+    useSerialized<Partial<AppBridgeConfig>>('app-bridge');
 
   const appBridgeConfig: Partial<AppBridgeConfig> = {
     ...explicitConfig,

@@ -65,7 +65,7 @@ interface State<Fields> {
 }
 
 export default class FormState<
-  Fields extends object
+  Fields extends object,
 > extends React.PureComponent<Props<Fields>, State<Fields>> {
   static List = List;
   static Nested = Nested;
@@ -394,9 +394,8 @@ export default class FormState<
       return;
     }
 
-    const {
-      validators = {} as Partial<ValidatorDictionary<Fields>>,
-    } = this.props;
+    const {validators = {} as Partial<ValidatorDictionary<Fields>>} =
+      this.props;
     const {fields} = this.state;
 
     return runValidator(validators[fieldPath], value, fields);

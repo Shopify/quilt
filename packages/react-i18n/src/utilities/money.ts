@@ -20,9 +20,8 @@ export function getCurrencySymbol(
     );
   }
   const formattedAmount = matchResult[0];
-  const [currencyPrefix, currencySuffix] = currencyString.split(
-    formattedAmount,
-  );
+  const [currencyPrefix, currencySuffix] =
+    currencyString.split(formattedAmount);
   const elements = {
     symbol: currencyPrefix || currencySuffix,
     prefixed: currencyPrefix !== '',

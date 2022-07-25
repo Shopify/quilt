@@ -6,7 +6,8 @@
  * yyyy-mm-ddThh:mm:ss.fff-hh:mm
  * yyyy-mm-ddThh:mm:ss.fffZ
  */
-const DATE_TIME_PARTS_REGEX = /^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}):(\d{2})(?:\.(\d{1,3}))?(?:(Z|(?:(\+|-)(\d{2}):(\d{2}))))?)?$/;
+const DATE_TIME_PARTS_REGEX =
+  /^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}):(\d{2})(?:\.(\d{1,3}))?(?:(Z|(?:(\+|-)(\d{2}):(\d{2}))))?)?$/;
 
 export function parseDateStringParts(dateString: string) {
   const dateTimeParts = new RegExp(DATE_TIME_PARTS_REGEX).exec(dateString);

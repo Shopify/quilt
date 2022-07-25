@@ -61,7 +61,7 @@ describe('MockLink', () => {
   });
 
   it('returns an error message when no fixture is returned from a mock', async () => {
-    const link = new MockLink(() => (null as unknown) as MockGraphQLResponse);
+    const link = new MockLink(() => null as unknown as MockGraphQLResponse);
 
     const {result} = await executeOnce(link, petQuery);
 

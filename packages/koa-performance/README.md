@@ -131,9 +131,9 @@ interface Options {
     userAgent: string,
   ): {[key: string]: string | number | boolean};
   // a function to use to customize the tags to be sent with navigation metrics
-  additionalNavigationTags?(
-    navigation: Navigation,
-  ): {[key: string]: string | number | boolean};
+  additionalNavigationTags?(navigation: Navigation): {
+    [key: string]: string | number | boolean;
+  };
   // a function to use to send extra metrics for each navigation
   additionalNavigationMetrics?(
     navigation: Navigation,

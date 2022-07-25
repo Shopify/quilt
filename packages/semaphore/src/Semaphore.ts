@@ -45,16 +45,14 @@ export class Semaphore {
   private createPermit(): Permit {
     this.availablePermits--;
 
-    return new Permit(
-      async (): Promise<any> => {
-        this.availablePermits++;
+    return new Permit(async (): Promise<any> => {
+      this.availablePermits++;
 
-        if (this.deferreds.length > 0) {
-          const deferred = this.deferreds.shift()!;
-          deferred.resolve!(this.createPermit());
-          await deferred.promise;
-        }
-      },
-    );
+      if (this.deferreds.length > 0) {
+        const deferred = this.deferreds.shift()!;
+        deferred.resolve!(this.createPermit());
+        await deferred.promise;
+      }
+    });
   }
 }

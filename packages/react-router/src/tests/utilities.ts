@@ -7,9 +7,7 @@ export interface PartialRouterContext {
     match?: Partial<RouterChildContext<any>['router']['route']['match']>;
   };
 }
-export function createDefaultHistory(): RouterChildContext<
-  any
->['router']['history'] {
+export function createDefaultHistory(): RouterChildContext<any>['router']['history'] {
   return {
     listenBefore: jest.fn(),
     listen: jest.fn(),
@@ -27,15 +25,11 @@ export function createDefaultHistory(): RouterChildContext<
   };
 }
 
-export function createDefaultMatch(): RouterChildContext<
-  any
->['router']['route']['match'] {
+export function createDefaultMatch(): RouterChildContext<any>['router']['route']['match'] {
   return {path: '/', url: '/', isExact: true, params: {}};
 }
 
-export function createDefaultLocation(): RouterChildContext<
-  any
->['router']['route']['location'] {
+export function createDefaultLocation(): RouterChildContext<any>['router']['route']['location'] {
   return {
     pathname: '/',
     search: '',
@@ -47,9 +41,7 @@ export function createDefaultLocation(): RouterChildContext<
   };
 }
 
-export function createDefaultRouterContext(): RouterChildContext<
-  any
->['router'] {
+export function createDefaultRouterContext(): RouterChildContext<any>['router'] {
   return {
     history: createDefaultHistory(),
     route: {

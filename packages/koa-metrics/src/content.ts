@@ -1,9 +1,8 @@
 import {Context} from 'koa';
 
 export function getContentLength(ctx: Context): number | null {
-  const responseContentLength: string | undefined = ctx.response.get(
-    'Content-Length',
-  );
+  const responseContentLength: string | undefined =
+    ctx.response.get('Content-Length');
 
   if (responseContentLength) {
     try {

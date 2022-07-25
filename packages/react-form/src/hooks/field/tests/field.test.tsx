@@ -848,9 +848,7 @@ describe('asChoiceList', () => {
   });
 
   it('replaces null with empty selected array', () => {
-    expect(
-      asChoiceList<string | null>({value: null} as any),
-    ).toMatchObject({
+    expect(asChoiceList<string | null>({value: null} as any)).toMatchObject({
       selected: [],
     });
   });

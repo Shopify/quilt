@@ -25,9 +25,10 @@ export function useLink(link: React.HTMLProps<HTMLLinkElement>) {
 }
 
 export function useInlineStyle(inlineStyle: React.HTMLProps<HTMLStyleElement>) {
-  useDomEffect((manager) => manager.addInlineStyle(inlineStyle), [
-    JSON.stringify(inlineStyle),
-  ]);
+  useDomEffect(
+    (manager) => manager.addInlineStyle(inlineStyle),
+    [JSON.stringify(inlineStyle)],
+  );
 }
 
 export function useMeta(meta: React.HTMLProps<HTMLMetaElement>) {
@@ -58,25 +59,28 @@ export function useFavicon(source: string) {
 }
 
 export function useLocale(locale: string) {
-  useDomEffect((manager) => manager.addHtmlAttributes({lang: locale}), [
-    locale,
-  ]);
+  useDomEffect(
+    (manager) => manager.addHtmlAttributes({lang: locale}),
+    [locale],
+  );
 }
 
 export function useHtmlAttributes(
   htmlAttributes: Parameters<HtmlManager['addHtmlAttributes']>[0],
 ) {
-  useDomEffect((manager) => manager.addHtmlAttributes(htmlAttributes), [
-    JSON.stringify(htmlAttributes),
-  ]);
+  useDomEffect(
+    (manager) => manager.addHtmlAttributes(htmlAttributes),
+    [JSON.stringify(htmlAttributes)],
+  );
 }
 
 export function useBodyAttributes(
   bodyAttributes: Parameters<HtmlManager['addBodyAttributes']>[0],
 ) {
-  useDomEffect((manager) => manager.addBodyAttributes(bodyAttributes), [
-    JSON.stringify(bodyAttributes),
-  ]);
+  useDomEffect(
+    (manager) => manager.addBodyAttributes(bodyAttributes),
+    [JSON.stringify(bodyAttributes)],
+  );
 }
 
 export function useClientDomEffect(

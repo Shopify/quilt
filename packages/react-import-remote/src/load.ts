@@ -4,7 +4,7 @@ const cache = new Map<string, Promise<any>>();
 
 export default function load<
   Imported = any,
-  CustomWindow extends Window = Window
+  CustomWindow extends Window = Window,
 >(
   source: string,
   getImport: (window: CustomWindow) => Imported,

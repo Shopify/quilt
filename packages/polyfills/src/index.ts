@@ -23,9 +23,9 @@ export const polyfills: {[polyfill: string]: PolyfillDescriptor} = {
   },
 };
 
-export function mappedPolyfillsForEnv(
-  env: 'node' | 'jest' | string[],
-): {[key: string]: string} {
+export function mappedPolyfillsForEnv(env: 'node' | 'jest' | string[]): {
+  [key: string]: string;
+} {
   const prefix = `@shopify/polyfills`;
   const noop = `${prefix}/noop`;
 

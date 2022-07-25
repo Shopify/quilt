@@ -10,31 +10,29 @@ import {
 
 import query from './graphqlQuery';
 
-export const loadCountries: (
-  locale: string,
-) => Promise<Country[]> = memoizeAsync(async (locale: string) => {
-  const response = await fetch(GRAPHQL_ENDPOINT, {
-    method: 'POST',
-    headers: HEADERS,
-    body: JSON.stringify({
-      query,
-      operationName: GraphqlOperationName.Countries,
-      variables: {
-        locale: locale.replace(/-/, '_').toUpperCase(),
-      },
-    }),
+export const loadCountries: (locale: string) => Promise<Country[]> =
+  memoizeAsync(async (locale: string) => {
+    const response = await fetch(GRAPHQL_ENDPOINT, {
+      method: 'POST',
+      headers: HEADERS,
+      body: JSON.stringify({
+        query,
+        operationName: GraphqlOperationName.Countries,
+        variables: {
+          locale: locale.replace(/-/, '_').toUpperCase(),
+        },
+      }),
+    });
+
+    const countries: LoadCountriesResponse | ResponseError =
+      await response.json();
+
+    if (!('data' in countries) && 'errors' in countries) {
+      throw new CountryLoaderError(countries);
+    }
+
+    return countries.data.countries;
   });
-
-  const countries:
-    | LoadCountriesResponse
-    | ResponseError = await response.json();
-
-  if (!('data' in countries) && 'errors' in countries) {
-    throw new CountryLoaderError(countries);
-  }
-
-  return countries.data.countries;
-});
 
 export const loadCountry: (
   locale: string,

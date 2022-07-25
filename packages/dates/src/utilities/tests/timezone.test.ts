@@ -4,9 +4,8 @@ jest.mock('../formatDate', () => ({
   memoizedGetDateTimeFormat: jest.fn(),
 }));
 
-const memoizedGetDateTimeFormatMock: jest.Mock = jest.requireMock(
-  '../formatDate',
-).memoizedGetDateTimeFormat;
+const memoizedGetDateTimeFormatMock: jest.Mock =
+  jest.requireMock('../formatDate').memoizedGetDateTimeFormat;
 
 describe('getIanaTimeZone()', () => {
   const resolvedOptionsMock = jest.fn();

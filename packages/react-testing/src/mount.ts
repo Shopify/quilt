@@ -13,7 +13,7 @@ export function mount<Props>(element: React.ReactElement<Props>) {
 type AfterMountOption<
   MountOptions extends object,
   Context extends object,
-  Async extends boolean
+  Async extends boolean,
 > = Async extends true
   ? {
       afterMount(
@@ -30,7 +30,7 @@ type AfterMountOption<
 
 type ContextOption<
   MountOptions extends object,
-  Context extends object
+  Context extends object,
 > = IfAllOptionalKeys<
   Context,
   {
@@ -49,7 +49,7 @@ export type CustomMountOptions<
   MountOptions extends object = {},
   CreateContext extends object = {},
   Context extends object = CreateContext,
-  Async extends boolean = false
+  Async extends boolean = false,
 > = {
   render(
     element: React.ReactElement<any>,
@@ -63,7 +63,7 @@ export type CustomMountOptions<
 export interface CustomMount<
   MountOptions extends object,
   Context extends object,
-  Async extends boolean
+  Async extends boolean,
 > {
   <Props>(
     ...args: IfAllOptionalKeys<
@@ -75,7 +75,7 @@ export interface CustomMount<
   extend<
     AdditionalMountOptions extends object = {},
     AdditionalContext extends object = {},
-    AdditionalAsync extends boolean = false
+    AdditionalAsync extends boolean = false,
   >(
     options: CustomMountOptions<
       MountOptions & AdditionalMountOptions,
@@ -93,7 +93,7 @@ export interface CustomMount<
 type CustomMountResult<
   Props,
   Context extends object,
-  Async extends boolean
+  Async extends boolean,
 > = Async extends true
   ? Promise<CustomRoot<Props, Context>>
   : CustomRoot<Props, Context>;
@@ -111,7 +111,7 @@ export class CustomRoot<Props, Context extends object> extends Root<Props> {
 export function createMount<
   MountOptions extends object = {},
   Context extends object = {},
-  Async extends boolean = false
+  Async extends boolean = false,
 >({
   render,
   context: createContext = defaultContext,

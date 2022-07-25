@@ -771,9 +771,8 @@ describe('useBaseList', () => {
 
   describe('value, newDefaultValue and defaultValue', () => {
     function TestListWithValue(config: FieldListConfig<Variant>) {
-      const {value, newDefaultValue, defaultValue} = useBaseList<Variant>(
-        config,
-      );
+      const {value, newDefaultValue, defaultValue} =
+        useBaseList<Variant>(config);
 
       const onNewDefault = (value: Variant[]) => {
         newDefaultValue(value);

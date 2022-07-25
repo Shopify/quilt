@@ -4,8 +4,8 @@ jest.mock('../translate', () => ({
   memoizedNumberFormatter: jest.fn(),
 }));
 
-const memoizedNumberFormatterMock: jest.Mock = jest.requireMock('../translate')
-  .memoizedNumberFormatter;
+const memoizedNumberFormatterMock: jest.Mock =
+  jest.requireMock('../translate').memoizedNumberFormatter;
 
 describe('formatCurrency()', () => {
   const mockFormat = jest.fn();
