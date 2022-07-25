@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-extraneous-class */
 interface Observer {
   source: unknown;
   target: Element;
@@ -47,9 +46,11 @@ export default class IntersectionObserverMock {
     const setObservers = (setter: (observers: Observer[]) => Observer[]) =>
       (this.observers = setter(this.observers));
 
+    /* eslint-disable @typescript-eslint/no-extraneous-class */
     (
       global as any
     ).IntersectionObserverEntry = class IntersectionObserverEntry {};
+    /* eslint-enable @typescript-eslint/no-extraneous-class */
     Object.defineProperty(
       IntersectionObserverEntry.prototype,
       'intersectionRatio',
