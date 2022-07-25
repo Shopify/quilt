@@ -1,5 +1,116 @@
 import React from 'react';
 
+type IsNeverType<T> = [T] extends [never] ? true : false;
+type Rest<T extends any[]> = T extends [any, ...infer Rest] ? Rest : never;
+
+type AllKeys<T> = T extends any ? keyof T : never;
+type PickType<T, K extends AllKeys<T>> = T extends {[k in K]?: any}
+  ? T[K]
+  : undefined;
+type PickTypeOf<T, K extends PropertyKey> = K extends AllKeys<T>
+  ? PickType<T, K>
+  : never;
+
+type Merge<T> = {[K in keyof T]: PickTypeOf<T, K>} & {
+  [K in Exclude<AllKeys<T>, keyof T>]?: PickTypeOf<T, K>;
+};
+
+type IsArrayIndex<T extends string> = T extends `${number | string}`
+  ? true
+  : T extends `${infer Head}${infer Rest}`
+  ? Head extends '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+    ? Rest extends ''
+      ? true
+      : IsArrayIndex<Rest>
+    : false
+  : false;
+
+type ExtractProperty<Props, PropKeys extends any[]> = Merge<
+  Extract<Props, object>
+> extends infer MergedProps
+  ? PropKeys[0] extends undefined
+    ? Props
+    : PropKeys[0] extends keyof MergedProps
+    ? IfNever<
+        Extract<MergedProps[PropKeys[0]], ReadonlyArray<any>>,
+        unknown
+      > extends ReadonlyArray<infer ArrayType>
+      ? PropKeys[1] extends undefined
+        ? MergedProps[PropKeys[0]]
+        : IsArrayIndex<PropKeys[1]> extends true
+        ? ExtractProperty<ArrayType, Rest<Rest<PropKeys>>>
+        : never
+      : ExtractProperty<MergedProps[PropKeys[0]], Rest<PropKeys>>
+    : never
+  : never;
+
+type Split<
+  String extends string,
+  Delimiter extends string,
+> = string extends String
+  ? string[]
+  : String extends ''
+  ? []
+  : String extends `${infer T}${Delimiter}${infer U}`
+  ? [T, ...Split<U, Delimiter>]
+  : [String];
+
+type NormalizeKeypath<Path extends string> =
+  Path extends `${infer A}.[${infer B}].${infer C}`
+    ? NormalizeKeypath<`${A}.${B}.${C}`>
+    : Path extends `${infer A}[${infer B}].${infer C}`
+    ? NormalizeKeypath<`${A}.${B}.${C}`>
+    : Path extends `${infer A}[${infer B}]${infer C}`
+    ? NormalizeKeypath<`${A}.${B}.${C}`>
+    : Path;
+
+export type ExtractKeypath<Props, Keypath extends string> = ExtractProperty<
+  Props,
+  Split<NormalizeKeypath<Keypath>, '.'>
+> extends infer R
+  ? R extends KeyPathFunction
+    ? R
+    : never
+  : never;
+
+type IfNever<C, F> = IsNeverType<C> extends true ? F : C;
+type IsUnknown<T> = unknown extends T
+  ? [T] extends [null]
+    ? false
+    : true
+  : false;
+
+type IsSkippedType<Props, Path extends string> = IsUnknown<Props> extends true
+  ? true
+  : string extends Path
+  ? true
+  : false;
+
+export type KeyPathFunction = Function | ((...args: any[]) => any);
+
+export type TriggerKeypathParams<
+  Props,
+  Path extends string,
+  ExtractedFunction extends KeyPathFunction,
+> = IsSkippedType<Props, Path> extends false
+  ? [
+      keypath: IsNeverType<ExtractedFunction> extends true ? never : Path,
+      ...args: ExtractedFunction extends (...args: any[]) => any
+        ? DeepPartialArguments<Parameters<ExtractedFunction>>
+        : any[],
+    ]
+  : [keypath: string, ...args: unknown[]];
+
+export type TriggerKeypathReturn<
+  Props,
+  Path extends string,
+  ExtractedFunction extends KeyPathFunction,
+> = IsSkippedType<Props, Path> extends false
+  ? ExtractedFunction extends (...args: any[]) => any
+    ? ReturnType<ExtractedFunction>
+    : any
+  : any;
+
 export type PropsFor<T extends string | React.ComponentType<any>> =
   T extends string
     ? T extends keyof JSX.IntrinsicElements
@@ -118,12 +229,15 @@ export interface Node<Props> {
   trigger<K extends FunctionKeys<Props>>(
     prop: K,
     ...args: DeepPartialArguments<Props[K]>
-  ): ReturnType<
-    NonNullable<
-      Props[K] extends ((...args: any[]) => any) | undefined ? Props[K] : never
-    >
-  >;
-  triggerKeypath<T = unknown>(keypath: string, ...args: unknown[]): T;
+  ): NonNullable<Props[K]> extends (...args: any[]) => any
+    ? ReturnType<NonNullable<Props[K]>>
+    : never;
+  triggerKeypath<
+    Path extends string,
+    ExtractedFunction extends KeyPathFunction = ExtractKeypath<Props, Path>,
+  >(
+    ...args: TriggerKeypathParams<Props, Path, ExtractedFunction>
+  ): TriggerKeypathReturn<Props, Path, ExtractedFunction>;
 
   debug(options?: DebugOptions): string;
   toString(): string;

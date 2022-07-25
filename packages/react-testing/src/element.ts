@@ -10,9 +10,13 @@ import {
   PropsFor,
   UnknowablePropsFor,
   DebugOptions,
+  TriggerKeypathParams,
+  TriggerKeypathReturn,
+  KeyPathFunction,
+  ExtractKeypath,
 } from './types';
 
-type Root = import('./root').Root<any>;
+type Root = import('./root').Root<unknown>;
 
 interface Tree<Props> {
   tag: Tag;
@@ -193,17 +197,15 @@ export class Element<Props> implements Node<Props> {
   trigger<K extends FunctionKeys<Props>>(
     prop: K,
     ...args: DeepPartialArguments<Props[K]>
-  ): ReturnType<
-    NonNullable<
-      Props[K] extends ((...args: any[]) => any) | undefined ? Props[K] : never
-    >
-  > {
+  ): NonNullable<Props[K]> extends (...args: any[]) => any
+    ? ReturnType<NonNullable<Props[K]>>
+    : never {
     return this.root.act(() => {
       const propValue = this.props[prop];
 
       if (propValue == null) {
         throw new Error(
-          `Attempted to call prop ${prop} but it was not defined.`,
+          `Attempted to call prop ${String(prop)} but it was not defined.`,
         );
       }
 
@@ -211,8 +213,14 @@ export class Element<Props> implements Node<Props> {
     });
   }
 
-  triggerKeypath<T = unknown>(keypath: string, ...args: unknown[]): T {
+  triggerKeypath<
+    Path extends string,
+    ExtractedFunction extends KeyPathFunction = ExtractKeypath<Props, Path>,
+  >(
+    ...params: TriggerKeypathParams<Props, Path, ExtractedFunction>
+  ): TriggerKeypathReturn<Props, Path, ExtractedFunction> {
     return this.root.act(() => {
+      const [keypath, ...args] = params;
       const {props} = this;
       const parts = keypath.split(/[.[\]]/g).filter(Boolean);
 
