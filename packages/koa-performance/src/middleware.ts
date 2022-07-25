@@ -124,12 +124,13 @@ export function clientPerformanceMetrics({
           ? getAdditionalNavigationTags(navigation, ctx)
           : {};
 
-        const anomalousNavigationDurationTag = anomalousNavigationDurationThreshold
-          ? getAnomalousNavigationDurationTag(
-              navigation,
-              anomalousNavigationDurationThreshold,
-            )
-          : {};
+        const anomalousNavigationDurationTag =
+          anomalousNavigationDurationThreshold
+            ? getAnomalousNavigationDurationTag(
+                navigation,
+                anomalousNavigationDurationThreshold,
+              )
+            : {};
 
         const navigationTags = {
           ...tags,

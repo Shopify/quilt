@@ -26,7 +26,7 @@ const {
 export default function useQuery<
   Data = any,
   Variables = OperationVariables,
-  DeepPartial = {}
+  DeepPartial = {},
 >(
   queryOrAsyncQuery:
     | DocumentNode<Data, Variables, DeepPartial>
@@ -184,9 +184,8 @@ export default function useQuery<
     return unsubscribe;
   }, [skip, queryObservable]);
 
-  const previousData = useRef<QueryHookResult<Data, Variables>['data']>(
-    undefined,
-  );
+  const previousData =
+    useRef<QueryHookResult<Data, Variables>['data']>(undefined);
 
   const currentResult = useMemo<QueryHookResult<Data, Variables>>(() => {
     // must of the logic below are lifted from

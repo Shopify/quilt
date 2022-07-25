@@ -18,10 +18,10 @@ export function useSerialized<T>(
   id: string,
 ): [T | undefined, React.ComponentType<SerializeProps<T>>] {
   const manager = React.useContext(HtmlContext);
-  const data = React.useMemo(() => manager.getSerialization<T>(id), [
-    id,
-    manager,
-  ]);
+  const data = React.useMemo(
+    () => manager.getSerialization<T>(id),
+    [id, manager],
+  );
 
   const Serialize = React.useMemo(
     () =>

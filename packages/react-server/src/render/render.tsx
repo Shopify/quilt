@@ -85,10 +85,9 @@ export function createRender(
       scripts: additionalScripts = [],
       styles: additionalStyles = [],
       ...additionalHtmlProps
-    } =
-      typeof htmlPropsInput === 'function'
-        ? htmlPropsInput(ctx)
-        : htmlPropsInput;
+    } = typeof htmlPropsInput === 'function'
+      ? htmlPropsInput(ctx)
+      : htmlPropsInput;
 
     const logger = getLogger(ctx) || console;
     const assets = getAssets(ctx);

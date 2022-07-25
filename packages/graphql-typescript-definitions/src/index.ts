@@ -294,14 +294,13 @@ export class Builder extends EventEmitter {
     this.checkForDuplicateFragments();
 
     await Promise.all(
-      Array.from(
-        this.documentMapByProject.entries(),
-      ).map(([projectName, documents]) =>
-        this.generateDocumentTypesForProject(
-          this.config.getProject(projectName),
-          documents,
-          jobId,
-        ),
+      Array.from(this.documentMapByProject.entries()).map(
+        ([projectName, documents]) =>
+          this.generateDocumentTypesForProject(
+            this.config.getProject(projectName),
+            documents,
+            jobId,
+          ),
       ),
     );
 

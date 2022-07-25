@@ -7,6 +7,5 @@ export const noopErrorLogger: ErrorLogger = {
   leaveBreadcrumb() {},
 };
 
-export const ErrorLoggerContext = React.createContext<ErrorLogger>(
-  noopErrorLogger,
-);
+export const ErrorLoggerContext =
+  React.createContext<ErrorLogger>(noopErrorLogger);

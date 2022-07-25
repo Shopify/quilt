@@ -43,9 +43,7 @@ export function useHandlers<Item extends object>(
 
             return runValidation(
               (error) =>
-                dispatch(
-                  updateErrorAction<Item>({target, error: error || ''}),
-                ),
+                dispatch(updateErrorAction<Item>({target, error: error || ''})),
               {value, siblings, listItem: item},
               validates,
             );
@@ -53,9 +51,9 @@ export function useHandlers<Item extends object>(
 
           return {
             onChange(value: Item[Key] | ChangeEvent) {
-              const normalizedValue = (isChangeEvent(value)
-                ? value.target.value
-                : value) as Item[Key];
+              const normalizedValue = (
+                isChangeEvent(value) ? value.target.value : value
+              ) as Item[Key];
 
               dispatch(
                 updateAction({

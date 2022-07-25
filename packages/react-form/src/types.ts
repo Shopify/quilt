@@ -30,7 +30,7 @@ export type NormalizedValidationDictionary<ListItem extends object> = {
 
 export type ValidationDictionary<
   ListItem extends object,
-  Context extends object = {}
+  Context extends object = {},
 > = {[Key in keyof ListItem]: Validates<ListItem[Key], Context>};
 
 export interface FieldState<Value> {
@@ -73,7 +73,7 @@ export interface FormWithoutDynamicListsInput<T extends FieldBag> {
 
 export interface FormWithDynamicListsInput<
   T extends FieldBag,
-  D extends DynamicListBag
+  D extends DynamicListBag,
 > {
   fields: T;
   dynamicLists: D;
@@ -105,7 +105,7 @@ export interface Form<T extends FieldBag> {
 
 export interface FormWithDynamicLists<
   T extends FieldBag,
-  D extends DynamicListBag
+  D extends DynamicListBag,
 > extends Form<T> {
   dynamicLists: D;
 }

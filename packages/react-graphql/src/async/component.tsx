@@ -40,11 +40,8 @@ export function createAsyncQueryComponent<Data, Variables, DeepPartial>(
   // Once we upgrade past TS 3.1, this will no longer be necessary,
   // because you can statically assign values to functions and TS
   // will know to augment its type
-  const FinalComponent: AsyncQueryComponentType<
-    Data,
-    Variables,
-    DeepPartial
-  > = AsyncQuery as any;
+  const FinalComponent: AsyncQueryComponentType<Data, Variables, DeepPartial> =
+    AsyncQuery as any;
 
   Reflect.defineProperty(FinalComponent, 'resolver', {
     value: resolver,

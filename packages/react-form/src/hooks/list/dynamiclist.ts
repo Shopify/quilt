@@ -37,15 +37,8 @@ export function useDynamicList<Item extends object>(
   fieldFactory: FactoryFunction<Item>,
   validationDependencies: unknown[] = [],
 ): DynamicList<Item> {
-  const {
-    fields,
-    dispatch,
-    reset,
-    dirty,
-    newDefaultValue,
-    value,
-    defaultValue,
-  } = useBaseList(listOrConfig, validationDependencies);
+  const {fields, dispatch, reset, dirty, newDefaultValue, value, defaultValue} =
+    useBaseList(listOrConfig, validationDependencies);
 
   function addItem(factoryArgument?: any) {
     const itemToAdd = fieldFactory(factoryArgument);

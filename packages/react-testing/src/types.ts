@@ -1,17 +1,16 @@
 import React from 'react';
 
-export type PropsFor<
-  T extends string | React.ComponentType<any>
-> = T extends string
-  ? T extends keyof JSX.IntrinsicElements
-    ? JSX.IntrinsicElements[T]
-    : React.HTMLAttributes<T>
-  : T extends React.ComponentType<any>
-  ? React.ComponentPropsWithoutRef<T>
-  : never;
+export type PropsFor<T extends string | React.ComponentType<any>> =
+  T extends string
+    ? T extends keyof JSX.IntrinsicElements
+      ? JSX.IntrinsicElements[T]
+      : React.HTMLAttributes<T>
+    : T extends React.ComponentType<any>
+    ? React.ComponentPropsWithoutRef<T>
+    : never;
 
 export type UnknowablePropsFor<
-  T extends string | React.ComponentType<any> | unknown
+  T extends string | React.ComponentType<any> | unknown,
 > = T extends string | React.ComponentType<any> ? PropsFor<T> : unknown;
 
 export type FunctionKeys<T> = {
@@ -32,8 +31,9 @@ type DeepPartial<T> = T extends (infer U)[]
   ? DeepPartialObject<T>
   : T;
 
-export type DeepPartialArguments<T> = {[K in keyof T]?: DeepPartial<T[K]>} &
-  any[];
+export type DeepPartialArguments<T> = {
+  [K in keyof T]?: DeepPartial<T[K]>;
+} & any[];
 
 // https://github.com/facebook/react/blob/master/packages/shared/ReactWorkTag.js
 export enum Tag {

@@ -17,7 +17,7 @@ import {
 } from './utilities';
 
 export function toContainReactComponent<
-  Type extends string | ComponentType<any>
+  Type extends string | ComponentType<any>,
 >(
   this: jest.MatcherUtils,
   node: Node<unknown>,
@@ -81,7 +81,7 @@ export function toContainReactComponent<
 }
 
 export function toContainReactComponentTimes<
-  Type extends string | ComponentType<any>
+  Type extends string | ComponentType<any>,
 >(
   this: jest.MatcherUtils,
   node: Node<unknown>,

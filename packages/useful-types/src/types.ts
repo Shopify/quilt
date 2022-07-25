@@ -16,19 +16,21 @@ export type IfEmptyObject<Obj, If, Else = never> = keyof Obj extends {
   ? If
   : Else;
 
-export type IfAllOptionalKeys<Obj, If, Else = never> = NonOptionalKeys<
-  Obj
-> extends {
+export type IfAllOptionalKeys<
+  Obj,
+  If,
+  Else = never,
+> = NonOptionalKeys<Obj> extends {
   length: 0;
 }
   ? If
   : Else;
 
-export type IfAllNullableKeys<Obj, If, Else = never> = NonNullableKeys<
-  Obj
-> extends {length: 0}
-  ? If
-  : Else;
+export type IfAllNullableKeys<
+  Obj,
+  If,
+  Else = never,
+> = NonNullableKeys<Obj> extends {length: 0} ? If : Else;
 
 export type NonOptionalKeys<T> = {
   [K in keyof T]-?: undefined extends T[K] ? never : K;

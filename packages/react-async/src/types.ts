@@ -13,7 +13,7 @@ export interface AsyncHookTarget<
   T,
   PreloadOptions extends object,
   PrefetchOptions extends object,
-  KeepFreshOptions extends object
+  KeepFreshOptions extends object,
 > {
   readonly resolver: Resolver<T>;
   usePreload(
@@ -44,9 +44,8 @@ export interface AsyncComponentType<
   Props extends object,
   PreloadOptions extends object,
   PrefetchOptions extends object,
-  KeepFreshOptions extends object
->
-  extends AsyncHookTarget<
+  KeepFreshOptions extends object,
+> extends AsyncHookTarget<
     T,
     PreloadOptions,
     PrefetchOptions,

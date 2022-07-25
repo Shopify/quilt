@@ -119,10 +119,10 @@ export class Root<Props> implements Node<Props> {
       });
 
       if (isPromise(result)) {
-        return (result as unknown) as Promise<void>;
+        return result as unknown as Promise<void>;
       }
 
-      return (undefined as unknown) as Promise<void>;
+      return undefined as unknown as Promise<void>;
     });
 
     updateWrapper();
@@ -193,7 +193,7 @@ export class Root<Props> implements Node<Props> {
   }
 
   findAllWhere<
-    Type extends React.ComponentType<any> | string | unknown = unknown
+    Type extends React.ComponentType<any> | string | unknown = unknown,
   >(predicate: Predicate) {
     return this.withRoot((root) => root.findAllWhere<Type>(predicate));
   }

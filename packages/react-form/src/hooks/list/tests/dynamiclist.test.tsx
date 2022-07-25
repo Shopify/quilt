@@ -13,14 +13,8 @@ describe('useDynamicList', () => {
       return {price: '', optionName: '', optionValue: ''};
     };
     function DynamicListComponent(config: FieldListConfig<Variant>) {
-      const {
-        fields,
-        addItem,
-        removeItem,
-        moveItem,
-        reset,
-        dirty,
-      } = useDynamicList<Variant>(config, factory);
+      const {fields, addItem, removeItem, moveItem, reset, dirty} =
+        useDynamicList<Variant>(config, factory);
 
       return (
         <>
@@ -344,13 +338,8 @@ describe('useDynamicList', () => {
       const factory = () => {
         return {price: '', optionName: '', optionValue: ''};
       };
-      const {
-        value,
-        newDefaultValue,
-        dirty,
-        addItem,
-        defaultValue,
-      } = useDynamicList<Variant>(config, factory);
+      const {value, newDefaultValue, dirty, addItem, defaultValue} =
+        useDynamicList<Variant>(config, factory);
 
       const onNewDefault = (value: Variant[]) => {
         newDefaultValue(value);

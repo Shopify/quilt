@@ -98,9 +98,9 @@ export function useImportRemote<Imported = unknown>(
   React.useEffect(() => {
     if (defer === DeferTiming.Idle) {
       if ('requestIdleCallback' in window) {
-        idleCallbackHandle.current = (window as ExtendedWindow<
-          WindowWithRequestIdleCallback
-        >).requestIdleCallback(loadRemote);
+        idleCallbackHandle.current = (
+          window as ExtendedWindow<WindowWithRequestIdleCallback>
+        ).requestIdleCallback(loadRemote);
       } else {
         loadRemote();
       }

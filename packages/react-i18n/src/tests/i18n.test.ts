@@ -16,8 +16,8 @@ jest.mock('../utilities', () => ({
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const translate: jest.Mock = require('../utilities').translate;
-const getTranslationTree: jest.Mock = require('../utilities')
-  .getTranslationTree;
+const getTranslationTree: jest.Mock =
+  require('../utilities').getTranslationTree;
 /* eslint-enable @typescript-eslint/no-var-requires */
 
 describe('I18n', () => {

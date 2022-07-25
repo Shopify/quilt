@@ -112,10 +112,10 @@ export function useField<Value = string>(
   const [state, dispatch] = useFieldReducer(value, dirtyStateComparator);
 
   const resetActionObject = useMemo(() => resetAction(), []);
-  const reset = useCallback(() => dispatch(resetActionObject), [
-    dispatch,
-    resetActionObject,
-  ]);
+  const reset = useCallback(
+    () => dispatch(resetActionObject),
+    [dispatch, resetActionObject],
+  );
   const newDefaultValue = useCallback(
     (value) => dispatch(newDefaultAction(value)),
     [dispatch],
@@ -152,9 +152,10 @@ export function useField<Value = string>(
     [runValidation, state.error, dispatch],
   );
 
-  const setError = useCallback((value) => dispatch(updateErrorAction(value)), [
-    dispatch,
-  ]);
+  const setError = useCallback(
+    (value) => dispatch(updateErrorAction(value)),
+    [dispatch],
+  );
 
   const onBlur = useCallback(() => {
     if (state.touched === false && state.error == null) {

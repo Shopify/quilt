@@ -944,9 +944,8 @@ describe('<FormState />', () => {
         </FormState>,
       );
 
-      const {submit, submitting, reset, ...formData} = lastCallArgs(
-        renderPropSpy,
-      );
+      const {submit, submitting, reset, ...formData} =
+        lastCallArgs(renderPropSpy);
 
       await wrapper.act(async () => {
         await submit();

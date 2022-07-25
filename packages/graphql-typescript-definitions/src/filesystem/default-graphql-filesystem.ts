@@ -47,9 +47,8 @@ export class DefaultGraphQLFilesystem extends AbstractGraphQLFilesystem {
         return includes.length > 0;
       })
       .map((projectConfig) => {
-        const [includes, excludes] = getIncludesExcludesFromConfig(
-          projectConfig,
-        );
+        const [includes, excludes] =
+          getIncludesExcludesFromConfig(projectConfig);
         return watch(
           includes.map((include) =>
             resolvePathRelativeToConfig(projectConfig, include),

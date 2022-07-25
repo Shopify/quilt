@@ -7,7 +7,7 @@ interface MemoizeMap<T, U> {
 export const MAX_MAP_ENTRIES = 50;
 
 export default function memoize<
-  Method extends (this: unknown, ...args: any[]) => any
+  Method extends (this: unknown, ...args: any[]) => any,
 >(method: Method, resolver?: (...args: Parameters<Method>) => any): Method {
   const weakMapCache = new WeakMap();
   const mapCache = new Map();

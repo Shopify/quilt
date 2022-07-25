@@ -24,10 +24,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -52,10 +50,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Banlieue (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{province}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{province}_{zip}_{country}_{phone}',
         },
         zones: [
           {name: 'Cap oriental', code: 'EC'},
@@ -90,10 +86,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -118,10 +112,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -146,10 +138,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Adresse supplémentaire (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -174,10 +164,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -202,10 +190,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -230,10 +216,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country} {zip}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country} {zip}_{phone}',
         },
         zones: [],
       },
@@ -258,10 +242,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -286,10 +268,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -314,10 +294,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}{province}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}{province}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
         },
         zones: [
           {name: 'province de Buenos Aires', code: 'B'},
@@ -370,10 +348,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -398,10 +374,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -426,10 +400,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {province} {zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {province} {zip}_{country}_{phone}',
         },
         zones: [
           {name: 'Territoire de la capitale australienne', code: 'ACT'},
@@ -463,10 +435,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Adresse supplémentaire (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -491,10 +461,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -519,10 +487,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -547,10 +513,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -575,10 +539,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -603,10 +565,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -631,10 +591,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -659,10 +617,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -687,10 +643,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -715,10 +669,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -743,10 +695,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -771,10 +721,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -799,10 +747,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -827,10 +773,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -855,10 +799,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -883,10 +825,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {province}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {province}_{zip}_{country}_{phone}',
         },
         zones: [
           {name: 'Acre', code: 'AC'},
@@ -939,10 +879,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -967,10 +905,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -995,10 +931,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -1023,10 +957,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -1051,10 +983,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -1079,10 +1009,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -1107,10 +1035,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {province} {zip}_{country}_{phone}',
+          edit: '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {province} {zip}_{country}_{phone}',
         },
         zones: [
           {name: 'Alberta', code: 'AB'},
@@ -1149,10 +1075,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -1177,10 +1101,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{province}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{province}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
         },
         zones: [
           {name: 'Région d’Arica et Parinacota', code: 'AP'},
@@ -1228,10 +1150,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1} {address2} {city}_{zip} {province}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1} {address2} {city}_{zip} {province}_{country}_{phone}',
         },
         zones: [
           {name: 'Anhui', code: 'AH'},
@@ -1288,10 +1208,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -1316,10 +1234,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
         },
         zones: [
           {name: 'Bogota', code: 'DC'},
@@ -1381,10 +1297,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -1409,10 +1323,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -1437,10 +1349,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -1465,10 +1375,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{company}_{lastName}{firstName}_{zip}_{province}{city}_{address1}_{address2}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
+          edit: '{country}_{company}_{lastName}{firstName}_{zip}_{province}{city}_{address1}_{address2}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
         },
         zones: [
           {name: 'Busan', code: 'KR-26'},
@@ -1511,10 +1419,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -1539,10 +1445,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -1567,10 +1471,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -1595,10 +1497,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -1623,10 +1523,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -1651,10 +1549,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -1679,10 +1575,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -1707,10 +1601,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city}_{zip}_{country}_{phone}',
         },
         zones: [
           {name: '6 octobre', code: 'SU'},
@@ -1765,10 +1657,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {province}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {province}_{country}_{phone}',
         },
         zones: [
           {name: 'Abou Dabi', code: 'AZ'},
@@ -1801,10 +1691,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -1829,10 +1717,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -1857,10 +1743,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}{province}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}{province}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
         },
         zones: [
           {name: 'province de La Corogne', code: 'C'},
@@ -1938,10 +1822,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -1966,10 +1848,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -1994,10 +1874,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {country}_{phone}',
         },
         zones: [],
       },
@@ -2022,10 +1900,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {province} {zip}_{country}_{phone}',
+          edit: '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {province} {zip}_{country}_{phone}',
         },
         zones: [
           {name: 'Alabama', code: 'AL'},
@@ -2113,10 +1989,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2141,10 +2015,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2169,10 +2041,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2197,10 +2067,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2225,10 +2093,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2253,10 +2119,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2281,10 +2145,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2309,10 +2171,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2337,10 +2197,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2365,10 +2223,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2393,10 +2249,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2421,10 +2275,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2449,10 +2301,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2477,10 +2327,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2505,10 +2353,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {province}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {province}_{zip}_{country}_{phone}',
         },
         zones: [
           {name: 'département d’Alta Verapaz', code: 'AVE'},
@@ -2556,10 +2402,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2584,10 +2428,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2612,10 +2454,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2640,10 +2480,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2668,10 +2506,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2696,10 +2532,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2724,10 +2558,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2752,10 +2584,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2780,10 +2610,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{zip}{city}_{address1}_{address2}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{zip} {city}_{address1}_{address2}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{zip}{city}_{address1}_{address2}_{phone}',
+          show: '{firstName} {lastName}_{company}_{zip} {city}_{address1}_{address2}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2808,10 +2636,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2836,10 +2662,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2864,10 +2688,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2892,10 +2714,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2920,10 +2740,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2948,10 +2766,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -2976,10 +2792,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -3004,10 +2818,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -3032,10 +2844,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -3060,10 +2870,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -3088,10 +2896,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -3116,10 +2922,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -3144,10 +2948,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -3172,10 +2974,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -3200,10 +3000,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
         },
         zones: [
           {name: 'Îles Andaman-et-Nicobar', code: 'AN'},
@@ -3266,10 +3064,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{province}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{province} {zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{province}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{province} {zip}_{country}_{phone}',
         },
         zones: [
           {name: 'Aceh', code: 'AC'},
@@ -3329,10 +3125,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -3357,10 +3151,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{province}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{province}_{zip}_{country}_{phone}',
         },
         zones: [
           {name: 'Comté de Carlow', code: 'CW'},
@@ -3412,10 +3204,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -3440,10 +3230,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -3468,10 +3256,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}{province}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}{province}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
         },
         zones: [
           {name: 'province d’Agrigente', code: 'AG'},
@@ -3607,10 +3393,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -3635,10 +3419,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{lastName}{firstName}_{company}_{zip}{province}_{city}_{address1}_{address2}_{phone}',
-          show:
-            '{country} 〒{zip}_{province} {city}_{address1}_{address2}_{company}_{lastName} {firstName}様_{phone}',
+          edit: '{country}_{lastName}{firstName}_{company}_{zip}{province}_{city}_{address1}_{address2}_{phone}',
+          show: '{country} 〒{zip}_{province} {city}_{address1}_{address2}_{company}_{lastName} {firstName}様_{phone}',
         },
         zones: [
           {name: 'préfecture de Hokkaidō', code: 'JP-01'},
@@ -3711,10 +3493,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -3739,10 +3519,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -3767,10 +3545,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -3795,10 +3571,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -3823,10 +3597,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{zip}{city}_{address2}_{address1}_{company}_{firstName}{lastName}_{phone}',
-          show:
-            '{zip} {city}_{address2}_{address1}_{company}_{firstName} {lastName}_{country}_{phone}',
+          edit: '{country}_{zip}{city}_{address2}_{address1}_{company}_{firstName}{lastName}_{phone}',
+          show: '{zip} {city}_{address2}_{address1}_{company}_{firstName} {lastName}_{country}_{phone}',
         },
         zones: [],
       },
@@ -3851,10 +3623,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -3879,10 +3649,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -3907,10 +3675,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -3935,10 +3701,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -3963,10 +3727,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -3991,10 +3753,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4019,10 +3779,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4047,10 +3805,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4075,10 +3831,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4103,10 +3857,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4131,10 +3883,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4159,10 +3909,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4187,10 +3935,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4215,10 +3961,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4243,10 +3987,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4271,10 +4013,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}{province}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}{province}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
         },
         zones: [
           {name: 'Johor', code: 'JHR'},
@@ -4316,10 +4056,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4344,10 +4082,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4372,10 +4108,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4400,10 +4134,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4428,10 +4160,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4456,10 +4186,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4484,10 +4212,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4512,10 +4238,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4540,10 +4264,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4568,10 +4290,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}{province}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}{province}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
         },
         zones: [
           {name: 'Aguascalientes', code: 'AGS'},
@@ -4629,10 +4349,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4657,10 +4375,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4685,10 +4401,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4713,10 +4427,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4741,10 +4453,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4769,10 +4479,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4797,10 +4505,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4825,10 +4531,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4853,10 +4557,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4881,10 +4583,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4909,10 +4609,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4937,10 +4635,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -4965,10 +4661,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
         },
         zones: [
           {name: 'État d’Abia', code: 'AB'},
@@ -5031,10 +4725,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -5059,10 +4751,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -5087,10 +4777,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -5115,10 +4803,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city} {zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{province}_{city} {zip}_{country}_{phone}',
         },
         zones: [
           {name: 'Auckland', code: 'AUK'},
@@ -5161,10 +4847,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -5189,10 +4873,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -5217,10 +4899,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -5245,10 +4925,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -5273,10 +4951,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}{province}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}{province}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
         },
         zones: [
           {name: 'Bocas del Toro', code: 'PA-1'},
@@ -5315,10 +4991,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -5343,10 +5017,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -5371,10 +5043,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -5399,10 +5069,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -5427,10 +5095,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{province}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{province}_{country}_{phone}',
         },
         zones: [
           {name: 'Amazonas', code: 'PE-AMA'},
@@ -5482,10 +5148,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{province}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{province}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
         },
         zones: [
           {name: 'Abra', code: 'PH-ABR'},
@@ -5593,10 +5257,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -5621,10 +5283,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -5649,10 +5309,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}{province}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}{province}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{province}_{country}_{phone}',
         },
         zones: [
           {name: 'Açores', code: 'PT-20'},
@@ -5698,10 +5356,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -5726,10 +5382,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{province} {country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{province} {country}_{phone}',
         },
         zones: [
           {name: 'Île de Hong Kong', code: 'HK'},
@@ -5758,10 +5412,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -5786,10 +5438,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -5814,10 +5464,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -5842,10 +5490,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}{province}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}{province}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city} {province}_{country}_{phone}',
         },
         zones: [
           {name: 'județ d’Alba', code: 'AB'},
@@ -5913,10 +5559,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [
           {name: 'Forces britanniques', code: 'BFP'},
@@ -5947,10 +5591,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{province}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{province}_{zip}_{country}_{phone}',
         },
         zones: [
           {name: 'kraï de l’Altaï', code: 'ALT'},
@@ -6058,10 +5700,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6086,10 +5726,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6114,10 +5752,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6142,10 +5778,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6170,10 +5804,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6198,10 +5830,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6226,10 +5856,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6254,10 +5882,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6282,10 +5908,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6310,10 +5934,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6338,10 +5960,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6366,10 +5986,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6394,10 +6012,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6422,10 +6038,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6450,10 +6064,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6478,10 +6090,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6506,10 +6116,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6534,10 +6142,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6562,10 +6168,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{country} {zip}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{country} {zip}_{phone}',
         },
         zones: [],
       },
@@ -6590,10 +6194,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6618,10 +6220,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6646,10 +6246,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6674,10 +6272,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6702,10 +6298,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6730,10 +6324,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6758,10 +6350,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6786,10 +6376,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Adresse supplémentaire (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6814,10 +6402,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6842,10 +6428,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6870,10 +6454,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6898,10 +6480,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6926,10 +6506,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6954,10 +6532,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -6982,10 +6558,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -7010,10 +6584,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -7038,10 +6610,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -7066,10 +6636,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -7094,10 +6662,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{province} {zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{province}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{province} {zip}_{country}_{phone}',
         },
         zones: [
           {name: 'Amnat Charoen', code: 'TH-37'},
@@ -7201,10 +6767,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -7229,10 +6793,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -7257,10 +6819,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -7285,10 +6845,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -7313,10 +6871,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -7341,10 +6897,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -7369,10 +6923,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -7397,10 +6949,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{zip}{city}_{firstName}{lastName}_{company}_{address1}_{address2}_{phone}',
-          show:
-            '{zip} {city}_{country}_{firstName} {lastName}_{company}_{address1}_{address2}_{phone}',
+          edit: '{country}_{zip}{city}_{firstName}{lastName}_{company}_{address1}_{address2}_{phone}',
+          show: '{zip} {city}_{country}_{firstName} {lastName}_{company}_{address1}_{address2}_{phone}',
         },
         zones: [],
       },
@@ -7425,10 +6975,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -7453,10 +7001,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -7481,10 +7027,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -7509,10 +7053,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -7537,10 +7079,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -7565,10 +7105,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -7593,10 +7131,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}{zip}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {zip}_{country}_{phone}',
         },
         zones: [],
       },
@@ -7621,10 +7157,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -7649,10 +7183,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -7677,10 +7209,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{zip}{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{zip} {city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -7705,10 +7235,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{country}_{phone}',
         },
         zones: [],
       },
@@ -7733,10 +7261,8 @@ const data: LoadCountriesResponse = {
         },
         optionalLabels: {address2: 'Appartement, suite, etc. (facultatif)'},
         formatting: {
-          edit:
-            '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
-          show:
-            '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
+          edit: '{country}_{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{phone}',
+          show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city}_{zip}_{country}_{phone}',
         },
         zones: [],
       },

@@ -43,7 +43,7 @@ export interface Resolver<
   T = any,
   Data = {},
   Variables = {},
-  DeepPartial = {}
+  DeepPartial = {},
 > {
   (
     request: GraphQLRequest<Data, Variables, DeepPartial>,
@@ -95,20 +95,19 @@ export type DeepThunk<T, Data, Variables, DeepPartial> =
   | null
   | undefined;
 
-export type GraphQLFillerData<
-  Operation extends GraphQLOperation
-> = Operation extends GraphQLOperation<
-  infer Data,
-  infer Variables,
-  infer PartialData
->
-  ? Thunk<
-      DeepThunk<PartialData, Data, Variables, PartialData>,
-      Data,
-      Variables,
-      PartialData
-    >
-  : never;
+export type GraphQLFillerData<Operation extends GraphQLOperation> =
+  Operation extends GraphQLOperation<
+    infer Data,
+    infer Variables,
+    infer PartialData
+  >
+    ? Thunk<
+        DeepThunk<PartialData, Data, Variables, PartialData>,
+        Data,
+        Variables,
+        PartialData
+      >
+    : never;
 
 export interface Options {
   resolvers?: {[key: string]: Resolver};

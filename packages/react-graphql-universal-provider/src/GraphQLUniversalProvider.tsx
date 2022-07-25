@@ -20,7 +20,7 @@ interface Props<TCacheShape extends NormalizedCacheObject> {
 }
 
 export function GraphQLUniversalProvider<
-  TCacheShape extends NormalizedCacheObject
+  TCacheShape extends NormalizedCacheObject,
 >({
   id = 'apollo',
   quiltRails = true,

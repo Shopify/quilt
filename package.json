@@ -65,7 +65,7 @@
     "jest-extended": "^0.11.5",
     "jest-transform-graphql": "^2.1.0",
     "plop": "^2.6.0",
-    "prettier": "~2.0.4",
+    "prettier": "~2.7.1",
     "puppeteer": "^13.2.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",

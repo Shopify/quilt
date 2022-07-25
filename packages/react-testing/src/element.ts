@@ -183,7 +183,7 @@ export class Element<Props> implements Node<Props> {
   }
 
   findAllWhere<
-    Type extends React.ComponentType<any> | string | unknown = unknown
+    Type extends React.ComponentType<any> | string | unknown = unknown,
   >(predicate: Predicate): Element<UnknowablePropsFor<Type>>[] {
     return this.elementDescendants.filter((element) =>
       predicate(element),

@@ -195,9 +195,8 @@ function translateWithDictionary(
       const group = memoizedPluralRules(locale).select(count);
       result = result[group];
 
-      additionalReplacements[PLURALIZATION_KEY_NAME] = memoizedNumberFormatter(
-        locale,
-      ).format(count);
+      additionalReplacements[PLURALIZATION_KEY_NAME] =
+        memoizedNumberFormatter(locale).format(count);
     }
   }
 

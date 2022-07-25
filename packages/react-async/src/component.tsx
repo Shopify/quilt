@@ -17,7 +17,7 @@ interface Options<
   Props extends object,
   PreloadOptions extends object = {},
   PrefetchOptions extends object = {},
-  KeepFreshOptions extends object = {}
+  KeepFreshOptions extends object = {},
 > extends ResolverOptions<ComponentType<Props>> {
   defer?: DeferTiming | ((props: Props) => boolean);
   deferHydration?: DeferTiming | ((props: Props) => boolean);
@@ -51,7 +51,7 @@ export function createAsyncComponent<
   Props extends object,
   PreloadOptions extends object = {},
   PrefetchOptions extends object = {},
-  KeepFreshOptions extends object = {}
+  KeepFreshOptions extends object = {},
 >({
   id,
   load,
@@ -88,7 +88,12 @@ export function createAsyncComponent<
     : AssetTiming.Immediate;
 
   function Async(props: Props) {
-    const {resolved: Component, load, loading, error} = useAsync(resolver, {
+    const {
+      resolved: Component,
+      load,
+      loading,
+      error,
+    } = useAsync(resolver, {
       scripts: scriptTiming,
       styles: stylesTiming,
       immediate: !deferred,

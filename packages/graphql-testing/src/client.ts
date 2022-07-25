@@ -6,9 +6,8 @@ import {
   ObservableQuery,
 } from 'apollo-client';
 
-type GetCurrentQueryResult = ApolloClient<
-  any
->['queryManager']['getCurrentQueryResult'];
+type GetCurrentQueryResult =
+  ApolloClient<any>['queryManager']['getCurrentQueryResult'];
 
 type AnyFetchPolicy =
   | SubscriptionOptions['fetchPolicy']
@@ -19,9 +18,9 @@ type AnyFetchPolicy =
 const invalidFetchPolicies: AnyFetchPolicy[] = ['no-cache', 'network-only'];
 
 // patch getCurrentQueryResult to protect against an initial observable event
-export class TestingApolloClient<TCacheShape> extends ApolloClient<
-  TCacheShape
-> {
+export class TestingApolloClient<
+  TCacheShape,
+> extends ApolloClient<TCacheShape> {
   private readonly getCurrentQueryResult: GetCurrentQueryResult;
 
   constructor(options: ApolloClientOptions<TCacheShape>) {
@@ -30,9 +29,8 @@ export class TestingApolloClient<TCacheShape> extends ApolloClient<
     this.getCurrentQueryResult = this.queryManager.getCurrentQueryResult.bind(
       this.queryManager,
     );
-    this.queryManager.getCurrentQueryResult = this.getCurrentQueryResultSafe.bind(
-      this,
-    );
+    this.queryManager.getCurrentQueryResult =
+      this.getCurrentQueryResultSafe.bind(this);
   }
 
   private getCurrentQueryResultSafe<T>(

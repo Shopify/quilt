@@ -24,10 +24,8 @@ const data: LoadCountryResponse = {
         address2: 'Appartement, suite, etc. (facultatif)',
       },
       formatting: {
-        edit:
-          '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
-        show:
-          '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {province} {zip}_{country}_{phone}',
+        edit: '{firstName}{lastName}_{company}_{address1}_{address2}_{city}_{country}{province}{zip}_{phone}',
+        show: '{firstName} {lastName}_{company}_{address1}_{address2}_{city} {province} {zip}_{country}_{phone}',
       },
       zones: [
         {
