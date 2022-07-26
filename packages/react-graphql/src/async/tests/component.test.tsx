@@ -47,15 +47,19 @@ function Children() {
 }
 
 describe('createAsyncQueryComponent()', () => {
+  let consoleErrorSpy: jest.SpyInstance;
+
   beforeEach(() => {
     requestIdleCallback.mock();
     intersectionObserver.mock();
+    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
   });
 
   afterEach(() => {
     requestIdleCallback.cancelIdleCallbacks();
     requestIdleCallback.restore();
     intersectionObserver.restore();
+    consoleErrorSpy.mockRestore();
   });
 
   it('renders the children with a noop loading result while the query is loading', () => {
