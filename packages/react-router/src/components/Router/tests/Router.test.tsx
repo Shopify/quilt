@@ -13,6 +13,19 @@ const {isClient} = jest.requireMock('../utilities') as {
 };
 
 describe('Router', () => {
+  let consoleErrorSpy: jest.SpyInstance;
+  let consoleWarnSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+    consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
+  });
+
+  afterEach(() => {
+    consoleErrorSpy.mockRestore();
+    consoleWarnSpy.mockRestore();
+  });
+
   beforeEach(() => {
     isClient.mockClear();
     isClient.mockImplementation(() => true);
