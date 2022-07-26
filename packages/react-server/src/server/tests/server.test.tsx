@@ -18,6 +18,16 @@ jest.mock('@shopify/sewing-kit-koa', () => ({
 }));
 
 describe('createServer()', () => {
+  let consoleLogSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
+  });
+
+  afterEach(() => {
+    consoleLogSpy.mockRestore();
+  });
+
   afterAll(unsaddle);
 
   it('configurable as koa proxy', async () => {
