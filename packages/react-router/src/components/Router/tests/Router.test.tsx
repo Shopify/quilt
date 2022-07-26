@@ -17,6 +17,9 @@ describe('Router', () => {
   let consoleWarnSpy: jest.SpyInstance;
 
   beforeEach(() => {
+    isClient.mockClear();
+    isClient.mockImplementation(() => true);
+
     consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
     consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
   });
@@ -24,11 +27,6 @@ describe('Router', () => {
   afterEach(() => {
     consoleErrorSpy.mockRestore();
     consoleWarnSpy.mockRestore();
-  });
-
-  beforeEach(() => {
-    isClient.mockClear();
-    isClient.mockImplementation(() => true);
   });
 
   it('renders children', () => {

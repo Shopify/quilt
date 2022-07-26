@@ -18,6 +18,7 @@ describe('<FormState.List />', () => {
   afterEach(() => {
     consoleErrorSpy.mockRestore();
   });
+
   it('passes form state into child function for each index of the given array', () => {
     const renderPropSpy = jest.fn(
       (_: FieldDescriptors<{title: string}>) => null,
