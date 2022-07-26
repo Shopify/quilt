@@ -43,15 +43,19 @@ function Loading() {
 }
 
 describe('createAsyncComponent()', () => {
+  let consoleErrorSpy: jest.SpyInstance;
+
   beforeEach(() => {
     requestIdleCallback.mock();
     intersectionObserver.mock();
+    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
   });
 
   afterEach(() => {
     requestIdleCallback.cancelIdleCallbacks();
     requestIdleCallback.restore();
     intersectionObserver.restore();
+    consoleErrorSpy.mockRestore();
   });
 
   describe('rendering', () => {

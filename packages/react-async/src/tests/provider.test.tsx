@@ -9,12 +9,16 @@ import {AssetTiming} from '../types';
 import {getUsedAssets, createResolvablePromise} from './utilities';
 
 describe('createAsyncContext()', () => {
+  let consoleErrorSpy: jest.SpyInstance;
+
   beforeEach(() => {
     requestIdleCallback.mock();
+    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
   });
 
   afterEach(() => {
     requestIdleCallback.restore();
+    consoleErrorSpy.mockRestore();
   });
 
   describe('<Provider />', () => {
