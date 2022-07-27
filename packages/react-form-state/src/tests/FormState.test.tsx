@@ -9,6 +9,16 @@ import {lastCallArgs} from './utilities';
 import {Input, InputField} from './components';
 
 describe('<FormState />', () => {
+  let consoleErrorSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+  });
+
+  afterEach(() => {
+    consoleErrorSpy.mockRestore();
+  });
+
   it('passes form state into child function', () => {
     const renderPropSpy = jest.fn(() => null);
 

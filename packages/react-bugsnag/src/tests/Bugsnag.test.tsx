@@ -5,6 +5,16 @@ import {ErrorLoggerContext} from '../context';
 import {Bugsnag} from '../Bugsnag';
 
 describe('react-bugsnag', () => {
+  let consoleWarnSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
+  });
+
+  afterEach(() => {
+    consoleWarnSpy.mockRestore();
+  });
+
   it('renders an <ErrorLoggerContext /> with the given client', () => {
     const client = fakeBugsnag();
     const component = mount(<Bugsnag client={client} />);

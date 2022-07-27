@@ -8,6 +8,16 @@ import {lastCallArgs} from '../../tests/utilities';
 import FormState from '../..';
 
 describe('<Nested />', () => {
+  let consoleErrorSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+  });
+
+  afterEach(() => {
+    consoleErrorSpy.mockRestore();
+  });
+
   it('passes field state into child function', () => {
     const renderPropSpy = jest.fn(() => null);
 

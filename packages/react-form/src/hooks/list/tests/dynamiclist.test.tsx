@@ -8,6 +8,16 @@ import {FieldListConfig} from '../baselist';
 import {Variant, randomVariants, clickEvent, TextField} from './utils';
 
 describe('useDynamicList', () => {
+  let consoleErrorSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+  });
+
+  afterEach(() => {
+    consoleErrorSpy.mockRestore();
+  });
+
   describe('add and remove fields', () => {
     const factory = () => {
       return {price: '', optionName: '', optionValue: ''};

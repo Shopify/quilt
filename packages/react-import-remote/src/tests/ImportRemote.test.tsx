@@ -29,15 +29,19 @@ jest.mock('../load', () => jest.fn());
 const load: jest.Mock = jest.requireMock('../load');
 
 describe('<ImportRemote />', () => {
+  let consoleErrorSpy: jest.SpyInstance;
+
   beforeEach(() => {
     requestIdleCallback.mock();
     intersectionObserver.mock();
     load.mockClear();
+    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
   });
 
   afterEach(() => {
     requestIdleCallback.restore();
     intersectionObserver.restore();
+    consoleErrorSpy.mockRestore();
   });
 
   const mockProps: Props = {

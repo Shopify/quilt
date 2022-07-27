@@ -9,6 +9,16 @@ import FormState, {arrayUtils} from '../..';
 import {FieldDescriptor, FieldDescriptors} from '../../types';
 
 describe('<FormState.List />', () => {
+  let consoleErrorSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+  });
+
+  afterEach(() => {
+    consoleErrorSpy.mockRestore();
+  });
+
   it('passes form state into child function for each index of the given array', () => {
     const renderPropSpy = jest.fn(
       (_: FieldDescriptors<{title: string}>) => null,

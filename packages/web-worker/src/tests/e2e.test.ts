@@ -19,6 +19,16 @@ const secondWorkerFile = 'src/worker2.js';
 jest.setTimeout(28_000);
 
 describe('web-worker', () => {
+  let consoleLogSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
+  });
+
+  afterEach(() => {
+    consoleLogSpy.mockRestore();
+  });
+
   it('creates a worker factory that can produce workers that act like the original module', async () => {
     const greetingPrefix = 'Hello ';
     const greetingTarget = 'world';

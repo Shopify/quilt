@@ -34,6 +34,16 @@ function TestApp({headers = []}: {headers: string[]}) {
 }
 
 describe('NetworkUniversalProvider', () => {
+  let consoleWarnSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
+  });
+
+  afterEach(() => {
+    consoleWarnSpy.mockRestore();
+  });
+
   it('renders a NetworkUniversalContext', () => {
     const headers = {
       'x-some-header-1': 'header-value-1',

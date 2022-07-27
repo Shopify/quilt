@@ -41,6 +41,8 @@ const {createCsrfLink} = jest.requireMock('../csrf-link');
 const ApolloClient = jest.requireMock('apollo-client').default;
 
 describe('<GraphQLUniversalProvider />', () => {
+  let consoleErrorSpy: jest.SpyInstance;
+
   beforeEach(() => {
     isServer.mockClear();
     isServer.mockImplementation(() => true);
@@ -48,6 +50,12 @@ describe('<GraphQLUniversalProvider />', () => {
     ApolloClient.mockClear();
     createRequestIdLink.mockClear();
     createCsrfLink.mockClear();
+
+    consoleErrorSpy = jest.spyOn(console, 'warn').mockImplementation();
+  });
+
+  afterEach(() => {
+    consoleErrorSpy.mockRestore();
   });
 
   it('renders an ApolloProvider with a client created by the factory', () => {

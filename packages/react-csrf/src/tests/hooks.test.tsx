@@ -6,6 +6,16 @@ import {CsrfTokenContext} from '../context';
 import {useCsrfToken} from '../hooks';
 
 describe('<CsrfProvider />', () => {
+  let consoleErrorSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+  });
+
+  afterEach(() => {
+    consoleErrorSpy.mockRestore();
+  });
+
   function CsrfToken() {
     const csrfToken = useCsrfToken();
     return <div id="csrfToken">{csrfToken}</div>;

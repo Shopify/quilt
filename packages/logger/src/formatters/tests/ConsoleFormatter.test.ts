@@ -2,6 +2,22 @@ import {ConsoleFormatter} from '../ConsoleFormatter';
 import {LogLevel} from '../..';
 
 describe('ConsoleFormatter', () => {
+  let consoleErrorSpy: jest.SpyInstance;
+  let consoleWarnSpy: jest.SpyInstance;
+  let consoleLogSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+    consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
+    consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
+  });
+
+  afterEach(() => {
+    consoleErrorSpy.mockRestore();
+    consoleWarnSpy.mockRestore();
+    consoleLogSpy.mockRestore();
+  });
+
   it('logs Critical entries to console.error', () => {
     const formatter = new ConsoleFormatter();
     const errorSpy = jest.spyOn(console, 'error');

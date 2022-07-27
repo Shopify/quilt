@@ -23,9 +23,16 @@ jest.mock('@shopify/sewing-kit-koa', () => ({
 }));
 
 describe('createRender', () => {
+  let consoleLogSpy: jest.SpyInstance;
+
   beforeEach(() => {
     mockAssetsScripts.mockClear();
     mockAssetsStyles.mockClear();
+    consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
+  });
+
+  afterEach(() => {
+    consoleLogSpy.mockRestore();
   });
 
   it('response contains "My cool app"', async () => {

@@ -19,6 +19,16 @@ jest.mock(
 );
 
 describe('<Html />', () => {
+  let consoleErrorSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+  });
+
+  afterEach(() => {
+    consoleErrorSpy.mockRestore();
+  });
+
   const mockProps = {children: <div />};
 
   it('hides the body contents in development', () => {

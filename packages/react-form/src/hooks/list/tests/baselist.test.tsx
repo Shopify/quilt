@@ -16,6 +16,16 @@ import {
 } from './utils';
 
 describe('useBaseList', () => {
+  let consoleErrorSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+  });
+
+  afterEach(() => {
+    consoleErrorSpy.mockRestore();
+  });
+
   function TestList(config: FieldListConfig<Variant>) {
     const {fields, dirty, reset} = useBaseList<Variant>(config);
 

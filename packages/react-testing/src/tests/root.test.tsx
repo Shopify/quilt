@@ -6,7 +6,14 @@ import {Tag} from '../types';
 import {destroyAll} from '../destroy';
 
 describe('Root', () => {
+  let consoleErrorSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+  });
+
   afterEach(() => {
+    consoleErrorSpy.mockRestore();
     destroyAll();
   });
 
