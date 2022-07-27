@@ -1,5 +1,12 @@
 # Changelog
 
+## 12.0.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @shopify/react-hydrate@3.0.2
+
 ## 12.0.1 - 2022-06-08
 
 - No updates. Transitive dependency bump.

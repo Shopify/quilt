@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.0.5
+
+### Patch Changes
+
+- Updated dependencies [[`79302260e`](https://github.com/Shopify/quilt/commit/79302260e90f5668a67aefb35f1ccc66c3dbc625)]:
+  - @shopify/react-i18n@7.2.0
+  - @shopify/react-html@12.0.2
+
 ## 3.0.4 - 2022-06-08
 
 - No updates. Transitive dependency bump.

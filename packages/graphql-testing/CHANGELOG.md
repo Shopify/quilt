@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.1.0
+
+### Minor Changes
+
+- [#2342](https://github.com/Shopify/quilt/pull/2342) [`5d8bc5bdf`](https://github.com/Shopify/quilt/commit/5d8bc5bdfb75a6369ea4e299e9af918875a5a010) Thanks [@vsumner](https://github.com/vsumner)! - Allow ApolloLinks to be passed to createGraphQL
+
 ## 6.0.1
 
 ### Patch Changes

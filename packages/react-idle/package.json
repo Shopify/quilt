@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-idle",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "license": "MIT",
   "description": "Utilities for working with idle callbacks in React",
   "main": "index.js",
@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@shopify/async": "^4.0.0",
-    "@shopify/useful-types": "^5.0.0"
+    "@shopify/useful-types": "^5.1.0"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <19.0.0"

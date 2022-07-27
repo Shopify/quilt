@@ -1,5 +1,7 @@
 # Changelog
 
+## 3.0.2
+
 ## 3.0.1 - 2022-06-08
 
 - No updates. Transitive dependency bump.

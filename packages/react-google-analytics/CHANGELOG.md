@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.0.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @shopify/react-import-remote@3.0.2
+
 ## 5.0.1 - 2022-06-08
 
 - No updates. Transitive dependency bump.
