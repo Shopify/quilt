@@ -1,10 +1,4 @@
-import {
-  ApolloLink,
-  Operation,
-  NextLink,
-  Observable,
-  FetchResult,
-} from 'apollo-link';
+import {ApolloLink, Operation, NextLink} from 'apollo-link';
 
 export function createSsrExtractableLink() {
   return new SsrExtractableLink();
@@ -39,15 +33,12 @@ export class SsrExtractableLink extends ApolloLink {
 
     this.operations.add(promise);
 
-    return new Observable<FetchResult>((observer) => {
-      return nextLink(operation).subscribe({
-        complete() {
-          observer.complete();
-          operationDone();
-        },
-        next: observer.next.bind(observer),
-        error: observer.error.bind(observer),
-      });
+    const observable = nextLink(operation);
+    observable.subscribe({
+      complete() {
+        operationDone();
+      },
     });
+    return observable;
   }
 }
