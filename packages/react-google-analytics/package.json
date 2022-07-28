@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-google-analytics",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "license": "MIT",
   "description": "Allows React apps to easily embed Google Analytics scripts",
   "main": "index.js",
@@ -24,7 +24,7 @@
     "node": "^14.17.0 || >=16.0.0"
   },
   "dependencies": {
-    "@shopify/react-import-remote": "^3.0.1"
+    "@shopify/react-import-remote": "^3.0.2"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <19.0.0"

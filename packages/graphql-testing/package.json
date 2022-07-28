@@ -1,6 +1,6 @@
 {
   "name": "@shopify/graphql-testing",
-  "version": "6.0.1",
+  "version": "6.1.0",
   "license": "MIT",
   "description": "Utilities to create mock GraphQL factories",
   "main": "index.js",

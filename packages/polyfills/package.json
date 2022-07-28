@@ -1,6 +1,6 @@
 {
   "name": "@shopify/polyfills",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "license": "MIT",
   "description": "Blessed polyfills for web platform features",
   "sideEffects": true,
@@ -88,7 +88,7 @@
     "node": "^14.17.0 || >=16.0.0"
   },
   "dependencies": {
-    "@shopify/useful-types": "^5.0.0",
+    "@shopify/useful-types": "^5.1.0",
     "caniuse-api": "^3.0.0",
     "core-js": "^3.13.0",
     "formdata-polyfill": "^3.0.20",

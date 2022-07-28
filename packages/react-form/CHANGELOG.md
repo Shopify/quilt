@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.0
+
+### Minor Changes
+
+- [#2307](https://github.com/Shopify/quilt/pull/2307) [`04f570dd9`](https://github.com/Shopify/quilt/commit/04f570dd90bb750e16d1e57369d71ceb6bd8ba0b) Thanks [@devonpmack](https://github.com/devonpmack)! - Added `asChoiceList` helper
+
 ## 2.1.1 - 2022-06-08
 
 - No updates. Transitive dependency bump.

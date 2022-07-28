@@ -1,5 +1,16 @@
 # Changelog
 
+## 7.2.0
+
+### Minor Changes
+
+- [#2331](https://github.com/Shopify/quilt/pull/2331) [`79302260e`](https://github.com/Shopify/quilt/commit/79302260e90f5668a67aefb35f1ccc66c3dbc625) Thanks [@depl0y](https://github.com/depl0y)! - Add `DateStyle.DateTime`. to format dates in the style `Jun 12, 2022 at 10:34 pm`
+
+### Patch Changes
+
+- Updated dependencies [[`b42a99a7d`](https://github.com/Shopify/quilt/commit/b42a99a7de6c2d88b24920fa70f7490ae1086d5f)]:
+  - @shopify/useful-types@5.1.0
+
 ## 7.1.3 - 2022-06-08
 
 - No updates. Transitive dependency bump.

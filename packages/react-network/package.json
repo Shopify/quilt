@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-network",
-  "version": "5.0.3",
+  "version": "5.0.4",
   "license": "MIT",
   "description": "A collection of components that allow you to set common HTTP headers from within your React application",
   "main": "index.js",
@@ -34,7 +34,7 @@
     "@shopify/network": "^3.2.0",
     "@shopify/react-effect": "^5.0.1",
     "@shopify/react-hooks": "^3.0.1",
-    "@shopify/react-universal-provider": "^3.0.1",
+    "@shopify/react-universal-provider": "^3.0.2",
     "@types/accept-language-parser": "1.5.0",
     "@types/cookie": "^0.3.3",
     "@types/koa": "^2.0.0",
