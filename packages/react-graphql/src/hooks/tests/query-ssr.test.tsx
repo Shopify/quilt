@@ -109,10 +109,10 @@ describe('useQuery', () => {
     // no GraphQL queries to resolve.
     expect(afterEachSpy).toHaveBeenCalledTimes(1);
 
-    // Not loading and no data
+    // Loading is still true even though we're not fetching data in order to match the client
     const markup = renderToString(element);
-    expect(markup).not.toContain('loading');
-    expect(markup).toContain('no data');
+    expect(markup).toContain('loading');
+    expect(markup).not.toContain('no data');
   });
 
   it('runs a query when `ssr` option is set to true during SSR', async () => {

@@ -53,11 +53,12 @@ export default function useQuery<
   const variables: Variables = options.variables || ({} as any);
   const client = useApolloClient(overrideClient);
 
-  if (
-    typeof window === 'undefined' &&
-    (skip || fetchPolicy === 'no-cache' || !ssr)
-  ) {
-    return createDefaultResult(client, variables);
+  if (typeof window === 'undefined') {
+    if (skip || fetchPolicy === 'no-cache') {
+      return createDefaultResult(client, variables);
+    } else if (!ssr) {
+      return createDefaultResult(client, variables, undefined, true);
+    }
   }
 
   const query = useGraphQLDocument(queryOrAsyncQuery);
@@ -246,12 +247,13 @@ function createDefaultResult<Variables>(
   client: ApolloClient<unknown>,
   variables: Variables,
   queryObservable?: ObservableQuery,
+  loading = false,
 ): QueryHookResult<any, Variables> {
   return {
     data: undefined,
     error: undefined,
     networkStatus: undefined,
-    loading: false,
+    loading,
     called: false,
     variables: (queryObservable ? queryObservable.variables : variables) as any,
     refetch: queryObservable
