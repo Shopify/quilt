@@ -1,0 +1,10 @@
+{
+  "name": "this-is-a-test",
+  "schemaPath": "schema.graphql",
+  "projects": {
+    "project-relative": {
+      "name": "project-relative",
+      "schemaPath": "../project-relative/schema.graphql"
+    }
+  }
+}

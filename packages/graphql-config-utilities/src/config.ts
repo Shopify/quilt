@@ -124,9 +124,7 @@ export function getGraphQLProjectForSchemaPath(
   if (
     !project ||
     !(project as GraphQLProjectConfig).schema ||
-    `${(project as GraphQLProjectConfig).dirpath}/${
-      (project as GraphQLProjectConfig).schema
-    }` !== schemaPath
+    resolveSchemaPath(project, true) !== schemaPath
   ) {
     throw new Error(
       `No project defined in graphql config for schema '${schemaPath}'`,
