@@ -33,6 +33,15 @@ const projectConfigDefault = loadConfigSync({
   filepath: resolve(__dirname, 'fixtures', 'default', '.graphqlconfig'),
 });
 
+const projectConfigRelative = loadConfigSync({
+  filepath: resolve(
+    __dirname,
+    'fixtures',
+    'project-relative',
+    '.graphqlconfig',
+  ),
+});
+
 const projectConfigError = loadConfigSync({
   filepath: resolve(__dirname, 'fixtures', 'error', '.graphqlconfig'),
 });
@@ -251,6 +260,17 @@ describe('getGraphQLProjectForSchemaPath()', () => {
     );
 
     expect(graphqlProjectConfig.schema).toBe('schema.graphql');
+  });
+
+  it('returns the schema in a single project configuration with a relative path', () => {
+    const graphqlProjectConfig = getGraphQLProjectForSchemaPath(
+      projectConfigRelative,
+      join(__dirname, 'fixtures', 'project-relative/schema.graphql'),
+    );
+
+    expect(graphqlProjectConfig.schema).toBe(
+      '../project-relative/schema.graphql',
+    );
   });
 
   it('throws an error if the schemaPath does not match any project', () => {
