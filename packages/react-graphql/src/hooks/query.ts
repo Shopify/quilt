@@ -54,9 +54,9 @@ export default function useQuery<
   const client = useApolloClient(overrideClient);
 
   if (typeof window === 'undefined') {
-    if (skip || fetchPolicy === 'no-cache') {
+    if (skip) {
       return createDefaultResult(client, variables);
-    } else if (!ssr) {
+    } else if (!ssr || fetchPolicy === 'no-cache') {
       return createDefaultResult(client, variables, undefined, true);
     }
   }
