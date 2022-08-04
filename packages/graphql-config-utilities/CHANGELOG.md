@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.1.1
+
+### Patch Changes
+
+- [#2362](https://github.com/Shopify/quilt/pull/2362) [`0d82c68f4`](https://github.com/Shopify/quilt/commit/0d82c68f450f101c516f340656f85e3930919067) Thanks [@morenobryan](https://github.com/morenobryan)! - Fix loading projects with relative paths
+
 ## 4.1.0
 
 ### Minor Changes

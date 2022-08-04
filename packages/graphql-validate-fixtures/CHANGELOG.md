@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`0d82c68f4`](https://github.com/Shopify/quilt/commit/0d82c68f450f101c516f340656f85e3930919067)]:
+  - graphql-config-utilities@4.1.1
+
 ## 3.1.0
 
 ### Minor Changes
