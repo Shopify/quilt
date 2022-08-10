@@ -22,6 +22,7 @@ interface Options {
   serverMiddleware?: compose.Middleware<Context>[];
   render: RenderFunction;
   renderError?: RenderOptions['renderError'];
+  initialState?: () => Promise<React.ReactElement>;
   renderRawErrorMessage?: boolean;
   app?: Koa;
 }
@@ -55,6 +56,7 @@ export function createServer(options: Options): Server {
     htmlProps,
     proxy = false,
     app = new Koa(),
+    initialState,
   } = options;
 
   app.proxy = proxy;
@@ -75,6 +77,7 @@ export function createServer(options: Options): Server {
       renderError,
       renderRawErrorMessage,
       htmlProps,
+      initialState,
     }),
   );
 

@@ -11,6 +11,7 @@ import {
   HtmlContext,
   stream,
   render as renderHtml,
+  Serialize,
 } from '@shopify/react-html/server';
 import {useSerialized} from '@shopify/react-html';
 import {
@@ -55,6 +56,7 @@ export type RenderOptions = Pick<
   renderError?: RenderFunction;
   renderRawErrorMessage?: boolean;
   htmlProps?: HtmlProps | ValueFromContext<HtmlProps>;
+  initialState?: () => Promise<React.ReactElement>;
 };
 
 /**
@@ -73,6 +75,7 @@ export function createRender(
     renderError,
     renderRawErrorMessage,
     htmlProps: htmlPropsInput = {},
+    initialState,
   } = options;
 
   async function renderFunction(ctx: Context) {
@@ -151,6 +154,16 @@ export function createRender(
       styles.push(...additionalStyles);
       scripts.push(...additionalScripts);
 
+      let InitialState;
+
+      if (initialState) {
+        InitialState = await initialState();
+      } else {
+        InitialState = (
+          <Serialize id="react-server-initial-state" data={() => {}} />
+        );
+      }
+
       const response = stream(
         <Html
           {...additionalHtmlProps}
@@ -158,7 +171,12 @@ export function createRender(
           styles={styles}
           scripts={scripts}
         >
-          <Providers>{app}</Providers>
+          <Providers>
+            <>
+              {app}
+              <InitialState />
+            </>
+          </Providers>
         </Html>,
       );
 
