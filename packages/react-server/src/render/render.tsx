@@ -111,13 +111,15 @@ export function createRender(
     }) {
       const [, Serialize] = useSerialized<Data>('quilt-data');
 
+      const initialStateComponent = initialState ? initialState : null;
+
       return (
         <AsyncAssetContext.Provider value={asyncAssetManager}>
           <HydrationContext.Provider value={hydrationManager}>
             <NetworkContext.Provider value={networkManager}>
               {children}
               <Serialize data={() => ctx.state.quiltData} />
-              {initialState ? initialState : null}
+              {initialStateComponent}
             </NetworkContext.Provider>
           </HydrationContext.Provider>
         </AsyncAssetContext.Provider>
