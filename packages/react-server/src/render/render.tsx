@@ -11,7 +11,6 @@ import {
   HtmlContext,
   stream,
   render as renderHtml,
-  Serialize,
 } from '@shopify/react-html/server';
 import {useSerialized} from '@shopify/react-html';
 import {
@@ -103,7 +102,13 @@ export function createRender(
     const asyncAssetManager = new AsyncAssetManager();
     const hydrationManager = new HydrationManager();
 
-    function Providers({children}: {children: React.ReactElement<any>}) {
+    function Providers({
+      children,
+      initialState,
+    }: {
+      children: React.ReactElement<any>;
+      initialState?: React.ReactElement;
+    }) {
       const [, Serialize] = useSerialized<Data>('quilt-data');
 
       return (
@@ -112,6 +117,7 @@ export function createRender(
             <NetworkContext.Provider value={networkManager}>
               {children}
               <Serialize data={() => ctx.state.quiltData} />
+              {initialState ? initialState : null}
             </NetworkContext.Provider>
           </HydrationContext.Provider>
         </AsyncAssetContext.Provider>
@@ -154,15 +160,9 @@ export function createRender(
       styles.push(...additionalStyles);
       scripts.push(...additionalScripts);
 
-      let InitialState;
-
-      if (initialState) {
-        InitialState = await initialState();
-      } else {
-        InitialState = (
-          <Serialize id="react-server-initial-state" data={() => {}} />
-        );
-      }
+      const initialStateComponent = initialState
+        ? await initialState()
+        : undefined;
 
       const response = stream(
         <Html
@@ -171,12 +171,7 @@ export function createRender(
           styles={styles}
           scripts={scripts}
         >
-          <Providers>
-            <>
-              {app}
-              <InitialState />
-            </>
-          </Providers>
+          <Providers initialState={initialStateComponent}>{app}</Providers>
         </Html>,
       );
 

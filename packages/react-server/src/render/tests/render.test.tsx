@@ -5,6 +5,7 @@ import {Effect} from '@shopify/react-effect/server';
 import {middleware as sewingKitKoaMiddleware} from '@shopify/sewing-kit-koa';
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import withEnv from '@shopify/with-env';
+import {Serialize} from '@shopify/react-html/server';
 
 import {createRender, Context} from '../render';
 import {mockMiddleware} from '../../tests/utilities';
@@ -44,6 +45,23 @@ describe('createRender', () => {
 
     expect(await readStream(ctx.body as NodeJS.ReadableStream)).toContain(
       myCoolApp,
+    );
+  });
+
+  it('response contains initial state component when initialState is set', async () => {
+    const initialStateId = 'id="initial-state"';
+    const ctx = createMockContext();
+
+    const renderFunction = createRender(() => <>my cool app</>, {
+      // eslint-disable-next-line @typescript-eslint/require-await
+      initialState: async () => {
+        return <Serialize id="initial-state" data={() => {}} />;
+      },
+    });
+    await renderFunction(ctx, noop);
+
+    expect(await readStream(ctx.body as NodeJS.ReadableStream)).toContain(
+      initialStateId,
     );
   });
 
