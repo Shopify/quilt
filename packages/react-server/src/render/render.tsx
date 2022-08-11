@@ -55,7 +55,7 @@ export type RenderOptions = Pick<
   renderError?: RenderFunction;
   renderRawErrorMessage?: boolean;
   htmlProps?: HtmlProps | ValueFromContext<HtmlProps>;
-  initialState?: () => Promise<React.ReactElement>;
+  initialState?: (ctx: Context) => Promise<React.ReactElement>;
 };
 
 /**
@@ -163,7 +163,7 @@ export function createRender(
       scripts.push(...additionalScripts);
 
       const initialStateComponent = initialState
-        ? await initialState()
+        ? await initialState(ctx)
         : undefined;
 
       const response = stream(

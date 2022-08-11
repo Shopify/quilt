@@ -22,7 +22,7 @@ interface Options {
   serverMiddleware?: compose.Middleware<Context>[];
   render: RenderFunction;
   renderError?: RenderOptions['renderError'];
-  initialState?: () => Promise<React.ReactElement>;
+  initialState?: (ctx: Context) => Promise<React.ReactElement>;
   renderRawErrorMessage?: boolean;
   app?: Koa;
 }
