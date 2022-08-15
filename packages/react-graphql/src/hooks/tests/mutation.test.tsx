@@ -1,6 +1,8 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import {createGraphQLFactory} from '@shopify/graphql-testing';
+import {GraphQLError} from 'graphql';
+import {ErrorPolicy} from 'apollo-client';
 
 import useMutation from '../mutation';
 
@@ -16,8 +18,14 @@ const updatePetMutation = gql`
 
 const createGraphQL = createGraphQLFactory();
 
-function MockMutation({children}: {children: Function}) {
-  const mutate = useMutation(updatePetMutation);
+function MockMutation({
+  children,
+  errorPolicy = 'none',
+}: {
+  children: Function;
+  errorPolicy?: ErrorPolicy;
+}) {
+  const mutate = useMutation(updatePetMutation, {errorPolicy});
   const [response, setResponse] = React.useState();
 
   async function runMutation() {
@@ -54,6 +62,29 @@ describe('useMutation', () => {
 
     expect(renderPropSpy).toHaveBeenLastCalledWith(
       expect.objectContaining({data: mockMutationData}),
+    );
+  });
+
+  it('returns result that contains errors when the errorPolicy allows for it', async () => {
+    const renderPropSpy = jest.fn(() => null);
+    const graphQL = createGraphQL({
+      UpdatePetMutation: new GraphQLError('error'),
+    });
+    const mockMutation = await mountWithGraphQL(
+      <MockMutation errorPolicy="all">{renderPropSpy}</MockMutation>,
+      {graphQL},
+    );
+
+    await mockMutation.act(async () => {
+      mockMutation.find('button')!.trigger('onClick', undefined as any);
+
+      await graphQL.resolveAll();
+    });
+
+    expect(renderPropSpy).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        errors: [expect.any(GraphQLError)],
+      }),
     );
   });
 });

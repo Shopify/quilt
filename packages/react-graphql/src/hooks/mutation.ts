@@ -19,6 +19,7 @@ export default function useMutation<Data = any, Variables = OperationVariables>(
     update,
     context,
     fetchPolicy,
+    errorPolicy,
   } = options;
 
   const client = useApolloClient(overrideClient);
@@ -40,6 +41,7 @@ export default function useMutation<Data = any, Variables = OperationVariables>(
         update,
         context,
         fetchPolicy,
+        errorPolicy,
         ...perMutationOptions,
       });
     },
@@ -52,6 +54,7 @@ export default function useMutation<Data = any, Variables = OperationVariables>(
       update,
       context,
       fetchPolicy,
+      errorPolicy,
       // eslint-disable-next-line react-hooks/exhaustive-deps
       JSON.stringify(variables),
       // eslint-disable-next-line react-hooks/exhaustive-deps
