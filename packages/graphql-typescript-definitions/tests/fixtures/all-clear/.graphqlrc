@@ -1,0 +1,6 @@
+{
+  "schema": "schema.graphql",
+  "documents": [
+    "documents/**/*.graphql"
+  ]
+}

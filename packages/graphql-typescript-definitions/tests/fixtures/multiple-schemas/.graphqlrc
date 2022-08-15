@@ -1,0 +1,22 @@
+{
+  "projects": {
+    "test1": {
+      "schema": "schema1/schema.graphql",
+      "documents": [
+        "schema1/documents/**/*.graphql"
+      ],
+      "extensions": {
+        "schemaTypesPath": "schema1/types"
+      }
+    },
+    "test2": {
+      "schema": "schema2/schema.graphql",
+      "documents": [
+        "schema2/documents/**/*.graphql"
+      ],
+      "extensions": {
+        "schemaTypesPath": "schema2/types"
+      }
+    }
+  }
+}

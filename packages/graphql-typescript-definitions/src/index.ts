@@ -19,12 +19,6 @@ import {
   GraphQLConfig,
 } from 'graphql-config';
 import {
-  getGraphQLProjectForSchemaPath,
-  getGraphQLProjects,
-  getGraphQLSchemaPaths,
-  resolvePathRelativeToConfig,
-} from 'graphql-config-utilities';
-import {
   AST,
   compile,
   Fragment,
@@ -41,6 +35,7 @@ import {
   PrintSchemaOptions,
 } from './print';
 import {EnumFormat, ExportFormat} from './types';
+import getSchemaPaths from './util/get-schema-paths';
 
 export type {GraphQLFilesystem};
 export {AbstractGraphQLFilesystem, EnumFormat, ExportFormat};
@@ -131,7 +126,7 @@ export class Builder extends EventEmitter {
     return super.on(event, handler);
   }
 
-  emit(event: 'error', error: Error): boolean;
+  emit(event: 'error', error: unknown): boolean;
   emit(event: 'build:docs', built: DocumentBuild): boolean;
   emit(event: 'build:schema', built: SchemaBuild): boolean;
   emit(
@@ -146,13 +141,13 @@ export class Builder extends EventEmitter {
     let schemaPaths: string[];
 
     try {
-      schemaPaths = getGraphQLSchemaPaths(this.config);
+      schemaPaths = getSchemaPaths(this.config);
     } catch (error) {
       this.emit('error', error);
       return;
     }
 
-    const filesystem = graphQLFilesystem ?? (await defaultFilesytem());
+    const filesystem = graphQLFilesystem ?? (await defaultFilesystem());
     this.filesystem = filesystem;
 
     if (watchGlobs) {
@@ -178,7 +173,7 @@ export class Builder extends EventEmitter {
 
     try {
       await Promise.all(
-        getGraphQLProjects(this.config).map((projectConfig) =>
+        Object.values(this.config.projects).map((projectConfig) =>
           this.updateDocumentsForProject(filesystem, projectConfig),
         ),
       );
@@ -240,10 +235,7 @@ export class Builder extends EventEmitter {
   };
 
   private async generateSchemaTypes(schemaPath: string) {
-    const projectConfig = getGraphQLProjectForSchemaPath(
-      this.config,
-      schemaPath,
-    );
+    const projectConfig = this.config.getProjectForFile(schemaPath);
     const schemaTypesPath = getSchemaTypesPath(projectConfig, this.options);
     const definitions = generateSchemaTypes(
       await this.getSchema(projectConfig),
@@ -407,11 +399,16 @@ export class Builder extends EventEmitter {
         addTypename: this.options.addTypename,
         schemaTypesPath: getSchemaTypesPath(projectConfig, this.options),
       });
-    } catch ({message}) {
-      const error = new Error(
-        `Error in ${file.path}: ${message[0].toLowerCase()}${message.slice(1)}`,
-      );
-      this.emit('error', error);
+    } catch (error) {
+      if (error instanceof Error) {
+        const wrapped = new Error(
+          `Error in ${
+            file.path
+          }: ${error.message[0].toLowerCase()}${error.message.slice(1)}`,
+        );
+        this.emit('error', wrapped);
+      }
+
       throw error;
     }
   }
@@ -478,14 +475,14 @@ function getSchemaTypesPath(
   options: Options,
 ) {
   if (typeof projectConfig.extensions.schemaTypesPath === 'string') {
-    return resolvePathRelativeToConfig(
-      projectConfig,
+    return resolve(
+      projectConfig.dirpath,
       projectConfig.extensions.schemaTypesPath,
     );
   }
 
-  return resolvePathRelativeToConfig(
-    projectConfig,
+  return resolve(
+    projectConfig.dirpath,
     join(
       options.schemaTypesPath,
       `${projectConfig.name ? `${projectConfig.name}-` : ''}types`,
@@ -493,7 +490,7 @@ function getSchemaTypesPath(
   );
 }
 
-async function defaultFilesytem() {
+async function defaultFilesystem() {
   const {DefaultGraphQLFilesystem} = await import(
     './filesystem/default-graphql-filesystem'
   );
