@@ -6,7 +6,7 @@ const rootFixturePath = resolve(__dirname, 'fixtures');
 
 describe('Builder', () => {
   it('only calls generateDocumentTypes() once on startup in watch mode', async () => {
-    const fixtureDirectory = resolve(rootFixturePath, 'all-clear');
+    const fixtureDirectory = resolve(rootFixturePath, 'all-clear-legacy');
     const builder = new Builder({
       addTypename: true,
       cwd: fixtureDirectory,
