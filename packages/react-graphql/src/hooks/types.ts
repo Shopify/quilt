@@ -4,7 +4,7 @@ import {
   QueryResult,
   OperationVariables,
   MutationOptions,
-  MutationResult,
+  FetchResult,
 } from '@apollo/client';
 import {QueryComponentOptions} from '@apollo/client/react/components';
 import {IfAllNullableKeys} from '@shopify/useful-types';
@@ -46,4 +46,4 @@ export type MutationHookResult<Data, Variables> = (
     [MutationHookOptions<Data, Variables>?],
     [MutationHookOptions<Data, Variables>]
   >
-) => Promise<MutationResult<Data>>;
+) => Promise<FetchResult<Data>>;
