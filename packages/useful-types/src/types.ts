@@ -65,7 +65,7 @@ type DeepOmitHelper<T, K> = {
 };
 
 // Reference https://stackoverflow.com/questions/55539387/deep-omit-with-typescript
-type Primitive =
+export type Primitive =
   | string
   | Function
   | number

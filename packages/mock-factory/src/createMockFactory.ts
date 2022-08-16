@@ -1,9 +1,9 @@
+import {DeepPartial} from '@shopify/useful-types';
 import merge from 'lodash/merge';
 import mergeWith from 'lodash/mergeWith';
-import {isObject} from 'lodash';
+import isObject from 'lodash/isObject';
 import isFunction from 'lodash/isFunction';
-
-import {DeepPartial, DeepOmitOptional, Thunk} from './types';
+import {DeepOmitOptional, Thunk} from 'types';
 
 function getDefaultValues(defaults, arg) {
   const unwrappedDefaults = isFunction(defaults) ? defaults(arg) : defaults;
@@ -12,7 +12,6 @@ function getDefaultValues(defaults, arg) {
     return merge([], unwrappedDefaults);
   } else if (isObject(unwrappedDefaults)) {
     return merge({}, unwrappedDefaults);
-  }
   return unwrappedDefaults;
 }
 
