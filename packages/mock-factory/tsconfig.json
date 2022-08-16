@@ -5,5 +5,10 @@
     "rootDir": "src",
     "baseUrl": "src"
   },
-  "include": ["../../config/typescript/*.ts", "./src/**/*.ts", "./src/**/*.tsx"]
+  "include": [
+    "../../config/typescript/*.ts",
+    "./src/**/*.ts",
+    "./src/**/*.tsx"
+  ],
+  "references": [{"path": "../useful-types"}]
 }
