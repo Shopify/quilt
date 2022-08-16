@@ -1,5 +1,15 @@
 # Changelog
 
+## 9.1.0
+
+### Minor Changes
+
+- [#2365](https://github.com/Shopify/quilt/pull/2365) [`04930e6f5`](https://github.com/Shopify/quilt/commit/04930e6f58872e164f4f76ce9f342b62e780de01) Thanks [@vsumner](https://github.com/vsumner)! - Modified SSRLink to simplify the implementation
+
+### Patch Changes
+
+- [#2375](https://github.com/Shopify/quilt/pull/2375) [`6863e8e78`](https://github.com/Shopify/quilt/commit/6863e8e78909142ca87ed49452b792d6d3949b88) Thanks [@vsumner](https://github.com/vsumner)! - Use errorPolicy when it is passed to useMutation.
+
 ## 9.0.0
 
 ### Major Changes
