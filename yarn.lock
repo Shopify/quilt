@@ -8188,11 +8188,6 @@ graphql-tag@^2.10.1, graphql-tag@^2.12.6:
   dependencies:
     tslib "^2.1.0"
 
-graphql-typed@^3.0.0-a3-beta.1:
-  version "3.0.0-a3-beta.1"
-  resolved "https://registry.yarnpkg.com/graphql-typed/-/graphql-typed-3.0.0-a3-beta.1.tgz#76721759cea78e41b31c8729f54e192e1def244e"
-  integrity sha512-2+/Bp7PiXnE38CP9n/gYJzO0ffZT8jfLUJIzs51hidJNXWgA66vVIZiV+ZEWxsJjY9MxU1OcqgTXvLQo894Ihw==
-
 graphql-ws@^5.4.1:
   version "5.8.2"
   resolved "https://registry.yarnpkg.com/graphql-ws/-/graphql-ws-5.8.2.tgz#800184b1addb20b3010dc06cb70877703a5fff20"
