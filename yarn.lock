@@ -1637,11 +1637,6 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@faker-js/faker@^6.0.0-alpha.3":
-  version "6.0.0-alpha.3"
-  resolved "https://registry.yarnpkg.com/@faker-js/faker/-/faker-6.0.0-alpha.3.tgz#c6f85a44d7996c131ec16ce41d6be0f344b6ad15"
-  integrity sha512-8B+7Jlwb9ogcoluzxB6AaSRZn2gnoewTA/WygAYhWNxkrFKjQL0TDXK6AW6uJlASMKl7qG/qbEVtpjLByuL0ZQ==
-
 "@faker-js/faker@^6.3.1":
   version "6.3.1"
   resolved "https://registry.yarnpkg.com/@faker-js/faker/-/faker-6.3.1.tgz#1ae963dd40405450a2945408cba553e1afa3e0fb"
