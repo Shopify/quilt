@@ -12,6 +12,7 @@ function getDefaultValues(defaults, arg) {
     return merge([], unwrappedDefaults);
   } else if (isObject(unwrappedDefaults)) {
     return merge({}, unwrappedDefaults);
+  }
   return unwrappedDefaults;
 }
 
