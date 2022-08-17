@@ -257,7 +257,7 @@ const mockPriceRange = createMockFactory<PriceRange>(() => {
 });
 ```
 
-In this case, the value expected by 'min', and 'max' is `DeepRequired<Money>` and such, only required properties can be passed to `mockMoney`
+In this case, the value expected by 'min', and 'max' is `DeepOmitOptional<Money>` and such, only required properties can be passed to `mockMoney`
 
 ```ts
 const mockPriceRange = createMockFactory<PriceRange>(() => {
@@ -302,7 +302,7 @@ createMockFactory<Person>({
 // you can set the return value of mockAddress to specify you only can return values expected by 'address'
 createMockFactory<Person>({
   name: faker.random.name(),
-  address: mockAddress<DeepRequired<Address>>({
+  address: mockAddress<DeepOmitOptional<Address>>({
     zipCode: 12345, // error is here
   }),
 });
