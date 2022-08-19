@@ -48,6 +48,7 @@ export {AbstractGraphQLFilesystem, EnumFormat, ExportFormat};
 export interface Options extends PrintDocumentOptions, PrintSchemaOptions {
   addTypename: boolean;
   schemaTypesPath: string;
+  schemaTypesReadOnly?: boolean;
   config?: GraphQLConfig;
   getProjectFilePaths?: (
     projectConfig: GraphQLProjectConfig,
@@ -244,6 +245,9 @@ export class Builder extends EventEmitter {
       this.config,
       schemaPath,
     );
+    if (isSchemaTypesReadOnly(projectConfig, this.options)) {
+      return;
+    }
     const schemaTypesPath = getSchemaTypesPath(projectConfig, this.options);
     const definitions = generateSchemaTypes(
       await this.getSchema(projectConfig),
@@ -405,6 +409,7 @@ export class Builder extends EventEmitter {
         enumFormat: this.options.enumFormat,
         exportFormat: this.options.exportFormat,
         addTypename: this.options.addTypename,
+        schemaTypesImport: getSchemaTypesImport(projectConfig, this.options),
         schemaTypesPath: getSchemaTypesPath(projectConfig, this.options),
       });
     } catch ({message}) {
@@ -473,10 +478,33 @@ export class Builder extends EventEmitter {
   }
 }
 
+function isSchemaTypesReadOnly(
+  projectConfig: GraphQLProjectConfig,
+  options: Options,
+) {
+  if (typeof projectConfig.extensions.schemaTypes === 'object') {
+    if (typeof projectConfig.extensions.schemaTypes.readOnly === 'boolean') {
+      return projectConfig.extensions.schemaTypes.readOnly;
+    }
+  }
+
+  return options.schemaTypesReadOnly ?? false;
+}
+
 function getSchemaTypesPath(
   projectConfig: GraphQLProjectConfig,
   options: Options,
 ) {
+  if (typeof projectConfig.extensions.schemaTypes === 'object') {
+    if (typeof projectConfig.extensions.schemaTypes.path === 'string') {
+      return resolvePathRelativeToConfig(
+        projectConfig,
+        projectConfig.extensions.schemaTypes.path,
+      );
+    }
+  }
+
+  // Deprecated: use schemaTypes.path instead
   if (typeof projectConfig.extensions.schemaTypesPath === 'string') {
     return resolvePathRelativeToConfig(
       projectConfig,
@@ -491,6 +519,19 @@ function getSchemaTypesPath(
       `${projectConfig.name ? `${projectConfig.name}-` : ''}types`,
     ),
   );
+}
+
+function getSchemaTypesImport(
+  projectConfig: GraphQLProjectConfig,
+  options: Options,
+) {
+  if (typeof projectConfig.extensions.schemaTypes === 'object') {
+    if (typeof projectConfig.extensions.schemaTypes.import === 'string') {
+      return projectConfig.extensions.schemaTypes.import;
+    }
+  }
+
+  return options.schemaTypesImport;
 }
 
 async function defaultFilesytem() {

@@ -134,6 +134,80 @@ describe('printDocument()', () => {
         import { Date } from "${expectedImportPath(filename, schemaTypesPath)}";
       `);
     });
+
+    describe('module import remapping', () => {
+      it('resides in the same directory', () => {
+        const filename = path.resolve('DetailsQuery.graphql');
+        const schema = buildSchema(`
+          scalar Date
+
+          type Query {
+            dateOfBirth: Date
+          }
+        `);
+
+        // module
+        expect(
+          print('query Details { dateOfBirth }', schema, {
+            filename,
+            printOptions: {
+              schemaTypesPath: path.resolve('./'),
+              schemaTypesImport: '@scope/package/types',
+            },
+          }),
+        ).toContain(stripIndent`
+        import { Date } from "@scope/package/types";
+      `);
+      });
+
+      it('points to an absolute directory', () => {
+        const filename = path.resolve('DetailsQuery.graphql');
+        const schema = buildSchema(`
+          scalar Date
+
+          type Query {
+            dateOfBirth: Date
+          }
+        `);
+
+        // module
+        expect(
+          print('query Details { dateOfBirth }', schema, {
+            filename,
+            printOptions: {
+              schemaTypesPath: '/path/to/node_modules/@scope/package/types/',
+              schemaTypesImport: '@scope/package/types/',
+            },
+          }),
+        ).toContain(stripIndent`
+        import { Date } from "@scope/package/types";
+      `);
+      });
+
+      it('points to a relative directory', () => {
+        const filename = path.resolve('DetailsQuery.graphql');
+        const schema = buildSchema(`
+          scalar Date
+
+          type Query {
+            dateOfBirth: Date
+          }
+        `);
+
+        // module
+        expect(
+          print('query Details { dateOfBirth }', schema, {
+            filename,
+            printOptions: {
+              schemaTypesPath: './node_modules/@scope/package/types/',
+              schemaTypesImport: '@scope/package/types',
+            },
+          }),
+        ).toContain(stripIndent`
+        import { Date } from "@scope/package/types";
+      `);
+      });
+    });
   });
 
   describe('enums', () => {

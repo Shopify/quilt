@@ -9,6 +9,7 @@ import {upperCaseFirst} from './utilities';
 
 export interface Options {
   schemaTypesPath: string;
+  schemaTypesImport?: string;
   enumFormat?: EnumFormat;
   exportFormat?: ExportFormat;
   addTypename?: boolean;
@@ -25,7 +26,7 @@ export class FileContext {
     const {
       path,
       importedTypes,
-      options: {schemaTypesPath},
+      options: {schemaTypesPath, schemaTypesImport},
     } = this;
 
     return importedTypes.size > 0
@@ -33,7 +34,7 @@ export class FileContext {
           [...importedTypes].map((type) =>
             t.importSpecifier(t.identifier(type), t.identifier(type)),
           ),
-          t.stringLiteral(importPath(path, schemaTypesPath)),
+          t.stringLiteral(importPath(path, schemaTypesPath, schemaTypesImport)),
         )
       : null;
   }
@@ -107,7 +108,14 @@ export class OperationContext {
   }
 }
 
-function importPath(from: string, to: string) {
+function importPath(from: string, to: string, module?: string) {
+  if (module) {
+    // strip any trailing slashes from the module name/path
+    const normalizedModule = module.replace(/\/+$/, '');
+
+    return normalizedModule;
+  }
+
   const relativePath = relative(dirname(from), to);
   const normalizedPath = relativePath.startsWith('..')
     ? relativePath
