@@ -13,7 +13,6 @@ import {
   ApolloError,
   ApolloClient,
   WatchQueryFetchPolicy,
-  NetworkStatus,
 } from 'apollo-client';
 import {IfEmptyObject, IfAllNullableKeys} from '@shopify/useful-types';
 import {AsyncComponentType, AsyncHookTarget} from '@shopify/react-async';
@@ -25,7 +24,6 @@ export type {
   GraphQLVariables,
   GraphQLDeepPartial,
   GraphQLOperation,
-  NetworkStatus,
 };
 
 export type VariableOptions<Variables> = IfEmptyObject<
