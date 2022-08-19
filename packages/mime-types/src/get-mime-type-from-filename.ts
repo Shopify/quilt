@@ -25,6 +25,8 @@ export function getMimeTypeFromFilename(filename: string) {
       return MimeType.Mov;
     case 'mp4':
       return MimeType.Mp4;
+    case 'webm':
+      return MimeType.Webm;
     case 'pdf':
       return MimeType.Pdf;
     case 'png':

@@ -12,6 +12,7 @@ describe('getExtensionFromMimeType', () => {
   assertExtensionForMimeType('.m3u8', MimeType.Hls);
   assertExtensionForMimeType('.mov', MimeType.Mov);
   assertExtensionForMimeType('.mp4', MimeType.Mp4);
+  assertExtensionForMimeType('.webm', MimeType.Webm);
   assertExtensionForMimeType('.pdf', MimeType.Pdf);
   assertExtensionForMimeType('.png', MimeType.Png);
   assertExtensionForMimeType('.txt', MimeType.Text);

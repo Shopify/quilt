@@ -14,6 +14,7 @@ describe('getMimeTypeFromFilename', () => {
     [MimeType.Json, 'object.json'],
     [MimeType.Mov, 'collection.mov'],
     [MimeType.Mp4, 'movie.mp4'],
+    [MimeType.Webm, 'video.webm'],
     [MimeType.Pdf, 'document.pdf'],
     [MimeType.Png, 'image.png'],
     [MimeType.Text, 'text.txt'],

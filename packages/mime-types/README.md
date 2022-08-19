@@ -27,6 +27,7 @@ The types of files currently supported are:
   'application/pdf',
   'video/mp4',
   'video/quicktime',
+  'video/webm',
   'model/gltf-binary',
   'application/x-mpegURL',
   'model/vnd.usdz+zip',
