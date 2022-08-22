@@ -588,6 +588,7 @@ describe('Element', () => {
         defaultRoot,
       );
 
+      // @ts-expect-error actions is not valid parameter, because it does not point to a function
       expect(() => element.triggerKeypath('actions')).toThrow(
         /Value at keypath 'actions' is not a function/,
       );

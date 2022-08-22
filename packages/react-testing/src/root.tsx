@@ -15,6 +15,10 @@ import {
   DeepPartialArguments,
   PropsFor,
   DebugOptions,
+  TriggerKeypathParams,
+  TriggerKeypathReturn,
+  KeyPathFunction,
+  ExtractKeypath,
 } from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -201,16 +205,19 @@ export class Root<Props> implements Node<Props> {
   trigger<K extends FunctionKeys<Props>>(
     prop: K,
     ...args: DeepPartialArguments<Props[K]>
-  ): ReturnType<
-    NonNullable<
-      Props[K] extends ((...args: any[]) => any) | undefined ? Props[K] : never
-    >
-  > {
+  ): NonNullable<Props[K]> extends (...args: any[]) => any
+    ? ReturnType<NonNullable<Props[K]>>
+    : never {
     return this.withRoot((root) => root.trigger(prop, ...(args as any)));
   }
 
-  triggerKeypath<T = unknown>(keypath: string, ...args: unknown[]) {
-    return this.withRoot((root) => root.triggerKeypath<T>(keypath, ...args));
+  triggerKeypath<
+    Path extends string,
+    ExtractedFunction extends KeyPathFunction = ExtractKeypath<Props, Path>,
+  >(
+    ...args: TriggerKeypathParams<Props, Path, ExtractedFunction>
+  ): TriggerKeypathReturn<Props, Path, ExtractedFunction> {
+    return this.withRoot((root) => root.triggerKeypath(...args));
   }
 
   mount() {
