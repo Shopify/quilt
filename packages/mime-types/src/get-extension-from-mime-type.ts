@@ -22,6 +22,8 @@ export function getExtensionFromMimeType(mimeType: MimeType) {
       return '.mov';
     case MimeType.Mp4:
       return '.mp4';
+    case MimeType.Webm:
+      return '.webm';
     case MimeType.Pdf:
       return '.pdf';
     case MimeType.Png:

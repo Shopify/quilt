@@ -9,6 +9,7 @@ export enum MimeType {
   Json = 'application/json',
   Mov = 'video/quicktime',
   Mp4 = 'video/mp4',
+  Webm = 'video/webm',
   Pdf = 'application/pdf',
   Png = 'image/png',
   Text = 'text/plain',
