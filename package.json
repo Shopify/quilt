@@ -62,7 +62,7 @@
     "graphql": "^15.4.0",
     "graphql-tag": "^2.10.3",
     "intl-pluralrules": "^0.2.1",
-    "jest-extended": "^0.11.5",
+    "jest-extended": "^3.0.2",
     "jest-transform-graphql": "^2.1.0",
     "plop": "^2.6.0",
     "prettier": "~2.7.1",
