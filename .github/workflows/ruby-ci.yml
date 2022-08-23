@@ -8,10 +8,10 @@ on:
 jobs:
   ruby-tests:
     runs-on: ubuntu-latest
-
+    name: 'Test (Ruby ${{ matrix.ruby-version }})'
     strategy:
       matrix:
-        ruby-version: ['3.1.2']
+        ruby-version: ['3.1']
 
     steps:
       - uses: actions/checkout@v2
