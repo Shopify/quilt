@@ -2,7 +2,7 @@
 import os from 'os';
 import fs from 'fs';
 
-import puppeteer, {Browser} from 'puppeteer';
+import puppeteer, {Browser, PuppeteerLifeCycleEvent} from 'puppeteer';
 import pMap from 'p-map';
 import chalk from 'chalk';
 import Koa from 'koa';
@@ -57,11 +57,13 @@ export class A11yTestRunner {
     storyIds = [],
     concurrentCount = os.cpus().length,
     timeout = 3000,
+    waitUntil = 'load',
     disableAnimation = false,
   }: {
     storyIds: StoryId[];
     concurrentCount?: number;
     timeout?: number;
+    waitUntil?: PuppeteerLifeCycleEvent;
     disableAnimation?: boolean;
   }) {
     console.log(
@@ -75,7 +77,7 @@ export class A11yTestRunner {
     console.log(chalk.bold(`🧪 Testing ${storyIds.length} urls with axe`));
     const results = await pMap(
       storyIds,
-      this.generateTestStoryFunction(timeout, disableAnimation),
+      this.generateTestStoryFunction(timeout, waitUntil, disableAnimation),
       {
         concurrency: concurrentCount,
       },
@@ -146,6 +148,7 @@ export class A11yTestRunner {
 
   private generateTestStoryFunction(
     timeout: number,
+    waitUntil: PuppeteerLifeCycleEvent,
     disableAnimation: boolean,
   ) {
     return async (id: StoryId) => {
@@ -154,7 +157,7 @@ export class A11yTestRunner {
 
       try {
         await page.goto(`${this.iframePath}?id=${id}`, {
-          waitUntil: 'load',
+          waitUntil,
           timeout,
         });
 
