@@ -229,3 +229,12 @@ The number of tabs to open in Chromium. The default option is based off the numb
 #### timeout `number` (optional)
 
 The goto timeout for the provided url. Defaults to `3000`
+
+#### waitUntil `PuppeteerLifeCycleEvent` (optional)
+
+When to consider navigation succeeded. Defaults to `load`.
+
+- `load` : consider navigation to be finished when the load event is fired.
+- `domcontentloaded` : consider navigation to be finished when the DOMContentLoaded event is fired.
+- `networkidle0` : consider navigation to be finished when there are no more than 0 network connections for at least `500` ms.
+- `networkidle2` : consider navigation to be finished when there are no more than 2 network connections for at least `500` ms.
