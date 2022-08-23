@@ -2,4 +2,4 @@
 '@shopify/storybook-a11y-test': minor
 ---
 
-Allow waitUntil param to take options
+Add `waitUntil` setting in `testStories()` options parameter
