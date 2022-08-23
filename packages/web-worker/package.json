@@ -21,14 +21,22 @@
     }
   },
   "exports": {
-    "./babel": "./babel.js",
-    "./webpack": "./webpack.js",
+    "./babel": {
+      "types": "./build/ts/babel-plugin.d.ts",
+      "default": "./babel.js"
+    },
+    "./webpack": {
+      "types": "./build/ts/webpack-parts/index.d.ts",
+      "default": "./webpack.js"
+    },
     "./worker": {
+      "types": "./build/ts/worker.d.ts",
       "esnext": "./worker.esnext",
       "import": "./worker.mjs",
       "require": "./worker.js"
     },
     ".": {
+      "types": "./build/ts/index.d.ts",
       "esnext": "./index.esnext",
       "import": "./index.mjs",
       "require": "./index.js"

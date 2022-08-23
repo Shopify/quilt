@@ -69,16 +69,19 @@
   "esnext": "index.esnext",
   "exports": {
     "./javascript": {
+      "types": "./build/ts/javascript/index.d.ts",
       "esnext": "./javascript.esnext",
       "import": "./javascript.mjs",
       "require": "./javascript.js"
     },
     "./markdown": {
+      "types": "./build/ts/markdown/index.d.ts",
       "esnext": "./markdown.esnext",
       "import": "./markdown.mjs",
       "require": "./markdown.js"
     },
     ".": {
+      "types": "./build/ts/index.d.ts",
       "esnext": "./index.esnext",
       "import": "./index.mjs",
       "require": "./index.js"
