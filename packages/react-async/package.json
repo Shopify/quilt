@@ -57,11 +57,13 @@
   "esnext": "index.esnext",
   "exports": {
     "./testing": {
+      "types": "./build/ts/testing.d.ts",
       "esnext": "./testing.esnext",
       "import": "./testing.mjs",
       "require": "./testing.js"
     },
     ".": {
+      "types": "./build/ts/index.d.ts",
       "esnext": "./index.esnext",
       "import": "./index.mjs",
       "require": "./index.js"

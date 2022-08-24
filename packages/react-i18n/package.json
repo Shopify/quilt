@@ -91,18 +91,24 @@
   "module": "index.mjs",
   "esnext": "index.esnext",
   "exports": {
-    "./babel": "./babel.js",
+    "./babel": {
+      "types": "./build/ts/babel-plugin/index.d.ts",
+      "default": "./babel.js"
+    },
     "./generate-dictionaries": {
+      "types": "./build/ts/babel-plugin/generate-dictionaries.d.ts",
       "esnext": "./generate-dictionaries.esnext",
       "import": "./generate-dictionaries.mjs",
       "require": "./generate-dictionaries.js"
     },
     "./generate-index": {
+      "types": "./build/ts/babel-plugin/generate-index.d.ts",
       "esnext": "./generate-index.esnext",
       "import": "./generate-index.mjs",
       "require": "./generate-index.js"
     },
     ".": {
+      "types": "./build/ts/index.d.ts",
       "esnext": "./index.esnext",
       "import": "./index.mjs",
       "require": "./index.js"

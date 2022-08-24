@@ -142,17 +142,29 @@ packages.forEach(
             expect(packageJSON.types).toBe(expectedPackageJSON.types);
           });
 
-          it('specifies esnext, import, and require as the ordered keys in the exports map', () => {
-            Object.keys(packageJSON.exports)
-              .filter((key) => key !== GLOB_PATH)
-              .filter((key) => typeof packageJSON.exports[key] === 'object')
-              .forEach((key) => {
-                expect(Object.keys(packageJSON.exports[key])).toStrictEqual([
-                  'esnext',
-                  'import',
-                  'require',
-                ]);
-              });
+          it('specifies either default and types OR types, esnext, import, and require as the ordered keys in the exports map', () => {
+            const exportsKeys = Object.keys(packageJSON.exports).filter(
+              (key) => key !== GLOB_PATH,
+            );
+
+            exportsKeys.forEach((key) => {
+              expect(packageJSON.exports[key]).toBeObject();
+
+              expect(Object.keys(packageJSON.exports[key])).toBeOneOf([
+                ['types', 'default'],
+                ['types', 'esnext', 'import', 'require'],
+              ]);
+
+              // types/typesVersions is referenced when using `moduleResolution: node`
+              // types in the exports field is referenced when using `moduleResolution: node16`
+              // Ensure that they are the same
+              const baseKey =
+                key === '.'
+                  ? packageJSON.types
+                  : packageJSON.typesVersions['*'][key.replace(/^\.\//, '')][0];
+
+              expect(packageJSON.exports[key].types).toStrictEqual(baseKey);
+            });
           });
         }
       });
