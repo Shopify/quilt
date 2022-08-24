@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.1.0
+
+### Minor Changes
+
+- [#2382](https://github.com/Shopify/quilt/pull/2382) [`80db75484`](https://github.com/Shopify/quilt/commit/80db7548499302d120be60916966d34703a94433) Thanks [@emiryy](https://github.com/emiryy)! - Add `waitUntil` setting in `testStories()` options parameter
+
+### Patch Changes
+
+- [#2389](https://github.com/Shopify/quilt/pull/2389) [`03c1abc8c`](https://github.com/Shopify/quilt/commit/03c1abc8c293d4c79f34796f9eefc777812df532) Thanks [@BPScott](https://github.com/BPScott)! - Add types field to package.json export maps to support typescript consumers that use `moduleResolution: "node16"`
+
 ## 1.0.1 - 2022-06-08
 
 - No updates. Transitive dependency bump.

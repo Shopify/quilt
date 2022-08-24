@@ -1,5 +1,24 @@
 # Changelog
 
+## 9.2.0
+
+### Minor Changes
+
+- [#2380](https://github.com/Shopify/quilt/pull/2380) [`0765ae1b5`](https://github.com/Shopify/quilt/commit/0765ae1b567e106d8a19716b0935b8be312aa669) Thanks [@BPScott](https://github.com/BPScott)! - Reexport ApolloError from apollo-client
+
+### Patch Changes
+
+- [#2389](https://github.com/Shopify/quilt/pull/2389) [`03c1abc8c`](https://github.com/Shopify/quilt/commit/03c1abc8c293d4c79f34796f9eefc777812df532) Thanks [@BPScott](https://github.com/BPScott)! - Add types field to package.json export maps to support typescript consumers that use `moduleResolution: "node16"`
+
+- Updated dependencies [[`03c1abc8c`](https://github.com/Shopify/quilt/commit/03c1abc8c293d4c79f34796f9eefc777812df532)]:
+  - @shopify/async@4.0.1
+  - graphql-typed@2.0.1
+  - @shopify/react-async@5.0.3
+  - @shopify/react-effect@5.0.2
+  - @shopify/react-hooks@3.0.2
+  - @shopify/react-idle@3.0.3
+  - @shopify/useful-types@5.1.1
+
 ## 9.1.0
 
 ### Minor Changes
