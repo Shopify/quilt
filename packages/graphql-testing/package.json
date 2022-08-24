@@ -1,6 +1,6 @@
 {
   "name": "@shopify/graphql-testing",
-  "version": "6.1.0",
+  "version": "6.1.1",
   "license": "MIT",
   "description": "Utilities to create mock GraphQL factories",
   "main": "index.js",
@@ -38,7 +38,7 @@
     "jest-matcher-utils": "^26.6.2"
   },
   "devDependencies": {
-    "graphql-typed": "^2.0.0"
+    "graphql-typed": "^2.0.1"
   },
   "files": [
     "build/",

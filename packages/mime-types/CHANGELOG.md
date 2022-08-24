@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.1.0
+
+### Minor Changes
+
+- [#2384](https://github.com/Shopify/quilt/pull/2384) [`705dc371f`](https://github.com/Shopify/quilt/commit/705dc371fc691e1fed5f7c998962b42fb19b2095) Thanks [@FredyPla](https://github.com/FredyPla)! - Add Webm mimetype
+
+### Patch Changes
+
+- [#2389](https://github.com/Shopify/quilt/pull/2389) [`03c1abc8c`](https://github.com/Shopify/quilt/commit/03c1abc8c293d4c79f34796f9eefc777812df532) Thanks [@BPScott](https://github.com/BPScott)! - Add types field to package.json export maps to support typescript consumers that use `moduleResolution: "node16"`
+
 ## 2.0.0 - 2022-05-19
 
 ### Breaking Change

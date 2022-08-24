@@ -1,6 +1,6 @@
 {
   "name": "graphql-typescript-definitions",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "license": "MIT",
   "description": "Generate TypeScript definition files from .graphql documents",
   "main": "index.js",
@@ -36,8 +36,8 @@
     "fs-extra": "^9.1.0",
     "graphql": ">=14.5.0 <16.0.0",
     "graphql-config": "^4.3.0",
-    "graphql-config-utilities": "^4.1.1",
-    "graphql-tool-utilities": "^3.0.0",
+    "graphql-config-utilities": "^4.1.2",
+    "graphql-tool-utilities": "^3.0.1",
     "yargs": "^15.3.1"
   },
   "devDependencies": {
@@ -47,7 +47,7 @@
   },
   "peerDependencies": {
     "@graphql-typed-document-node/core": "^3.1.1",
-    "graphql-typed": "^0.6.1 || ^0.7.0 || ^1.0.0 || ^2.0.0"
+    "graphql-typed": "^2.0.1"
   },
   "peerDependenciesMeta": {
     "@graphql-typed-document-node/core": {

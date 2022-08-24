@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.2.0
+
+### Minor Changes
+
+- [#2356](https://github.com/Shopify/quilt/pull/2356) [`84d4756eb`](https://github.com/Shopify/quilt/commit/84d4756eb5149ee419cf6b989b2247db9932b95d) Thanks [@melnikov-s](https://github.com/melnikov-s)! - Fully typed triggerKeypath method
+
+### Patch Changes
+
+- [#2389](https://github.com/Shopify/quilt/pull/2389) [`03c1abc8c`](https://github.com/Shopify/quilt/commit/03c1abc8c293d4c79f34796f9eefc777812df532) Thanks [@BPScott](https://github.com/BPScott)! - Add types field to package.json export maps to support typescript consumers that use `moduleResolution: "node16"`
+
+- Updated dependencies [[`03c1abc8c`](https://github.com/Shopify/quilt/commit/03c1abc8c293d4c79f34796f9eefc777812df532)]:
+  - @shopify/useful-types@5.1.1
+
 ## 4.1.1
 
 ### Patch Changes

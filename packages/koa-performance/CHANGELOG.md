@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.0.3
+
+### Patch Changes
+
+- [#2389](https://github.com/Shopify/quilt/pull/2389) [`03c1abc8c`](https://github.com/Shopify/quilt/commit/03c1abc8c293d4c79f34796f9eefc777812df532) Thanks [@BPScott](https://github.com/BPScott)! - Add types field to package.json export maps to support typescript consumers that use `moduleResolution: "node16"`
+
+- Updated dependencies [[`03c1abc8c`](https://github.com/Shopify/quilt/commit/03c1abc8c293d4c79f34796f9eefc777812df532)]:
+  - @shopify/network@3.2.1
+  - @shopify/performance@3.0.1
+  - @shopify/statsd@4.0.1
+
 ## 3.0.2
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # Changelog
 
+## 5.0.8
+
+### Patch Changes
+
+- [#2389](https://github.com/Shopify/quilt/pull/2389) [`03c1abc8c`](https://github.com/Shopify/quilt/commit/03c1abc8c293d4c79f34796f9eefc777812df532) Thanks [@BPScott](https://github.com/BPScott)! - Add types field to package.json export maps to support typescript consumers that use `moduleResolution: "node16"`
+
+- Updated dependencies [[`03c1abc8c`](https://github.com/Shopify/quilt/commit/03c1abc8c293d4c79f34796f9eefc777812df532), [`0765ae1b5`](https://github.com/Shopify/quilt/commit/0765ae1b567e106d8a19716b0935b8be312aa669)]:
+  - @shopify/react-graphql@9.2.0
+  - @shopify/react-hooks@3.0.2
+  - @shopify/react-html@12.0.3
+  - @shopify/react-network@5.0.5
+
 ## 5.0.7
 
 ### Patch Changes
