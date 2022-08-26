@@ -4,10 +4,9 @@ import {useServerEffect} from '@shopify/react-effect';
 import {HtmlContext} from './context';
 import type {HtmlManager} from './manager';
 
-export function useDomEffect(
-  perform: (manager: HtmlManager) => () => void,
-  inputs: unknown[] = [],
-) {
+type PerformCallback = (manager: HtmlManager) => (() => void) | void;
+
+export function useDomEffect(perform: PerformCallback, inputs: unknown[] = []) {
   const manager = useContext(HtmlContext);
   const effect = () => perform(manager);
 
@@ -84,7 +83,7 @@ export function useBodyAttributes(
 }
 
 export function useClientDomEffect(
-  perform: (manager: HtmlManager) => () => void,
+  perform: PerformCallback,
   inputs: unknown[] = [],
 ) {
   const manager = useContext(HtmlContext);
@@ -95,9 +94,7 @@ export function useClientDomEffect(
   }, [manager, perform, ...inputs]);
 }
 
-export function useServerDomEffect(
-  perform: (manager: HtmlManager) => () => void,
-) {
+export function useServerDomEffect(perform: PerformCallback) {
   const manager = useContext(HtmlContext);
 
   useServerEffect(() => perform(manager), manager.effect);
