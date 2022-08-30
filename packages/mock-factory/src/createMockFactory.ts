@@ -1,46 +1,41 @@
 import {DeepPartial} from '@shopify/useful-types';
 import merge from 'lodash/merge';
+import clone from 'lodash/clone';
 import mergeWith from 'lodash/mergeWith';
 import isObject from 'lodash/isObject';
 import isFunction from 'lodash/isFunction';
-import {DeepOmitOptional, Thunk} from 'types';
 
-function getDefaultValues(defaults, arg) {
-  const unwrappedDefaults = isFunction(defaults) ? defaults(arg) : defaults;
+import {ThunkDefaults, ReturnedType} from './types';
 
-  if (Array.isArray(unwrappedDefaults)) {
-    return merge([], unwrappedDefaults);
-  } else if (isObject(unwrappedDefaults)) {
-    return merge({}, unwrappedDefaults);
-  }
-  return unwrappedDefaults;
-}
-
-export function mergeMocks<Defaults, Input, Arg>(
-  defaults: Defaults,
-  input: Input,
-  arg?: Arg,
-) {
-  return mergeWith(
-    getDefaultValues(defaults, arg),
-    input,
-    (defaultValue, inputValue) => {
-      if (Array.isArray(inputValue) && Array.isArray(defaultValue)) {
-        if (inputValue.length === 0) {
-          return inputValue;
-        }
-        return merge(defaultValue, inputValue);
-      }
-    },
-  );
-}
-
-export function createMockFactory<T, A = never>(
-  defaults: Thunk<DeepOmitOptional<T>, A>,
-) {
-  return function createMock<ReturnType extends T>(
-    input?: DeepPartial<ReturnType>,
+export function createMockFactory<T>(defaults: ThunkDefaults<T>) {
+  return function createMock<ReturnType extends ReturnedType<T>>(
+    input?: DeepPartial<T>,
   ): ReturnType {
-    return mergeMocks(defaults, input, input);
+    let unthunkDefaults = clone(
+      isFunction(defaults) ? defaults(input) : defaults,
+    );
+
+    // create new instances of defaults on each invocation
+    if (Array.isArray(unthunkDefaults)) {
+      unthunkDefaults = merge([], unthunkDefaults);
+    } else if (isObject(unthunkDefaults)) {
+      unthunkDefaults = merge({}, unthunkDefaults);
+    }
+
+    return mergeWith(
+      // eslint-disable-next-line no-warning-comments
+      // TODO: we should be able to use DeepOmitOptional<T> & DeepPartial<T>
+      // but somehow their union does not resolve back to T. we need to make them cancel each other out somehow
+      unthunkDefaults as any,
+      input,
+      (defaultValue, inputValue) => {
+        if (Array.isArray(inputValue) && Array.isArray(defaultValue)) {
+          if (inputValue.length === 0) {
+            return inputValue;
+          }
+          return merge(defaultValue, inputValue);
+        }
+      },
+    );
   };
 }

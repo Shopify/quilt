@@ -1,4 +1,4 @@
-import type {Primitive} from '@shopify/useful-types';
+import type {Primitive, DeepPartial} from '@shopify/useful-types';
 
 export type DeepOmitOptional<T> = T extends Primitive
   ? T
@@ -14,4 +14,9 @@ export type DeepOmitOptional<T> = T extends Primitive
         : T[K];
     };
 
-export type Thunk<T, A = never> = ((arg: A) => T) | T;
+export type ThunkDefaults<T> = (
+  args?: DeepPartial<T>,
+) => DeepOmitOptional<T> | DeepOmitOptional<T>;
+
+export type ReturnedType<T> = DeepOmitOptional<T> &
+  (DeepPartial<T> | undefined);

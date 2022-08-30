@@ -1,4 +1,5 @@
 import faker from '@faker-js/faker/locale/en';
+import times from 'lodash/times';
 
 import {createMockFactory} from '../createMockFactory';
 import {DeepOmitOptional} from '../types';
@@ -14,7 +15,55 @@ interface Person {
   friends: Person[];
 }
 
+interface DynamicLoading {
+  loading: boolean;
+  title: string | null;
+}
+
+const mockLoading = createMockFactory<DynamicLoading>((overrides) => {
+  if (overrides) {
+    // respect override `title`, loading must be `false`
+    if (overrides.title) {
+      return {
+        title: overrides.title,
+        loading: false,
+      };
+      // respect override `loading` title must be `null`
+    } else if (overrides.loading === true) {
+      return {
+        title: null,
+        loading: overrides.loading,
+      };
+      // respect override `loading` title must be of type `string`
+    } else if (overrides.loading === false) {
+      return {
+        title: faker.random.word(),
+        loading: overrides.loading,
+      };
+    }
+  }
+
+  // randomly assign for default case
+  const loading = Math.random() > 0.5;
+
+  return {
+    loading,
+    title: loading ? null : faker.random.word(),
+  };
+});
+
 describe('createMockFactory()', () => {
+  it('uses override aware defaults function to resolve logically sound data consistently', () => {
+    times(10, () => {
+      expect(mockLoading({loading: true}).title).toBeNull();
+      expect(typeof mockLoading({loading: false}).title).toBe('string');
+      expect(mockLoading({title: 'true'}).loading).toBe(false);
+      expect([true, false]).toContain(
+        mockLoading({loading: undefined}).loading,
+      );
+    });
+  });
+
   describe('default', () => {
     it('uses static value', () => {
       const mockPerson = createMockFactory<Person>({
