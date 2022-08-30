@@ -19,6 +19,15 @@ import {QueryHookOptions, QueryHookResult} from './types';
 import useApolloClient from './apollo-client';
 import useGraphQLDocument from './graphql-document';
 
+function getUuid() {
+  if (typeof window === 'undefined') {
+    // replace with node.js uuid
+    return Math.random().toString(36).slice(2);
+  } else {
+    return crypto.randomUUID();
+  }
+}
+
 const {
   prototype: {hasOwnProperty},
 } = Object;
@@ -38,6 +47,7 @@ export default function useQuery<
   >
 ): QueryHookResult<Data, Variables> {
   const [options = {} as QueryHookOptions<Data, Variables>] = optionsPart;
+  const uuid = useRef(getUuid());
 
   const {
     skip = false,
@@ -46,9 +56,11 @@ export default function useQuery<
     pollInterval,
     client: overrideClient,
     notifyOnNetworkStatusChange,
-    context,
+    context = {},
     ssr = true,
   } = options;
+
+  context.uuid = uuid.current;
 
   const variables: Variables = options.variables || ({} as any);
   const client = useApolloClient(overrideClient);
@@ -235,6 +247,7 @@ export default function useQuery<
         : result.error,
       networkStatus: result.networkStatus,
       loading: result.loading,
+      operationId: uuid.current,
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
