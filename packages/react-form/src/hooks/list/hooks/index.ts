@@ -7,6 +7,7 @@ export {
   newDefaultAction,
   resetAction,
   addFieldItemAction,
+  editFieldItemAction,
   moveFieldItemAction,
   removeFieldItemAction,
   resetListAction,
