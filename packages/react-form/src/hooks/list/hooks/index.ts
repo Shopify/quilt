@@ -9,6 +9,7 @@ export {
   addFieldItemAction,
   moveFieldItemAction,
   removeFieldItemAction,
+  removeFieldItemsAction,
   resetListAction,
 } from './reducer';
 
