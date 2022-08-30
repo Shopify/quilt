@@ -4,7 +4,6 @@
 '@shopify/react-graphql': major
 '@shopify/react-graphql-universal-provider': major
 'graphql-typed': minor
-'@shopify/react-testing': patch
 ---
 
-Apollo 3
+Update apollo from version 2 to version 3.
