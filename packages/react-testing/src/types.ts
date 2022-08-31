@@ -7,8 +7,10 @@ type AllKeys<T> = T extends any ? keyof T : never;
 type PickType<T, K extends AllKeys<T>> = T extends {[k in K]?: any}
   ? T[K]
   : undefined;
-type PickTypeOf<T, K extends PropertyKey> = K extends AllKeys<T>
-  ? PickType<T, K>
+type PickTypeOf<T, K extends PropertyKey> = T extends any
+  ? K extends AllKeys<T>
+    ? PickType<T, K>
+    : never
   : never;
 
 type Merge<T> = {[K in keyof T]: PickTypeOf<T, K>} & {
