@@ -45,6 +45,6 @@
     }
   },
   "devDependencies": {
-    "@shopify/react-testing": "^4.2.0"
+    "@shopify/react-testing": "^4.2.1"
   }
 }
