@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.3
+
+### Patch Changes
+
+- [#2394](https://github.com/Shopify/quilt/pull/2394) [`5200a1547`](https://github.com/Shopify/quilt/commit/5200a1547dbd698507a2da2e0fb7b320b3a8b338) Thanks [@emileber](https://github.com/emileber)! - Export Bugsnag's Client type and Config type
+
 ## 3.0.2
 
 ### Patch Changes
