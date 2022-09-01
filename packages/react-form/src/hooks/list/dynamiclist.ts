@@ -3,6 +3,7 @@ import {FieldDictionary} from '../../types';
 import {
   addFieldItemAction,
   removeFieldItemAction,
+  removeFieldItemsAction,
   moveFieldItemAction,
 } from './hooks';
 import {useBaseList, FieldListConfig} from './baselist';
@@ -11,6 +12,7 @@ export interface DynamicList<Item extends object> {
   fields: FieldDictionary<Item>[];
   addItem(factoryArgument?: any): void;
   removeItem(index: number): void;
+  removeItems(indicesToRemove: number[]): void;
   moveItem(fromIndex: number, toIndex: number): void;
   reset(): void;
   dirty: boolean;
@@ -58,10 +60,15 @@ export function useDynamicList<Item extends object>(
     dispatch(removeFieldItemAction(index));
   }
 
+  function removeItems(indicesToRemove: number[]) {
+    dispatch(removeFieldItemsAction(indicesToRemove));
+  }
+
   return {
     fields,
     addItem,
     removeItem,
+    removeItems,
     moveItem,
     reset,
     dirty,

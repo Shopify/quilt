@@ -23,7 +23,7 @@ describe('useDynamicList', () => {
       return {price: '', optionName: '', optionValue: ''};
     };
     function DynamicListComponent(config: FieldListConfig<Variant>) {
-      const {fields, addItem, removeItem, moveItem, reset, dirty} =
+      const {fields, addItem, removeItem, removeItems, moveItem, reset, dirty} =
         useDynamicList<Variant>(config, factory);
 
       return (
@@ -56,6 +56,9 @@ describe('useDynamicList', () => {
           </ul>
           <button type="button" onClick={reset}>
             Reset
+          </button>
+          <button type="button" onClick={() => removeItems([0, 1, 2])}>
+            Remove Variants
           </button>
           <p>Dirty: {dirty.toString()}</p>
         </>
@@ -112,6 +115,33 @@ describe('useDynamicList', () => {
         .trigger('onClick', clickEvent());
 
       expect(wrapper).not.toContainReactComponent(TextField);
+    });
+
+    it('can remove multiple fields with removeFields', () => {
+      const variants: Variant[] = [
+        {price: 'A', optionName: 'A', optionValue: 'A'},
+        {price: 'B', optionName: 'B', optionValue: 'B'},
+        {price: 'C', optionName: 'C', optionValue: 'C'},
+        {price: 'D', optionName: 'D', optionValue: 'D'},
+      ];
+
+      const wrapper = mount(<DynamicListComponent list={variants} />);
+      wrapper
+        .find('button', {children: 'Remove Variants'})!
+        .trigger('onClick', clickEvent());
+
+      expect(wrapper.findAll(TextField)).toHaveLength(1);
+      const removedVariants = variants.slice(0, 2);
+      const remainingVariant = variants[3];
+      removedVariants.forEach((variant) => {
+        expect(wrapper).not.toContainReactComponent(TextField, {
+          value: variant.price,
+        });
+      });
+      expect(wrapper).toContainReactComponent(TextField, {
+        name: 'price0',
+        value: remainingVariant.price,
+      });
     });
 
     it('can add field', () => {
