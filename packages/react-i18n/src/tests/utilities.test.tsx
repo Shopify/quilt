@@ -403,6 +403,13 @@ describe('translate()', () => {
         ).toBe('2 foos');
       });
 
+      it('uses Lateral Inheritance to select the `other` rule if the value for the ideal rule is missing', () => {
+        const dictionary = {foo: {other: '{count} foos'}};
+        expect(
+          translate('foo', {replacements: {count: 1}}, dictionary, locale),
+        ).toBe('1 foos');
+      });
+
       it('handles a count of zero', () => {
         const dictionary = {
           foo: {
