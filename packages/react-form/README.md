@@ -356,7 +356,7 @@ You can also pass a more complex configuration object specifying a validation fu
 const field = useField({
   value: someRemoteData.title,
   validates: (title) => {
-    if (title.length > 3) {
+    if (title.length <= 3) {
       return 'Title must be longer than three characters';
     }
   },
@@ -370,7 +370,7 @@ const field = useField({
   value: someRemoteData.title,
   validates: [
     (title) => {
-      if (title.length > 3) {
+      if (title.length <= 3) {
         return 'Title must be longer than three characters';
       }
     },
@@ -696,6 +696,7 @@ const {
   fields,
   addItem,
   removeItem,
+  removeItems,
   moveItem,
   reset,
   dirty,
@@ -723,6 +724,7 @@ const {
   fields,
   addItem,
   removeItem,
+  removeItems,
   moveItem,
   reset,
   dirty,
@@ -752,10 +754,8 @@ const loadedCards = [
   {id: '123456', cardNumber: '4242 4242 4242 4242', cvv: '000'},
 ];
 
-const {fields, addItem, removeItem, moveItem, reset, dirty} = useDynamicList(
-  loadedCards,
-  emptyCardFactory,
-);
+const {fields, addItem, removeItem, removeItems, moveItem, reset, dirty} =
+  useDynamicList(loadedCards, emptyCardFactory);
 ```
 
 You can also pass a more complex configuration object specifying a validation dictionary like in `useList`.
@@ -791,6 +791,9 @@ Rendering your dynamic list would look like this:
       <hr />
     </div>
   ))}
+  <Button onClick={() => removeItems([0])}>
+    Remove multiple fields by index
+  </Button>
   <Button onClick={() => addItem()}>Add Card</Button>
   <Button disabled={!dirty} onClick={reset}>
     Reset

@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.2.1
+
+### Patch Changes
+
+- [#2398](https://github.com/Shopify/quilt/pull/2398) [`b37ec58b6`](https://github.com/Shopify/quilt/commit/b37ec58b6b0a9186736fa8e39fbf3f304beb2336) Thanks [@melnikov-s](https://github.com/melnikov-s)! - Fix triggerKeyPath when path resolves to a type that is unioned with an empty object type ({})
+
 ## 4.2.0
 
 ### Minor Changes

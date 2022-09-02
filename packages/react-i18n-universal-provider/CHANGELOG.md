@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.0.7
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @shopify/react-html@12.0.4
+  - @shopify/react-i18n@7.2.2
+
 ## 3.0.6
 
 ### Patch Changes

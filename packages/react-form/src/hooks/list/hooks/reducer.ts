@@ -15,6 +15,7 @@ export type ListAction<Item> =
   | EditFieldItemAction<Item>
   | MoveFieldItemAction
   | RemoveFieldItemAction
+  | RemoveFieldItemsAction
   | UpdateErrorAction<Item>
   | UpdateAction<Item, keyof Item>
   | ResetAction<Item, keyof Item>
@@ -51,6 +52,11 @@ interface ResetListAction {
 interface RemoveFieldItemAction {
   type: 'removeFieldItem';
   payload: {indexToRemove: number};
+}
+
+interface RemoveFieldItemsAction {
+  type: 'removeFieldItems';
+  payload: {indicesToRemove: number[]};
 }
 
 interface TargetedPayload<Item, Key extends keyof Item> {
@@ -139,6 +145,15 @@ export function removeFieldItemAction(
   return {
     type: 'removeFieldItem',
     payload: {indexToRemove},
+  };
+}
+
+export function removeFieldItemsAction(
+  indicesToRemove: number[],
+): RemoveFieldItemsAction {
+  return {
+    type: 'removeFieldItems',
+    payload: {indicesToRemove},
   };
 }
 
@@ -258,6 +273,14 @@ function reduceList<Item extends object>(
       return {
         ...state,
         list: newList,
+      };
+    }
+    case 'removeFieldItems': {
+      const indicesToRemove = action?.payload?.indicesToRemove ?? [];
+      const list = state.list.filter((_, i) => !indicesToRemove.includes(i));
+      return {
+        ...state,
+        list,
       };
     }
     case 'updateError': {

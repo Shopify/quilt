@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.0.6
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @shopify/react-html@12.0.4
+  - @shopify/react-async@5.0.4
+  - @shopify/react-cookie@2.0.6
+  - @shopify/react-hydrate@3.0.4
+  - @shopify/react-network@5.0.6
+
 ## 3.0.5
 
 ### Patch Changes
