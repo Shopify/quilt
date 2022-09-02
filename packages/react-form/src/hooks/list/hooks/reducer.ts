@@ -251,20 +251,14 @@ function reduceList<Item extends object>(
     case 'editFieldItem': {
       const {editedItem, index} = action.payload;
 
-      const newList = [...state.list];
-      const [item] = newList.splice(index, 1);
-
       // Don't do a full rewrite of the object, only edit data which is supplied.
-      const newItem = {
-        ...item,
-        ...editedItem,
-      };
-
-      newList[index] = newItem;
+      const list = state?.list?.map?.((item, i) =>
+        i === index ? {...item, ...editedItem} : item,
+      );
 
       return {
         ...state,
-        list: newList,
+        list,
       };
     }
     case 'removeFieldItem': {
