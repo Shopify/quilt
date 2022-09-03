@@ -12970,9 +12970,9 @@ rollup-plugin-node-externals@^2.2.0:
     find-up "^4.1.0"
 
 rollup@^2.60.1:
-  version "2.66.1"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.66.1.tgz#366b0404de353c4331d538c3ad2963934fcb4937"
-  integrity sha512-crSgLhSkLMnKr4s9iZ/1qJCplgAgrRY+igWv8KhG/AjKOJ0YX/WpmANyn8oxrw+zenF3BXWDLa7Xl/QZISH+7w==
+  version "2.79.0"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.79.0.tgz#9177992c9f09eb58c5e56cbfa641607a12b57ce2"
+  integrity sha512-x4KsrCgwQ7ZJPcFA/SUu6QVcYlO7uRLfLAy0DSA4NS2eG8japdbpM50ToH7z4iObodRYOJ0soneF0iaQRJ6zhA==
   optionalDependencies:
     fsevents "~2.3.2"
 
