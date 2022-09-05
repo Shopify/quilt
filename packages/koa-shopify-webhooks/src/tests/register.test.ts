@@ -144,7 +144,7 @@ describe('registerWebhook', () => {
       topic: 'PRODUCTS_CREATE',
       accessToken: 'some token',
       shop: 'shop1.myshopify.io',
-      apiVersion: '2020-04',
+      apiVersion: '2021-10',
       deliveryMethod: DeliveryMethod.EventBridge,
     };
 
@@ -166,7 +166,7 @@ describe('registerWebhook', () => {
 
     const [address, request] = fetchMock.lastCall()!;
     expect(address).toBe(
-      `https://${webhook.shop}/admin/api/2020-04/graphql.json`,
+      `https://${webhook.shop}/admin/api/2021-10/graphql.json`,
     );
     expect(request!.body).toBe(webhookQuery);
     expect(request!.headers).toMatchObject({
@@ -182,7 +182,7 @@ describe('registerWebhook', () => {
       topic: 'PRODUCTS_CREATE',
       accessToken: 'some token',
       shop: 'shop1.myshopify.io',
-      apiVersion: '2020-04',
+      apiVersion: '2021-10',
       deliveryMethod: DeliveryMethod.EventBridge,
       includeFields: ['id', 'title'],
     };
@@ -205,7 +205,7 @@ describe('registerWebhook', () => {
 
     const [address, request] = fetchMock.lastCall()!;
     expect(address).toBe(
-      `https://${webhook.shop}/admin/api/2020-04/graphql.json`,
+      `https://${webhook.shop}/admin/api/2021-10/graphql.json`,
     );
     expect(request!.body).toBe(webhookQuery);
     expect(request!.headers).toMatchObject({
