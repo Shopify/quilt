@@ -5,10 +5,10 @@ export const PROXY_BASE_PATH = '/graphql';
 export const GRAPHQL_PATH_PREFIX = '/admin/api';
 
 export type ApiVersion =
-  | '2020-10'
-  | '2021-01'
-  | '2021-04'
-  | '2021-07'
+  | '2021-10'
+  | '2022-01'
+  | '2022-04'
+  | '2022-07'
   | 'unstable'
   | 'unversioned'
   | (string & {});
