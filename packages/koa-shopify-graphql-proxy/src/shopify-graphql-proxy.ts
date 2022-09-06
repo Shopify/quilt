@@ -51,10 +51,12 @@ export default function shopifyGraphQLProxy(proxyOptions: ProxyOptions) {
       parseReqBody: false,
       // Setting request header here, not response. That's why we don't use ctx.set()
       // proxy middleware will grab this request header
+      /* eslint-disable @typescript-eslint/naming-convention */
       headers: {
         'Content-Type': 'application/json',
         'X-Shopify-Access-Token': accessToken,
       },
+      /* eslint-enable @typescript-eslint/naming-convention */
       proxyReqOptDecorator(proxyReqOpts) {
         delete proxyReqOpts.headers.cookie;
         delete proxyReqOpts.headers.Cookie;
