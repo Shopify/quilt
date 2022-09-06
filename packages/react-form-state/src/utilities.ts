@@ -6,10 +6,10 @@ export {isEqual};
 
 export function mapObject<Input, Output>(
   input: Input,
-  mapper: (value: any, key: keyof Input) => any,
+  mapper: (value: any, key: string & keyof Input) => any,
 ) {
   return Object.entries(input).reduce((accumulator: any, [key, value]) => {
-    accumulator[key] = mapper(value, key as keyof Input);
+    accumulator[key] = mapper(value, key as string & keyof Input);
     return accumulator;
   }, {}) as Output;
 }
