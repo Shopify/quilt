@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.3.0
+
+### Minor Changes
+
+- [#2392](https://github.com/Shopify/quilt/pull/2392) [`6ef76c3a4`](https://github.com/Shopify/quilt/commit/6ef76c3a476fbdca69374254754383813156fd2b) Thanks [@PatrickMcLennan](https://github.com/PatrickMcLennan)! - Created a 'removeItems' method for the 'useDynamicList' hook that accepts an array of indices to remove
+
 ## 2.2.2
 
 ## 2.2.1

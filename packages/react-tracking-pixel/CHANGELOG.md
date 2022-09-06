@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.0.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @shopify/react-html@12.0.5
+
 ## 5.0.4
 
 ### Patch Changes
