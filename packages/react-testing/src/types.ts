@@ -17,7 +17,9 @@ type Merge<T> = {[K in keyof T]: PickTypeOf<T, K>} & {
   [K in Exclude<AllKeys<T>, keyof T>]?: PickTypeOf<T, K>;
 };
 
-type IsArrayIndex<T extends string> = T extends `${number | string}`
+type IsArrayIndex<T extends string> = `${number}` extends T
+  ? true
+  : string extends T
   ? true
   : T extends `${infer Head}${infer Rest}`
   ? Head extends '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
