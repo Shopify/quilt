@@ -45,10 +45,12 @@ describe('NetworkUniversalProvider', () => {
   });
 
   it('renders a NetworkUniversalContext', () => {
+    /* eslint-disable @typescript-eslint/naming-convention */
     const headers = {
       'x-some-header-1': 'header-value-1',
       'x-some-header-2': 'header-value-2',
     };
+    /* eslint-enable @typescript-eslint/naming-convention */
     const wrapper = mount(
       <NetworkContext.Provider value={new NetworkManager({headers})}>
         <NetworkUniversalProvider headers={headerNames(headers)}>
@@ -68,10 +70,12 @@ describe('NetworkUniversalProvider', () => {
   });
 
   it('provides the same network details on both server and client-side renders', async () => {
+    /* eslint-disable @typescript-eslint/naming-convention */
     const headers = {
       'x-some-header-1': 'header-value-1',
       'x-some-header-2': 'header-value-2',
     };
+    /* eslint-enable @typescript-eslint/naming-convention */
     const htmlManager = new HtmlManager();
 
     await extract(<NetworkUniversalProvider headers={headerNames(headers)} />, {
@@ -103,10 +107,12 @@ describe('NetworkUniversalProvider', () => {
 
   describe('errors', () => {
     it('throws an error when NetworkContext.Provider is missing', async () => {
+      /* eslint-disable @typescript-eslint/naming-convention */
       const headers = {
         'x-some-header-1': 'header-value-1',
         'x-some-header-2': 'header-value-2',
       };
+      /* eslint-enable @typescript-eslint/naming-convention */
       const htmlManager = new HtmlManager();
 
       await expect(
@@ -125,10 +131,12 @@ describe('NetworkUniversalProvider', () => {
     });
 
     it('does not throw an error when NetworkUniversalProvider is missing', async () => {
+      /* eslint-disable @typescript-eslint/naming-convention */
       const headers = {
         'x-some-header-1': 'header-value-1',
         'x-some-header-2': 'header-value-2',
       };
+      /* eslint-enable @typescript-eslint/naming-convention */
       const htmlManager = new HtmlManager();
       await extract(<div />, {
         decorate: (element: React.ReactNode) => (

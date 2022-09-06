@@ -172,9 +172,11 @@ describe('koa-metrics', () => {
       const queuingTime = 100;
 
       const ctx = createMockContext({
+        /* eslint-disable @typescript-eslint/naming-convention */
         headers: {
           'X-Request-Start': `t=${queuingTime}`,
         },
+        /* eslint-enable @typescript-eslint/naming-convention */
       });
 
       await metricsMiddleware(ctx, () => {
@@ -259,9 +261,11 @@ describe('koa-metrics', () => {
         skipInstrumentation: true,
       });
       const ctx = createMockContext({
+        /* eslint-disable @typescript-eslint/naming-convention */
         headers: {
           'X-Request-Start': '100',
         },
+        /* eslint-enable @typescript-eslint/naming-convention */
       });
 
       await metricsMiddleware(ctx, () => {
