@@ -63,7 +63,7 @@ export function withNavigation(
   const {pushState, replaceState} = window.history;
   let currentPathname: string | undefined = window.location.pathname;
 
-  const handlePushOrReplace = (url: string | null | undefined) => {
+  const handlePushOrReplace = (url: string | URL | null | undefined) => {
     const pathname = url
       ? new URL(url, window.location.href).pathname
       : undefined;
