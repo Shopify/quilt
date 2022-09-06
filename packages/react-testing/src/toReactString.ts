@@ -2,7 +2,7 @@ import {stringify} from 'jest-matcher-utils';
 
 import {DebugOptions, Node} from './types';
 
-export function toReactString<Props>(
+export function toReactString<Props extends {} | unknown>(
   node: Node<Props>,
   options: DebugOptions = {},
   level = 0,
@@ -16,7 +16,7 @@ export function toReactString<Props>(
 
   const name = nodeName(node);
   const indent = '  '.repeat(level);
-  const props = Object.keys(node.props)
+  const props = Object.keys(node.props as {})
     // we always filter out children no matter what, but unless allProps option
     // is present we will also filter out insigificant props
     .filter((key) =>

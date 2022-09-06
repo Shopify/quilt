@@ -70,7 +70,10 @@ export default class FormState<
   static List = List;
   static Nested = Nested;
 
-  static getDerivedStateFromProps<T>(newProps: Props<T>, oldState: State<T>) {
+  static getDerivedStateFromProps<T extends object>(
+    newProps: Props<T>,
+    oldState: State<T>,
+  ) {
     const {
       initialValues,
       onInitialValuesChange,
@@ -409,7 +412,7 @@ export default class FormState<
   }
 }
 
-function fieldsWithErrors<Fields>(
+function fieldsWithErrors<Fields extends object>(
   fields: Fields,
   errors: RemoteError[],
 ): Fields {
@@ -436,7 +439,7 @@ function fieldsWithErrors<Fields>(
   });
 }
 
-function reconcileFormState<Fields>(
+function reconcileFormState<Fields extends object>(
   values: Fields,
   oldState: State<Fields>,
   externalErrors: RemoteError[] = [],
@@ -467,7 +470,7 @@ function reconcileFormState<Fields>(
   };
 }
 
-function createFormState<Fields>(
+function createFormState<Fields extends object>(
   values: Fields,
   externalErrors: RemoteError[] = [],
 ): State<Fields> {

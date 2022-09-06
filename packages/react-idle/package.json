@@ -24,8 +24,7 @@
     "node": "^14.17.0 || >=16.0.0"
   },
   "dependencies": {
-    "@shopify/async": "^4.0.1",
-    "@shopify/useful-types": "^5.1.1"
+    "@shopify/async": "^4.0.1"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <19.0.0"

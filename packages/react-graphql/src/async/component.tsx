@@ -5,7 +5,11 @@ import {AsyncQueryComponentType, QueryProps, VariableOptions} from '../types';
 
 import {Options, createAsyncQuery} from './query';
 
-export function createAsyncQueryComponent<Data, Variables, DeepPartial>(
+export function createAsyncQueryComponent<
+  Data extends {},
+  Variables extends {},
+  DeepPartial extends {},
+>(
   options: Options<Data, Variables, DeepPartial>,
 ): AsyncQueryComponentType<Data, Variables, DeepPartial> {
   const asyncQuery = createAsyncQuery(options);

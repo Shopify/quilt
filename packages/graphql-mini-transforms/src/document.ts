@@ -68,7 +68,11 @@ export function extractImports(rawSource: string) {
   return {imports: [...imports], source};
 }
 
-export function toSimpleDocument<Data, Variables, DeepPartial>(
+export function toSimpleDocument<
+  Data extends {[key: string]: unknown},
+  Variables extends {[key: string]: unknown},
+  DeepPartial extends {[key: string]: unknown},
+>(
   document: DocumentNode<Data, Variables, DeepPartial>,
 ): SimpleDocument<Data, Variables, DeepPartial> {
   return {

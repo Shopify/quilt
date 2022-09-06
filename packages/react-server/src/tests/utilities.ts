@@ -14,7 +14,7 @@ export class TestRack {
   }
 
   async mount(
-    mountFunction: ({port: number, ip: string}) => Server,
+    mountFunction: ({port, ip}: {port: number; ip: string}) => Server,
     options: RequestInit = {},
   ) {
     const port = await getPort();

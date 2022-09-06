@@ -199,7 +199,7 @@ export type ReactInstance =
 
 export type Predicate = (node: Node<unknown>) => boolean;
 
-export interface Node<Props> {
+export interface Node<Props extends {} | unknown> {
   readonly props: Props;
   readonly type: string | React.ComponentType<any> | null;
   readonly isDOM: boolean;

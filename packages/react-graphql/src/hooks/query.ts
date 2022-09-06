@@ -24,9 +24,9 @@ const {
 } = Object;
 
 export default function useQuery<
-  Data = any,
-  Variables = OperationVariables,
-  DeepPartial = {},
+  Data extends {} = any,
+  Variables extends OperationVariables = OperationVariables,
+  DeepPartial extends {} = {},
 >(
   queryOrAsyncQuery:
     | DocumentNode<Data, Variables, DeepPartial>
