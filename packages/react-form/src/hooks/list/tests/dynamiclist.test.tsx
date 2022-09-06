@@ -300,6 +300,11 @@ describe('useDynamicList', () => {
           name: 'price0',
           value: 'editedValue',
         });
+
+        expect(wrapper).toContainReactComponent(TextField, {
+          name: 'price0',
+          value: variants[0].price,
+        });
       });
 
       it('can reset a dynamic list after removing a field', () => {

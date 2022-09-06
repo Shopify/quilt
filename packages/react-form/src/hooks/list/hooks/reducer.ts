@@ -12,7 +12,7 @@ import {mapObject} from '../../../utilities';
 export type ListAction<Item> =
   | ReinitializeAction<Item>
   | AddFieldItemAction<Item>
-  | EditFieldItemAction<Item>
+  | EditFieldItemAction<FieldStates<object>>
   | MoveFieldItemAction
   | RemoveFieldItemAction
   | RemoveFieldItemsAction
@@ -32,7 +32,7 @@ interface AddFieldItemAction<Item> {
   payload: {list: Item[]};
 }
 
-interface EditFieldItemAction<Item> {
+interface EditFieldItemAction<Item extends object> {
   type: 'editFieldItem';
   payload: {
     index: number;
@@ -116,7 +116,7 @@ export function addFieldItemAction<Item>(
   };
 }
 
-export function editFieldItemAction<Item>(
+export function editFieldItemAction<Item extends object>(
   editedItem: Item,
   index: number,
 ): EditFieldItemAction<Item> {
