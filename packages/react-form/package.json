@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-form",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "license": "MIT",
   "description": "Manage React forms tersely and safely-typed with no magic using React hooks",
   "main": "index.js",

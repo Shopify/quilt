@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.2.2
+
+### Patch Changes
+
+- [#2404](https://github.com/Shopify/quilt/pull/2404) [`afdf2f9dd`](https://github.com/Shopify/quilt/commit/afdf2f9dd84f1f5a416d804efa5d459935a9d178) Thanks [@melnikov-s](https://github.com/melnikov-s)! - TriggerKeypath now fails typecheck on invalid array indices
+
 ## 4.2.1
 
 ### Patch Changes

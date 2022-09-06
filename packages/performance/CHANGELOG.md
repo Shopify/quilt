@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.2
+
+### Patch Changes
+
+- [#2408](https://github.com/Shopify/quilt/pull/2408) [`2094cb39a`](https://github.com/Shopify/quilt/commit/2094cb39a674d38a19394b79bf59c11a65ff9e15) Thanks [@BPScott](https://github.com/BPScott)! - Internal typing adjustments as a result of updating Typescript
+
 ## 3.0.1
 
 ### Patch Changes
