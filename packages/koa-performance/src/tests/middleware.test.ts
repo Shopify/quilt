@@ -1,5 +1,5 @@
-import {createMockContext} from '@shopify/jest-koa-mocks';
-import {StatusCode, Method, Header} from '@shopify/network';
+import { createMockContext } from '@shopify/jest-koa-mocks';
+import { StatusCode, Method, Header } from '@shopify/network';
 import {
   LifecycleEvent,
   EventType,
@@ -10,7 +10,7 @@ import {
 } from '@shopify/performance';
 import withEnv from '@shopify/with-env';
 
-import {clientPerformanceMetrics, Metrics} from '../middleware';
+import { clientPerformanceMetrics, Metrics } from '../middleware';
 
 jest.mock('@shopify/statsd', () => {
   return {
@@ -28,7 +28,7 @@ const config = {
   statsdPort: 3000,
   prefix: 'tests',
   development: false,
-  logger: {log: jest.fn()},
+  logger: { log: jest.fn() },
 };
 
 const StatsDClient = jest.requireMock('@shopify/statsd').StatsDClient;
@@ -162,7 +162,7 @@ describe('client metrics middleware', () => {
     });
 
     it('includes additionalTags for each metric', async () => {
-      const additionalTags = {fooBar: true};
+      const additionalTags = { fooBar: true };
       const context = createMockContext({
         method: Method.Post,
         requestBody: createBody({
@@ -232,7 +232,7 @@ describe('client metrics middleware', () => {
       expect(StatsDClient.distributionSpy).not.toHaveBeenCalledWith(
         expect.any(String),
         expect.any(Number),
-        expect.objectContaining({locale: expect.anything()}),
+        expect.objectContaining({ locale: expect.anything() }),
       );
     });
   });
@@ -438,7 +438,7 @@ describe('client metrics middleware', () => {
     });
 
     it('attaches custom tags from the config', async () => {
-      const additionalTags = {fooBar: 'baz'};
+      const additionalTags = { fooBar: 'baz' };
       const spy = jest.fn(() => additionalTags);
       const navigation = createNavigation();
 
@@ -465,7 +465,7 @@ describe('client metrics middleware', () => {
     });
 
     it('sends custom metrics from the config', async () => {
-      const additionalMetric = {name: 'navigation_metric', value: 123};
+      const additionalMetric = { name: 'navigation_metric', value: 123 };
       const spy = jest.fn(() => [additionalMetric]);
       const navigation = createNavigation();
 
@@ -495,7 +495,7 @@ describe('client metrics middleware', () => {
       const additionalMetric = {
         name: 'navigation_metric',
         value: 123,
-        tags: {name: 'custom tag'},
+        tags: { name: 'custom tag' },
       };
       const navigation = createNavigation();
 
@@ -520,10 +520,14 @@ describe('client metrics middleware', () => {
       );
     });
 
-    it('attaches anomalous:true tag if anomalousNavigationDurationThreshold is exceeded', async () => {
-      const anomalousNavigationDurationThreshold = 10000;
+    it('attaches anomalous:true tag if anomalousNavigationThreshold for duration is exceeded', async () => {
+      const anomalousNavigationThreshold = {
+        duration: 30_000,
+        downloadSize: 1_000_000,
+      };
+
       const navigation = createNavigation({
-        duration: anomalousNavigationDurationThreshold + 1,
+        duration: anomalousNavigationThreshold.duration + 1,
       });
 
       const context = createMockContext({
@@ -536,21 +540,25 @@ describe('client metrics middleware', () => {
       await withEnv('production', async () => {
         await clientPerformanceMetrics({
           ...config,
-          anomalousNavigationDurationThreshold,
+          anomalousNavigationThreshold,
         })(context, () => Promise.resolve());
       });
 
       expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
         'navigation_complete',
         expect.any(Number),
-        expect.objectContaining({anomalous: true}),
+        expect.objectContaining({ anomalous: true }),
       );
     });
 
-    it('attaches anomalous:false tag if anomalousNavigationDurationThreshold is not exceeded', async () => {
-      const anomalousNavigationDurationThreshold = 10000;
+    it('attaches anomalous:false tag if anomalousNavigationThreshold for duration is not exceeded', async () => {
+      const anomalousNavigationThreshold = {
+        duration: 30_000,
+        downloadSize: 1_000_000,
+      };
+
       const navigation = createNavigation({
-        duration: anomalousNavigationDurationThreshold - 1,
+        duration: anomalousNavigationThreshold.duration - 1,
       });
 
       const context = createMockContext({
@@ -563,16 +571,115 @@ describe('client metrics middleware', () => {
       await withEnv('production', async () => {
         await clientPerformanceMetrics({
           ...config,
-          anomalousNavigationDurationThreshold,
+          anomalousNavigationThreshold,
         })(context, () => Promise.resolve());
       });
 
       expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
         'navigation_complete',
         expect.any(Number),
-        expect.objectContaining({anomalous: false}),
+        expect.objectContaining({ anomalous: false }),
       );
     });
+
+    it('attaches anomalous:true tag if anomalousNavigationThreshold for downloadSize is exceeded', async () => {
+      const anomalousNavigationThreshold = {
+        duration: 30_000,
+        downloadSize: 1_000_000,
+      };
+
+      const navigation = createNavigation({
+        events: [
+          {
+            type: EventType.ScriptDownload,
+            start: 0,
+            duration: anomalousNavigationThreshold.duration - 1,
+            metadata: {
+              name: 'https://some-page/assets/app.js',
+              size: anomalousNavigationThreshold.downloadSize + 1,
+              cached: false,
+            },
+          },
+        ],
+      });
+
+      const context = createMockContext({
+        method: Method.Post,
+        requestBody: createBody({
+          navigations: [navigation],
+        }),
+      });
+
+      await withEnv('production', async () => {
+        await clientPerformanceMetrics({
+          ...config,
+          anomalousNavigationThreshold,
+        })(context, () => Promise.resolve());
+      });
+
+      expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
+        'navigation_download_size',
+        expect.any(Number),
+        expect.objectContaining({ anomalous: true }),
+      );
+
+      expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
+        'navigation_complete',
+        expect.any(Number),
+        expect.objectContaining({ anomalous: false }),
+      );
+    });
+
+    it.todo(
+      'attaches anomalous:false tag if anomalousNavigationThreshold for downloadSize is not exceeded',
+      async () => {
+        const anomalousNavigationThreshold = {
+          duration: 30_000,
+          downloadSize: 1_000_000,
+        };
+
+        const navigation = createNavigation({
+          events: [
+            {
+              type: EventType.ScriptDownload,
+              start: 0,
+              duration: anomalousNavigationThreshold.duration + 1,
+              metadata: {
+                name: 'https://some-page/assets/app.js',
+                size: anomalousNavigationThreshold.downloadSize - 1,
+                cached: false,
+              },
+            },
+          ],
+        });
+
+        const context = createMockContext({
+          method: Method.Post,
+          requestBody: createBody({
+            navigations: [navigation],
+          }),
+        });
+
+        await withEnv('production', async () => {
+          await clientPerformanceMetrics({
+            ...config,
+            anomalousNavigationThreshold,
+          })(context, () => Promise.resolve());
+        });
+
+        expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
+          'navigation_download_size',
+          expect.any(Number),
+          expect.objectContaining({ anomalous: false }),
+        );
+
+        expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
+          'navigation_complete',
+          expect.any(Number),
+          expect.objectContaining({ anomalous: true }),
+        );
+      },
+    );
   });
 
   describe('development', () => {
@@ -585,7 +692,7 @@ describe('client metrics middleware', () => {
       });
 
       await withEnv('development', async () => {
-        await clientPerformanceMetrics({...config, development: true})(
+        await clientPerformanceMetrics({ ...config, development: true })(
           context,
           () => Promise.resolve(),
         );
@@ -603,7 +710,7 @@ describe('client metrics middleware', () => {
       });
 
       await withEnv('development', async () => {
-        await clientPerformanceMetrics({...config, development: true})(
+        await clientPerformanceMetrics({ ...config, development: true })(
           context,
           () => Promise.resolve(),
         );
@@ -616,10 +723,10 @@ describe('client metrics middleware', () => {
 
 type DeepPartial<T> = {
   [K in keyof T]?: T[K] extends any[]
-    ? T[K]
-    : T[K] extends object
-    ? DeepPartial<T[K]>
-    : T[K];
+  ? T[K]
+  : T[K] extends object
+  ? DeepPartial<T[K]>
+  : T[K];
 };
 
 function createBody({
@@ -659,7 +766,7 @@ function createLifecycleEvent(
 function createNavigation(
   navigation: DeepPartial<NavigationDefinition> = {},
   metadata: Partial<NavigationMetadata> = {},
-): {details: NavigationDefinition; metadata: NavigationMetadata} {
+): { details: NavigationDefinition; metadata: NavigationMetadata } {
   return {
     details: {
       target: '/some-page',
