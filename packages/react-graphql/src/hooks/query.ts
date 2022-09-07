@@ -147,7 +147,7 @@ export default function useQuery<
         queryObservable?.resetLastResults();
         subscribe();
       } finally {
-        Object.assign(queryObservable, {lastError, lastResult});
+        Object.assign(queryObservable || {}, {lastError, lastResult});
       }
 
       if (!hasOwnProperty.call(error, 'graphQLErrors')) {

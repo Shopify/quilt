@@ -280,6 +280,7 @@ describe('asyncBabelPlugin()', () => {
       `);
 
       const packages = {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         'async-package': ['createAsync'],
       };
 

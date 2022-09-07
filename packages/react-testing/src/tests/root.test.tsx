@@ -51,6 +51,7 @@ describe('Root', () => {
         type: 'div',
         tag: Tag.HostComponent,
         props: {
+          // eslint-disable-next-line @typescript-eslint/naming-convention
           'aria-label': 'Hello',
           onClick: (name: string) => `Nicely done, ${name}!`,
         },

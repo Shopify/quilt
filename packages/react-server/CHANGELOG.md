@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.0.7
+
+### Patch Changes
+
+- Updated dependencies [[`2094cb39a`](https://github.com/Shopify/quilt/commit/2094cb39a674d38a19394b79bf59c11a65ff9e15)]:
+  - @shopify/react-async@5.0.5
+  - @shopify/react-html@12.0.5
+  - @shopify/react-hydrate@3.0.5
+  - @shopify/react-network@5.0.7
+  - @shopify/react-cookie@2.0.7
+
 ## 3.0.6
 
 ### Patch Changes

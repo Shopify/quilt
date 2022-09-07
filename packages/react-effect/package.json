@@ -45,6 +45,9 @@
     "react": ">=16.8.0 <19.0.0",
     "react-dom": ">=16.8.0 <19.0.0"
   },
+  "devDependencies": {
+    "@shopify/jest-dom-mocks": "^4.0.2"
+  },
   "module": "index.mjs",
   "esnext": "index.esnext",
   "exports": {

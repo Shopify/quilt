@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     name: 'Test (Ruby ${{ matrix.ruby-version }})'
     strategy:
+      fail-fast: false
       matrix:
         ruby-version: ['3.1']
 
