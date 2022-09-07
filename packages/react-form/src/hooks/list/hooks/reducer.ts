@@ -12,6 +12,7 @@ import {mapObject} from '../../../utilities';
 export type ListAction<Item> =
   | ReinitializeAction<Item>
   | AddFieldItemAction<Item>
+  | EditFieldItemAction<FieldStates<object>>
   | MoveFieldItemAction
   | RemoveFieldItemAction
   | RemoveFieldItemsAction
@@ -29,6 +30,14 @@ interface ReinitializeAction<Item> {
 interface AddFieldItemAction<Item> {
   type: 'addFieldItem';
   payload: {list: Item[]};
+}
+
+interface EditFieldItemAction<Item extends object> {
+  type: 'editFieldItem';
+  payload: {
+    index: number;
+    editedItem: Item;
+  };
 }
 
 interface MoveFieldItemAction {
@@ -104,6 +113,19 @@ export function addFieldItemAction<Item>(
   return {
     type: 'addFieldItem',
     payload: {list},
+  };
+}
+
+export function editFieldItemAction<Item extends object>(
+  editedItem: Item,
+  index: number,
+): EditFieldItemAction<Item> {
+  return {
+    type: 'editFieldItem',
+    payload: {
+      editedItem,
+      index,
+    },
   };
 }
 
@@ -224,6 +246,19 @@ function reduceList<Item extends object>(
       return {
         ...state,
         list: [...state.list, ...action.payload.list.map(initialListItemState)],
+      };
+    }
+    case 'editFieldItem': {
+      const {editedItem, index} = action.payload;
+
+      // Don't do a full rewrite of the object, only edit data which is supplied.
+      const list = state?.list?.map?.((item, i) =>
+        i === index ? {...item, ...editedItem} : item,
+      );
+
+      return {
+        ...state,
+        list,
       };
     }
     case 'removeFieldItem': {
