@@ -1,7 +1,7 @@
-import {Context} from 'koa';
+import { Context } from 'koa';
 import compose from 'koa-compose';
 import bodyParser from 'koa-bodyparser';
-import {StatusCode, Header} from '@shopify/network';
+import { StatusCode, Header } from '@shopify/network';
 import {
   EventType,
   Navigation,
@@ -9,10 +9,10 @@ import {
   NavigationDefinition,
   NavigationMetadata,
 } from '@shopify/performance';
-import {StatsDClient, Logger} from '@shopify/statsd';
+import { StatsDClient, Logger } from '@shopify/statsd';
 
-import {LifecycleMetric, NavigationMetric} from './enums';
-import {BrowserConnection} from './types';
+import { LifecycleMetric, NavigationMetric } from './enums';
+import { BrowserConnection } from './types';
 
 interface Tags {
   [key: string]: string | number | boolean;
@@ -24,6 +24,7 @@ export interface Options {
   statsdHost?: string;
   statsdPort?: number;
   anomalousNavigationDurationThreshold?: number;
+  anomalousNavigationDownloadSizeThreshold?: number;
   logger?: Logger;
   additionalTags?(
     metricsBody: Metrics,
@@ -60,6 +61,7 @@ export function clientPerformanceMetrics({
   development = process.env.NODE_ENV === 'development',
   logger,
   anomalousNavigationDurationThreshold,
+  anomalousNavigationDownloadSizeThreshold,
   additionalTags: getAdditionalTags,
   additionalNavigationTags: getAdditionalNavigationTags,
   additionalNavigationMetrics: getAdditionalNavigationMetrics,
@@ -69,7 +71,7 @@ export function clientPerformanceMetrics({
     async function clientPerformanceMetricsMiddleware(ctx: Context) {
       const statsLogger: Logger = logger || ctx.state.logger || console;
 
-      const {body} = ctx.request as any;
+      const { body } = ctx.request as any;
       if (!isClientMetricsBody(body)) {
         ctx.status = StatusCode.UnprocessableEntity;
         return;
@@ -84,12 +86,12 @@ export function clientPerformanceMetrics({
       });
 
       const userAgent = ctx.get(Header.UserAgent);
-      const {connection, events, navigations, locale} = body;
+      const { connection, events, navigations, locale } = body;
 
       const metrics: {
         name: string;
         value: any;
-        tags: {[key: string]: string | undefined | null};
+        tags: { [key: string]: boolean | string | undefined | null };
       }[] = [];
 
       const additionalTags = getAdditionalTags
@@ -98,7 +100,7 @@ export function clientPerformanceMetrics({
 
       const tags = {
         browserConnectionType: connection.effectiveType,
-        ...(locale ? {locale} : {}),
+        ...(locale ? { locale } : {}),
         ...additionalTags,
       };
 
@@ -127,7 +129,7 @@ export function clientPerformanceMetrics({
         });
       }
 
-      for (const {details, metadata} of navigations) {
+      for (const { details, metadata } of navigations) {
         const navigation = new Navigation(details, metadata);
 
         const additionalNavigationTags = getAdditionalNavigationTags
@@ -137,9 +139,9 @@ export function clientPerformanceMetrics({
         const anomalousNavigationDurationTag =
           anomalousNavigationDurationThreshold
             ? getAnomalousNavigationDurationTag(
-                navigation,
-                anomalousNavigationDurationThreshold,
-              )
+              navigation,
+              anomalousNavigationDurationThreshold,
+            )
             : {};
 
         const navigationTags = {
@@ -164,13 +166,19 @@ export function clientPerformanceMetrics({
           tags: navigationTags,
         });
 
-        const {totalDownloadSize, cacheEffectiveness} = navigation;
+        const { totalDownloadSize, cacheEffectiveness } = navigation;
 
         if (totalDownloadSize != null) {
           metrics.push({
             name: NavigationMetric.DownloadSize,
             value: totalDownloadSize,
-            tags: navigationTags,
+            tags: {
+              ...navigationTags,
+              ...(anomalousNavigationDownloadSizeThreshold && {
+                anomalous:
+                  totalDownloadSize > anomalousNavigationDownloadSizeThreshold,
+              }),
+            },
           });
         }
 
@@ -185,17 +193,17 @@ export function clientPerformanceMetrics({
         if (getAdditionalNavigationMetrics) {
           metrics.push(
             ...getAdditionalNavigationMetrics(navigation, ctx).map(
-              ({name, value, tags = {}}) => ({
+              ({ name, value, tags = {} }) => ({
                 name,
                 value,
-                tags: {...navigationTags, ...tags},
+                tags: { ...navigationTags, ...tags },
               }),
             ),
           );
         }
       }
 
-      const distributions = metrics.map(({name, value, tags}) => {
+      const distributions = metrics.map(({ name, value, tags }) => {
         if (development) {
           statsLogger.log(`Skipping sending metric in dev ${name}: ${value}`);
         } else {
