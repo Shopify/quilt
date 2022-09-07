@@ -12,7 +12,6 @@ import {operationNameFromFindOptions} from './utilities';
 import {GraphQLMock, MockRequest, FindOptions} from './types';
 
 export interface Options {
-  possibleTypes?: InMemoryCacheConfig['possibleTypes'];
   cacheOptions?: InMemoryCacheConfig;
   links?: ApolloLink[];
   assumeImmutableResults?: boolean;
@@ -32,12 +31,9 @@ export class GraphQL {
 
   constructor(
     mock: GraphQLMock | undefined,
-    {possibleTypes = {}, cacheOptions = {}, links = []}: Options = {},
+    {cacheOptions = {}, links = []}: Options = {},
   ) {
-    const cache = new InMemoryCache({
-      possibleTypes,
-      ...cacheOptions,
-    });
+    const cache = new InMemoryCache(cacheOptions);
 
     this.mockLink = new MockLink(mock || defaultGraphQLMock);
     const link = ApolloLink.from([
