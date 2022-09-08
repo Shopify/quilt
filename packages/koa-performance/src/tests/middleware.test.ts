@@ -521,13 +521,10 @@ describe('client metrics middleware', () => {
     });
 
     it('attaches anomalous:true tag if anomalousNavigationThreshold for duration is exceeded', async () => {
-      const anomalousNavigationThreshold = {
-        duration: 30_000,
-        downloadSize: 1_000_000,
-      };
+      const anomalousNavigationDurationThreshold = 30_000;
 
       const navigation = createNavigation({
-        duration: anomalousNavigationThreshold.duration + 1,
+        duration: anomalousNavigationDurationThreshold + 1,
       });
 
       const context = createMockContext({
@@ -540,7 +537,7 @@ describe('client metrics middleware', () => {
       await withEnv('production', async () => {
         await clientPerformanceMetrics({
           ...config,
-          anomalousNavigationThreshold,
+          anomalousNavigationDurationThreshold,
         })(context, () => Promise.resolve());
       });
 
@@ -552,13 +549,10 @@ describe('client metrics middleware', () => {
     });
 
     it('attaches anomalous:false tag if anomalousNavigationThreshold for duration is not exceeded', async () => {
-      const anomalousNavigationThreshold = {
-        duration: 30_000,
-        downloadSize: 1_000_000,
-      };
+      const anomalousNavigationDurationThreshold = 30_000;
 
       const navigation = createNavigation({
-        duration: anomalousNavigationThreshold.duration - 1,
+        duration: anomalousNavigationDurationThreshold - 1,
       });
 
       const context = createMockContext({
@@ -571,7 +565,7 @@ describe('client metrics middleware', () => {
       await withEnv('production', async () => {
         await clientPerformanceMetrics({
           ...config,
-          anomalousNavigationThreshold,
+          anomalousNavigationDurationThreshold,
         })(context, () => Promise.resolve());
       });
 
@@ -583,20 +577,18 @@ describe('client metrics middleware', () => {
     });
 
     it('attaches anomalous:true tag if anomalousNavigationThreshold for downloadSize is exceeded', async () => {
-      const anomalousNavigationThreshold = {
-        duration: 30_000,
-        downloadSize: 1_000_000,
-      };
+      const anomalousNavigationDurationThreshold = 1_000_000;
+      const anomalousNavigationDownloadSizeThreshold = 30_000;
 
       const navigation = createNavigation({
         events: [
           {
             type: EventType.ScriptDownload,
             start: 0,
-            duration: anomalousNavigationThreshold.duration - 1,
+            duration: anomalousNavigationDurationThreshold - 1,
             metadata: {
               name: 'https://some-page/assets/app.js',
-              size: anomalousNavigationThreshold.downloadSize + 1,
+              size: anomalousNavigationDownloadSizeThreshold + 1,
               cached: false,
             },
           },
@@ -613,7 +605,8 @@ describe('client metrics middleware', () => {
       await withEnv('production', async () => {
         await clientPerformanceMetrics({
           ...config,
-          anomalousNavigationThreshold,
+          anomalousNavigationDurationThreshold,
+          anomalousNavigationDownloadSizeThreshold,
         })(context, () => Promise.resolve());
       });
 
@@ -625,20 +618,18 @@ describe('client metrics middleware', () => {
     });
 
     it('attaches anomalous:false tag if anomalousNavigationThreshold for downloadSize is not exceeded', async () => {
-      const anomalousNavigationThreshold = {
-        duration: 30_000,
-        downloadSize: 1_000_000,
-      };
+      const anomalousNavigationDurationThreshold = 1_000_000;
+      const anomalousNavigationDownloadSizeThreshold = 30_000;
 
       const navigation = createNavigation({
         events: [
           {
             type: EventType.ScriptDownload,
             start: 0,
-            duration: anomalousNavigationThreshold.duration + 1,
+            duration: anomalousNavigationDurationThreshold + 1,
             metadata: {
               name: 'https://some-page/assets/app.js',
-              size: anomalousNavigationThreshold.downloadSize - 1,
+              size: anomalousNavigationDownloadSizeThreshold - 1,
               cached: false,
             },
           },
@@ -655,7 +646,8 @@ describe('client metrics middleware', () => {
       await withEnv('production', async () => {
         await clientPerformanceMetrics({
           ...config,
-          anomalousNavigationThreshold,
+          anomalousNavigationDurationThreshold,
+          anomalousNavigationDownloadSizeThreshold,
         })(context, () => Promise.resolve());
       });
 

@@ -23,10 +23,8 @@ export interface Options {
   development?: boolean;
   statsdHost?: string;
   statsdPort?: number;
-  anomalousNavigationThreshold?: {
-    duration?: number;
-    downloadSize?: number;
-  };
+  anomalousNavigationDurationThreshold?: number;
+  anomalousNavigationDownloadSizeThreshold?: number;
   logger?: Logger;
   additionalTags?(
     metricsBody: Metrics,
@@ -62,7 +60,8 @@ export function clientPerformanceMetrics({
   // eslint-disable-next-line no-process-env
   development = process.env.NODE_ENV === 'development',
   logger,
-  anomalousNavigationThreshold,
+  anomalousNavigationDurationThreshold,
+  anomalousNavigationDownloadSizeThreshold,
   additionalTags: getAdditionalTags,
   additionalNavigationTags: getAdditionalNavigationTags,
   additionalNavigationMetrics: getAdditionalNavigationMetrics,
@@ -138,10 +137,10 @@ export function clientPerformanceMetrics({
           : {};
 
         const anomalousNavigationDurationTag =
-          anomalousNavigationThreshold?.duration
+          anomalousNavigationDurationThreshold
             ? getAnomalousNavigationDurationTag(
                 navigation,
-                anomalousNavigationThreshold.duration,
+                anomalousNavigationDurationThreshold,
               )
             : {};
 
@@ -175,9 +174,9 @@ export function clientPerformanceMetrics({
             value: totalDownloadSize,
             tags: {
               ...navigationTags,
-              ...(anomalousNavigationThreshold?.downloadSize && {
+              ...(anomalousNavigationDownloadSizeThreshold && {
                 anomalous:
-                  totalDownloadSize > anomalousNavigationThreshold.downloadSize,
+                  totalDownloadSize > anomalousNavigationDownloadSizeThreshold,
               }),
             },
           });
