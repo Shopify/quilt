@@ -577,7 +577,7 @@ describe('client metrics middleware', () => {
     });
 
     it('attaches anomalous:true tag if anomalousNavigationThreshold for downloadSize is exceeded', async () => {
-      const anomalousNavigationDurationThreshold = 1_000_000;
+      const anomalousNavigationDurationThreshold = 1_500_000;
       const anomalousNavigationDownloadSizeThreshold = 30_000;
 
       const navigation = createNavigation({
@@ -618,7 +618,7 @@ describe('client metrics middleware', () => {
     });
 
     it('attaches anomalous:false tag if anomalousNavigationThreshold for downloadSize is not exceeded', async () => {
-      const anomalousNavigationDurationThreshold = 1_000_000;
+      const anomalousNavigationDurationThreshold = 1_500_000;
       const anomalousNavigationDownloadSizeThreshold = 30_000;
 
       const navigation = createNavigation({
