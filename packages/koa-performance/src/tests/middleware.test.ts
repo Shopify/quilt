@@ -630,56 +630,53 @@ describe('client metrics middleware', () => {
       );
     });
 
-    it.todo(
-      'attaches anomalous:false tag if anomalousNavigationThreshold for downloadSize is not exceeded',
-      async () => {
-        const anomalousNavigationThreshold = {
-          duration: 30_000,
-          downloadSize: 1_000_000,
-        };
+    it('attaches anomalous:false tag if anomalousNavigationThreshold for downloadSize is not exceeded', async () => {
+      const anomalousNavigationThreshold = {
+        duration: 30_000,
+        downloadSize: 1_000_000,
+      };
 
-        const navigation = createNavigation({
-          events: [
-            {
-              type: EventType.ScriptDownload,
-              start: 0,
-              duration: anomalousNavigationThreshold.duration + 1,
-              metadata: {
-                name: 'https://some-page/assets/app.js',
-                size: anomalousNavigationThreshold.downloadSize - 1,
-                cached: false,
-              },
+      const navigation = createNavigation({
+        events: [
+          {
+            type: EventType.ScriptDownload,
+            start: 0,
+            duration: anomalousNavigationThreshold.duration + 1,
+            metadata: {
+              name: 'https://some-page/assets/app.js',
+              size: anomalousNavigationThreshold.downloadSize - 1,
+              cached: false,
             },
-          ],
-        });
+          },
+        ],
+      });
 
-        const context = createMockContext({
-          method: Method.Post,
-          requestBody: createBody({
-            navigations: [navigation],
-          }),
-        });
+      const context = createMockContext({
+        method: Method.Post,
+        requestBody: createBody({
+          navigations: [navigation],
+        }),
+      });
 
-        await withEnv('production', async () => {
-          await clientPerformanceMetrics({
-            ...config,
-            anomalousNavigationThreshold,
-          })(context, () => Promise.resolve());
-        });
+      await withEnv('production', async () => {
+        await clientPerformanceMetrics({
+          ...config,
+          anomalousNavigationThreshold,
+        })(context, () => Promise.resolve());
+      });
 
-        expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
-          'navigation_download_size',
-          expect.any(Number),
-          expect.objectContaining({anomalous: false}),
-        );
+      expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
+        'navigation_download_size',
+        expect.any(Number),
+        expect.objectContaining({anomalous: false}),
+      );
 
-        expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
-          'navigation_complete',
-          expect.any(Number),
-          expect.objectContaining({anomalous: true}),
-        );
-      },
-    );
+      expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
+        'navigation_complete',
+        expect.any(Number),
+        expect.objectContaining({anomalous: true}),
+      );
+    });
   });
 
   describe('development', () => {
