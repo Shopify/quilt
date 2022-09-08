@@ -213,6 +213,9 @@ function tsPropertyForField(
   context: OperationContext,
   isRequiredTypename = false,
 ) {
+  const {
+    options: {readonlyTypes, partial},
+  } = context;
   if (field.fieldName === '__typename' && parentType) {
     const optional =
       !isRequiredTypename &&
@@ -249,6 +252,7 @@ function tsPropertyForField(
     );
 
     typenameProperty.optional = optional;
+    typenameProperty.readonly = readonlyTypes;
     return typenameProperty;
   }
 
@@ -258,9 +262,8 @@ function tsPropertyForField(
   );
 
   property.optional =
-    context.options.partial ||
-    field.isConditional ||
-    !isNonNullType(field.type);
+    partial || field.isConditional || !isNonNullType(field.type);
+  property.readonly = readonlyTypes;
 
   return property;
 }
@@ -272,9 +275,11 @@ function tsTypeForGraphQLType(
   context: OperationContext,
 ) {
   let type: t.TSType;
+  const {
+    options: {partial},
+  } = context;
   const forceNullable =
-    context.options.partial ||
-    (field.isConditional && graphQLType === field.type);
+    partial || (field.isConditional && graphQLType === field.type);
   const isNonNull = !forceNullable && isNonNullType(graphQLType);
   const unwrappedGraphQLType: GraphQLType = isNonNullType(graphQLType)
     ? graphQLType.ofType
@@ -339,12 +344,16 @@ function tsPropertyForVariable(
   {name, type}: TypedVariable,
   context: OperationContext,
 ) {
+  const {
+    options: {readonlyTypes},
+  } = context;
   const property = t.tsPropertySignature(
     t.identifier(name),
     t.tsTypeAnnotation(tsTypeForGraphQLInputType(type, context)),
   );
 
   property.optional = !isNonNullType(type);
+  property.readonly = readonlyTypes;
   return property;
 }
 

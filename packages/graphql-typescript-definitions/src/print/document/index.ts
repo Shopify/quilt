@@ -145,18 +145,31 @@ export function printDocument(
     );
   };
 
-  const emptyObjectTypeLiteral = () =>
-    t.tsTypeLiteral([
-      t.tsIndexSignature(
-        [
-          {
-            ...t.identifier('key'),
-            typeAnnotation: t.tsTypeAnnotation(t.tsStringKeyword()),
-          },
-        ],
-        t.tsTypeAnnotation(t.tsNeverKeyword()),
-      ),
-    ]);
+  const emptyObjectTypeLiteral = () => {
+    const indexType = t.tsIndexSignature(
+      [
+        {
+          ...t.identifier('key'),
+          typeAnnotation: t.tsTypeAnnotation(t.tsStringKeyword()),
+        },
+      ],
+      t.tsTypeAnnotation(t.tsNeverKeyword()),
+    );
+    indexType.readonly = true;
+
+    return t.tsTypeLiteral([indexType]);
+  };
+  // t.tsTypeLiteral([
+  //   t.tsIndexSignature(
+  //     [
+  //       {
+  //         ...t.identifier('key'),
+  //         typeAnnotation: t.tsTypeAnnotation(t.tsStringKeyword()),
+  //       },
+  //     ],
+  //     t.tsTypeAnnotation(t.tsNeverKeyword()),
+  //   ),
+  // ]);
 
   const graphqlTypedTypeReference = () =>
     t.tsTypeReference(

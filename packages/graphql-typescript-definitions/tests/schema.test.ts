@@ -18,8 +18,9 @@ describe('printSchema()', () => {
     `);
 
     it('prints an enum file with cases matching value names', () => {
-      expect(generateSchemaTypes(schema).get('Episode.ts'))
-        .toContain(stripIndent`
+      expect(
+        generateSchemaTypes(schema, {readonlyTypes: true}).get('Episode.ts'),
+      ).toContain(stripIndent`
         export enum Episode {
           NEW_HOPE = "NEW_HOPE",
           EMPIRE = "EMPIRE",
@@ -97,21 +98,23 @@ describe('printSchema()', () => {
 
   it('prints a unambiguous es module file if nothing would otherwise be exported', () => {
     const schema = buildSchema('type Query {getValue: String}');
-    expect(generateSchemaTypes(schema).get('index.ts')).toBe('export {};');
+    expect(
+      generateSchemaTypes(schema, {readonlyTypes: true}).get('index.ts'),
+    ).toBe('export {};');
   });
 
   it('prints a custom scalar in the index file', () => {
     const schema = buildSchema('scalar Date');
-    expect(generateSchemaTypes(schema).get('index.ts')).toContain(
-      'export type Date = string;',
-    );
+    expect(
+      generateSchemaTypes(schema, {readonlyTypes: true}).get('index.ts'),
+    ).toContain('export type Date = string;');
   });
 
   it('does not print a built-in scalar in the index file', () => {
     const schema = buildSchema('scalar Date');
-    expect(generateSchemaTypes(schema).get('index.ts')).not.toContain(
-      'export type String',
-    );
+    expect(
+      generateSchemaTypes(schema, {readonlyTypes: true}).get('index.ts'),
+    ).not.toContain('export type String');
   });
 
   it('prints a custom scalar with a specified import type in the index file', () => {
@@ -192,7 +195,8 @@ describe('printSchema()', () => {
       }
     `);
 
-    expect(generateSchemaTypes(schema).get('index.ts')).toContain(stripIndent`
+    expect(generateSchemaTypes(schema, {readonlyTypes: true}).get('index.ts'))
+      .toContain(stripIndent`
       export interface Input {
         name: string;
       }
@@ -211,8 +215,12 @@ describe('printSchema()', () => {
         SHALL_NOT_PASS
       }
     `);
-    expect(generateSchemaTypes(schema).has('Gandalf.ts')).toBe(true);
-    expect(generateSchemaTypes(schema).has('Permissions.ts')).toBe(true);
+    expect(
+      generateSchemaTypes(schema, {readonlyTypes: true}).has('Gandalf.ts'),
+    ).toBe(true);
+    expect(
+      generateSchemaTypes(schema, {readonlyTypes: true}).has('Permissions.ts'),
+    ).toBe(true);
   });
 
   it('prints a complex schema', () => {
@@ -245,7 +253,8 @@ describe('printSchema()', () => {
       }
     `);
 
-    expect(generateSchemaTypes(schema).get('index.ts')).toContain(stripIndent`
+    expect(generateSchemaTypes(schema, {readonlyTypes: true}).get('index.ts'))
+      .toContain(stripIndent`
       import { Season } from "./Season";
       import { Episode } from "./Episode";
       export { Season };

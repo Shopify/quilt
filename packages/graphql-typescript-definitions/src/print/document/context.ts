@@ -12,6 +12,7 @@ export interface Options {
   enumFormat?: EnumFormat;
   exportFormat?: ExportFormat;
   addTypename?: boolean;
+  readonlyTypes?: boolean;
 }
 
 export interface OperationOptions extends Options {

@@ -405,6 +405,7 @@ export class Builder extends EventEmitter {
         enumFormat: this.options.enumFormat,
         exportFormat: this.options.exportFormat,
         addTypename: this.options.addTypename,
+        readonlyTypes: this.options.readonlyTypes,
         schemaTypesPath: getSchemaTypesPath(projectConfig, this.options),
       });
     } catch ({message}) {

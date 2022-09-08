@@ -61,6 +61,12 @@ const argv = yargs
     describe:
       'A JSON-serialized object where the key is the name of a custom scalar, and the value is an object with the name and package from which to import the type to use for that scalar',
   })
+  .option('readonly-types', {
+    required: false,
+    default: false,
+    type: 'boolean',
+    describe: 'Emits a readonly typed schema',
+  })
   .help().argv;
 
 const builder = new Builder({
@@ -69,6 +75,7 @@ const builder = new Builder({
   addTypename: argv['add-typename'],
   enumFormat: argv['enum-format'],
   customScalars: normalizeCustomScalars(argv['custom-scalars']),
+  readonlyTypes: argv['readonly-types'],
 });
 
 function normalizeCustomScalars(customScalarOption: string) {

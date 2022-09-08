@@ -184,7 +184,7 @@ describe('printDocument()', () => {
     });
   });
 
-  describe('lists', () => {
+  fdescribe('lists', () => {
     it('prints list types with non-null members', () => {
       const schema = buildSchema(`
         type Query {
@@ -2070,6 +2070,7 @@ function print(
 ) {
   const finalOptions = {
     addTypename: false,
+    readonlyTypes: true,
     schemaTypesPath: path.resolve('Schema.ts'),
     ...printOptions,
   };

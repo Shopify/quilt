@@ -26,6 +26,7 @@ export interface ScalarDefinition {
 
 export interface Options {
   enumFormat?: EnumFormat;
+  readonlyTypes?: boolean;
   customScalars?: {[key: string]: ScalarDefinition};
 }
 
@@ -99,8 +100,10 @@ export function generateSchemaTypes(
         exportFileBody.push(t.exportNamedDeclaration(scalarType, []));
       }
     } else {
+      const {readonlyTypes} = options;
+
       exportFileBody.push(
-        t.exportNamedDeclaration(tsInputObjectForType(type), []),
+        t.exportNamedDeclaration(tsInputObjectForType(type, readonlyTypes), []),
       );
     }
   }
@@ -146,13 +149,18 @@ function tsTypeForInputType(type: GraphQLInputType): t.TSType {
     : t.tsUnionType([tsType, t.tsNullKeyword()]);
 }
 
-function tsInputObjectForType(type: GraphQLInputObjectType) {
+function tsInputObjectForType(
+  type: GraphQLInputObjectType,
+  isReadonly?: Options['readonlyTypes'],
+) {
   const fields = Object.entries(type.getFields()).map(([name, field]) => {
     const property = t.tsPropertySignature(
       t.identifier(name),
       t.tsTypeAnnotation(tsTypeForInputType(field.type)),
     );
     property.optional = !isNonNullType(field.type);
+    property.readonly = isReadonly;
+
     return property;
   });
 
