@@ -74,6 +74,9 @@ export class Root<Props> implements Node<Props> {
   private reactRoot: ReactRoot | null = null;
   private root: Element<Props> | null = null;
   private acting = false;
+  private destroyed = false;
+  private actPromise!: Promise<void>;
+  private actPromiseResolver!: () => void;
 
   private render: Render;
   private resolveRoot: ResolveRoot;
@@ -88,10 +91,20 @@ export class Root<Props> implements Node<Props> {
   ) {
     this.render = render;
     this.resolveRoot = resolveRoot;
+    this.actPromise = new Promise((resolve) => {
+      this.actPromiseResolver = resolve;
+    });
     this.mount();
   }
 
   act<T>(action: () => T, {update = true} = {}): T {
+    if (this.destroyed) {
+      // eslint-disable-next-line no-console
+      console.error(
+        'Warning: attempting to perform an act on a destroyed root. This can lead to state changes not being applied',
+      );
+    }
+
     const updateWrapper = update ? this.update.bind(this) : noop;
     let result!: T;
 
@@ -123,7 +136,14 @@ export class Root<Props> implements Node<Props> {
       });
 
       if (isPromise(result)) {
-        return result as unknown as Promise<void>;
+        if (this.destroyed) {
+          return result as unknown as Promise<void>;
+        }
+
+        return Promise.race([
+          result,
+          this.actPromise,
+        ]) as unknown as Promise<void>;
       }
 
       return undefined as unknown as Promise<void>;
@@ -257,15 +277,18 @@ export class Root<Props> implements Node<Props> {
     this.act(() => this.reactRoot!.unmount());
   }
 
-  destroy() {
+  async destroy() {
     const {element, mounted} = this;
 
     if (mounted) {
       this.unmount();
     }
-
     element.remove();
     connected.delete(this);
+    this.destroyed = true;
+    this.actPromiseResolver();
+    // flush the micro task to wait until react commits all pending updates.
+    await this.actPromise;
   }
 
   setProps(props: Partial<Props>) {

@@ -6,8 +6,8 @@ import {mount, createMount} from '../mount';
 import {destroyAll} from '../destroy';
 
 describe('mount()', () => {
-  afterEach(() => {
-    destroyAll();
+  afterEach(async () => {
+    await destroyAll();
   });
 
   it('constructs and returns a root element', () => {

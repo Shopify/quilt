@@ -4,8 +4,8 @@ import {mount} from '../mount';
 import {destroyAll} from '../destroy';
 
 describe('destroyAll()', () => {
-  afterEach(() => {
-    destroyAll();
+  afterEach(async () => {
+    await destroyAll();
   });
 
   it('destroys all constructed root elements that have not already been destroyed', () => {
