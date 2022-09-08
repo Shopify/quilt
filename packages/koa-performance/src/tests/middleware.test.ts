@@ -622,12 +622,6 @@ describe('client metrics middleware', () => {
         expect.any(Number),
         expect.objectContaining({anomalous: true}),
       );
-
-      expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
-        'navigation_complete',
-        expect.any(Number),
-        expect.objectContaining({anomalous: false}),
-      );
     });
 
     it('attaches anomalous:false tag if anomalousNavigationThreshold for downloadSize is not exceeded', async () => {
@@ -669,12 +663,6 @@ describe('client metrics middleware', () => {
         'navigation_download_size',
         expect.any(Number),
         expect.objectContaining({anomalous: false}),
-      );
-
-      expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
-        'navigation_complete',
-        expect.any(Number),
-        expect.objectContaining({anomalous: true}),
       );
     });
   });
