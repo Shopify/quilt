@@ -9,7 +9,7 @@ A loosely related set of packages for JavaScript/TypeScript projects at Shopify.
 
 These libraries compose together to help you create performant modern JS apps that you love to develop and test. These packages are developed primarily to be used on top of the stack we like best for our JS apps; Typescript for the flavor, Koa for the server, React for UI, Apollo for data fetching, and Jest for tests. That said, you can mix and match as you like.
 
-⚠️ Over the past few years, this repo has become a dumping ground for a variety of packages unrelated to the core problems Quilt aims to solve. Before submitting a pull request, please speak with the Admin Web Foundations team on guidance as to whether a package might belong in Quilt.
+⚠️ Over the past few years, this repo has become a dumping ground for a variety of packages unrelated to the core problems Quilt, and it's stewards - the Admin Web Foundation team - aims to solve. Before submitting a pull request, please speak with the Admin Web Foundations team on guidance as to whether a package might belong in Quilt. The Admin Web Foundations team's focus is on the `web` codebase. If you're proposing a package that has not already been widely used in the `web` codebase then it is unlikely that it would be merged into Quilt.
 
 ## Usage
 
