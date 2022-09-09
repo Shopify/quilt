@@ -2,6 +2,11 @@
 '@shopify/react-testing': major
 ---
 
-WHAT: Release act promises when root wrapper is destroyed
-WHY: To prevent unresolved promises from failing subsequent act calls
-HOW: `destroyAll` in `afterEach` will now have to be awaited as well as `Root.prototype.destroy`
+React `act` promise queues are now emptied when root wrappers are destroyed. This prevents unresolved promises from causing stuck queues and thus failures in subsequent test cases.
+
+The `destroyAll()` and `root.destroy()` functions are now asynchronous and return promises. Calls to either of these functions must now be `await`ed.
+
+```diff
+- destroyAll()
++ await destroyAll()
+```
