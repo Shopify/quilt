@@ -159,17 +159,6 @@ export function printDocument(
 
     return t.tsTypeLiteral([indexType]);
   };
-  // t.tsTypeLiteral([
-  //   t.tsIndexSignature(
-  //     [
-  //       {
-  //         ...t.identifier('key'),
-  //         typeAnnotation: t.tsTypeAnnotation(t.tsStringKeyword()),
-  //       },
-  //     ],
-  //     t.tsTypeAnnotation(t.tsNeverKeyword()),
-  //   ),
-  // ]);
 
   const graphqlTypedTypeReference = () =>
     t.tsTypeReference(
