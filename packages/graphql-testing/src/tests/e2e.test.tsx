@@ -81,7 +81,7 @@ describe('graphql-testing', () => {
     expect(myComponent).toContainReactText('Loading');
   });
 
-  it.only('allows assumeImmutableResults and freezeResults to be set', async () => {
+  it('allows assumeImmutableResults and freezeResults to be set', async () => {
     const graphQL = createImmutableGraphQL({
       Pet: {
         pet: {
