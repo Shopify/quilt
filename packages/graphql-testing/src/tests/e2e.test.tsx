@@ -7,6 +7,10 @@ import {ApolloProvider, useQuery} from '@shopify/react-graphql';
 import {createGraphQLFactory} from '..';
 
 const createGraphQL = createGraphQLFactory();
+const createImmutableGraphQL = createGraphQLFactory({
+  assumeImmutableResults: true,
+  cacheOptions: {freezeResults: true},
+});
 
 const petQuery: DocumentNode<{pet?: {name: string} | null}, {id: string}> = gql`
   query Pet($id: ID!) {
@@ -33,6 +37,12 @@ function MyComponent({id = '1'} = {}) {
     data != null && data.pet != null ? <p>{data.pet.name}</p> : null;
   const handleButtonClick = useCallback(() => refetch(), [refetch]);
 
+  const handleMutateButtonClick = () => {
+    if (data?.pet?.name) {
+      data.pet.name = 'fluffy';
+    }
+  };
+
   return (
     <>
       {loadingMarkup}
@@ -42,6 +52,9 @@ function MyComponent({id = '1'} = {}) {
       {graphqlErrorMarkup}
       <button onClick={handleButtonClick} type="button">
         Refetch!
+      </button>
+      <button onClick={handleMutateButtonClick} type="button">
+        Mutate!
       </button>
     </>
   );
@@ -66,6 +79,32 @@ describe('graphql-testing', () => {
 
     expect(graphQL).not.toHavePerformedGraphQLOperation(petQuery);
     expect(myComponent).toContainReactText('Loading');
+  });
+
+  it.only('allows assumeImmutableResults and freezeResults to be set', async () => {
+    const graphQL = createImmutableGraphQL({
+      Pet: {
+        pet: {
+          __typename: 'Cat',
+          name: 'Garfield',
+        },
+      },
+    });
+
+    const myComponent = mount(
+      <ApolloProvider client={graphQL.client}>
+        <MyComponent />
+      </ApolloProvider>,
+    );
+
+    graphQL.wrap((resolve) => myComponent.act(resolve));
+    await graphQL.resolveAll();
+
+    expect(() => {
+      myComponent.findAll('button')[1].trigger('onClick');
+    }).toThrow(
+      "Cannot assign to read only property 'name' of object '#<Object>'",
+    );
   });
 
   it('resolves to an error when there is no matching mock set', async () => {
