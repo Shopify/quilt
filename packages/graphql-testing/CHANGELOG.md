@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.2.0
+
+### Minor Changes
+
+- [#2419](https://github.com/Shopify/quilt/pull/2419) [`5cf6ca2c1`](https://github.com/Shopify/quilt/commit/5cf6ca2c191acd7dddc75f53554968cbd8f2bc5d) Thanks [@vsumner](https://github.com/vsumner)! - Allow assumeImmutableResults results to be enabled on the apollo client
+
 ## 6.1.1
 
 ### Patch Changes

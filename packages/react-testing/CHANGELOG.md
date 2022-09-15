@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.0.0
+
+### Major Changes
+
+- [#2352](https://github.com/Shopify/quilt/pull/2352) [`963f1caf4`](https://github.com/Shopify/quilt/commit/963f1caf4d7c80ca089b49309d9833a14ca2b3e2) Thanks [@melnikov-s](https://github.com/melnikov-s)! - React `act` promise queues are now emptied when root wrappers are destroyed. This prevents unresolved promises from causing stuck queues and thus failures in subsequent test cases.
+
+  The `destroyAll()` and `root.destroy()` functions are now asynchronous and return promises. Calls to either of these functions must now be `await`ed.
+
+  ```diff
+  - destroyAll()
+  + await destroyAll()
+  ```
+
 ## 4.2.2
 
 ### Patch Changes

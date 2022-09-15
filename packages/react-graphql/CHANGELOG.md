@@ -1,5 +1,12 @@
 # Changelog
 
+## 9.2.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @shopify/react-async@5.0.6
+
 ## 9.2.2
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # Changelog
 
+## 12.0.6
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @shopify/react-hydrate@3.0.6
+
 ## 12.0.5
 
 ### Patch Changes
