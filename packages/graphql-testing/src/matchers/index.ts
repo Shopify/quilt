@@ -5,10 +5,19 @@ import {toHavePerformedGraphQLOperation} from './operations';
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace jest {
+    interface Result {
+      pass: boolean;
+      message(): string;
+    }
+
+    type PartialResult<T> = {
+      [P in keyof T]?: T[P] | Result;
+    };
+
     interface Matchers<R, T = {}> {
       toHavePerformedGraphQLOperation<Variables>(
         document: GraphQLOperation<any, Variables, any>,
-        variables?: Partial<Variables>,
+        variables?: PartialResult<Variables>,
       ): void;
     }
   }

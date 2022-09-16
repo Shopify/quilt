@@ -15,17 +15,25 @@ type PropsFromNode<T> = T extends Node<infer U> ? U : never;
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace jest {
+    interface Result {
+      pass: boolean;
+      message(): string;
+    }
+
+    type PartialResult<T> = {
+      [P in keyof T]?: T[P] | Result;
+    };
     interface Matchers<R, T = {}> {
-      toHaveReactProps(props: Partial<PropsFromNode<T>>): void;
+      toHaveReactProps(props: PartialResult<PropsFromNode<T>>): void;
       toHaveReactDataProps(data: {[key: string]: string}): void;
       toContainReactComponent<Type extends string | ComponentType<any>>(
         type: Type,
-        props?: Partial<PropsFor<Type>>,
+        props?: PartialResult<PropsFor<Type>>,
       ): void;
       toContainReactComponentTimes<Type extends string | ComponentType<any>>(
         type: Type,
         times: number,
-        props?: Partial<PropsFor<Type>>,
+        props?: PartialResult<PropsFor<Type>>,
       ): void;
       toProvideReactContext<Type>(
         context: ReactContext<Type>,
