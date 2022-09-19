@@ -1,5 +1,14 @@
 # Changelog
 
+## 5.0.11
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @shopify/react-graphql@9.2.3
+  - @shopify/react-html@12.0.6
+  - @shopify/react-network@5.0.8
+
 ## 5.0.10
 
 ### Patch Changes
