@@ -271,6 +271,34 @@ describe('client metrics middleware', () => {
       );
     });
 
+    it('sends distribution for redirect_duration when ttfb is supplied with relevant metadata', async () => {
+      const ttfbEvent = createLifecycleEvent(
+        EventType.TimeToFirstByte,
+        123,
+        100,
+        {redirectDuration: 50},
+      );
+
+      const context = createMockContext({
+        method: Method.Post,
+        requestBody: createBody({
+          events: [ttfbEvent],
+        }),
+      });
+
+      await withEnv('production', async () => {
+        await clientPerformanceMetrics(config)(context, () =>
+          Promise.resolve(),
+        );
+      });
+
+      expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
+        'redirect_duration',
+        ttfbEvent.metadata?.redirectDuration,
+        expect.any(Object),
+      );
+    });
+
     it('sends distribution for first-input-delay duration', async () => {
       const firstInputDelayEvent = createLifecycleEvent(
         EventType.FirstInputDelay,
@@ -618,11 +646,13 @@ function createLifecycleEvent(
   type: LifecycleEvent['type'] = EventType.TimeToFirstByte,
   time = 100,
   duration = 0,
+  metadata?: {[key: string]: any},
 ) {
   return {
     type,
     duration,
     start: time,
+    metadata,
   } as LifecycleEvent;
 }
 

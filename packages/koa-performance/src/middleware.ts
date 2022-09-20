@@ -105,6 +105,16 @@ export function clientPerformanceMetrics({
       statsLogger.log(`Adding event tags: ${JSON.stringify(tags)}`);
 
       for (const event of events) {
+        if (
+          event.type === EventType.TimeToFirstByte &&
+          event.metadata?.redirectDuration
+        ) {
+          metrics.push({
+            name: EventType.RedirectDuration,
+            value: Math.round(event.metadata.redirectDuration),
+            tags,
+          });
+        }
         const value =
           event.type === EventType.FirstInputDelay
             ? event.duration
