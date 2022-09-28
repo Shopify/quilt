@@ -1,1 +1,1 @@
-export {Router, Redirect, Link} from './components';
+export {Router, Redirect} from './components';

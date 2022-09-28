@@ -4,7 +4,7 @@
 [![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-router.svg)](https://badge.fury.io/js/%40shopify%2Freact-router.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-router.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-router.svg)
 
-A universal router for React, wrapping `react-router` for now.
+A universal router for React, wrapping `react-router-dom`'s `BrowserRouter` and StaticRouter`.
 
 ## Installation
 
@@ -57,7 +57,3 @@ function MockComponent() {
   return <button onClick={handleClick}>Create a new thing</button>;
 }
 ```
-
-### `<Link />`
-
-_TBD_
