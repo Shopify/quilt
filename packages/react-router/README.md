@@ -33,14 +33,6 @@ export function App({location}: {location?: string}) {
 }
 ```
 
-### `<Route />`
-
-See [`react-router` docs](https://reacttraining.com/react-router/web/api/Route)
-
-### `<Switch />`
-
-See [`react-router` docs](https://reacttraining.com/react-router/web/api/Switch)
-
 ### `<Redirect />`
 
 A `Redirect` component accepts a single prop, `url`, and will perform a redirect to that url when mounted.
@@ -69,7 +61,3 @@ function MockComponent() {
 ### `<Link />`
 
 _TBD_
-
-### `withRouter()`
-
-See [`react-router` docs](https://reacttraining.com/react-router/core/api/withRouter)

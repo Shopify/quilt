@@ -1,5 +1,6 @@
 import React from 'react';
-import {StaticRouter, BrowserRouter} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
+import {StaticRouter} from 'react-router-dom/server';
 
 import {isClient} from './utilities';
 
@@ -36,7 +37,7 @@ export default function Router({location, basename, children}: Props) {
       : location;
 
   return (
-    <StaticRouter basename={basename} location={locationObject} context={{}}>
+    <StaticRouter basename={basename} location={locationObject}>
       {children}
     </StaticRouter>
   );
