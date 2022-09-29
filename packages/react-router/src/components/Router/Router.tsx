@@ -13,7 +13,7 @@ interface Props {
 export const NO_LOCATION_ERROR =
   'A location must be passed to <Router /> on the server.';
 
-export default function Router({location, basename, children}: Props) {
+export function Router({location, basename, children}: Props) {
   if (isClient()) {
     return <BrowserRouter basename={basename}>{children}</BrowserRouter>;
   }

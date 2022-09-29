@@ -6,7 +6,7 @@ interface Props {
   url: string;
 }
 
-function Redirect({url}: Props) {
+export function Redirect({url}: Props) {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,5 +14,3 @@ function Redirect({url}: Props) {
   }, [navigate, url]);
   return <NetworkRedirect url={url} />;
 }
-
-export default Redirect;
