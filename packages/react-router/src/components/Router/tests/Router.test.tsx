@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter} from 'react-router-dom';
-import {mount} from '@shopify/react-testing';
 import {StaticRouter} from 'react-router-dom/server';
+import {mount} from '@shopify/react-testing';
 
 import {Router, NO_LOCATION_ERROR} from '../Router';
 
