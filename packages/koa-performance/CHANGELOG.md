@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.2.0
+
+### Minor Changes
+
+- [#2410](https://github.com/Shopify/quilt/pull/2410) [`d177f331f`](https://github.com/Shopify/quilt/commit/d177f331fad258efa87ef4a38c4359e702144a89) Thanks [@jakejosephcs](https://github.com/jakejosephcs)! - An anomalous navigation download size threshold can now be passed in as a parameter to `clientPerformanceMetrics`
+
 ## 3.1.0
 
 ### Minor Changes
