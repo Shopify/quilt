@@ -6,13 +6,12 @@ Changelogs and releases are managed using [`changesets`](https://github.com/chan
 
 We have a [GitHub Action](https://github.com/Shopify/quilt/blob/main/.github/workflows/release.yml) that leverages [`changesets/action`](https://github.com/changesets/action) to handle the release process.
 
-Upon merging PRs with a changeset entry, it shall create a "Version Packages" PR ([example](https://github.com/Shopify/quilt/pull/2309)) that shall contain any changeset changes since the last release.
+Upon merging PRs with a changeset entry, it shall create a "Version Packages" PR ([example](https://github.com/Shopify/quilt/pull/2427)) that shall contain any changeset changes since the last release.
 
 To perform a release:
 
-- Find the [currently open "Version Packages" PR](https://github.com/Shopify/quilt/pulls?q=is%3Apr+is%3Aopen+author%3Aapp%2Fgithub-actions+%22Version+Packages%22)
-- Note that by default all required CI checks are absent. This is expected as the pull request and commit are created using the default GITHUB_TOKEN access token, which [skips downstream events to prevent infinite loops](https://docs.github.com/en/actions/using-workflows/triggering-a-workflow#triggering-a-workflow-from-a-workflow).
-- Merge the PR by checking the `Merge without waiting for requirements to be met (administrators only)` checkbox and choosing `Squash and merge`. We consider skipping the required checks to be acceptable as we are confident that these automated updates of `package.json` and `CHANGELOG.md` would not cause CI to fail.
+- Find the [currently open "Version Packages" PR](https://github.com/Shopify/quilt/pulls?q=is%3Apr+is%3Aopen+author%3Aapp%2Fshopify-github-actions-access+%22Version+Packages%22+)
+- Merge the PR by waiting for CI to complete and then choosing `Squash and merge`.
 
 The `Release` action shall run on the merge commit on the `main` branch, and shall publish the npm packages and create a GitHub tag and release for each package that is referenced in the PR. You can find the action log by looking at the release commit status on the merge commit.
 
