@@ -6,6 +6,7 @@ import 'saddle-up/koa-matchers';
 import '../matchers';
 import '../../packages/ast-utilities/src/matchers';
 import '../../packages/react-testing/src/matchers';
+import '../../packages/preact-testing/src/matchers';
 import '../../packages/graphql-testing/src/matchers';
 
 import {destroyAll} from '../../packages/react-testing/src/destroy';

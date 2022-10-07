@@ -1,0 +1,17 @@
+{
+  "extends": "../../config/typescript/tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "build/ts",
+    "rootDir": "src",
+    "baseUrl": "src",
+    "jsx": "react",
+    "jsxFactory": "React.createElement",
+    "jsxFragmentFactory": "React.Fragment"
+  },
+  "include": [
+    "../../config/typescript/*.d.ts",
+    "./src/**/*.ts",
+    "./src/**/*.tsx"
+  ],
+  "references": [{"path": "../useful-types"}]
+}

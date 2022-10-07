@@ -1,0 +1,70 @@
+{
+  "name": "@shopify/preact-testing",
+  "version": "5.0.0",
+  "license": "MIT",
+  "description": "A library for testing Preact components according to our conventions",
+  "main": "index.js",
+  "types": "./build/ts/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "matchers": [
+        "./build/ts/matchers/index.d.ts"
+      ]
+    }
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
+  },
+  "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git",
+    "directory": "packages/preact-testing"
+  },
+  "bugs": {
+    "url": "https://github.com/Shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/main/packages/preact-testing/README.md",
+  "engines": {
+    "node": "^14.17.0 || >=16.0.0"
+  },
+  "dependencies": {
+    "@shopify/useful-types": "^5.1.1",
+    "jest-matcher-utils": "^26.6.2"
+  },
+  "files": [
+    "build/",
+    "!build/*.tsbuildinfo",
+    "!build/ts/**/tests/",
+    "index.js",
+    "index.mjs",
+    "index.esnext",
+    "matchers.js",
+    "matchers.mjs",
+    "matchers.esnext"
+  ],
+  "peerDependencies": {
+    "preact": "^10.x"
+  },
+  "devDependencies": {
+    "preact": "^10.11.1"
+  },
+  "module": "index.mjs",
+  "esnext": "index.esnext",
+  "exports": {
+    "./matchers": {
+      "types": "./build/ts/matchers/index.d.ts",
+      "esnext": "./matchers.esnext",
+      "import": "./matchers.mjs",
+      "require": "./matchers.js"
+    },
+    ".": {
+      "types": "./build/ts/index.d.ts",
+      "esnext": "./index.esnext",
+      "import": "./index.mjs",
+      "require": "./index.js"
+    }
+  }
+}

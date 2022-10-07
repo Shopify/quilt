@@ -1,0 +1,3 @@
+import 'preact/debug';
+
+export {};

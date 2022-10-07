@@ -11854,6 +11854,11 @@ postcss@^7.0.14, postcss@^7.0.26, postcss@^7.0.32, postcss@^7.0.36, postcss@^7.0
     picocolors "^0.2.1"
     source-map "^0.6.1"
 
+preact@^10.11.1:
+  version "10.11.1"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-10.11.1.tgz#35fdad092de8b2ad29df3a0bef9af1f4fdd2256b"
+  integrity sha512-1Wz5PCRm6Fg+6BTXWJHhX4wRK9MZbZBHuwBqfZlOdVm2NqPe8/rjYpufvYCwJSGb9layyzB2jTTXfpCTynLqFQ==
+
 preferred-pm@^3.0.0:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/preferred-pm/-/preferred-pm-3.0.3.tgz#1b6338000371e3edbce52ef2e4f65eb2e73586d6"
