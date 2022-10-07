@@ -24,6 +24,26 @@ const petQuery: DocumentNode<{pet?: {name: string} | null}, {id: string}> = gql`
   }
 `;
 
+const petsQuery: DocumentNode<
+  {pets: {edges: {cursor: string; node: {name: string}}[]}},
+  {first: number; after?: string | null}
+> = gql`
+  query Pets($first: Number!, $after: String) {
+    pets(first: $first, after: $after) {
+      edges {
+        cursor
+        node {
+          ...CatInfo
+        }
+      }
+    }
+  }
+
+  fragment CatInfo on Cat {
+    name
+  }
+`;
+
 function MyComponent({id = '1'} = {}) {
   const {data, loading, error, refetch} = useQuery(petQuery, {variables: {id}});
 
@@ -55,6 +75,55 @@ function MyComponent({id = '1'} = {}) {
       </button>
       <button onClick={handleMutateButtonClick} type="button">
         Mutate!
+      </button>
+    </>
+  );
+}
+
+function MyComponentWithFetchMore({itemsPerPage = 1} = {}) {
+  const {data, loading, fetchMore} = useQuery(petsQuery, {
+    variables: {first: itemsPerPage},
+  });
+
+  const loadingMarkup = loading ? <p>Loading</p> : null;
+  const petsMarkup = data ? (
+    <>
+      LoadedNames:{' '}
+      {data.pets.edges.map((petEdge) => petEdge.node.name).join('&')}
+      <br />
+      LoadedCount: {data.pets.edges.length}
+    </>
+  ) : null;
+
+  const handleFetchMoreButtonClick = async () => {
+    if (!data || data.pets.edges.length === 0) {
+      return;
+    }
+    const edges = data.pets.edges;
+    const cursor = edges[edges.length - 1].cursor;
+
+    await fetchMore({
+      variables: {first: itemsPerPage, after: cursor},
+      updateQuery({pets: {edges: oldEdges}}, {fetchMoreResult}) {
+        const pets = fetchMoreResult && fetchMoreResult.pets;
+
+        return {
+          ...fetchMoreResult,
+          pets: {
+            ...pets,
+            edges: [...oldEdges, ...(pets?.edges ?? [])],
+          },
+        };
+      },
+    });
+  };
+
+  return (
+    <>
+      {loadingMarkup}
+      {petsMarkup}
+      <button onClick={handleFetchMoreButtonClick} type="button">
+        FetchMore!
       </button>
     </>
   );
@@ -226,5 +295,79 @@ describe('graphql-testing', () => {
     await request;
 
     expect(myComponent).toContainReactText(newName);
+  });
+
+  it('handles fetchMore', async () => {
+    const graphQL = createGraphQL({
+      Pets: ({
+        variables: {first = 10, after},
+      }: {
+        variables: {first?: number; after: string};
+      }) => {
+        const fullData = [
+          {cursor: 'a', node: {__typename: 'Cat', name: 'Garfield'}},
+          {cursor: 'b', node: {__typename: 'Cat', name: 'Nermal'}},
+          {cursor: 'c', node: {__typename: 'Cat', name: 'Arlene'}},
+          {cursor: 'd', node: {__typename: 'Cat', name: 'Not Odie'}},
+        ].map((item) => ({__typename: 'Edge', ...item}));
+
+        // eslint-disable-next-line jest/no-if
+        const startPosition = after
+          ? fullData.findIndex((item) => item.cursor === after) + 1
+          : 0;
+
+        return {
+          pets: {
+            __typename: 'Pets',
+            edges: fullData.slice(startPosition, startPosition + first),
+          },
+        };
+      },
+    });
+
+    const myComponent = mount(
+      <ApolloProvider client={graphQL.client}>
+        <MyComponentWithFetchMore />
+      </ApolloProvider>,
+    );
+
+    graphQL.wrap((resolve) => myComponent.act(resolve));
+    await graphQL.resolveAll();
+
+    expect(graphQL).toHavePerformedGraphQLOperation(petsQuery, {
+      first: 1,
+    });
+
+    // Start with just one item loaded
+    expect(myComponent).toContainReactText('LoadedNames: Garfield');
+    expect(myComponent).toContainReactText('LoadedCount: 1');
+
+    // Trigger a fetchMore, and see that LoadedNames/Count updates with
+    // an additional item
+    const request = myComponent.find('button').trigger('onClick');
+    await graphQL.resolveAll();
+    await request;
+
+    expect(graphQL).toHavePerformedGraphQLOperation(petsQuery, {
+      first: 1,
+      after: 'a',
+    });
+    expect(myComponent).toContainReactText('LoadedNames: Garfield&Nermal');
+    expect(myComponent).toContainReactText('LoadedCount: 2');
+
+    // Trigger another fetchMore, and see that LoadedNames/Count updates with
+    // an additional item
+    const request2 = myComponent.find('button').trigger('onClick');
+    await graphQL.resolveAll();
+    await request2;
+
+    expect(graphQL).toHavePerformedGraphQLOperation(petsQuery, {
+      first: 1,
+      after: 'b',
+    });
+    expect(myComponent).toContainReactText(
+      'LoadedNames: Garfield&Nermal&Arlene',
+    );
+    expect(myComponent).toContainReactText('LoadedCount: 3');
   });
 });
