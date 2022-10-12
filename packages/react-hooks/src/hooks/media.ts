@@ -4,7 +4,13 @@ type EffectHook = typeof useEffect | typeof useLayoutEffect;
 
 function createUseMediaFactory(useEffectHook: EffectHook) {
   return (query: string) => {
-    const [match, setMatch] = useState(false);
+    const [match, setMatch] = useState(() => {
+      if (typeof window === 'undefined' || !window.matchMedia) {
+        return false;
+      }
+
+      return window.matchMedia(query).matches;
+    });
 
     useEffectHook(() => {
       if (!window || !window.matchMedia) {
