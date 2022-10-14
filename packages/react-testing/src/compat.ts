@@ -1,4 +1,5 @@
 import ReactDOM from 'react-dom';
+import React from 'react';
 import type {Root as ReactRoot} from 'react-dom/client';
 
 import {ReactInstance, Fiber} from './types';
@@ -33,4 +34,33 @@ export function createRoot(element: HTMLElement): ReactRoot {
   } catch {
     return createRootShim(element);
   }
+}
+
+export const isLegacyReact = parseInt(React.version, 10) < 18;
+
+// https://github.com/facebook/react/blob/12adaffef7105e2714f82651ea51936c563fe15c/packages/shared/enqueueTask.js#L13
+let enqueueTaskImpl: any = null;
+
+export function enqueueTask(task: (v: any) => void) {
+  if (enqueueTaskImpl === null) {
+    try {
+      // read require off the module object to get around the bundlers.
+      // we don't want them to detect a require and bundle a Node polyfill.
+      const requireString = `require${Math.random()}`.slice(0, 7);
+      const nodeRequire = module && module[requireString];
+      // assuming we're in node, let's try to get node's
+      // version of setImmediate, bypassing fake timers if any.
+      enqueueTaskImpl = nodeRequire.call(module, 'timers').setImmediate;
+    } catch (_err) {
+      // we're in a browser
+      // we can't use regular timers because they may still be faked
+      // so we try MessageChannel+postMessage instead
+      enqueueTaskImpl = function (callback: () => void) {
+        const channel = new MessageChannel();
+        channel.port1.onmessage = callback;
+        channel.port2.postMessage(undefined);
+      };
+    }
+  }
+  return enqueueTaskImpl!(task);
 }
