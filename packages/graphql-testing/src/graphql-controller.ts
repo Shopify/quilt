@@ -13,7 +13,6 @@ import {GraphQLMock, MockRequest, FindOptions} from './types';
 export interface Options {
   cacheOptions?: InMemoryCacheConfig;
   links?: ApolloLink[];
-  assumeImmutableResults?: boolean;
 }
 
 interface Wrapper {

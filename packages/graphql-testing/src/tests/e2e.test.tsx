@@ -8,10 +8,6 @@ import {ApolloProvider, useQuery, ApolloError} from '@shopify/react-graphql';
 import {createGraphQLFactory} from '..';
 
 const createGraphQL = createGraphQLFactory();
-const createImmutableGraphQL = createGraphQLFactory({
-  assumeImmutableResults: true,
-  cacheOptions: {freezeResults: true},
-});
 
 const petQuery: DocumentNode<{pet?: {name: string} | null}, {id: string}> = gql`
   query Pet($id: ID!) {
@@ -150,8 +146,8 @@ describe('graphql-testing', () => {
     expect(myComponent).toContainReactText('Loading');
   });
 
-  it('allows assumeImmutableResults and freezeResults to be set', async () => {
-    const graphQL = createImmutableGraphQL({
+  it('enforces immutable caches', async () => {
+    const graphQL = createGraphQL({
       Pet: {
         pet: {__typename: 'Cat', name: 'Garfield'},
       },
