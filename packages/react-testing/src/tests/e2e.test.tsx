@@ -15,6 +15,8 @@ import {createPortal} from 'react-dom';
 
 import {mount, createMount} from '../mount';
 
+const itIf = (condition) => (condition ? it : it.skip);
+
 describe('@shopify/react-testing', () => {
   it('does not time out with large trees', () => {
     function RecurseMyself({times}: {times: number}) {
@@ -174,8 +176,9 @@ describe('@shopify/react-testing', () => {
     }
 
     // eslint-disable-next-line no-process-env
-    if (process.env.REACT_VERSION !== '17') {
-      it('releases any stale promises when component is destroyed', async () => {
+    itIf(process.env.REACT_VERSION !== '17')(
+      'releases any stale promises when component is destroyed',
+      async () => {
         const wrapper = mount(<Counter />);
         wrapper.act(() => new Promise(() => {}));
         wrapper.act(() => new Promise(() => {}));
@@ -199,8 +202,8 @@ describe('@shopify/react-testing', () => {
         const newWrapper = mount(<EffectChangeComponent />);
 
         expect(newWrapper.find(Message)!.html()).toBe('<span>100</span>');
-      });
-    }
+      },
+    );
 
     it('updates element tree when state is changed', () => {
       const wrapper = mount(<Counter />);
