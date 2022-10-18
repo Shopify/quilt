@@ -1,3 +1,5 @@
+import {setImmediate} from 'timers';
+
 import {
   ApolloClient,
   ApolloLink,
@@ -26,7 +28,7 @@ export class GraphQL {
 
   private readonly pendingRequests = new Set<MockRequest>();
   private readonly wrappers: Wrapper[] = [];
-  private readonly mockLink: MockLink | null = null;
+  private readonly mockLink: MockLink;
 
   constructor(
     mock: GraphQLMock | undefined,
@@ -76,6 +78,10 @@ export class GraphQL {
         await Promise.all(matchingRequests.map(({resolve}) => resolve()));
       },
     )();
+  }
+
+  operationsFromMock() {
+    return this.mockLink.operation;
   }
 
   wrap(wrapper: Wrapper) {
