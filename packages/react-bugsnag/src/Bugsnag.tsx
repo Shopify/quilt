@@ -1,7 +1,7 @@
-import React, {useRef, ReactNode} from 'react';
+import React, {useRef, ReactNode, useMemo} from 'react';
 import {Client} from '@bugsnag/js';
 
-import {ErrorLoggerContext, noopErrorLogger} from './context';
+import {ErrorLoggerContext, developmentClient} from './context';
 
 export function NoopBoundary({children}: {children: ReactNode}) {
   return <>{children}</>;
@@ -30,8 +30,16 @@ export function Bugsnag({
     return NoopBoundary;
   }).current();
 
+  const value = useMemo(() => {
+    // eslint-disable-next-line no-process-env
+    if (process.env.NODE_ENV === 'development') {
+      return developmentClient;
+    }
+    return client || developmentClient;
+  }, [client]);
+
   return (
-    <ErrorLoggerContext.Provider value={client || noopErrorLogger}>
+    <ErrorLoggerContext.Provider value={value}>
       <Boundary>{children}</Boundary>
     </ErrorLoggerContext.Provider>
   );
