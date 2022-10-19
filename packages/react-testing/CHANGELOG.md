@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.0.1
+
+### Patch Changes
+
+- [#2438](https://github.com/Shopify/quilt/pull/2438) [`bc50c0de2`](https://github.com/Shopify/quilt/commit/bc50c0de23d6711e631ab2d808a820fc1eebf604) Thanks [@melnikov-s](https://github.com/melnikov-s)! - Fix act queue emptying for React 17
+
+- [#2441](https://github.com/Shopify/quilt/pull/2441) [`cf70a15a6`](https://github.com/Shopify/quilt/commit/cf70a15a6690c93823a0803200ddba1a71077211) Thanks [@melnikov-s](https://github.com/melnikov-s)! - Fixed an issue with useLazyQuery failing due to act resolving a tick later
+
 ## 5.0.0
 
 ### Major Changes
