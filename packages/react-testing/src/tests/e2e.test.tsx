@@ -15,8 +15,6 @@ import {createPortal} from 'react-dom';
 
 import {mount, createMount} from '../mount';
 
-const itIf = (condition) => (condition ? it : it.skip);
-
 describe('@shopify/react-testing', () => {
   it('does not time out with large trees', () => {
     function RecurseMyself({times}: {times: number}) {
@@ -175,35 +173,28 @@ describe('@shopify/react-testing', () => {
       );
     }
 
-    // eslint-disable-next-line no-process-env
-    itIf(process.env.REACT_VERSION !== '17')(
-      'releases any stale promises when component is destroyed',
-      async () => {
-        const wrapper = mount(<Counter />);
-        wrapper.act(() => new Promise(() => {}));
-        wrapper.act(() => new Promise(() => {}));
-        await wrapper.destroy();
+    it('releases any stale promises when component is destroyed', async () => {
+      const wrapper = mount(<Counter />);
+      wrapper.act(() => new Promise(() => {}));
+      wrapper.act(() => new Promise(() => {}));
+      await wrapper.destroy();
 
-        // React 17 will fail without this await
-        await new Promise((resolve) => setTimeout(resolve, 0));
+      function EffectChangeComponent({children}: {children?: ReactNode}) {
+        const [counter, setCounter] = useState(0);
+        useEffect(() => setCounter(100), []);
 
-        function EffectChangeComponent({children}: {children?: ReactNode}) {
-          const [counter, setCounter] = useState(0);
-          useEffect(() => setCounter(100), []);
+        return (
+          // eslint-disable-next-line @shopify/jsx-prefer-fragment-wrappers
+          <div>
+            <Message>{counter}</Message>
+            {children}
+          </div>
+        );
+      }
+      const newWrapper = mount(<EffectChangeComponent />);
 
-          return (
-            // eslint-disable-next-line @shopify/jsx-prefer-fragment-wrappers
-            <div>
-              <Message>{counter}</Message>
-              {children}
-            </div>
-          );
-        }
-        const newWrapper = mount(<EffectChangeComponent />);
-
-        expect(newWrapper.find(Message)!.html()).toBe('<span>100</span>');
-      },
-    );
+      expect(newWrapper.find(Message)!.html()).toBe('<span>100</span>');
+    });
 
     it('updates element tree when state is changed', () => {
       const wrapper = mount(<Counter />);

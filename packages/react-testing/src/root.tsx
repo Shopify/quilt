@@ -5,7 +5,7 @@ import {act} from 'react-dom/test-utils';
 
 import {TestWrapper} from './TestWrapper';
 import {Element} from './element';
-import {createRoot, getInternals} from './compat';
+import {createRoot, getInternals, enqueueTask, isLegacyReact} from './compat';
 import {
   Tag,
   Fiber,
@@ -313,6 +313,11 @@ export class Root<Props> implements Node<Props> {
     this.destroyed = true;
     await mountedPromise;
     this.actCallbacks.forEach((callback) => callback());
+
+    if (isLegacyReact) {
+      // flush macro task for react 17 only
+      await new Promise((resolve) => enqueueTask(resolve));
+    }
   }
 
   setProps(props: Partial<Props>) {
