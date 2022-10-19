@@ -75,8 +75,7 @@ export class Root<Props> implements Node<Props> {
   private root: Element<Props> | null = null;
   private acting = false;
   private destroyed = false;
-  private actPromise!: Promise<void>;
-  private actPromiseResolver!: () => void;
+  private actCallbacks: Set<() => void> = new Set();
 
   private render: Render;
   private resolveRoot: ResolveRoot;
@@ -91,9 +90,6 @@ export class Root<Props> implements Node<Props> {
   ) {
     this.render = render;
     this.resolveRoot = resolveRoot;
-    this.actPromise = new Promise((resolve) => {
-      this.actPromiseResolver = resolve;
-    });
     this.mount();
   }
 
@@ -140,10 +136,38 @@ export class Root<Props> implements Node<Props> {
           return result as unknown as Promise<void>;
         }
 
-        return Promise.race([
-          result,
-          this.actPromise,
-        ]) as unknown as Promise<void>;
+        /* return a thenable which when invoked will add react's callback (to clear queue)
+         * into a set. If the result ever resolves we will remove the callback from the Set.
+         * If it doesn't we will call all callbacks in the Set when this root is destroyed which
+         * will unblock any stuck queues allowing subsequent tests to run
+         * Note: This can be cleanly achieved with a `Promise.race` but that adds an extra micro-task
+         * which can potentially break fragile logic that depend on specific update timings.
+         * (eg. testing errors with useLazyQuery from apollo )
+         */
+
+        return {
+          then: (callback, error) => {
+            this.actCallbacks.add(callback);
+            if (this.destroyed) {
+              return Promise.resolve();
+            }
+
+            return (result as unknown as Promise<void>).then(
+              (value) => {
+                this.actCallbacks.delete(callback);
+                if (!this.destroyed) {
+                  return callback(value);
+                }
+              },
+              (value) => {
+                this.actCallbacks.delete(callback);
+                if (!this.destroyed) {
+                  return error(value);
+                }
+              },
+            );
+          },
+        } as unknown as Promise<void>;
       }
 
       return undefined as unknown as Promise<void>;
@@ -274,21 +298,21 @@ export class Root<Props> implements Node<Props> {
     }
 
     this.ensureRoot();
-    this.act(() => this.reactRoot!.unmount());
+    return this.act(() => this.reactRoot!.unmount());
   }
 
   async destroy() {
     const {element, mounted} = this;
+    let mountedPromise;
 
     if (mounted) {
-      this.unmount();
+      mountedPromise = this.unmount();
     }
     element.remove();
     connected.delete(this);
     this.destroyed = true;
-    this.actPromiseResolver();
-    // flush the micro task to wait until react commits all pending updates.
-    await this.actPromise;
+    await mountedPromise;
+    this.actCallbacks.forEach((callback) => callback());
   }
 
   setProps(props: Partial<Props>) {
