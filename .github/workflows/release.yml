@@ -18,7 +18,7 @@ jobs:
           token: ${{ secrets.SHOPIFY_GH_ACCESS_TOKEN }}
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 16.x
           cache: 'yarn'
