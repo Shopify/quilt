@@ -1,5 +1,28 @@
 # Changelog
 
+## 5.0.6
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @shopify/react-hydrate@3.0.6
+
+## 5.0.5
+
+### Patch Changes
+
+- [#2408](https://github.com/Shopify/quilt/pull/2408) [`2094cb39a`](https://github.com/Shopify/quilt/commit/2094cb39a674d38a19394b79bf59c11a65ff9e15) Thanks [@BPScott](https://github.com/BPScott)! - Internal typing adjustments as a result of updating Typescript
+
+- Updated dependencies []:
+  - @shopify/react-hydrate@3.0.5
+
+## 5.0.4
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @shopify/react-hydrate@3.0.4
+
 ## 5.0.3
 
 ### Patch Changes

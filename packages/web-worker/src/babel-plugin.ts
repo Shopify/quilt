@@ -2,6 +2,7 @@ import {resolve} from 'path';
 import {runInNewContext} from 'vm';
 
 export const DEFAULT_PACKAGES_TO_PROCESS = {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   '@shopify/web-worker': [
     {name: 'createPlainWorkerFactory'},
     {

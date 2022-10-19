@@ -137,7 +137,7 @@ export function createMount<
       const originalDestroy = wrapper.destroy.bind(wrapper);
       wrapper.destroy = () => {
         cleanup(wrapper, options);
-        originalDestroy();
+        return originalDestroy();
       };
     }
 

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+
 export const deprecatedTimezones: {[key: string]: string} = {
   'America/Indiana': 'America/Indiana/Indianapolis',
   'America/Argentina': 'America/Argentina/Buenos_Aires',

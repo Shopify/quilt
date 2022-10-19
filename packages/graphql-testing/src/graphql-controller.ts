@@ -1,8 +1,8 @@
 import {ApolloLink, GraphQLRequest} from 'apollo-link';
 import {
-  ApolloReducerConfig,
   InMemoryCache,
   IntrospectionFragmentMatcher,
+  InMemoryCacheConfig,
 } from 'apollo-cache-inmemory';
 import {ApolloClient} from 'apollo-client';
 
@@ -14,8 +14,9 @@ import {GraphQLMock, MockRequest, FindOptions} from './types';
 
 export interface Options {
   unionOrIntersectionTypes?: any[];
-  cacheOptions?: ApolloReducerConfig;
+  cacheOptions?: InMemoryCacheConfig;
   links?: ApolloLink[];
+  assumeImmutableResults?: boolean;
 }
 
 interface Wrapper {
@@ -36,6 +37,7 @@ export class GraphQL {
       unionOrIntersectionTypes = [],
       cacheOptions = {},
       links = [],
+      assumeImmutableResults = false,
     }: Options = {},
   ) {
     const cache = new InMemoryCache({
@@ -60,6 +62,7 @@ export class GraphQL {
     ]);
 
     this.client = new TestingApolloClient({
+      assumeImmutableResults,
       link,
       cache,
     });

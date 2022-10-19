@@ -16,6 +16,10 @@ module.exports = {
     'node/no-extraneous-require': 'off',
     'import/no-cycle': 'off',
     'jest/require-tothrow-message': 'off',
+    'jest/no-standalone-expect': [
+      'error',
+      {additionalTestBlockFunctions: ['itIf']},
+    ],
     'callback-return': 'off',
     'func-style': 'off',
     'react/display-name': 'off',

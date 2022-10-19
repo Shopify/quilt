@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.0.3
+
+### Patch Changes
+
+- [#2405](https://github.com/Shopify/quilt/pull/2405) [`c5742a7ac`](https://github.com/Shopify/quilt/commit/c5742a7acc2e9ebd5a1835037e6098003bf4e57a) Thanks [@BPScott](https://github.com/BPScott)! - Fix issue that caused the idle-callback polyfill to be inadvertently removed
+
+* [#2408](https://github.com/Shopify/quilt/pull/2408) [`2094cb39a`](https://github.com/Shopify/quilt/commit/2094cb39a674d38a19394b79bf59c11a65ff9e15) Thanks [@BPScott](https://github.com/BPScott)! - Simplify typing in idle-callback polyfill thanks improvements in window's typing in TypeScript 4.4
+
 ## 4.0.2
 
 ### Patch Changes

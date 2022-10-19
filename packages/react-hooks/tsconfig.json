@@ -10,5 +10,5 @@
     "./src/**/*.ts",
     "./src/**/*.tsx"
   ],
-  "references": [{"path": "../react-testing"}]
+  "references": [{"path": "../jest-dom-mocks"}, {"path": "../react-testing"}]
 }

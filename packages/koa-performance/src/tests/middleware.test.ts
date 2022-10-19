@@ -271,6 +271,34 @@ describe('client metrics middleware', () => {
       );
     });
 
+    it('sends distribution for redirect_duration when ttfb is supplied with relevant metadata', async () => {
+      const ttfbEvent = createLifecycleEvent(
+        EventType.TimeToFirstByte,
+        123,
+        100,
+        {redirectDuration: 50},
+      );
+
+      const context = createMockContext({
+        method: Method.Post,
+        requestBody: createBody({
+          events: [ttfbEvent],
+        }),
+      });
+
+      await withEnv('production', async () => {
+        await clientPerformanceMetrics(config)(context, () =>
+          Promise.resolve(),
+        );
+      });
+
+      expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
+        'redirect_duration',
+        ttfbEvent.metadata?.redirectDuration,
+        expect.any(Object),
+      );
+    });
+
     it('sends distribution for first-input-delay duration', async () => {
       const firstInputDelayEvent = createLifecycleEvent(
         EventType.FirstInputDelay,
@@ -492,8 +520,9 @@ describe('client metrics middleware', () => {
       );
     });
 
-    it('attaches anomalous:true tag if anomalousNavigationDurationThreshold is exceeded', async () => {
-      const anomalousNavigationDurationThreshold = 10000;
+    it('attaches anomalous:true tag if anomalousNavigationThreshold for duration is exceeded', async () => {
+      const anomalousNavigationDurationThreshold = 30_000;
+
       const navigation = createNavigation({
         duration: anomalousNavigationDurationThreshold + 1,
       });
@@ -519,8 +548,9 @@ describe('client metrics middleware', () => {
       );
     });
 
-    it('attaches anomalous:false tag if anomalousNavigationDurationThreshold is not exceeded', async () => {
-      const anomalousNavigationDurationThreshold = 10000;
+    it('attaches anomalous:false tag if anomalousNavigationThreshold for duration is not exceeded', async () => {
+      const anomalousNavigationDurationThreshold = 30_000;
+
       const navigation = createNavigation({
         duration: anomalousNavigationDurationThreshold - 1,
       });
@@ -541,6 +571,88 @@ describe('client metrics middleware', () => {
 
       expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
         'navigation_complete',
+        expect.any(Number),
+        expect.objectContaining({anomalous: false}),
+      );
+    });
+
+    it('attaches anomalous:true tag if anomalousNavigationThreshold for downloadSize is exceeded', async () => {
+      const anomalousNavigationDurationThreshold = 1_500_000;
+      const anomalousNavigationDownloadSizeThreshold = 30_000;
+
+      const navigation = createNavigation({
+        events: [
+          {
+            type: EventType.ScriptDownload,
+            start: 0,
+            duration: anomalousNavigationDurationThreshold - 1,
+            metadata: {
+              name: 'https://some-page/assets/app.js',
+              size: anomalousNavigationDownloadSizeThreshold + 1,
+              cached: false,
+            },
+          },
+        ],
+      });
+
+      const context = createMockContext({
+        method: Method.Post,
+        requestBody: createBody({
+          navigations: [navigation],
+        }),
+      });
+
+      await withEnv('production', async () => {
+        await clientPerformanceMetrics({
+          ...config,
+          anomalousNavigationDurationThreshold,
+          anomalousNavigationDownloadSizeThreshold,
+        })(context, () => Promise.resolve());
+      });
+
+      expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
+        'navigation_download_size',
+        expect.any(Number),
+        expect.objectContaining({anomalous: true}),
+      );
+    });
+
+    it('attaches anomalous:false tag if anomalousNavigationThreshold for downloadSize is not exceeded', async () => {
+      const anomalousNavigationDurationThreshold = 1_500_000;
+      const anomalousNavigationDownloadSizeThreshold = 30_000;
+
+      const navigation = createNavigation({
+        events: [
+          {
+            type: EventType.ScriptDownload,
+            start: 0,
+            duration: anomalousNavigationDurationThreshold + 1,
+            metadata: {
+              name: 'https://some-page/assets/app.js',
+              size: anomalousNavigationDownloadSizeThreshold - 1,
+              cached: false,
+            },
+          },
+        ],
+      });
+
+      const context = createMockContext({
+        method: Method.Post,
+        requestBody: createBody({
+          navigations: [navigation],
+        }),
+      });
+
+      await withEnv('production', async () => {
+        await clientPerformanceMetrics({
+          ...config,
+          anomalousNavigationDurationThreshold,
+          anomalousNavigationDownloadSizeThreshold,
+        })(context, () => Promise.resolve());
+      });
+
+      expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
+        'navigation_download_size',
         expect.any(Number),
         expect.objectContaining({anomalous: false}),
       );
@@ -618,11 +730,13 @@ function createLifecycleEvent(
   type: LifecycleEvent['type'] = EventType.TimeToFirstByte,
   time = 100,
   duration = 0,
+  metadata?: {[key: string]: any},
 ) {
   return {
     type,
     duration,
     start: time,
+    metadata,
   } as LifecycleEvent;
 }
 

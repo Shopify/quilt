@@ -9,5 +9,6 @@
     "../../config/typescript/*.d.ts",
     "./src/**/*.ts",
     "./src/**/*.tsx"
-  ]
+  ],
+  "references": [{"path": "../react-testing"}]
 }

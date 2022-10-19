@@ -1,5 +1,29 @@
 # Changelog
 
+## 3.0.9
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @shopify/react-html@12.0.6
+  - @shopify/react-i18n@7.2.4
+
+## 3.0.8
+
+### Patch Changes
+
+- Updated dependencies [[`35648c5ef`](https://github.com/Shopify/quilt/commit/35648c5ef938b4c209af941a2e4a74403edb7a36)]:
+  - @shopify/react-i18n@7.2.3
+  - @shopify/react-html@12.0.5
+
+## 3.0.7
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @shopify/react-html@12.0.4
+  - @shopify/react-i18n@7.2.2
+
 ## 3.0.6
 
 ### Patch Changes

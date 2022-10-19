@@ -1,12 +1,14 @@
 import Types from '@babel/types';
 import {NodePath, Binding} from '@babel/traverse';
 
+/* eslint-disable @typescript-eslint/naming-convention */
 const DEFAULT_PACKAGES_TO_PROCESS = {
   '@shopify/alpaql/async': ['createAsyncQuery'],
   '@shopify/async': ['createResolver'],
   '@shopify/react-async': ['createAsyncContext', 'createAsyncComponent'],
   '@shopify/react-graphql': ['createAsyncQueryComponent', 'createAsyncQuery'],
 };
+/* eslint-enable @typescript-eslint/naming-convention */
 
 export interface Options {
   webpack?: boolean;

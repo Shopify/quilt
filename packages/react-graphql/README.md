@@ -50,7 +50,7 @@ This hook accepts two arguments:
 
 - first argument, a required query document, or an `AsyncQueryComponent` created from [`createAsyncQueryComponent`](#createasyncquerycomponent), or an async query create with [`createAsyncQuery`](#createasyncquery).
 
-- second argument, a optional set of options with the following type definition.
+- second argument, an optional set of options with the following type definition.
 
 ```ts
 interface QueryHookOptions<Variables = OperationVariables> {

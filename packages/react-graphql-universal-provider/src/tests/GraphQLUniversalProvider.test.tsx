@@ -320,6 +320,7 @@ describe('<GraphQLUniversalProvider />', () => {
 
       mount(
         <NetworkContext.Provider
+          // eslint-disable-next-line @typescript-eslint/naming-convention
           value={new NetworkManager({headers: {'X-Request-ID': mockRequestId}})}
         >
           <GraphQLUniversalProvider createClientOptions={() => ({})} />
@@ -344,6 +345,7 @@ describe('<GraphQLUniversalProvider />', () => {
 
       mount(
         <NetworkContext.Provider
+          // eslint-disable-next-line @typescript-eslint/naming-convention
           value={new NetworkManager({headers: {'X-Request-ID': mockRequestId}})}
         >
           <GraphQLUniversalProvider

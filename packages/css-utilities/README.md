@@ -53,16 +53,19 @@ Given this CSS file for a `Square` React component:
 The following can be use to generate different class names for the component based on its props:
 
 ```tsx
+type Size = 'small' | 'large';
+type Color = 'white' | 'black';
+
 interface Props {
-  size: 'small' | 'large';
-  color: 'white' | 'black';
+  size: Size;
+  color: Color;
 }
 
 function Square({size, color}: Props) {
   const className = classNames(
     styles.Square,
-    styles[variationName('color', color)],
-    styles[variationName('size', size)],
+    styles[variationName<Color>('color', color)],
+    styles[variationName<Size>('size', size)],
   );
 
   return <div className={className} />;

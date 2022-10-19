@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     name: 'Test (Node ${{ matrix.node-version }}, React ${{ matrix.react-version }})'
     strategy:
+      fail-fast: false
       matrix:
         # The action will first check the local cache for a semver match.
         # If unable to find a specific version in the cache,

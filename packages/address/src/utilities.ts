@@ -1,6 +1,7 @@
 import {Address, FieldName, Country, Zone} from '@shopify/address-consts';
 
 export const FIELD_REGEXP = /({\w+})/g;
+/* eslint-disable @typescript-eslint/naming-convention */
 export const FIELDS_MAPPING: {
   [key: string]: FieldName;
 } = {
@@ -15,6 +16,7 @@ export const FIELDS_MAPPING: {
   '{phone}': FieldName.Phone,
   '{company}': FieldName.Company,
 };
+/* eslint-enable @typescript-eslint/naming-convention */
 
 /*
  * Returns empty string if all replacement fields are empty.

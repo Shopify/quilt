@@ -7,15 +7,19 @@ type AllKeys<T> = T extends any ? keyof T : never;
 type PickType<T, K extends AllKeys<T>> = T extends {[k in K]?: any}
   ? T[K]
   : undefined;
-type PickTypeOf<T, K extends PropertyKey> = K extends AllKeys<T>
-  ? PickType<T, K>
+type PickTypeOf<T, K extends PropertyKey> = T extends any
+  ? K extends AllKeys<T>
+    ? PickType<T, K>
+    : never
   : never;
 
 type Merge<T> = {[K in keyof T]: PickTypeOf<T, K>} & {
   [K in Exclude<AllKeys<T>, keyof T>]?: PickTypeOf<T, K>;
 };
 
-type IsArrayIndex<T extends string> = T extends `${number | string}`
+type IsArrayIndex<T extends string> = `${number}` extends T
+  ? true
+  : string extends T
   ? true
   : T extends `${infer Head}${infer Rest}`
   ? Head extends '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'

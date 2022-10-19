@@ -18,13 +18,21 @@ describe('useDynamicList', () => {
     consoleErrorSpy.mockRestore();
   });
 
-  describe('add and remove fields', () => {
+  describe('add, edit, and remove fields', () => {
     const factory = () => {
       return {price: '', optionName: '', optionValue: ''};
     };
     function DynamicListComponent(config: FieldListConfig<Variant>) {
-      const {fields, addItem, removeItem, moveItem, reset, dirty} =
-        useDynamicList<Variant>(config, factory);
+      const {
+        fields,
+        addItem,
+        editItem,
+        removeItem,
+        removeItems,
+        moveItem,
+        reset,
+        dirty,
+      } = useDynamicList<Variant>(config, factory);
 
       return (
         <>
@@ -38,6 +46,23 @@ describe('useDynamicList', () => {
                 />
                 <button type="button" onClick={() => removeItem(index)}>
                   Remove Variant
+                </button>
+                <button
+                  type="button"
+                  onClick={() =>
+                    editItem(
+                      {
+                        ...fields,
+                        price: {
+                          ...fields.price,
+                          value: 'editedValue',
+                        },
+                      },
+                      index,
+                    )
+                  }
+                >
+                  Edit Variant
                 </button>
                 <button
                   type="button"
@@ -56,6 +81,9 @@ describe('useDynamicList', () => {
           </ul>
           <button type="button" onClick={reset}>
             Reset
+          </button>
+          <button type="button" onClick={() => removeItems([0, 1, 2])}>
+            Remove Variants
           </button>
           <p>Dirty: {dirty.toString()}</p>
         </>
@@ -114,6 +142,33 @@ describe('useDynamicList', () => {
       expect(wrapper).not.toContainReactComponent(TextField);
     });
 
+    it('can remove multiple fields with removeFields', () => {
+      const variants: Variant[] = [
+        {price: 'A', optionName: 'A', optionValue: 'A'},
+        {price: 'B', optionName: 'B', optionValue: 'B'},
+        {price: 'C', optionName: 'C', optionValue: 'C'},
+        {price: 'D', optionName: 'D', optionValue: 'D'},
+      ];
+
+      const wrapper = mount(<DynamicListComponent list={variants} />);
+      wrapper
+        .find('button', {children: 'Remove Variants'})!
+        .trigger('onClick', clickEvent());
+
+      expect(wrapper.findAll(TextField)).toHaveLength(1);
+      const removedVariants = variants.slice(0, 2);
+      const remainingVariant = variants[3];
+      removedVariants.forEach((variant) => {
+        expect(wrapper).not.toContainReactComponent(TextField, {
+          value: variant.price,
+        });
+      });
+      expect(wrapper).toContainReactComponent(TextField, {
+        name: 'price0',
+        value: remainingVariant.price,
+      });
+    });
+
     it('can add field', () => {
       const variants: Variant[] = randomVariants(1);
 
@@ -126,6 +181,21 @@ describe('useDynamicList', () => {
       expect(wrapper).toContainReactComponent(TextField, {
         name: 'price1',
         value: '',
+      });
+    });
+
+    it('can edit field', () => {
+      const variants: Variant[] = randomVariants(1);
+
+      const wrapper = mount(<DynamicListComponent list={variants} />);
+
+      wrapper
+        .find('button', {children: 'Edit Variant'})!
+        .trigger('onClick', clickEvent());
+
+      expect(wrapper).toContainReactComponent(TextField, {
+        name: 'price0',
+        value: 'editedValue',
       });
     });
 
@@ -173,6 +243,16 @@ describe('useDynamicList', () => {
       ).toHaveLength(0);
     });
 
+    it('cannot edit field when there are no items', () => {
+      const variants: Variant[] = [];
+
+      const wrapper = mount(<DynamicListComponent list={variants} />);
+
+      expect(
+        wrapper.findAll('button', {children: 'Edit Variant'}),
+      ).toHaveLength(0);
+    });
+
     describe('reset dynamic list', () => {
       it('can reset a dynamic list after adding a field', () => {
         const variants: Variant[] = randomVariants(1);
@@ -195,6 +275,35 @@ describe('useDynamicList', () => {
         expect(wrapper).not.toContainReactComponent(TextField, {
           name: 'price1',
           value: '',
+        });
+      });
+
+      it('can reset a dynamic list after editing a field', () => {
+        const variants: Variant[] = randomVariants(1);
+
+        const wrapper = mount(<DynamicListComponent list={variants} />);
+
+        wrapper
+          .find('button', {children: 'Edit Variant'})!
+          .trigger('onClick', clickEvent());
+
+        expect(wrapper).toContainReactComponent(TextField, {
+          name: 'price0',
+          value: 'editedValue',
+        });
+
+        wrapper
+          .find('button', {children: 'Reset'})!
+          .trigger('onClick', clickEvent());
+
+        expect(wrapper).not.toContainReactComponent(TextField, {
+          name: 'price0',
+          value: 'editedValue',
+        });
+
+        expect(wrapper).toContainReactComponent(TextField, {
+          name: 'price0',
+          value: variants[0].price,
         });
       });
 
@@ -247,6 +356,26 @@ describe('useDynamicList', () => {
 
         wrapper
           .find('button', {children: 'Add Variant'})!
+          .trigger('onClick', clickEvent());
+
+        expect(wrapper).toContainReactText('Dirty: true');
+
+        wrapper
+          .find('button', {children: 'Reset'})!
+          .trigger('onClick', clickEvent());
+
+        expect(wrapper).toContainReactText('Dirty: false');
+      });
+
+      it('handles dirty state when editing a field and resetting it', () => {
+        const wrapper = mount(
+          <DynamicListComponent list={randomVariants(1)} />,
+        );
+
+        expect(wrapper).toContainReactText('Dirty: false');
+
+        wrapper
+          .find('button', {children: 'Edit Variant'})!
           .trigger('onClick', clickEvent());
 
         expect(wrapper).toContainReactText('Dirty: true');

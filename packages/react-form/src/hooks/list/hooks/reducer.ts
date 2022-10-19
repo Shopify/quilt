@@ -12,8 +12,10 @@ import {mapObject} from '../../../utilities';
 export type ListAction<Item> =
   | ReinitializeAction<Item>
   | AddFieldItemAction<Item>
+  | EditFieldItemAction<FieldStates<object>>
   | MoveFieldItemAction
   | RemoveFieldItemAction
+  | RemoveFieldItemsAction
   | UpdateErrorAction<Item>
   | UpdateAction<Item, keyof Item>
   | ResetAction<Item, keyof Item>
@@ -30,6 +32,14 @@ interface AddFieldItemAction<Item> {
   payload: {list: Item[]};
 }
 
+interface EditFieldItemAction<Item extends object> {
+  type: 'editFieldItem';
+  payload: {
+    index: number;
+    editedItem: Item;
+  };
+}
+
 interface MoveFieldItemAction {
   type: 'moveFieldItem';
   payload: {fromIndex: number; toIndex: number};
@@ -42,6 +52,11 @@ interface ResetListAction {
 interface RemoveFieldItemAction {
   type: 'removeFieldItem';
   payload: {indexToRemove: number};
+}
+
+interface RemoveFieldItemsAction {
+  type: 'removeFieldItems';
+  payload: {indicesToRemove: number[]};
 }
 
 interface TargetedPayload<Item, Key extends keyof Item> {
@@ -101,6 +116,19 @@ export function addFieldItemAction<Item>(
   };
 }
 
+export function editFieldItemAction<Item extends object>(
+  editedItem: Item,
+  index: number,
+): EditFieldItemAction<Item> {
+  return {
+    type: 'editFieldItem',
+    payload: {
+      editedItem,
+      index,
+    },
+  };
+}
+
 export function moveFieldItemAction(
   fromIndex: number,
   toIndex: number,
@@ -117,6 +145,15 @@ export function removeFieldItemAction(
   return {
     type: 'removeFieldItem',
     payload: {indexToRemove},
+  };
+}
+
+export function removeFieldItemsAction(
+  indicesToRemove: number[],
+): RemoveFieldItemsAction {
+  return {
+    type: 'removeFieldItems',
+    payload: {indicesToRemove},
   };
 }
 
@@ -211,12 +248,33 @@ function reduceList<Item extends object>(
         list: [...state.list, ...action.payload.list.map(initialListItemState)],
       };
     }
+    case 'editFieldItem': {
+      const {editedItem, index} = action.payload;
+
+      // Don't do a full rewrite of the object, only edit data which is supplied.
+      const list = state?.list?.map?.((item, i) =>
+        i === index ? {...item, ...editedItem} : item,
+      );
+
+      return {
+        ...state,
+        list,
+      };
+    }
     case 'removeFieldItem': {
       const newList = [...state.list];
       newList.splice(action.payload.indexToRemove, 1);
       return {
         ...state,
         list: newList,
+      };
+    }
+    case 'removeFieldItems': {
+      const indicesToRemove = action?.payload?.indicesToRemove ?? [];
+      const list = state.list.filter((_, i) => !indicesToRemove.includes(i));
+      return {
+        ...state,
+        list,
       };
     }
     case 'updateError': {

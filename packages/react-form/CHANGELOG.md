@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.4.0
+
+### Minor Changes
+
+- [#2395](https://github.com/Shopify/quilt/pull/2395) [`de19fb2a0`](https://github.com/Shopify/quilt/commit/de19fb2a014342109d0e4b9078c481f0d391a200) Thanks [@QuintonC](https://github.com/QuintonC)! - Adds new function, editItem to useDynamicList which exposes the ability to update an existing item within the list.
+
+## 2.3.0
+
+### Minor Changes
+
+- [#2392](https://github.com/Shopify/quilt/pull/2392) [`6ef76c3a4`](https://github.com/Shopify/quilt/commit/6ef76c3a476fbdca69374254754383813156fd2b) Thanks [@PatrickMcLennan](https://github.com/PatrickMcLennan)! - Created a 'removeItems' method for the 'useDynamicList' hook that accepts an array of indices to remove
+
+## 2.2.2
+
 ## 2.2.1
 
 ### Patch Changes

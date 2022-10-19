@@ -1,8 +1,9 @@
 import React from 'react';
-import {BrowserRouter, StaticRouter} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
+import {StaticRouter} from 'react-router-dom/server';
 import {mount} from '@shopify/react-testing';
 
-import Router, {NO_LOCATION_ERROR} from '../Router';
+import {Router, NO_LOCATION_ERROR} from '../Router';
 
 jest.mock('../utilities', () => ({
   isClient: jest.fn(),

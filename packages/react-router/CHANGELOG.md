@@ -1,5 +1,34 @@
 # Changelog
 
+## 3.0.0
+
+### Major Changes
+
+- [#2422](https://github.com/Shopify/quilt/pull/2422) [`8af87f4e4`](https://github.com/Shopify/quilt/commit/8af87f4e499029ab700a76845a634a0ea48f805f) Thanks [@devonpmack](https://github.com/devonpmack)! - `@shopify/react-router` is now `react-router` v6 compatible; support for `react-router` v5 is dropped. In order to distinguish what comes from `react-router-dom` and what comes from `@shopify/react-router`, we have removed re-exports from `react-router-dom`. `react-router-dom` is now a peer dependency of this package. The `Link` component has been removed.
+
+  Consumers should add `react-router-dom` as a dependency alongside `@shopify/react-router`, and all imports aside from `Router` and `Redirect` should be updated to imported from `react-router-dom`. See [Polaris' documentation](https://polaris.shopify.com/components/app-provider#using-link-component) for how to create a meaningful `Link` component that handles external urls.
+
+## 2.0.8
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @shopify/react-network@5.0.8
+
+## 2.0.7
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @shopify/react-network@5.0.7
+
+## 2.0.6
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @shopify/react-network@5.0.6
+
 ## 2.0.5
 
 ### Patch Changes

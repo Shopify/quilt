@@ -1,23 +1,7 @@
-// reference: https://developers.google.com/web/updates/2015/08/using-requestidlecallback
-import {ExtendedWindow} from '@shopify/useful-types';
-
-interface IdleCallback {
-  (params: CallbackParams): void;
-}
-
-interface CallbackParams {
-  didTimeout: boolean;
-  timeRemaining(): number;
-}
-interface PolyfilledWindow extends Window {
-  requestIdleCallback(cb: IdleCallback): any;
-  cancelIdleCallback(): any;
-}
-
 // According to the spec the max value timeRemaining can return is 50
 const MAX_TIME_REMAINING = 50;
 
-function fallbackQueueingFunction(cb: IdleCallback) {
+function fallbackQueueingFunction(cb: IdleRequestCallback) {
   const start = Date.now();
   return setImmediate(() => {
     cb({
@@ -29,10 +13,9 @@ function fallbackQueueingFunction(cb: IdleCallback) {
   });
 }
 
-const extendedWindow = window as ExtendedWindow<PolyfilledWindow>;
+window.requestIdleCallback =
+  window.requestIdleCallback || fallbackQueueingFunction;
 
-extendedWindow.requestIdleCallback =
-  extendedWindow.requestIdleCallback || fallbackQueueingFunction;
+window.cancelIdleCallback = window.cancelIdleCallback || window.clearImmediate;
 
-extendedWindow.cancelIdleCallback =
-  extendedWindow.cancelIdleCallback || (window as any).clearImmediate;
+export {};

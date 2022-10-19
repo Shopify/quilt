@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.1.0
+
+### Minor Changes
+
+- [#2413](https://github.com/Shopify/quilt/pull/2413) [`21435a256`](https://github.com/Shopify/quilt/commit/21435a2562822ef76d3ede49c8b1eaefc1fe475d) Thanks [@rorans](https://github.com/rorans)! - Introduce a RedirectDuration metric to get more specific server latency timings. This information will be sent via TTFB metadata. No changes need to be made on the consumer.
+
+## 3.0.2
+
+### Patch Changes
+
+- [#2408](https://github.com/Shopify/quilt/pull/2408) [`2094cb39a`](https://github.com/Shopify/quilt/commit/2094cb39a674d38a19394b79bf59c11a65ff9e15) Thanks [@BPScott](https://github.com/BPScott)! - Internal typing adjustments as a result of updating Typescript
+
 ## 3.0.1
 
 ### Patch Changes

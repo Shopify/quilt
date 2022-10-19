@@ -4,24 +4,16 @@ export interface PolyfillDescriptor {
   featureTest?: string;
 }
 
+/* eslint-disable @typescript-eslint/naming-convention */
 export const polyfills: {[polyfill: string]: PolyfillDescriptor} = {
-  fetch: {
-    featureTest: 'fetch',
-  },
+  fetch: {featureTest: 'fetch'},
   formdata: {},
-  'idle-callback': {
-    featureTest: 'requestidlecallback',
-  },
-  'intersection-observer': {
-    featureTest: 'intersectionobserver',
-  },
-  intl: {
-    featureTest: 'intl-pluralrules',
-  },
-  'mutation-observer': {
-    featureTest: 'mutationobserver',
-  },
+  'idle-callback': {featureTest: 'requestidlecallback'},
+  'intersection-observer': {featureTest: 'intersectionobserver'},
+  intl: {featureTest: 'intl-pluralrules'},
+  'mutation-observer': {featureTest: 'mutationobserver'},
 };
+/* eslint-enable @typescript-eslint/naming-convention */
 
 export function mappedPolyfillsForEnv(env: 'node' | 'jest' | string[]): {
   [key: string]: string;
@@ -45,6 +37,7 @@ export function mappedPolyfillsForEnv(env: 'node' | 'jest' | string[]): {
       return mappedPolyfills;
     },
     {
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       '@shopify/polyfills/base$': `${prefix}/base`,
     },
   );

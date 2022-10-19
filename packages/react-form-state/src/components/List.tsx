@@ -52,7 +52,7 @@ export default class List<Fields> extends React.PureComponent<
     });
   }
 
-  private handleChange = <Key extends keyof Fields>({
+  private handleChange = <Key extends string & keyof Fields>({
     index,
     key,
   }: {

@@ -11,6 +11,7 @@ export enum EventType {
   GraphQL = 'graphql',
   ScriptDownload = 'script',
   StyleDownload = 'style',
+  RedirectDuration = 'redirect_duration',
 }
 
 interface BasicEvent {
@@ -21,7 +22,9 @@ interface BasicEvent {
 
 export interface TimeToFirstByteEvent extends BasicEvent {
   type: EventType.TimeToFirstByte;
-  metadata?: undefined;
+  metadata?: {
+    [key: string]: any;
+  };
 }
 
 export interface TimeToFirstPaintEvent extends BasicEvent {

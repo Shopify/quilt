@@ -99,7 +99,9 @@ export enum GraphqlOperationName {
   Country = 'country',
 }
 
+/* eslint-disable @typescript-eslint/naming-convention */
 export const HEADERS = {
   'Content-Type': 'application/json',
   'Access-Control-Allow-Origin': '*',
 };
+/* eslint-enable @typescript-eslint/naming-convention */

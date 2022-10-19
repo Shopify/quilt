@@ -104,6 +104,7 @@ describe('createRender', () => {
     const myCoolApp = 'My cool app';
     const data = {foo: 'bar'};
     const ctx = createMockContext({
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       headers: {'x-quilt-data': JSON.stringify({foo: 'bar'})},
     });
 
@@ -117,6 +118,7 @@ describe('createRender', () => {
 
   it('does not clobber proxies in the context object', async () => {
     const headerValue = 'some-value';
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     const ctx = createMockContext({headers: {'some-header': headerValue}});
 
     const renderFunction = createRender((ctx) => <>{ctx.get('some-header')}</>);

@@ -660,6 +660,7 @@ describe('printDocument()', () => {
             schema,
             {
               fragments: {
+                // eslint-disable-next-line @typescript-eslint/naming-convention
                 'PersonFragment.graphql': `
                   fragment PersonFragment on Person {
                     occupation
@@ -695,6 +696,7 @@ describe('printDocument()', () => {
             {
               printOptions: {addTypename: true},
               fragments: {
+                // eslint-disable-next-line @typescript-eslint/naming-convention
                 'NamedFragment.graphql': `
                   fragment NamedFragment on Named {
                     name
@@ -1039,6 +1041,7 @@ describe('printDocument()', () => {
             schema,
             {
               fragments: {
+                // eslint-disable-next-line @typescript-eslint/naming-convention
                 'PersonFragment.graphql': `
                   fragment PersonFragment on Person {
                     occupation
@@ -1074,6 +1077,7 @@ describe('printDocument()', () => {
             {
               printOptions: {addTypename: true},
               fragments: {
+                // eslint-disable-next-line @typescript-eslint/naming-convention
                 'NamedFragment.graphql': `
                   fragment NamedFragment on Named {
                     ...on Person { name, occupation }

@@ -18,6 +18,6 @@ if (typeof window !== 'undefined') {
 }
 
 // eslint-disable-next-line jest/require-top-level-describe
-afterEach(() => {
-  destroyAll();
+afterEach(async () => {
+  await destroyAll();
 });

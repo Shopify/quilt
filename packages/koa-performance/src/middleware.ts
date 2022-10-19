@@ -24,6 +24,7 @@ export interface Options {
   statsdHost?: string;
   statsdPort?: number;
   anomalousNavigationDurationThreshold?: number;
+  anomalousNavigationDownloadSizeThreshold?: number;
   logger?: Logger;
   additionalTags?(
     metricsBody: Metrics,
@@ -60,6 +61,7 @@ export function clientPerformanceMetrics({
   development = process.env.NODE_ENV === 'development',
   logger,
   anomalousNavigationDurationThreshold,
+  anomalousNavigationDownloadSizeThreshold,
   additionalTags: getAdditionalTags,
   additionalNavigationTags: getAdditionalNavigationTags,
   additionalNavigationMetrics: getAdditionalNavigationMetrics,
@@ -89,7 +91,7 @@ export function clientPerformanceMetrics({
       const metrics: {
         name: string;
         value: any;
-        tags: {[key: string]: string | undefined | null};
+        tags: {[key: string]: boolean | string | undefined | null};
       }[] = [];
 
       const additionalTags = getAdditionalTags
@@ -105,6 +107,16 @@ export function clientPerformanceMetrics({
       statsLogger.log(`Adding event tags: ${JSON.stringify(tags)}`);
 
       for (const event of events) {
+        if (
+          event.type === EventType.TimeToFirstByte &&
+          event.metadata?.redirectDuration
+        ) {
+          metrics.push({
+            name: EventType.RedirectDuration,
+            value: Math.round(event.metadata.redirectDuration),
+            tags,
+          });
+        }
         const value =
           event.type === EventType.FirstInputDelay
             ? event.duration
@@ -160,7 +172,13 @@ export function clientPerformanceMetrics({
           metrics.push({
             name: NavigationMetric.DownloadSize,
             value: totalDownloadSize,
-            tags: navigationTags,
+            tags: {
+              ...navigationTags,
+              ...(anomalousNavigationDownloadSizeThreshold && {
+                anomalous:
+                  totalDownloadSize > anomalousNavigationDownloadSizeThreshold,
+              }),
+            },
           });
         }
 

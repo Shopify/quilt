@@ -12,9 +12,9 @@ describe('Root', () => {
     consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
   });
 
-  afterEach(() => {
+  afterEach(async () => {
     consoleErrorSpy.mockRestore();
-    destroyAll();
+    await destroyAll();
   });
 
   it('works with react 16 style nodes', () => {
@@ -51,6 +51,7 @@ describe('Root', () => {
         type: 'div',
         tag: Tag.HostComponent,
         props: {
+          // eslint-disable-next-line @typescript-eslint/naming-convention
           'aria-label': 'Hello',
           onClick: (name: string) => `Nicely done, ${name}!`,
         },

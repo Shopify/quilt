@@ -1,5 +1,30 @@
 # Changelog
 
+## 5.0.0
+
+### Major Changes
+
+- [#2352](https://github.com/Shopify/quilt/pull/2352) [`963f1caf4`](https://github.com/Shopify/quilt/commit/963f1caf4d7c80ca089b49309d9833a14ca2b3e2) Thanks [@melnikov-s](https://github.com/melnikov-s)! - React `act` promise queues are now emptied when root wrappers are destroyed. This prevents unresolved promises from causing stuck queues and thus failures in subsequent test cases.
+
+  The `destroyAll()` and `root.destroy()` functions are now asynchronous and return promises. Calls to either of these functions must now be `await`ed.
+
+  ```diff
+  - destroyAll()
+  + await destroyAll()
+  ```
+
+## 4.2.2
+
+### Patch Changes
+
+- [#2404](https://github.com/Shopify/quilt/pull/2404) [`afdf2f9dd`](https://github.com/Shopify/quilt/commit/afdf2f9dd84f1f5a416d804efa5d459935a9d178) Thanks [@melnikov-s](https://github.com/melnikov-s)! - TriggerKeypath now fails typecheck on invalid array indices
+
+## 4.2.1
+
+### Patch Changes
+
+- [#2398](https://github.com/Shopify/quilt/pull/2398) [`b37ec58b6`](https://github.com/Shopify/quilt/commit/b37ec58b6b0a9186736fa8e39fbf3f304beb2336) Thanks [@melnikov-s](https://github.com/melnikov-s)! - Fix triggerKeyPath when path resolves to a type that is unioned with an empty object type ({})
+
 ## 4.2.0
 
 ### Minor Changes

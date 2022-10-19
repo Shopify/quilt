@@ -1,4 +1,7 @@
-export function variationName(name: string, value: string | number) {
+export function variationName<Variant extends string | number>(
+  name: string,
+  value: Variant,
+) {
   const valuePortion =
     typeof value === 'number'
       ? String(value)

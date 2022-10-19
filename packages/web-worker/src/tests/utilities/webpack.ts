@@ -24,8 +24,10 @@ export function runWebpack(
         resolve: {
           extensions: ['.esnext', '.js', '.ts', '.tsx', '.json'],
           alias: {
+            /* eslint-disable @typescript-eslint/naming-convention */
             '@shopify/web-worker': srcRoot,
             '@shopify/web-worker/worker': path.join(srcRoot, 'worker'),
+            /* eslint-enable @typescript-eslint/naming-convention */
           },
         },
         resolveLoader: {

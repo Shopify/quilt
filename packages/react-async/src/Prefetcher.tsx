@@ -12,7 +12,7 @@ interface State {
 }
 
 interface NavigatorWithConnection extends Navigator {
-  connection: {saveData: boolean};
+  connection: Navigator['connection'] & {saveData: boolean};
 }
 
 export const INTENTION_DELAY_MS = 150;

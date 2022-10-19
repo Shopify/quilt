@@ -1,4 +1,4 @@
-import {Connection, NavigatorWithConnection} from '../connection';
+import {Connection} from '../connection';
 
 describe('Connection', () => {
   describe('mock', () => {
@@ -29,9 +29,7 @@ describe('Connection', () => {
 
       connection.mock(mockValues);
 
-      expect((navigator as NavigatorWithConnection).connection).toMatchObject(
-        mockValues,
-      );
+      expect(navigator.connection).toMatchObject(mockValues);
     });
   });
 

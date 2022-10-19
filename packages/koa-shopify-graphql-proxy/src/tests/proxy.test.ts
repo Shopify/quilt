@@ -153,10 +153,12 @@ describe('koa-shopify-graphql-proxy', () => {
     expect(host).toBe(shop);
 
     expect(config).toMatchObject({
+      /* eslint-disable @typescript-eslint/naming-convention */
       headers: {
         'Content-Type': 'application/json',
         'X-Shopify-Access-Token': accessToken,
       },
+      /* eslint-enable @typescript-eslint/naming-convention */
       https: true,
       parseReqBody: false,
     });
@@ -183,10 +185,12 @@ describe('koa-shopify-graphql-proxy', () => {
     expect(host).toBe(shop);
 
     expect(config).toMatchObject({
+      /* eslint-disable @typescript-eslint/naming-convention */
       headers: {
         'Content-Type': 'application/json',
         'X-Shopify-Access-Token': password,
       },
+      /* eslint-enable @typescript-eslint/naming-convention */
       https: true,
       parseReqBody: false,
     });

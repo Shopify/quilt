@@ -1,7 +1,7 @@
 import {set} from './utilities';
 
 export interface NavigatorWithConnection extends Navigator {
-  connection: {
+  connection: Navigator['connection'] & {
     downlink: number;
     effectiveType: string;
     onchange: null | Function;
@@ -25,6 +25,10 @@ export class Connection {
     this.originalConnection = globalNavigator.connection;
 
     const mockConnection: NavigatorWithConnection['connection'] = {
+      addEventListener: () => {},
+      removeEventListener: () => {},
+      dispatchEvent: () => false,
+      type: 'unknown',
       downlink: 0,
       effectiveType: '3g',
       onchange: null,

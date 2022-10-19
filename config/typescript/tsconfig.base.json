@@ -3,12 +3,13 @@
   "compilerOptions": {
     "composite": true,
     "emitDeclarationOnly": true,
-    // Strict mode enables these strict* and noImplicit* options.
+    // Strict mode enables these strict*, use* and noImplicit* options.
     // Disable them temporarily while we fix up problematic behaviour from
     // the time before we wanted strict mode
     "strictBindCallApply": false,
     "strictFunctionTypes": false,
     "noImplicitAny": false,
+    "useUnknownInCatchVariables": false,
     "typeRoots": ["../../node_modules/@types"]
   }
 }

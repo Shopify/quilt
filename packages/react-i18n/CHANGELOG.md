@@ -1,5 +1,15 @@
 # Changelog
 
+## 7.2.4
+
+## 7.2.3
+
+### Patch Changes
+
+- [#2402](https://github.com/Shopify/quilt/pull/2402) [`35648c5ef`](https://github.com/Shopify/quilt/commit/35648c5ef938b4c209af941a2e4a74403edb7a36) Thanks [@movermeyer](https://github.com/movermeyer)! - Add basic support for lateral inheritance (`count` lookups will now fall back to `other` first)
+
+## 7.2.2
+
 ## 7.2.1
 
 ### Patch Changes

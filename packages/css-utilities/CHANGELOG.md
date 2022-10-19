@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.1.0
+
+### Minor Changes
+
+- [#2424](https://github.com/Shopify/quilt/pull/2424) [`1121b5da2`](https://github.com/Shopify/quilt/commit/1121b5da2787e1dabfffc5938154e782c752bebb) Thanks [@mateus](https://github.com/mateus)! - Updates `variationName()` adding a generic type for the variant value.
+
 ## 3.0.1
 
 ### Patch Changes

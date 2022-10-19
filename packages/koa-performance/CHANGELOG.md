@@ -1,5 +1,29 @@
 # Changelog
 
+## 3.2.0
+
+### Minor Changes
+
+- [#2410](https://github.com/Shopify/quilt/pull/2410) [`d177f331f`](https://github.com/Shopify/quilt/commit/d177f331fad258efa87ef4a38c4359e702144a89) Thanks [@jakejosephcs](https://github.com/jakejosephcs)! - An anomalous navigation download size threshold can now be passed in as a parameter to `clientPerformanceMetrics`
+
+## 3.1.0
+
+### Minor Changes
+
+- [#2413](https://github.com/Shopify/quilt/pull/2413) [`21435a256`](https://github.com/Shopify/quilt/commit/21435a2562822ef76d3ede49c8b1eaefc1fe475d) Thanks [@rorans](https://github.com/rorans)! - Introduce a RedirectDuration metric to get more specific server latency timings. This information will be sent via TTFB metadata. No changes need to be made on the consumer.
+
+### Patch Changes
+
+- Updated dependencies [[`21435a256`](https://github.com/Shopify/quilt/commit/21435a2562822ef76d3ede49c8b1eaefc1fe475d)]:
+  - @shopify/performance@3.1.0
+
+## 3.0.4
+
+### Patch Changes
+
+- Updated dependencies [[`2094cb39a`](https://github.com/Shopify/quilt/commit/2094cb39a674d38a19394b79bf59c11a65ff9e15)]:
+  - @shopify/performance@3.0.2
+
 ## 3.0.3
 
 ### Patch Changes
