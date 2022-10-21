@@ -99,7 +99,7 @@ export interface Form<T extends FieldBag> {
   submitErrors: FormError[];
   validate(): FormError[];
   reset(): void;
-  submit(event?: React.FormEvent): void;
+  submit(event?: React.FormEvent): Promise<void>;
   makeClean(): void;
 }
 
