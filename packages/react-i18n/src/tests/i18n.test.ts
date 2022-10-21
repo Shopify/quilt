@@ -12,12 +12,20 @@ jest.mock('../utilities', () => ({
   ...jest.requireActual('../utilities'),
   translate: jest.fn(),
   getTranslationTree: jest.fn(),
+  getCurrencySymbol: jest.fn(
+    jest.requireActual('../utilities').getCurrencySymbol,
+  ),
 }));
+
+const originalGetCurrencySymbol: jest.Mock =
+  jest.requireActual('../utilities').getCurrencySymbol;
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const translate: jest.Mock = require('../utilities').translate;
 const getTranslationTree: jest.Mock =
   require('../utilities').getTranslationTree;
+const getCurrencySymbolMock: jest.Mock =
+  require('../utilities').getCurrencySymbol;
 /* eslint-enable @typescript-eslint/no-var-requires */
 
 describe('I18n', () => {
@@ -849,7 +857,7 @@ describe('I18n', () => {
       ${'en-US'} | ${'OMR'} | ${'OMR 1,234.560'}
       ${'en-US'} | ${'USD'} | ${'$1,234.56 USD'}
       ${'fr-FR'} | ${'EUR'} | ${'1 234,56 € EUR'}
-      ${'fr-FR'} | ${'JPY'} | ${'1 235 JPY'}
+      ${'fr-FR'} | ${'JPY'} | ${'1 235 ¥ JPY'}
       ${'fr-FR'} | ${'OMR'} | ${'1 234,560 OMR'}
       ${'fr-FR'} | ${'USD'} | ${'1 234,56 $ USD'}
     `(
@@ -881,7 +889,7 @@ describe('I18n', () => {
       ${'en-US'} | ${'OMR'} | ${'-OMR 1,234.560'}
       ${'en-US'} | ${'USD'} | ${'-$1,234.56 USD'}
       ${'fr-FR'} | ${'EUR'} | ${'-1 234,56 € EUR'}
-      ${'fr-FR'} | ${'JPY'} | ${'-1 235 JPY'}
+      ${'fr-FR'} | ${'JPY'} | ${'-1 235 ¥ JPY'}
       ${'fr-FR'} | ${'OMR'} | ${'-1 234,560 OMR'}
       ${'fr-FR'} | ${'USD'} | ${'-1 234,56 $ USD'}
     `(
@@ -921,7 +929,10 @@ describe('I18n', () => {
         const amount = 1234.56;
 
         const i18n = new I18n(defaultTranslations, {locale});
-        const result = i18n.formatCurrency(amount, {form: 'none', currency});
+        const result = i18n.formatCurrency(amount, {
+          form: 'none',
+          currency,
+        });
         expect(sanitizeSpaces(result)).toBe(expected);
       },
     );
@@ -965,16 +976,18 @@ describe('I18n', () => {
       ${'de-AT'} | ${'OMR'} | ${'OMR 1 234,560'}
       ${'de-AT'} | ${'USD'} | ${'$ 1 234,56'}
       ${'en-AU'} | ${'AUD'} | ${'$1,234.56'}
-      ${'en-US'} | ${'AUD'} | ${'A$1,234.56'}
+      ${'en-US'} | ${'AUD'} | ${'$1,234.56'}
       ${'en-US'} | ${'EUR'} | ${'€1,234.56'}
       ${'en-US'} | ${'JPY'} | ${'¥1,235'}
       ${'en-US'} | ${'OMR'} | ${'OMR 1,234.560'}
       ${'en-US'} | ${'USD'} | ${'$1,234.56'}
       ${'fr-FR'} | ${'EUR'} | ${'1 234,56 €'}
-      ${'fr-FR'} | ${'JPY'} | ${'1 235 JPY'}
+      ${'fr-FR'} | ${'JPY'} | ${'1 235 ¥'}
       ${'fr-FR'} | ${'OMR'} | ${'1 234,560 OMR'}
       ${'fr-FR'} | ${'USD'} | ${'1 234,56 $'}
       ${'sv-SE'} | ${'USD'} | ${'1 234,56 $'}
+      ${'en-US'} | ${'SGD'} | ${'$1,234.56'}
+      ${'fr-FR'} | ${'SGD'} | ${'1 234,56 $'}
     `(
       'formats 1234.56 of $currency in $locale to expected $expected',
       ({locale, currency, expected}) => {
@@ -1000,10 +1013,12 @@ describe('I18n', () => {
       ${'en-US'} | ${'OMR'} | ${'-OMR 1,234.560'}
       ${'en-US'} | ${'USD'} | ${'-$1,234.56'}
       ${'fr-FR'} | ${'EUR'} | ${'-1 234,56 €'}
-      ${'fr-FR'} | ${'JPY'} | ${'-1 235 JPY'}
+      ${'fr-FR'} | ${'JPY'} | ${'-1 235 ¥'}
       ${'fr-FR'} | ${'OMR'} | ${'-1 234,560 OMR'}
       ${'fr-FR'} | ${'USD'} | ${'-1 234,56 $'}
       ${'sv-SE'} | ${'USD'} | ${'-1 234,56 $'}
+      ${'en-US'} | ${'SGD'} | ${'-$1,234.56'}
+      ${'fr-FR'} | ${'SGD'} | ${'-1 234,56 $'}
     `(
       'formats -1234.56 of $currency in $locale to expected $expected',
       ({locale, currency, expected}) => {
@@ -2128,37 +2143,71 @@ describe('I18n', () => {
     });
   });
 
-  describe('#getShortCurrencySymbol()', () => {
+  describe('#getCurrencySymbol()', () => {
     it.each`
       currency | locale     | expectedPrefixed | expectedSymbol
       ${'CZK'} | ${'cs-CZ'} | ${false}         | ${' Kč'}
+      ${'EUR'} | ${'en-US'} | ${true}          | ${'€'}
+      ${'EUR'} | ${'fr-FR'} | ${false}         | ${' €'}
       ${'USD'} | ${'en-CA'} | ${true}          | ${'$'}
       ${'USD'} | ${'en-US'} | ${true}          | ${'$'}
       ${'USD'} | ${'fr-FR'} | ${false}         | ${' $'}
       ${'OMR'} | ${'en-US'} | ${true}          | ${'OMR '}
+      ${'SGD'} | ${'en-US'} | ${true}          | ${'$'}
       ${'AUD'} | ${'en-AU'} | ${true}          | ${'$'}
     `(
       'returns $shortSymbol for $currency in $locale',
       ({currency, locale, expectedPrefixed, expectedSymbol}) => {
         const i18n = new I18n(defaultTranslations, {locale});
-        // eslint-disable-next-line dot-notation
-        const {symbol, prefixed} = i18n['getShortCurrencySymbol'](currency);
+        const {symbol, prefixed} = i18n.getCurrencySymbol(currency);
         expect(prefixed).toStrictEqual(expectedPrefixed);
         expect(sanitizeSpaces(symbol)).toStrictEqual(expectedSymbol);
       },
     );
-  });
 
-  describe('#getCurrencySymbol()', () => {
-    it('returns the locale-specific currency symbol and its position', () => {
-      const expected = {
-        symbol: '€',
-        prefixed: true,
-      };
+    it.each`
+      currency | locale     | expectedPrefixed | expectedSymbol
+      ${'BRL'} | ${'en-US'} | ${true}          | ${'R$'}
+      ${'HKD'} | ${'en-US'} | ${true}          | ${'HK$'}
+    `(
+      'returns the listed short symbol in the exceptions list for the given currency - $currency',
+      ({currency, locale, expectedPrefixed, expectedSymbol}) => {
+        const i18n = new I18n(defaultTranslations, {locale});
+        const {symbol, prefixed} = i18n.getCurrencySymbol(currency);
+        expect(prefixed).toStrictEqual(expectedPrefixed);
+        expect(sanitizeSpaces(symbol)).toStrictEqual(expectedSymbol);
+      },
+    );
 
-      const i18n = new I18n(defaultTranslations, {locale: 'en'});
+    describe('when narrowSymbol throws an error', () => {
+      beforeEach(() => {
+        getCurrencySymbolMock.mockImplementation((...args) => {
+          if (args[1]?.currencyDisplay === 'narrowSymbol') {
+            throw new Error();
+          }
+          return originalGetCurrencySymbol(...args);
+        });
+      });
 
-      expect(i18n.getCurrencySymbol('eur')).toStrictEqual(expected);
+      afterEach(() => {
+        getCurrencySymbolMock.mockReset();
+        getCurrencySymbolMock.mockImplementation(originalGetCurrencySymbol);
+      });
+
+      it.each`
+        currency | locale     | expectedPrefixed | expectedSymbol
+        ${'SGD'} | ${'en-US'} | ${true}          | ${'SGD'}
+        ${'AUD'} | ${'en-US'} | ${true}          | ${'A$'}
+      `(
+        'returns fallback value ("currencyDisplay: symbol") when "currencyDisplay: narrowSymbol" is not supported by the browser',
+        ({currency, locale, expectedPrefixed, expectedSymbol}) => {
+          const i18n = new I18n(defaultTranslations, {locale});
+          const result = i18n.getCurrencySymbol(currency);
+          result.symbol = result.symbol.replace(/\s/g, '');
+          expect(result.prefixed).toStrictEqual(expectedPrefixed);
+          expect(sanitizeSpaces(result.symbol)).toStrictEqual(expectedSymbol);
+        },
+      );
     });
   });
 

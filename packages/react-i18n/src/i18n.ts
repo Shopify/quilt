@@ -32,6 +32,7 @@ import {
   currencyDecimalPlaces,
   DEFAULT_DECIMAL_PLACES,
   EASTERN_NAME_ORDER_FORMATTERS,
+  CurrencyShortFormException,
 } from './constants';
 import {
   MissingCurrencyCodeError,
@@ -52,7 +53,6 @@ export interface NumberFormatOptions extends Intl.NumberFormatOptions {
   as?: 'number' | 'currency' | 'percent';
   precision?: number;
 }
-
 export interface CurrencyFormatOptions extends NumberFormatOptions {
   form?: 'auto' | 'short' | 'explicit' | 'none';
 }
@@ -343,18 +343,21 @@ export class I18n {
     return WEEK_START_DAYS.get(country) || DEFAULT_WEEK_START_DAY;
   }
 
-  getCurrencySymbol = (currencyCode?: string) => {
+  getCurrencySymbol = (currencyCode?: string, locale: string = this.locale) => {
     const currency = currencyCode || this.defaultCurrency;
     if (currency == null) {
       throw new MissingCurrencyCodeError(
         'formatCurrency cannot be called without a currency code.',
       );
     }
-    return this.getCurrencySymbolLocalized(this.locale, currency);
+    return this.getShortCurrencySymbol(currency, locale);
   };
 
+  /**
+   * @deprecated Replace usage of `i18n.getCurrencySymbolLocalized(locale, currency)` with `i18n.getCurrencySymbol(currency, locale)`
+   */
   getCurrencySymbolLocalized(locale: string, currency: string) {
-    return getCurrencySymbol(locale, {currency});
+    return this.getShortCurrencySymbol(currency, locale);
   }
 
   formatName(
@@ -479,24 +482,44 @@ export class I18n {
   //
   // For other currencies, e.g. CHF and OMR, the "symbol" is the ISO currency code.
   // In those cases, we return the full currency code without stripping the country.
-  private getShortCurrencySymbol(currencyCode = this.defaultCurrency || '') {
-    const currency = currencyCode || this.defaultCurrency || '';
+  private getShortCurrencySymbol(
+    currency: string = this.defaultCurrency || '',
+    locale: string = this.locale,
+  ) {
     const regionCode = currency.substring(0, 2);
-    const info = this.getCurrencySymbol(currency);
-    const shortSymbol = info.symbol.replace(regionCode, '');
+    let shortSymbolResult: {symbol: string; prefixed: boolean};
+
+    // currencyDisplay: 'narrowSymbol' was added to iOS in v14.5. See https://caniuse.com/?search=currencydisplay
+    // We still support ios 12/13, so we need to check if this works and fallback to the default if not
+    // All other supported browsers understand narrowSymbol, so once our minimum iOS version is updated we can remove this fallback
+    try {
+      shortSymbolResult = getCurrencySymbol(locale, {
+        currency,
+        currencyDisplay: 'narrowSymbol',
+      });
+    } catch {
+      shortSymbolResult = getCurrencySymbol(locale, {currency});
+    }
+
+    if (currency in CurrencyShortFormException) {
+      return {
+        symbol: CurrencyShortFormException[currency],
+        prefixed: shortSymbolResult.prefixed,
+      };
+    }
+
+    const shortSymbol = shortSymbolResult.symbol.replace(regionCode, '');
     const alphabeticCharacters = /[A-Za-zÀ-ÖØ-öø-ÿĀ-ɏḂ-ỳ]/;
 
     return alphabeticCharacters.exec(shortSymbol)
-      ? info
-      : {symbol: shortSymbol, prefixed: info.prefixed};
+      ? shortSymbolResult
+      : {symbol: shortSymbol, prefixed: shortSymbolResult.prefixed};
   }
 
   private humanizeDate(date: Date, options?: Intl.DateTimeFormatOptions) {
-    if (isFutureDate(date)) {
-      return this.humanizeFutureDate(date, options);
-    } else {
-      return this.humanizePastDate(date, options);
-    }
+    return isFutureDate(date)
+      ? this.humanizeFutureDate(date, options)
+      : this.humanizePastDate(date, options);
   }
 
   private formatDateTime(
