@@ -111,7 +111,7 @@ export interface FormWithDynamicLists<
 }
 
 export interface FormError {
-  field?: string[] | null;
+  field?: string | null;
   message: string;
 }
 
