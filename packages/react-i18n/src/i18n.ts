@@ -357,6 +357,25 @@ export class I18n {
     return getCurrencySymbol(locale, {currency});
   }
 
+  // Intl.NumberFormat sometimes annotates the "currency symbol" with a country code.
+  // For example, in locale 'fr-FR', 'USD' is given the "symbol" of " $US".
+  // This method strips out the country-code annotation, if there is one.
+  // (So, for 'fr-FR' and 'USD', the return value would be " $").
+  //
+  // For other currencies, e.g. CHF and OMR, the "symbol" is the ISO currency code.
+  // In those cases, we return the full currency code without stripping the country.
+  getShortCurrencySymbol(currencyCode?: string) {
+    const currency = currencyCode || this.defaultCurrency || '';
+    const regionCode = currency.substring(0, 2);
+    const info = this.getCurrencySymbol(currency);
+    const shortSymbol = info.symbol.replace(regionCode, '');
+    const alphabeticCharacters = /[A-Za-zÀ-ÖØ-öø-ÿĀ-ɏḂ-ỳ]/;
+
+    return alphabeticCharacters.exec(shortSymbol)
+      ? info
+      : {symbol: shortSymbol, prefixed: info.prefixed};
+  }
+
   formatName(
     firstName?: string,
     lastName?: string,
@@ -470,25 +489,6 @@ export class I18n {
       maximumFractionDigits: adjustedPrecision,
       ...options,
     }).format(amount);
-  }
-
-  // Intl.NumberFormat sometimes annotates the "currency symbol" with a country code.
-  // For example, in locale 'fr-FR', 'USD' is given the "symbol" of " $US".
-  // This method strips out the country-code annotation, if there is one.
-  // (So, for 'fr-FR' and 'USD', the return value would be " $").
-  //
-  // For other currencies, e.g. CHF and OMR, the "symbol" is the ISO currency code.
-  // In those cases, we return the full currency code without stripping the country.
-  private getShortCurrencySymbol(currencyCode = this.defaultCurrency || '') {
-    const currency = currencyCode || this.defaultCurrency || '';
-    const regionCode = currency.substring(0, 2);
-    const info = this.getCurrencySymbol(currency);
-    const shortSymbol = info.symbol.replace(regionCode, '');
-    const alphabeticCharacters = /[A-Za-zÀ-ÖØ-öø-ÿĀ-ɏḂ-ỳ]/;
-
-    return alphabeticCharacters.exec(shortSymbol)
-      ? info
-      : {symbol: shortSymbol, prefixed: info.prefixed};
   }
 
   private humanizeDate(date: Date, options?: Intl.DateTimeFormatOptions) {
