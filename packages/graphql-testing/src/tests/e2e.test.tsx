@@ -343,6 +343,7 @@ describe('graphql-testing', () => {
     const request = myComponent.find('button').trigger('onClick');
     await graphQL.resolveAll();
     await request;
+    await graphQL.resolveFetchMore();
 
     expect(graphQL).toHavePerformedGraphQLOperation(petsQuery, {
       first: 1,
@@ -356,6 +357,7 @@ describe('graphql-testing', () => {
     const request2 = myComponent.find('button').trigger('onClick');
     await graphQL.resolveAll();
     await request2;
+    await graphQL.resolveFetchMore();
 
     expect(graphQL).toHavePerformedGraphQLOperation(petsQuery, {
       first: 1,

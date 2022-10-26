@@ -57,23 +57,35 @@ export class GraphQL {
     this.mockLink.updateMock(mock);
   }
 
+  async resolveFetchMore() {
+    await this.withWrapper(async () => {
+      await (this.client as any).queryManager.broadcastQueries();
+    });
+  }
+
   async resolveAll(options: FindOptions = {}) {
     const finalOperationName = operationNameFromFindOptions(options);
 
+    await this.withWrapper(async () => {
+      const allPendingRequests = Array.from(this.pendingRequests);
+      const matchingRequests = finalOperationName
+        ? allPendingRequests.filter(
+            ({operation: {operationName}}) =>
+              operationName === finalOperationName,
+          )
+        : allPendingRequests;
+
+      await Promise.all(matchingRequests.map(({resolve}) => resolve()));
+    });
+  }
+
+  async withWrapper(cb: () => Promise<void>) {
     await this.wrappers.reduce<() => Promise<void>>(
       (perform, wrapper) => {
         return () => wrapper(perform);
       },
       async () => {
-        const allPendingRequests = Array.from(this.pendingRequests);
-        const matchingRequests = finalOperationName
-          ? allPendingRequests.filter(
-              ({operation: {operationName}}) =>
-                operationName === finalOperationName,
-            )
-          : allPendingRequests;
-
-        await Promise.all(matchingRequests.map(({resolve}) => resolve()));
+        await cb();
       },
     )();
   }
