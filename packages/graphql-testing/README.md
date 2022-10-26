@@ -58,9 +58,15 @@ await graphQL.resolveAll({query: petQuery});
 
 Note that, until a GraphQL operation has been resolved, it does not appear in the `operations` list described below.
 
+#### `waitForQueryUpdates()`
+
+Apollo 3.6.0+ batches updates to the cache asynchronously. This means that in cases where you trigger fetching more data using `fetchMore` often the cache is persisted in the next tick and thus the component making the query does not update in the expected act block. This can result in flaky tests where you request data, and use resolveAll to fetch it, but the React component under test does not update.
+
+The `waitForQueryUpdates()` method shall ensure all cache updates are resolved.
+
 #### `wrap()`
 
-The `wrap()` method allows you to wrap all GraphQL resolutions in a function call. This can be useful when working with React components, which require that all operations that lead to state changes be wrapped in an `act()` call. The following example demonstrates using this with [`@shopify/react-testing`](../react-testing):
+The `wrap()` method allows you to wrap all calls to `resolveAll()` and `waitForQueryUpdates()` in a function call. This can be useful when working with React components, which require that all operations that lead to state changes be wrapped in an `act()` call. The following example demonstrates using this with [`@shopify/react-testing`](../react-testing):
 
 ```tsx
 const myComponent = mount(<MyComponent />);

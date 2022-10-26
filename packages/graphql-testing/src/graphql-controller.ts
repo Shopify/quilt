@@ -59,22 +59,26 @@ export class GraphQL {
   async resolveAll(options: FindOptions = {}) {
     const finalOperationName = operationNameFromFindOptions(options);
 
-    await this.wrappers.reduce<() => Promise<void>>(
-      (perform, wrapper) => {
-        return () => wrapper(perform);
-      },
-      async () => {
-        const allPendingRequests = Array.from(this.pendingRequests);
-        const matchingRequests = finalOperationName
-          ? allPendingRequests.filter(
-              ({operation: {operationName}}) =>
-                operationName === finalOperationName,
-            )
-          : allPendingRequests;
+    await this.withWrapper(async () => {
+      const allPendingRequests = Array.from(this.pendingRequests);
+      const matchingRequests = finalOperationName
+        ? allPendingRequests.filter(
+            ({operation: {operationName}}) =>
+              operationName === finalOperationName,
+          )
+        : allPendingRequests;
 
-        await Promise.all(matchingRequests.map(({resolve}) => resolve()));
-      },
-    )();
+      await Promise.all(matchingRequests.map(({resolve}) => resolve()));
+    });
+  }
+
+  async waitForQueryUpdates() {
+    // queryManager is an internal implementation detail that is a TS-private
+    // property. We can access it in JS but TS thinks we can't so cast to any
+    // to shut typescript up
+    await this.withWrapper(async () => {
+      await (this.client as any).queryManager.broadcastQueries();
+    });
   }
 
   wrap(wrapper: Wrapper) {
@@ -89,4 +93,15 @@ export class GraphQL {
     this.operations.push(request.operation);
     this.pendingRequests.delete(request);
   };
+
+  private async withWrapper(cb: () => Promise<void>) {
+    await this.wrappers.reduce<() => Promise<void>>(
+      (perform, wrapper) => {
+        return () => wrapper(perform);
+      },
+      async () => {
+        await cb();
+      },
+    )();
+  }
 }
