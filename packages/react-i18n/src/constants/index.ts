@@ -211,3 +211,8 @@ export const EASTERN_NAME_ORDER_FORMATTERS = new Map([
       full ? `${lastName}${firstName}` : lastName,
   ],
 ]);
+
+export const CurrencyShortFormException = {
+  BRL: 'R$',
+  HKD: 'HK$',
+} as const;
