@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.4.1
+
+### Patch Changes
+
+- [#2447](https://github.com/Shopify/quilt/pull/2447) [`17301959f`](https://github.com/Shopify/quilt/commit/17301959f062f4444741e50c8808d2f04ce4d052) Thanks [@stephen-last](https://github.com/stephen-last)! - fix the type for submit() as it returns a promise and not just void.
+
 ## 2.4.0
 
 ### Minor Changes

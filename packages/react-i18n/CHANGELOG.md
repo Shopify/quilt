@@ -1,5 +1,19 @@
 # Changelog
 
+## 7.3.0
+
+### Minor Changes
+
+- [#2451](https://github.com/Shopify/quilt/pull/2451) [`4b5aa9448`](https://github.com/Shopify/quilt/commit/4b5aa9448cb686fbb0152e8a9e584869e1b67db7) Thanks [@sunical](https://github.com/sunical)! - Update currency symbol formatting to follow Polaris localized currency formatting guidelines. No longer displays a character or ISO code beside the currency symbol, for certain currencies and locales. The following table summarizes the changes, assuming a locale of `en-US`:
+
+  | Method                                                        | Previous output                  | New output                      |
+  | ------------------------------------------------------------- | -------------------------------- | ------------------------------- |
+  | `i18n.formatCurrency(2, {currency: 'AUD', form: 'short'})`    | `A$2.00`                         | `$2.00`                         |
+  | `i18n.formatCurrency(2, {currency: 'AUD', form: 'explicit'})` | `A$2.00 AUD`                     | `$2.00 AUD`                     |
+  | `i18n.formatCurrency(2, {currency: 'AUD', form: 'auto'})`     | `A$2.00 AUD`                     | `$2.00 AUD`                     |
+  | `i18n.formatCurrency(2, {currency: 'SGD', form: 'explicit'})` | `SGD 2.00 SGD`                   | `$2.00 SGD`                     |
+  | `i18n.getCurrencySymbol('AUD')`                               | `{symbol: 'A$', prefixed: true}` | `{symbol: '$', prefixed: true}` |
+
 ## 7.2.4
 
 ## 7.2.3
