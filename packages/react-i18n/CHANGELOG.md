@@ -4,6 +4,7 @@
 
 ### Minor Changes
 
+- [#2456](https://github.com/Shopify/quilt/pull/2456) [`90c4115a3`](https://github.com/Shopify/quilt/commit/90c4115a3545c3a6357d78cd3292f98df21063f4) Thanks [@trishrempel](https://github.com/trishrempel)! - Update `formatCurrency()` to use `form: 'auto'` by default when `form` is not provided.
 - [#2451](https://github.com/Shopify/quilt/pull/2451) [`4b5aa9448`](https://github.com/Shopify/quilt/commit/4b5aa9448cb686fbb0152e8a9e584869e1b67db7) Thanks [@sunical](https://github.com/sunical)! - Update currency symbol formatting to follow Polaris localized currency formatting guidelines. No longer displays a character or ISO code beside the currency symbol, for certain currencies and locales. The following table summarizes the changes, assuming a locale of `en-US`:
 
   | Method                                                        | Previous output                  | New output                      |
