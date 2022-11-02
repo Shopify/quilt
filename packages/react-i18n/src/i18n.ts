@@ -267,9 +267,9 @@ export class I18n {
         return this.formatCurrencyShort(amount, options);
       case 'none':
         return this.formatCurrencyNone(amount, options);
+      default:
+        return this.formatCurrencyAuto(amount, options);
     }
-
-    return this.formatNumber(amount, {as: 'currency', ...options});
   }
 
   unformatCurrency(input: string, currencyCode: string): string {

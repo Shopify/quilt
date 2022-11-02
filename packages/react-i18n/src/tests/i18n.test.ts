@@ -784,16 +784,48 @@ describe('I18n', () => {
   });
 
   describe('#formatCurrency()', () => {
+    const amount = 1234;
     const currency = 'USD';
 
-    it('formats the number as a currency', () => {
-      const i18n = new I18n(defaultTranslations, defaultDetails);
-      const expected = Intl.NumberFormat(defaultDetails.locale, {
-        style: 'currency',
+    it('formats short when there is no currency in the options', () => {
+      const i18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
         currency,
-      }).format(1);
+      });
 
-      expect(i18n.formatCurrency(1, {currency})).toBe(expected);
+      expect(i18n.formatCurrency(amount)).toBe(
+        i18n.formatCurrency(amount, {form: 'short'}),
+      );
+    });
+
+    it('formats short when there is no default currency', () => {
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+
+      expect(i18n.formatCurrency(amount, {currency})).toBe(
+        i18n.formatCurrency(amount, {form: 'short', currency}),
+      );
+    });
+
+    it('formats short when the default currency matches the options currency', () => {
+      const i18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        currency,
+      });
+
+      expect(i18n.formatCurrency(amount, {currency})).toBe(
+        i18n.formatCurrency(amount, {form: 'short', currency}),
+      );
+    });
+
+    it('formats explicit when the default currency does not match the options currency', () => {
+      const i18n = new I18n(defaultTranslations, {
+        ...defaultDetails,
+        currency,
+      });
+
+      expect(i18n.formatCurrency(amount, {currency: 'CAD'})).toBe(
+        i18n.formatCurrency(amount, {form: 'explicit', currency: 'CAD'}),
+      );
     });
   });
 
