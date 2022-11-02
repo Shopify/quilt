@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.0.4
+
+### Patch Changes
+
+- [#2457](https://github.com/Shopify/quilt/pull/2457) [`caa250d3b`](https://github.com/Shopify/quilt/commit/caa250d3b1a0f6c35fc0e074a0b2fee5c95039a3) Thanks [@BPScott](https://github.com/BPScott)! - Autocomplete `2022-*` versions when specifying api versions
+
 ## 5.0.3
 
 ### Patch Changes
