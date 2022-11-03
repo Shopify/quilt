@@ -16,6 +16,7 @@ import {DEFAULT_FORMAT} from './interpolate';
 
 const MISSING_TRANSLATION = Symbol('Missing translation');
 const CARDINAL_PLURALIZATION_KEY_NAME = 'count';
+const ORDINAL_PLURALIZATION_KEY_NAME = 'ordinal';
 const SEPARATOR = '.';
 
 const isString = (value: any): value is string => typeof value === 'string';
@@ -201,6 +202,26 @@ function translateWithDictionary(
       additionalReplacements[CARDINAL_PLURALIZATION_KEY_NAME] =
         memoizedNumberFormatter(locale).format(count);
     }
+  } else if (
+    typeof result === 'object' &&
+    replacements != null &&
+    Object.prototype.hasOwnProperty.call(
+      replacements,
+      ORDINAL_PLURALIZATION_KEY_NAME,
+    )
+  ) {
+    const count = replacements[ORDINAL_PLURALIZATION_KEY_NAME];
+
+    if (typeof count === 'number') {
+      const group = memoizedPluralRules(locale, {type: 'ordinal'}).select(
+        count,
+      );
+      result =
+        result.ordinal[group] || result.ordinal['other' as Intl.LDMLPluralRule];
+
+      additionalReplacements[ORDINAL_PLURALIZATION_KEY_NAME] =
+        memoizedNumberFormatter(locale).format(count);
+    }
   }
 
   const processedString =
@@ -327,6 +348,26 @@ function updateTreeWithReplacements(
         return updateStringWithReplacements(translationTree[group] as string, {
           ...replacements,
           CARDINAL_PLURALIZATION_KEY_NAME:
+            memoizedNumberFormatter(locale).format(count),
+        });
+      }
+    }
+  } else if (
+    Object.prototype.hasOwnProperty.call(
+      replacements,
+      ORDINAL_PLURALIZATION_KEY_NAME,
+    )
+  ) {
+    const count = replacements[ORDINAL_PLURALIZATION_KEY_NAME];
+
+    if (typeof count === 'number') {
+      const group = memoizedPluralRules(locale, {type: 'ordinal'}).select(
+        count,
+      );
+      if (isString(translationTree[group])) {
+        return updateStringWithReplacements(translationTree[group] as string, {
+          ...replacements,
+          ORDINAL_PLURALIZATION_KEY_NAME:
             memoizedNumberFormatter(locale).format(count),
         });
       }
