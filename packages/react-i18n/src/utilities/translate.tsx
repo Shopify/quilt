@@ -15,7 +15,7 @@ import {MissingTranslationError, MissingReplacementError} from '../errors';
 import {DEFAULT_FORMAT} from './interpolate';
 
 const MISSING_TRANSLATION = Symbol('Missing translation');
-const PLURALIZATION_KEY_NAME = 'count';
+const CARDINAL_PLURALIZATION_KEY_NAME = 'count';
 const SEPARATOR = '.';
 
 const isString = (value: any): value is string => typeof value === 'string';
@@ -187,15 +187,18 @@ function translateWithDictionary(
   if (
     typeof result === 'object' &&
     replacements != null &&
-    Object.prototype.hasOwnProperty.call(replacements, PLURALIZATION_KEY_NAME)
+    Object.prototype.hasOwnProperty.call(
+      replacements,
+      CARDINAL_PLURALIZATION_KEY_NAME,
+    )
   ) {
-    const count = replacements[PLURALIZATION_KEY_NAME];
+    const count = replacements[CARDINAL_PLURALIZATION_KEY_NAME];
 
     if (typeof count === 'number') {
       const group = memoizedPluralRules(locale).select(count);
       result = result[group] || result.other;
 
-      additionalReplacements[PLURALIZATION_KEY_NAME] =
+      additionalReplacements[CARDINAL_PLURALIZATION_KEY_NAME] =
         memoizedNumberFormatter(locale).format(count);
     }
   }
@@ -311,16 +314,20 @@ function updateTreeWithReplacements(
   replacements: PrimitiveReplacementDictionary | ComplexReplacementDictionary,
 ) {
   if (
-    Object.prototype.hasOwnProperty.call(replacements, PLURALIZATION_KEY_NAME)
+    Object.prototype.hasOwnProperty.call(
+      replacements,
+      CARDINAL_PLURALIZATION_KEY_NAME,
+    )
   ) {
-    const count = replacements[PLURALIZATION_KEY_NAME];
+    const count = replacements[CARDINAL_PLURALIZATION_KEY_NAME];
 
     if (typeof count === 'number') {
       const group = memoizedPluralRules(locale).select(count);
       if (isString(translationTree[group])) {
         return updateStringWithReplacements(translationTree[group] as string, {
           ...replacements,
-          PLURALIZATION_KEY_NAME: memoizedNumberFormatter(locale).format(count),
+          CARDINAL_PLURALIZATION_KEY_NAME:
+            memoizedNumberFormatter(locale).format(count),
         });
       }
     }
