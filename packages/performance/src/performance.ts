@@ -280,6 +280,11 @@ export class Performance {
       return;
     }
 
+    // In some cases the value reported is negative. Ignore these cases:
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=1429422#c12
+    // https://github.com/GoogleChrome/web-vitals/issues/137
+    if (event.start < 0) return;
+
     this.event(event);
     this.lifecycleEvents.push(event);
 
