@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.1.1
+
+### Patch Changes
+
+- [#2459](https://github.com/Shopify/quilt/pull/2459) [`1f76ed324`](https://github.com/Shopify/quilt/commit/1f76ed324172fe90048423e7a0503b762d7424af) Thanks [@ryanwilsonperkin](https://github.com/ryanwilsonperkin)! - Ignore invalid negative values for lifecycle metrics like Time to First Byte
+
 ## 3.1.0
 
 ### Minor Changes
