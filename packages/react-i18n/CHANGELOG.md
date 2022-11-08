@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.4.0
+
+### Minor Changes
+
+- [#2458](https://github.com/Shopify/quilt/pull/2458) [`4be4321cc`](https://github.com/Shopify/quilt/commit/4be4321cc92e79f312ab4ecea552cb19eca51ab1) Thanks [@movermeyer](https://github.com/movermeyer)! - Add ordinal pluralization lookups in `i18n.translate`
+
 ## 7.3.0
 
 ### Minor Changes
