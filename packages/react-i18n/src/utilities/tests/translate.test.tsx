@@ -52,6 +52,16 @@ describe('translate()', () => {
   const translations = {
     // Lots of spaces to make sure we're taking the whole match length into account.
     [id]: 'foo {    bar     } baz',
+    pluralizations: {
+      one: 'I have {count} car!',
+      other: 'I have {count} cars!',
+      ordinal: {
+        one: 'This is my {ordinal}st car!',
+        two: 'This is my {ordinal}nd car!',
+        few: 'This is my {ordinal}rd car!',
+        other: 'This is my {ordinal}th car!',
+      },
+    },
   };
   const locale = 'en-CA';
 
@@ -65,6 +75,55 @@ describe('translate()', () => {
       React.cloneElement(bar, {key: 1}),
       ' baz',
     ]);
+  });
+
+  it('returns selects the proper values for cardinal pluralization', () => {
+    const translationOne = translate(
+      'pluralizations',
+      {replacements: {count: 1}},
+      translations,
+      locale,
+    );
+    expect(translationOne).toBe('I have 1 car!');
+
+    const translationOther = translate(
+      'pluralizations',
+      {replacements: {count: 2}},
+      translations,
+      locale,
+    );
+    expect(translationOther).toBe('I have 2 cars!');
+  });
+
+  it('returns selects the proper values for ordinal pluralization', () => {
+    const translationFirst = translate(
+      'pluralizations',
+      {replacements: {ordinal: 1}},
+      translations,
+      locale,
+    );
+    const translationSecond = translate(
+      'pluralizations',
+      {replacements: {ordinal: 2}},
+      translations,
+      locale,
+    );
+    const translationThird = translate(
+      'pluralizations',
+      {replacements: {ordinal: 3}},
+      translations,
+      locale,
+    );
+    const translationFourth = translate(
+      'pluralizations',
+      {replacements: {ordinal: 4}},
+      translations,
+      locale,
+    );
+    expect(translationFirst).toBe('This is my 1st car!');
+    expect(translationSecond).toBe('This is my 2nd car!');
+    expect(translationThird).toBe('This is my 3rd car!');
+    expect(translationFourth).toBe('This is my 4th car!');
   });
 
   it('returns an array when a complex replacement is used', () => {

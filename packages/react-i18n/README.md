@@ -297,7 +297,11 @@ if (keyExists) {
 
 ##### Pluralization
 
-`@shopify/react-i18n` handles pluralization similarly to [Rails’ default i18n utility](https://guides.rubyonrails.org/i18n.html#pluralization) ([with some minor differences](docs/react_i18n_schema.md#pluralization-1)). The key is to provide the plural-dependent value as a `count` variable. `react-i18n` then looks up the plural form using [`Intl.PluralRules`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/PluralRules) and, within the keypath you have specified for the translation, will look up a nested translation matching the plural form:
+`@shopify/react-i18n` handles pluralization similarly to [Rails’ default i18n utility](https://guides.rubyonrails.org/i18n.html#pluralization) ([with some minor differences](docs/react_i18n_schema.md#pluralization-1)). `react-i18n` then looks up the plural form using [`Intl.PluralRules`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/PluralRules) and, within the keypath you have specified for the translation, will look up a nested translation matching the plural form.
+
+###### Cardinal Pluralization
+
+Cardinal pluralization lookups use the value of the `count` replacement to choose the correct string:
 
 ```ts
 // Assuming a dictionary like:
@@ -313,9 +317,6 @@ if (keyExists) {
 i18n.translate('MyComponent.searchResult', {count: searchResults});
 ```
 
-As noted above, this functionality depends on the `Intl.PluralRules` global. If this does not exist [for your environment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/PluralRules#Browser_compatibility), we recommend including the [`intl-pluralrules`](https://yarnpkg.com/en/package/intl-pluralrules) polyfill or included `import '@shopify/polyfills/intl';` from [`@shopify/polyfills`](https://github.com/Shopify/quilt/tree/main/packages/polyfills).
-We also recommend to have the `{count}` variable in all of your keys as some languages can use the key `"one"` when the count is `zero` for example. See MDN docs on [Localization and Plurals](https://developer.mozilla.org/en-US/docs/Mozilla/Localization/Localization_and_Plurals).
-
 By default, `{count}` will be automatically formatted as a number. If you want to format the variable differently, you can simply pass it in another variable.
 
 ```ts
@@ -323,17 +324,68 @@ By default, `{count}` will be automatically formatted as a number. If you want t
 {
   "MyComponent": {
     "searchResult": {
-      "one": "{formattedCount} widget found",
-      "other": "{formattedCount} widgets found"
+      "one": "{unformattedCount} widget found",
+      "other": "{unformattedCount} widgets found"
     }
   }
 }
 
 i18n.translate('MyComponent.searchResult', {
   count: searchResults,
-  formattedCount: i18n.formatNumber(searchResults),
+  unformattedCount: searchResults,
 });
 ```
+
+We also recommend to have the `{count}` replacement in all of your keys as some languages can use the key `one` when the count is 0, for example. See MDN docs on [Localization and Plurals](https://developer.mozilla.org/en-US/docs/Mozilla/Localization/Localization_and_Plurals).
+
+###### Ordinal Pluralization
+
+Ordinal pluralization lookups rely on the keys being nested under an `ordinal` key (i.e., being in an [ordinal pluralization context](https://github.com/Shopify/quilt/blob/main/packages/react-i18n/docs/react_i18n_schema.md#ordinal-pluralization)), and use the value of the `ordinal` replacement to choose the correct string:
+
+```ts
+// Assuming a dictionary like:
+{
+  "MyComponent": {
+    "searchResult": {
+      "ordinal": {
+        "one": "This is the {ordinal}st widget found",
+        "two": "This is the {ordinal}nd widget found",
+        "few": "This is the {ordinal}rd widget found",
+        "other": "This is the {ordinal}th widget found",
+      }
+    }
+  }
+}
+
+i18n.translate('MyComponent.searchResult', {ordinal: searchResultOrdinal});
+```
+
+By default, `{ordinal}` will be automatically formatted as a number. If you want to format the variable differently, you can simply pass it in another variable.
+
+```ts
+// Assuming a dictionary like:
+{
+  "MyComponent": {
+    "searchResult": {
+      "ordinal": {
+        "one": "This is the {unformattedOrdinal}st widget found",
+        "two": "This is the {unformattedOrdinal}nd widget found",
+        "few": "This is the {unformattedOrdinal}rd widget found",
+        "other": "This is the {unformattedOrdinal}th widget found",
+      }
+    }
+  }
+}
+
+i18n.translate('MyComponent.searchResult', {
+  ordinal: searchResultOrdinal,
+  unformattedOrdinal: searchResultOrdinal,
+});
+```
+
+###### `Intl.PluralRules`
+
+As noted above, pluralization functionality depends on the `Intl.PluralRules` global. If this does not exist [for your environment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/PluralRules#Browser_compatibility), we recommend including the [`intl-pluralrules`](https://yarnpkg.com/en/package/intl-pluralrules) polyfill or included `import '@shopify/polyfills/intl';` from [`@shopify/polyfills`](https://github.com/Shopify/quilt/tree/main/packages/polyfills).
 
 ##### Translation tree
 
