@@ -318,11 +318,17 @@ export class I18n {
             ...dateStyle[style],
           });
         default:
-          return this.formatDate(date, {...formatOptions, ...dateStyle[style]});
+          return this.formatDate(date, {
+            ...formatOptions,
+            ...dateStyle[style],
+          });
       }
     }
 
-    return formatDate(date, locale, {...formatOptions, timeZone});
+    return formatDate(date, locale, {
+      ...formatOptions,
+      timeZone,
+    });
   }
 
   ordinal(amount: number) {
@@ -627,7 +633,7 @@ export class I18n {
     date: Date,
     options?: Intl.DateTimeFormatOptions,
   ): string {
-    const {localeMatcher, formatMatcher, timeZone} = options || {};
+    const {localeMatcher, formatMatcher, timeZone, calendar} = options || {};
 
     const hourZone = this.formatDate(date, {
       localeMatcher,
@@ -636,6 +642,7 @@ export class I18n {
       hour12: false,
       timeZoneName: 'short',
       hour: 'numeric',
+      calendar,
     });
 
     const zoneMatchGroup = /\s([\w()+\-:.]+$)/.exec(hourZone);
@@ -654,6 +661,7 @@ export class I18n {
       era,
       timeZone,
       timeZoneName,
+      calendar,
     } = options || {};
 
     const formattedDate = this.formatDate(date, {
@@ -666,14 +674,21 @@ export class I18n {
       era,
       timeZone,
       timeZoneName: timeZoneName === 'short' ? undefined : timeZoneName,
+      calendar,
     });
 
     return formattedDate;
   }
 
   private getTimeFromDate(date: Date, options?: Intl.DateTimeFormatOptions) {
-    const {localeMatcher, formatMatcher, hour12, timeZone, timeZoneName} =
-      options || {};
+    const {
+      localeMatcher,
+      formatMatcher,
+      hour12,
+      timeZone,
+      timeZoneName,
+      calendar,
+    } = options || {};
 
     const formattedTime = this.formatDate(date, {
       localeMatcher,
@@ -683,6 +698,7 @@ export class I18n {
       timeZoneName: timeZoneName === 'short' ? undefined : timeZoneName,
       hour: 'numeric',
       minute: '2-digit',
+      calendar,
     }).toLocaleLowerCase();
 
     const time =
@@ -694,13 +710,15 @@ export class I18n {
   }
 
   private getWeekdayFromDate(date: Date, options?: Intl.DateTimeFormatOptions) {
-    const {localeMatcher, formatMatcher, hour12, timeZone} = options || {};
+    const {localeMatcher, formatMatcher, hour12, timeZone, calendar} =
+      options || {};
     return this.formatDate(date, {
       localeMatcher,
       formatMatcher,
       hour12,
       timeZone,
       weekday: 'long',
+      calendar,
     });
   }
 
@@ -708,7 +726,8 @@ export class I18n {
     date: Date,
     options?: Intl.DateTimeFormatOptions,
   ) {
-    const {localeMatcher, formatMatcher, hour12, timeZone} = options || {};
+    const {localeMatcher, formatMatcher, hour12, timeZone, calendar} =
+      options || {};
     return this.formatDate(date, {
       localeMatcher,
       formatMatcher,
@@ -716,6 +735,7 @@ export class I18n {
       timeZone,
       month: 'short',
       day: 'numeric',
+      calendar,
     });
   }
 

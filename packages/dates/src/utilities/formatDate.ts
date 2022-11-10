@@ -12,9 +12,11 @@ export function memoizedGetDateTimeFormat(
   return i;
 }
 
-const browserFeatureDetectionDate = Intl.DateTimeFormat('en', {
-  hour: 'numeric',
-});
+const browserFeatureDetectionDate = (options: FormatDateOptions) =>
+  Intl.DateTimeFormat('en', {
+    ...options,
+    hour: 'numeric',
+  });
 
 // hourCycle to Intl.DateTimeFormatOptions was added in TS 4.2, so we could
 // remove this, but that would require consumers to update to at least TS 4.2
@@ -29,16 +31,19 @@ interface ResolvedFormatDateOptions extends Intl.ResolvedDateTimeFormatOptions {
   hourCycle?: 'h11' | 'h12' | 'h23' | 'h24';
 }
 
-const resolvedOptions: ResolvedFormatDateOptions | undefined =
-  typeof browserFeatureDetectionDate.resolvedOptions === 'undefined'
+const resolveFormattingOptions: (
+  options: FormatDateOptions,
+) => ResolvedFormatDateOptions | undefined = (options) =>
+  typeof browserFeatureDetectionDate(options).resolvedOptions === 'undefined'
     ? undefined
-    : browserFeatureDetectionDate.resolvedOptions();
+    : browserFeatureDetectionDate(options).resolvedOptions();
 
 export function formatDate(
   date: Date,
   locales: string | string[],
   options: FormatDateOptions = {},
 ) {
+  const resolvedOptions = resolveFormattingOptions(options);
   const hourCycleRequired =
     resolvedOptions != null &&
     options.hour12 === false &&
