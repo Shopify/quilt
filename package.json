@@ -36,7 +36,7 @@
     "@babel/core": "^7.14.6",
     "@changesets/changelog-github": "^0.4.7",
     "@changesets/cli": "^2.25.0",
-    "@faker-js/faker": "^6.3.1",
+    "@faker-js/faker": "^7.6.0",
     "@shopify/app-bridge": "^2.0.3",
     "@shopify/babel-preset": "^24.1.4",
     "@shopify/browserslist-config": "^3.0.0",
