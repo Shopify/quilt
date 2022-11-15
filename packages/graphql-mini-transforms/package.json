@@ -84,7 +84,7 @@
     },
     "./jest-simple": {
       "types": "./build/ts/jest-simple.d.ts",
-      "default": "./build/ts/jest-simple.d.ts"
+      "default": "./jest-simple.js"
     },
     "./webpack-loader": {
       "types": "./build/ts/webpack-loader.d.ts",
