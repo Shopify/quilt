@@ -59,7 +59,7 @@ const data = fill(myQuery, data)({query: myQuery});
 
 #### Using faker
 
-When using `faker` to provide fake data within your filler function, you should use the `faker` instance that is exported by this library in order to avoid data mismatches. Rather than `import faker from '@faker-js/faker'` instead use:
+When using `faker` to provide fake data within your filler function, you should use the `faker` instance that is exported by this library in order to avoid data mismatches. Rather than `import {faker} from '@faker-js/faker'` instead use:
 
 ```ts
 import {createFiller, faker} from 'graphql-fixtures';

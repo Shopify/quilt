@@ -1,7 +1,7 @@
 // eslint-disable-next-line @shopify/typescript/prefer-build-client-schema
 import {buildSchema} from 'graphql';
 import {parse, DocumentNode} from 'graphql-typed';
-import originalFaker from '@faker-js/faker/locale/en';
+import {faker as originalFaker} from '@faker-js/faker/locale/en';
 
 import {createFiller, list, Options, faker} from '../fill';
 
