@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.0
+
+### Major Changes
+
+- [#2464](https://github.com/Shopify/quilt/pull/2464) [`aab709b8b`](https://github.com/Shopify/quilt/commit/aab709b8bd10a0537eae6a07aba953006937fae8) Thanks [@notjosh](https://github.com/notjosh)! - Upgraded @faker-js/faker from v6 to v7
+
 ## 2.0.3
 
 ### Patch Changes

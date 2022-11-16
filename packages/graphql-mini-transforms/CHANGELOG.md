@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.1.0
+
+### Minor Changes
+
+- [#2465](https://github.com/Shopify/quilt/pull/2465) [`0fd338a58`](https://github.com/Shopify/quilt/commit/0fd338a58ce65e2e98c11995d7f38d97162cca84) Thanks [@eokoneyo](https://github.com/eokoneyo)! - fix export path for jest-simple sub-path
+
 ## 5.0.2
 
 ### Patch Changes
