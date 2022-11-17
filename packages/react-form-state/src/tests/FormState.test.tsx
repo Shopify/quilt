@@ -209,8 +209,8 @@ describe('<FormState />', () => {
       it('does not reset a field when initial value has not changed and deep comparison is required', () => {
         const renderPropSpy = jest.fn(() => null);
         const originalOption = 'color';
-        const originalVariant1 = faker.commerce.color();
-        const originalVariant2 = faker.commerce.color();
+        const originalVariant1 = faker.color.human();
+        const originalVariant2 = faker.color.human();
         const originalValues = {
           variants: [
             {
@@ -547,7 +547,7 @@ describe('<FormState />', () => {
         <FormState
           initialValues={{
             product: faker.commerce.productName(),
-            color: faker.commerce.color(),
+            color: faker.color.human(),
             date: faker.date.recent(),
           }}
         >
@@ -563,7 +563,7 @@ describe('<FormState />', () => {
     it('is set to false if all field values are equal to their initialValue', () => {
       const renderPropSpy = jest.fn(() => null);
       const product = faker.commerce.productName();
-      const color = faker.commerce.color();
+      const color = faker.color.human();
       const date = faker.date.recent();
 
       const wrapper = mount(
@@ -576,9 +576,7 @@ describe('<FormState />', () => {
       wrapper.act(() =>
         formDetails.fields.product.onChange(faker.commerce.productName()),
       );
-      wrapper.act(() =>
-        formDetails.fields.color.onChange(faker.commerce.color()),
-      );
+      wrapper.act(() => formDetails.fields.color.onChange(faker.color.human()));
       wrapper.act(() => formDetails.fields.date.onChange(faker.date.recent()));
       wrapper.act(() => formDetails.fields.product.onChange(product));
       wrapper.act(() => formDetails.fields.color.onChange(color));
@@ -591,7 +589,7 @@ describe('<FormState />', () => {
     it("is set to true if any field's value is not equal to its initialValue", () => {
       const renderPropSpy = jest.fn(() => null);
       const product = faker.commerce.productName();
-      const color = faker.commerce.color();
+      const color = faker.color.human();
       const date = faker.date.recent();
 
       const wrapper = mount(
