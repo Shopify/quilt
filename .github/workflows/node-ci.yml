@@ -57,11 +57,11 @@ jobs:
           yarn ci:lint-docs
 
       - name: Unit tests
-        run: yarn test "^(?:(?!(address|react-server)).)*$"
+        run: yarn test "^(?:(?!(address|react-server|web-worker)).)*$"
         env:
           REACT_VERSION: ${{ matrix.react-version}}
 
       - name: E2E tests
-        run: yarn test --debug "(address|react-server)"
+        run: yarn test --debug "(address|react-server|web-worker)"
         env:
           REACT_VERSION: ${{ matrix.react-version}}
