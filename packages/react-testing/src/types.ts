@@ -118,10 +118,10 @@ export type TriggerKeypathReturn<
 export type PropsFor<T extends string | React.ComponentType<any>> =
   T extends string
     ? T extends keyof JSX.IntrinsicElements
-      ? JSX.IntrinsicElements[T]
-      : React.HTMLAttributes<T>
+      ? JSX.IntrinsicElements[T] & CustomDataProps
+      : React.HTMLAttributes<T> & CustomDataProps
     : T extends React.ComponentType<any>
-    ? React.ComponentPropsWithoutRef<T>
+    ? React.ComponentPropsWithoutRef<T> & CustomDataProps
     : never;
 
 export type UnknowablePropsFor<
@@ -251,4 +251,9 @@ export interface DebugOptions {
   allProps?: boolean;
   depth?: number;
   verbosity?: number;
+}
+
+interface CustomDataProps {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  'data-test-id': string;
 }
