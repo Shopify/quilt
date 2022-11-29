@@ -39,7 +39,7 @@ Manage React forms tersely and safely-typed with no magic using React hooks. Bui
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-form
+yarn add @shopify/react-form
 ```
 
 ## Usage

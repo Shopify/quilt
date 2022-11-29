@@ -10,7 +10,7 @@ Address mocks for `@shopify/address`.
 ## Installation
 
 ```bash
-$ yarn add @shopify/address-mocks
+yarn add @shopify/address-mocks
 ```
 
 ## Testing

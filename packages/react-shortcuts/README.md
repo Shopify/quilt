@@ -9,7 +9,7 @@ Declarative and performant library for matching shortcut combinations in React a
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-shortcuts
+yarn add @shopify/react-shortcuts
 ```
 
 ## Usage

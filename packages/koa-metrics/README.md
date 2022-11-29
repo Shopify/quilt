@@ -9,7 +9,7 @@ Opinionated performance metric tracking for Koa, implemented with DogStatsD.
 ## Installation
 
 ```bash
-$ yarn add @shopify/koa-metrics
+yarn add @shopify/koa-metrics
 ```
 
 ## Usage

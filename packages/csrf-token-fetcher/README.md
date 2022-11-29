@@ -9,7 +9,7 @@ JavaScript utility function to fetch the CSRF token required to make requests to
 ## Installation
 
 ```bash
-$ yarn add @shopify/csrf-token-fetcher
+yarn add @shopify/csrf-token-fetcher
 ```
 
 ## API Reference

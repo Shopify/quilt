@@ -9,7 +9,7 @@ A more strongly typed version of GraphQL's DocumentNode.
 ## Installation
 
 ```bash
-$ yarn add graphql-typed
+yarn add graphql-typed
 ```
 
 ## Usage

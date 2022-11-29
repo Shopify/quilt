@@ -9,7 +9,7 @@ A self-serializing/deserializing [`app-bridge-react`](https://github.com/Shopify
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-app-bridge-universal-provider
+yarn add @shopify/react-app-bridge-universal-provider
 ```
 
 ## Usage

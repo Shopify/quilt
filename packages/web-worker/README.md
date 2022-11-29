@@ -9,7 +9,7 @@ Tools for making [web workers](https://developer.mozilla.org/en-US/docs/Web/API/
 ## Installation
 
 ```bash
-$ yarn add @shopify/web-worker
+yarn add @shopify/web-worker
 ```
 
 ## Usage

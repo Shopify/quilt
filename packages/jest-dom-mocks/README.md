@@ -9,7 +9,7 @@ Jest mocking utilities for working with the DOM.
 ## Installation
 
 ```bash
-$ yarn add @shopify/jest-dom-mocks
+yarn add @shopify/jest-dom-mocks
 ```
 
 ## Setup

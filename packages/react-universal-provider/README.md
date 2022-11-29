@@ -15,7 +15,7 @@ Factory function and utilities to create self-serializing/deserializing provider
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-universal-provider
+yarn add @shopify/react-universal-provider
 ```
 
 ## What is a Universal Provider ?

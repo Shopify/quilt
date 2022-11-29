@@ -9,7 +9,7 @@ An opinionated StatsD client for Shopify Node.js servers and other StatsD utilit
 ## Installation
 
 ```bash
-$ yarn add @shopify/statsd
+yarn add @shopify/statsd
 ```
 
 ## Usage

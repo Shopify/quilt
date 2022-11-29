@@ -11,7 +11,7 @@ This library is now superseded by [@shopify/react-form](https://github.com/Shopi
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-form-state
+yarn add @shopify/react-form-state
 ```
 
 ## Usage

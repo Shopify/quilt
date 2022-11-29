@@ -9,7 +9,7 @@ This package contains a component and set of utilities for performing multiple e
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-effect
+yarn add @shopify/react-effect
 ```
 
 ## Usage

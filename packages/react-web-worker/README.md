@@ -9,7 +9,7 @@ A hook for using web workers in React applications.
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-web-worker
+yarn add @shopify/react-web-worker
 ```
 
 ## Usage

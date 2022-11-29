@@ -9,7 +9,7 @@ Utilities for working with [idle callbacks](https://developer.mozilla.org/en-US/
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-idle
+yarn add @shopify/react-idle
 ```
 
 ## Usage

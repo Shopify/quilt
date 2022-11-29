@@ -9,7 +9,7 @@ Primitives for loading parts of an application asynchronously.
 ## Installation
 
 ```bash
-$ yarn add @shopify/async
+yarn add @shopify/async
 ```
 
 ## Usage

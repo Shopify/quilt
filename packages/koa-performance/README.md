@@ -27,7 +27,7 @@ Best used with [`@shopify/performance`](https://www.npmjs.com/package/@shopify/p
 First we will need to install the npm package.
 
 ```bash
-$ yarn add @shopify/koa-performance
+yarn add @shopify/koa-performance
 ```
 
 ### Add the middleware

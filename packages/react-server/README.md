@@ -18,7 +18,7 @@ A simple library for React server-side rendering using [`@shopify/react-html`](h
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-server
+yarn add @shopify/react-server
 ```
 
 ## Rails Usage

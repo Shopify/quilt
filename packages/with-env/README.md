@@ -9,13 +9,13 @@ A utility for executing code under a specific `NODE_ENV`.
 ## Installation
 
 ```bash
-$ yarn add @shopify/with-env
+yarn add @shopify/with-env
 ```
 
 Or, if you just need this for `test`s:
 
 ```bash
-$ yarn add --dev @shopify/with-env
+yarn add --dev @shopify/with-env
 ```
 
 ## Example Usage

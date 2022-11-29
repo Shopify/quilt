@@ -9,7 +9,7 @@ Transformers for importing .graphql files in various build tools.
 ## Installation
 
 ```bash
-$ yarn add graphql-mini-transforms
+yarn add graphql-mini-transforms
 ```
 
 ## Usage

@@ -9,7 +9,7 @@ i18n utilities for React handling translations, formatting, and more.
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-i18n
+yarn add @shopify/react-i18n
 ```
 
 ## Usage

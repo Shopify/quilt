@@ -11,7 +11,7 @@ A package providing a simple wrapper around [`ua-parser-js`](https://www.npmjs.c
 ## Installation
 
 ```bash
-$ yarn add @shopify/browser
+yarn add @shopify/browser
 ```
 
 ## You probably don't need this

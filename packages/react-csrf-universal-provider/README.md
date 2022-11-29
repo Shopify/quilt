@@ -9,7 +9,7 @@ A self-serializing/deserializing CSRF token provider that works for isomorphic a
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-csrf-universal-provider
+yarn add @shopify/react-csrf-universal-provider
 ```
 
 ## Usage

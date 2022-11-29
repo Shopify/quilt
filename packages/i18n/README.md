@@ -9,7 +9,7 @@ Generic i18n-related utilities.
 ## Installation
 
 ```bash
-$ yarn add @shopify/i18n
+yarn add @shopify/i18n
 ```
 
 ## Usage

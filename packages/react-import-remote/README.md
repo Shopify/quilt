@@ -9,7 +9,7 @@ Asynchronous script loading for React.
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-import-remote
+yarn add @shopify/react-import-remote
 ```
 
 ## Usage

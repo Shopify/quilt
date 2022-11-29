@@ -9,7 +9,7 @@ Test [Storybook](https://storybook.js.org/) stories with [axe®](https://github.
 Add this package to your project’s development dependencies.
 
 ```bash
-$ yarn add @shopify/storybook-a11y-test --dev
+yarn add @shopify/storybook-a11y-test --dev
 ```
 
 This assumes you’ve installed and set up the [Storybook accessibility addon](https://www.npmjs.com/package/@storybook/addon-a11y).

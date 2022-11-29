@@ -9,7 +9,7 @@ An opinionated wrapper for Bugsnag's React plugin with smart defaults and suppor
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-bugsnag
+yarn add @shopify/react-bugsnag
 ```
 
 ## QuickStart

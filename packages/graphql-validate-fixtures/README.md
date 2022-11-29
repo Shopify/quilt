@@ -9,7 +9,7 @@ Validates JSON fixtures for GraphQL responses against the associated operations 
 ## Installation
 
 ```bash
-$ yarn add graphql-validate-fixtures
+yarn add graphql-validate-fixtures
 ```
 
 ## Usage

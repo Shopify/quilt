@@ -9,7 +9,7 @@ Lightweight date operations library.
 ## Installation
 
 ```bash
-$ yarn add @shopify/dates
+yarn add @shopify/dates
 ```
 
 ## Usage

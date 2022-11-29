@@ -9,7 +9,7 @@ Tools for creating powerful, asynchronously-loaded React components.
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-async
+yarn add @shopify/react-async
 ```
 
 ## Usage

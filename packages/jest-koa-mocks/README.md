@@ -9,7 +9,7 @@ Utilities to easily stub Koa context and cookies. The utilities are designed to 
 ## Installation
 
 ```bash
-$ yarn add @shopify/jest-koa-mocks
+yarn add @shopify/jest-koa-mocks
 ```
 
 ## Usage

@@ -9,7 +9,7 @@ Utilities for hydrating server-rendered React apps.
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-hydrate
+yarn add @shopify/react-hydrate
 ```
 
 ## Usage

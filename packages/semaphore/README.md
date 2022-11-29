@@ -17,7 +17,7 @@ A real-life anology is parking spots at a parking lot. If the parking lot has a 
 ## Installation
 
 ```bash
-$ yarn add @shopify/semaphore
+yarn add @shopify/semaphore
 ```
 
 ## Usage

@@ -9,7 +9,7 @@ Register and receive webhooks from Shopify with ease. This package was created p
 ## Installation
 
 ```bash
-$ yarn add @shopify/koa-shopify-webhooks
+yarn add @shopify/koa-shopify-webhooks
 ```
 
 ## API
@@ -182,7 +182,7 @@ app.use(router.routes());
 Make sure to install a fetch polyfill, since internally we use it to make HTTP requests.
 
 In your terminal
-`$ yarn add isomorphic-fetch`
+`yarn add isomorphic-fetch`
 
 In your app
 `import 'isomorphic-fetch'`

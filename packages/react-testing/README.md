@@ -31,7 +31,7 @@ A library for testing React components according to Shopify conventions.
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-testing
+yarn add @shopify/react-testing
 ```
 
 ## Usage

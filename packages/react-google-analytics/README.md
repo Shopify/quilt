@@ -9,7 +9,7 @@ Allows React apps to easily embed Google Analytics scripts.
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-google-analytics
+yarn add @shopify/react-google-analytics
 ```
 
 ## Usage

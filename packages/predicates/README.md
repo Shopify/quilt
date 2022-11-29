@@ -9,7 +9,7 @@ A set of common JavaScript predicates. The functions in this library either take
 ## Installation
 
 ```bash
-$ yarn add @shopify/predicates
+yarn add @shopify/predicates
 ```
 
 ## API

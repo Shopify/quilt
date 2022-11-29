@@ -9,7 +9,7 @@ Utilities for generating fixture objects from GraphQL documents.
 ## Installation
 
 ```bash
-$ yarn add graphql-fixtures
+yarn add graphql-fixtures
 ```
 
 ## Usage

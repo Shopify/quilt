@@ -9,7 +9,7 @@ Apollo and Koa integrations for [persisted GraphQL queries](https://blog.apollog
 ## Installation
 
 ```bash
-$ yarn add @shopify/graphql-persisted
+yarn add @shopify/graphql-persisted
 ```
 
 ## Usage

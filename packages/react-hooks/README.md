@@ -9,7 +9,7 @@ A collection of primitive React hooks.
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-hooks
+yarn add @shopify/react-hooks
 ```
 
 ## List of hooks

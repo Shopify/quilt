@@ -9,7 +9,7 @@ A set of decorators to aid your JavaScript journey.
 ## Installation
 
 ```bash
-$ yarn add @shopify/decorators
+yarn add @shopify/decorators
 ```
 
 ## Usage

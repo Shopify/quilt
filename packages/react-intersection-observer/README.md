@@ -9,7 +9,7 @@ A React wrapper around the [Intersection Observer API](https://developer.mozilla
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-intersection-observer
+yarn add @shopify/react-intersection-observer
 ```
 
 ## Usage
