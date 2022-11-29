@@ -19,7 +19,7 @@ The following polyfills are currently provided:
 ## Installation
 
 ```bash
-$ yarn add @shopify/polyfills
+yarn add @shopify/polyfills
 ```
 
 ## Usage

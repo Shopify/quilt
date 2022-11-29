@@ -9,7 +9,7 @@ Tools for consuming GraphQL in a fun and type-safe way.
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-graphql
+yarn add @shopify/react-graphql
 ```
 
 ## Usage

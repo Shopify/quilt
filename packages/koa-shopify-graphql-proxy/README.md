@@ -9,7 +9,7 @@ A wrapper around `koa-better-http-proxy` which allows easy proxying of GraphQL r
 ## Installation
 
 ```bash
-$ yarn add @shopify/koa-shopify-graphql-proxy
+yarn add @shopify/koa-shopify-graphql-proxy
 ```
 
 ## Usage

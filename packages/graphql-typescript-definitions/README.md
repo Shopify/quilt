@@ -9,7 +9,7 @@ Generate TypeScript definition files from .graphql documents.
 ## Installation
 
 ```bash
-$ yarn add graphql-typescript-definitions
+yarn add graphql-typescript-definitions
 ```
 
 ## Usage

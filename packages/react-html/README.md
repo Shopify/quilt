@@ -8,7 +8,7 @@ A collection of utilities for constructing an HTML document.
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-html
+yarn add @shopify/react-html
 ```
 
 ## Usage

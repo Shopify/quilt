@@ -9,7 +9,7 @@ Cleanly compose multiple component enhancers together with minimal fuss.
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-compose
+yarn add @shopify/react-compose
 ```
 
 ## Usage

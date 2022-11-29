@@ -9,7 +9,7 @@ A set of utilities to use when consuming Shopify’s admin GraphQL API.
 ## Installation
 
 ```bash
-$ yarn add @shopify/admin-graphql-api-utilities
+yarn add @shopify/admin-graphql-api-utilities
 ```
 
 ## API Reference

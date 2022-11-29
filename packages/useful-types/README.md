@@ -9,7 +9,7 @@ A few handy TypeScript types.
 ## Installation
 
 ```bash
-$ yarn add @shopify/useful-types
+yarn add @shopify/useful-types
 ```
 
 ## Usage

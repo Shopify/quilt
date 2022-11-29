@@ -9,7 +9,7 @@ A universal router for React, wrapping `react-router-dom`'s `BrowserRouter` and 
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-router
+yarn add @shopify/react-router
 ```
 
 ## Usage

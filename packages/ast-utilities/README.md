@@ -9,7 +9,7 @@ Utilities for working with Abstract Syntax Trees (ASTs).
 ## Installation
 
 ```bash
-$ yarn add @shopify/ast-utilities
+yarn add @shopify/ast-utilities
 ```
 
 ## Usage

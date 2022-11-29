@@ -9,7 +9,7 @@ Cookies in React for the server and client.
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-cookie
+yarn add @shopify/react-cookie
 ```
 
 ## Usage

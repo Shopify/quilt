@@ -12,7 +12,7 @@ A liveness ping is a URL at which your application will respond with a `200` whe
 ## Installation
 
 ```bash
-$ yarn add @shopify/koa-liveness-ping
+yarn add @shopify/koa-liveness-ping
 ```
 
 ## Usage

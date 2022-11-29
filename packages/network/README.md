@@ -9,7 +9,7 @@ Common values related to dealing with the network.
 ## Installation
 
 ```bash
-$ yarn add @shopify/network
+yarn add @shopify/network
 ```
 
 ## Usage

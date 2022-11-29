@@ -10,7 +10,7 @@ Opinionated logger for production-scale applications.
 ## Installation
 
 ```bash
-$ yarn add @shopify/logger
+yarn add @shopify/logger
 ```
 
 ## Usage

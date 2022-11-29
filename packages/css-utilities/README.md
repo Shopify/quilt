@@ -9,7 +9,7 @@ A set of CSS styling-related utilities.
 ## Installation
 
 ```bash
-$ yarn add @shopify/css-utilities
+yarn add @shopify/css-utilities
 ```
 
 Both `classNames` and `variationName` are helper functions that are use to generate class names.

@@ -9,7 +9,7 @@ A set of helpers to enhance functions.
 ## Installation
 
 ```bash
-$ yarn add @shopify/function-enhancers
+yarn add @shopify/function-enhancers
 ```
 
 ## Usage

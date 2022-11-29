@@ -9,7 +9,7 @@ A self-serializing/deserializing i18n provider that works for isomorphic applica
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-i18n-universal-provider
+yarn add @shopify/react-i18n-universal-provider
 ```
 
 ## Usage
@@ -65,14 +65,14 @@ Duplicate and/or unmet versions of `react-i18n`
 Deduplicating dependencies for react-i18n-universal-provider and react-i18n.
 
 ```bash
-$ npx yarn-deduplicate --packages @shopify/react-i18n yarn.lock
+npx yarn-deduplicate --packages @shopify/react-i18n yarn.lock
 npx yarn-deduplicate --packages @shopify/react-html yarn.lock
 npx yarn-deduplicate --packages @shopify/react-effect yarn.lock
 # deduplicate other dependencies of @shopify/react-i18n
 ```
 
 ```bash
-$ yarn why @shopify/react-i18n # ensure no duplicate / unmet dependencies
+yarn why @shopify/react-i18n # ensure no duplicate / unmet dependencies
 yarn list  # ensure no duplicate / unmet dependencies
 yarn install
 ```

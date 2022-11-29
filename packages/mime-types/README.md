@@ -9,7 +9,7 @@ MIME type consistency.
 ## Installation
 
 ```bash
-$ yarn add @shopify/mime-types
+yarn add @shopify/mime-types
 ```
 
 ## Usage

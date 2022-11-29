@@ -9,7 +9,7 @@ Primitives for collecting browser performance metrics.
 ## Installation
 
 ```bash
-$ yarn add @shopify/performance
+yarn add @shopify/performance
 ```
 
 ## Usage

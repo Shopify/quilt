@@ -9,7 +9,7 @@
 ## Installation
 
 ```bash
-$ yarn add @shopify/{{name}}
+yarn add @shopify/{{name}}
 ```
 
 ## Usage

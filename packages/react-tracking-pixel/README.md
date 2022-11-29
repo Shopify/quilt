@@ -9,7 +9,7 @@ Allows React apps to easily embed tracking pixel iframes.
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-tracking-pixel
+yarn add @shopify/react-tracking-pixel
 ```
 
 ## Usage

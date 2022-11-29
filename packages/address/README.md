@@ -10,7 +10,7 @@ Address utilities for formatting addresses.
 ## Installation
 
 ```bash
-$ yarn add @shopify/address
+yarn add @shopify/address
 ```
 
 ## API Reference

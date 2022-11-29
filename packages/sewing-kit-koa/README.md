@@ -9,7 +9,7 @@ Easily access [sewing-kit](https://github.com/Shopify/sewing-kit) assets from a 
 ## Installation
 
 ```bash
-$ yarn add @shopify/sewing-kit-koa
+yarn add @shopify/sewing-kit-koa
 ```
 
 ## Usage

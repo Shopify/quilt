@@ -5,7 +5,7 @@ This package includes a plugin for Babel that auto-fills `useI18n`'s or `withI18
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-i18n
+yarn add @shopify/react-i18n
 ```
 
 ## Usage

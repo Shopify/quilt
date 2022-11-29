@@ -28,7 +28,7 @@ Primitives to measure your React application's performance using `@shopify/perfo
 First we will need to install the npm package.
 
 ```bash
-$ yarn add @shopify/react-performance
+yarn add @shopify/react-performance
 ```
 
 ### Track some stats

@@ -9,7 +9,7 @@ Share CSRF tokens throughout a React application.
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-csrf
+yarn add @shopify/react-csrf
 ```
 
 ## Usage

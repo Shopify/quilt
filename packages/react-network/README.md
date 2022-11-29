@@ -9,7 +9,7 @@ A collection of components that allow you to set common HTTP headers from within
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-network
+yarn add @shopify/react-network
 ```
 
 ## Usage

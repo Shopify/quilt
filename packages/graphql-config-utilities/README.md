@@ -9,7 +9,7 @@ Common utilities for graphql-config.
 ## Installation
 
 ```bash
-$ yarn add graphql-config-utilities
+yarn add graphql-config-utilities
 ```
 
 ## Usage

@@ -12,7 +12,7 @@ This package provides utilities to help in the following testing scenarios:
 ## Installation
 
 ```bash
-$ yarn add @shopify/graphql-testing
+yarn add @shopify/graphql-testing
 ```
 
 ## Usage

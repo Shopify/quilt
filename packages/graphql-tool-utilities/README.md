@@ -9,7 +9,7 @@ Common utilities for GraphQL developer tools.
 ## Installation
 
 ```bash
-$ yarn add graphql-tool-utilities
+yarn add graphql-tool-utilities
 ```
 
 ## Usage

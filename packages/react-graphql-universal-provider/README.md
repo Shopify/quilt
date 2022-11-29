@@ -9,7 +9,7 @@ A self-serializing/deserializing GraphQL provider that works for isomorphic appl
 ## Installation
 
 ```bash
-$ yarn add @shopify/react-graphql-universal-provider
+yarn add @shopify/react-graphql-universal-provider
 ```
 
 ## Self serializers
