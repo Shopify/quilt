@@ -1,4 +1,4 @@
-import {ApolloLink, GraphQLRequest} from 'apollo-link';
+import {ApolloLink} from 'apollo-link';
 import {
   InMemoryCache,
   IntrospectionFragmentMatcher,
@@ -32,7 +32,7 @@ export class GraphQL {
   private readonly mockLink: MockLink | null = null;
 
   constructor(
-    mock: GraphQLMock | undefined,
+    mock: GraphQLMock = {},
     {
       unionOrIntersectionTypes = [],
       cacheOptions = {},
@@ -51,7 +51,7 @@ export class GraphQL {
       ...cacheOptions,
     });
 
-    this.mockLink = new MockLink(mock || defaultGraphQLMock);
+    this.mockLink = new MockLink(mock);
     const link = ApolloLink.from([
       ...links,
       new InflightLink({
@@ -108,12 +108,4 @@ export class GraphQL {
     this.operations.push(request.operation);
     this.pendingRequests.delete(request);
   };
-}
-
-function defaultGraphQLMock({operationName}: GraphQLRequest) {
-  return new Error(
-    `Can’t perform GraphQL operation '${
-      operationName || ''
-    }' because no mocks were set.`,
-  );
 }
