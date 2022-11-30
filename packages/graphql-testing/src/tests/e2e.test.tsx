@@ -1,8 +1,9 @@
 import React, {useCallback} from 'react';
+import {GraphQLError} from 'graphql';
 import gql from 'graphql-tag';
 import {DocumentNode} from 'graphql-typed';
 import {mount} from '@shopify/react-testing';
-import {ApolloProvider, useQuery} from '@shopify/react-graphql';
+import {ApolloProvider, useQuery, ApolloError} from '@shopify/react-graphql';
 
 import {createGraphQLFactory} from '..';
 
@@ -44,14 +45,15 @@ const petsQuery: DocumentNode<
   }
 `;
 
-function MyComponent({id = '1'} = {}) {
-  const {data, loading, error, refetch} = useQuery(petQuery, {variables: {id}});
+function ApolloResult({result}: {result: ReturnType<typeof useQuery>}) {
+  return null;
+}
 
-  const errorMarkup = error ? <p>Error</p> : null;
-  const networkErrorMarkup =
-    error && error.networkError ? <p>NetworkError</p> : null;
-  const graphqlErrorMarkup =
-    error && error.graphQLErrors.length ? <p>GraphQLError</p> : null;
+function MyComponent({id = '1'} = {}) {
+  const queryResult = useQuery(petQuery, {variables: {id}});
+  const {data, loading, error, refetch} = queryResult;
+
+  const errorMarkup = error ? <p className="error">{error.message}</p> : null;
   const loadingMarkup = loading ? <p>Loading</p> : null;
   const petsMarkup =
     data != null && data.pet != null ? <p>{data.pet.name}</p> : null;
@@ -65,11 +67,10 @@ function MyComponent({id = '1'} = {}) {
 
   return (
     <>
+      <ApolloResult result={queryResult} />
       {loadingMarkup}
       {petsMarkup}
       {errorMarkup}
-      {networkErrorMarkup}
-      {graphqlErrorMarkup}
       <button onClick={handleButtonClick} type="button">
         Refetch!
       </button>
@@ -133,10 +134,7 @@ describe('graphql-testing', () => {
   it('does not resolve immediately', () => {
     const graphQL = createGraphQL({
       Pet: {
-        pet: {
-          __typename: 'Cat',
-          name: 'Garfield',
-        },
+        pet: {__typename: 'Cat', name: 'Garfield'},
       },
     });
 
@@ -147,16 +145,15 @@ describe('graphql-testing', () => {
     );
 
     expect(graphQL).not.toHavePerformedGraphQLOperation(petQuery);
+    const queryResult = myComponent.find(ApolloResult)!.prop('result');
+    expect(queryResult.loading).toBe(true);
     expect(myComponent).toContainReactText('Loading');
   });
 
   it('allows assumeImmutableResults and freezeResults to be set', async () => {
     const graphQL = createImmutableGraphQL({
       Pet: {
-        pet: {
-          __typename: 'Cat',
-          name: 'Garfield',
-        },
+        pet: {__typename: 'Cat', name: 'Garfield'},
       },
     });
 
@@ -176,7 +173,7 @@ describe('graphql-testing', () => {
     );
   });
 
-  it('resolves to an error when there is no matching mock set', async () => {
+  it('resolves to a GraphQLError when there are no mocks set', async () => {
     const graphQL = createGraphQL();
 
     const myComponent = mount(
@@ -189,10 +186,58 @@ describe('graphql-testing', () => {
     await graphQL.resolveAll();
 
     expect(graphQL).toHavePerformedGraphQLOperation(petQuery);
-    expect(myComponent).toContainReactText('Error');
+    const queryResult = myComponent.find(ApolloResult)!.prop('result');
+
+    expect(queryResult.error).toStrictEqual(
+      new ApolloError({
+        graphQLErrors: [
+          new GraphQLError(
+            "Can’t perform GraphQL operation 'Pet' because no mocks were set.",
+          ),
+        ],
+        networkError: null,
+      }),
+    );
   });
 
-  it('resolves to an network error when an error is thrown', async () => {
+  it('resolves to a NetworkError when there is no matching mock', async () => {
+    // Create mock for Pets, but the component under test calls Pet
+    const graphQL = createGraphQL({
+      Pets: {
+        pets: {__typename: 'Pets', edges: []},
+      },
+    });
+
+    const myComponent = mount(
+      <ApolloProvider client={graphQL.client}>
+        <MyComponent />
+      </ApolloProvider>,
+    );
+
+    graphQL.wrap((resolve) => myComponent.act(resolve));
+    await graphQL.resolveAll();
+
+    expect(graphQL).toHavePerformedGraphQLOperation(petQuery);
+    const queryResult = myComponent.find(ApolloResult)!.prop('result');
+
+    // Can't use toStrictEqual(new ApolloError(...)) here because we can't
+    // reproduce the exact error message as it is a giant string
+    expect(queryResult.error).toBeInstanceOf(ApolloError);
+    expect(queryResult.error?.networkError).toBeInstanceOf(Error);
+
+    expect(queryResult.error!).toStrictEqual(
+      expect.objectContaining({
+        graphQLErrors: [],
+        networkError: expect.objectContaining({
+          message: expect.stringMatching(
+            /^Error writing result to store for query/,
+          ),
+        }),
+      }),
+    );
+  });
+
+  it('resolves to a NetworkError when a query throws an error', async () => {
     const graphQL = createGraphQL({
       Pet: () => {
         throw new Error('Connection');
@@ -209,14 +254,19 @@ describe('graphql-testing', () => {
     await graphQL.resolveAll();
 
     expect(graphQL).toHavePerformedGraphQLOperation(petQuery);
-    expect(myComponent).toContainReactText('Error');
-    expect(myComponent).toContainReactText('NetworkError');
-    expect(myComponent).not.toContainReactText('GraphQLError');
+    const queryResult = myComponent.find(ApolloResult)!.prop('result');
+
+    expect(queryResult.error).toStrictEqual(
+      new ApolloError({
+        graphQLErrors: [],
+        networkError: new Error('Connection'),
+      }),
+    );
   });
 
-  it('resolves to an graphql error when an error is thrown', async () => {
+  it('resolves to a GraphQLError when a query returns an error', async () => {
     const graphQL = createGraphQL({
-      Pet: new Error('GraphQL'),
+      Pet: new Error('MyError'),
     });
 
     const myComponent = mount(
@@ -229,21 +279,21 @@ describe('graphql-testing', () => {
     await graphQL.resolveAll();
 
     expect(graphQL).toHavePerformedGraphQLOperation(petQuery);
-    expect(myComponent).toContainReactText('Error');
-    expect(myComponent).toContainReactText('GraphQLError');
-    expect(myComponent).not.toContainReactText('NetworkError');
+    const queryResult = myComponent.find(ApolloResult)!.prop('result');
+
+    expect(queryResult.error).toStrictEqual(
+      new ApolloError({
+        graphQLErrors: [new GraphQLError('MyError')],
+        networkError: null,
+      }),
+    );
   });
 
-  it('resolves a query with a provided mock', async () => {
+  it('resolves a query with provided data mock', async () => {
     const id = '123';
-    const name = 'Garfield';
+    const mockPetQueryData = {pet: {__typename: 'Cat', name: 'Garfield'}};
     const graphQL = createGraphQL({
-      Pet: {
-        pet: {
-          __typename: 'Cat',
-          name: 'Garfield',
-        },
-      },
+      Pet: mockPetQueryData,
     });
 
     const myComponent = mount(
@@ -258,18 +308,15 @@ describe('graphql-testing', () => {
     expect(graphQL).toHavePerformedGraphQLOperation(petQuery, {
       id,
     });
-    expect(myComponent).toContainReactText(name);
+    const queryResult = myComponent.find(ApolloResult)!.prop('result');
+    expect(queryResult.data).toStrictEqual(mockPetQueryData);
+    expect(myComponent).toContainReactText('Garfield');
   });
 
   it('allows for mock updates after it has been initialized', async () => {
-    const newName = 'Garfield2';
+    const mockPetQueryData = {pet: {__typename: 'Cat', name: 'Garfield'}};
     const graphQL = createGraphQL({
-      Pet: {
-        pet: {
-          __typename: 'Cat',
-          name: 'Garfield',
-        },
-      },
+      Pet: mockPetQueryData,
     });
 
     const myComponent = mount(
@@ -281,20 +328,18 @@ describe('graphql-testing', () => {
     graphQL.wrap((resolve) => myComponent.act(resolve));
     await graphQL.resolveAll();
 
+    const newMockPetQueryData = {pet: {__typename: 'Cat', name: 'Garfield2'}};
     graphQL.update({
-      Pet: {
-        pet: {
-          __typename: 'Cat',
-          name: newName,
-        },
-      },
+      Pet: newMockPetQueryData,
     });
 
     const request = myComponent.find('button').trigger('onClick');
     await graphQL.resolveAll();
     await request;
 
-    expect(myComponent).toContainReactText(newName);
+    const queryResult = myComponent.find(ApolloResult)!.prop('result');
+    expect(queryResult.data).toStrictEqual(newMockPetQueryData);
+    expect(myComponent).toContainReactText('Garfield2');
   });
 
   it('handles fetchMore', async () => {
