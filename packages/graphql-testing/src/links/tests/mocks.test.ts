@@ -39,23 +39,23 @@ describe('MockLink', () => {
   });
 
   it('returns an error message when the mock looks like a fixture', async () => {
-    const link = new MockLink({});
-    const {result} = await executeOnce(link, petQuery);
+    const link = new MockLink({name: 'Spike'});
+    const {error} = await executeOnce(link, petQuery);
 
-    expect(result).toMatchObject(
+    expect(error).toMatchObject(
       new Error(
-        "Can’t perform GraphQL operation 'Pet' because no valid mocks were found (it looks like you tried to provide data directly to the mock GraphQL client. You need to provide your fixture on the key that matches its operation name. To fix this, simply change your code to read 'mockGraphQLClient({Pet: yourFixture}).'",
+        "Can’t perform GraphQL operation 'Pet' because no valid mocks were found (it looks like you tried to provide data directly to the mock GraphQL client. You need to provide your fixture on the key that matches its operation name. To fix this, change your code to read 'mockGraphQLClient({Pet: yourFixture})'",
       ),
     );
   });
 
   it('returns an error message when there are no matching mocks', async () => {
     const link = new MockLink({LostPets: {}, PetsForSale: {}});
-    const {result} = await executeOnce(link, petQuery);
+    const {error} = await executeOnce(link, petQuery);
 
-    expect(result).toMatchObject(
+    expect(error).toMatchObject(
       new Error(
-        "Can’t perform GraphQL operation 'Pet' because no valid mocks were found (you provided an object that had mocks only for the following operations: LostPets, PetsForSale).",
+        "Can’t perform GraphQL operation 'Pet' because no valid mocks were found (you provided an object that had mocks only for the following operations: LostPets, PetsForSale)",
       ),
     );
   });
@@ -63,9 +63,9 @@ describe('MockLink', () => {
   it('returns an error message when no fixture is returned from a mock', async () => {
     const link = new MockLink(() => null as unknown as MockGraphQLResponse);
 
-    const {result} = await executeOnce(link, petQuery);
+    const {error} = await executeOnce(link, petQuery);
 
-    expect(result).toMatchObject(
+    expect(error).toMatchObject(
       new Error(
         "Can’t perform GraphQL operation 'Pet' because no valid mocks were found (you provided a function that did not return a valid mock result)",
       ),

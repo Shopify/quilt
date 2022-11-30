@@ -173,7 +173,7 @@ describe('graphql-testing', () => {
     );
   });
 
-  it('resolves to a GraphQLError when there are no mocks set', async () => {
+  it('resolves to a NetworkError when there are no mocks set', async () => {
     const graphQL = createGraphQL();
 
     const myComponent = mount(
@@ -190,12 +190,10 @@ describe('graphql-testing', () => {
 
     expect(queryResult.error).toStrictEqual(
       new ApolloError({
-        graphQLErrors: [
-          new GraphQLError(
-            "Can’t perform GraphQL operation 'Pet' because no mocks were set.",
-          ),
-        ],
-        networkError: null,
+        graphQLErrors: [],
+        networkError: new Error(
+          "Can’t perform GraphQL operation 'Pet' because no valid mocks were found (you provided an empty object that contained no mocks)",
+        ),
       }),
     );
   });
@@ -220,19 +218,12 @@ describe('graphql-testing', () => {
     expect(graphQL).toHavePerformedGraphQLOperation(petQuery);
     const queryResult = myComponent.find(ApolloResult)!.prop('result');
 
-    // Can't use toStrictEqual(new ApolloError(...)) here because we can't
-    // reproduce the exact error message as it is a giant string
-    expect(queryResult.error).toBeInstanceOf(ApolloError);
-    expect(queryResult.error?.networkError).toBeInstanceOf(Error);
-
-    expect(queryResult.error!).toStrictEqual(
-      expect.objectContaining({
+    expect(queryResult.error).toStrictEqual(
+      new ApolloError({
         graphQLErrors: [],
-        networkError: expect.objectContaining({
-          message: expect.stringMatching(
-            /^Error writing result to store for query/,
-          ),
-        }),
+        networkError: new Error(
+          "Can’t perform GraphQL operation 'Pet' because no valid mocks were found (you provided an object that had mocks only for the following operations: Pets)",
+        ),
       }),
     );
   });
