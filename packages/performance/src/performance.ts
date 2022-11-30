@@ -1,3 +1,5 @@
+import {onLCP} from 'web-vitals';
+
 import {InflightNavigation} from './inflight';
 import {Navigation} from './navigation';
 import {
@@ -173,6 +175,14 @@ export class Performance {
         });
       });
     }
+
+    onLCP((metric) => {
+      this.lifecycleEvent({
+        type: EventType.TimeToLargestContentfulPaint,
+        start: metric.value,
+        duration: 0,
+      });
+    });
   }
 
   mark(stage: string, id: string) {
