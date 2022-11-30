@@ -244,11 +244,15 @@ describe('client metrics middleware', () => {
         EventType.TimeToFirstContentfulPaint,
         123,
       );
+      const ttlcpEvent = createLifecycleEvent(
+        EventType.TimeToLargestContentfulPaint,
+        456,
+      );
 
       const context = createMockContext({
         method: Method.Post,
         requestBody: createBody({
-          events: [ttfbEvent, ttfcpEvent],
+          events: [ttfbEvent, ttfcpEvent, ttlcpEvent],
         }),
       });
 
@@ -267,6 +271,12 @@ describe('client metrics middleware', () => {
       expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
         'time_to_first_contentful_paint',
         ttfcpEvent.start,
+        expect.any(Object),
+      );
+
+      expect(StatsDClient.distributionSpy).toHaveBeenCalledWith(
+        'time_to_largest_contentful_paint',
+        ttlcpEvent.start,
         expect.any(Object),
       );
     });
