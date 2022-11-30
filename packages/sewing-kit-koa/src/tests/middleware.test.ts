@@ -54,7 +54,16 @@ describe('middleware', () => {
     const context = createMockContext();
     const manifestPath = 'path/to/manifest';
     await middleware({manifestPath})(context, () => Promise.resolve());
-    expect(Manifests).toHaveBeenCalledWith(manifestPath);
+    expect(Manifests).toHaveBeenCalledWith(manifestPath, true);
+  });
+
+  it('disable caching manifest', async () => {
+    const context = createMockContext();
+    const manifestPath = 'path/to/manifest';
+    await middleware({manifestPath, caching: false})(context, () =>
+      Promise.resolve(),
+    );
+    expect(Manifests).toHaveBeenCalledWith(manifestPath, false);
   });
 
   it('calls the next middleware', async () => {

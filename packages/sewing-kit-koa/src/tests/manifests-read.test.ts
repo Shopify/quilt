@@ -85,6 +85,17 @@ describe('Manifests read', () => {
     expect(readJson).toHaveBeenCalledTimes(1);
   });
 
+  it('reads manifests multiple times when caching is disabled', async () => {
+    const path = null;
+    const caching = false;
+    const manifests = new Manifests(path, caching);
+
+    await manifests.resolve('Chrome 71');
+    await manifests.resolve('Chrome 73');
+
+    expect(readJson).toHaveBeenCalledTimes(2);
+  });
+
   it('reads manifests from a custom path', async () => {
     const manifestPath = 'path/to/manifest';
     const manifests = new Manifests(manifestPath);
