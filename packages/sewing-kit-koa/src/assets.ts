@@ -12,6 +12,7 @@ interface Options {
   assetPrefix: string;
   userAgent?: string;
   manifestPath?: string;
+  caching?: boolean;
 }
 
 interface AssetSelector {
@@ -37,10 +38,10 @@ export default class Assets {
   private manifests: Manifests;
   private resolvedManifestEntry?: Manifest;
 
-  constructor({assetPrefix, userAgent, manifestPath}: Options) {
+  constructor({assetPrefix, userAgent, manifestPath, caching = true}: Options) {
     this.assetPrefix = assetPrefix;
     this.userAgent = userAgent;
-    this.manifests = new Manifests(manifestPath);
+    this.manifests = new Manifests(manifestPath, caching);
   }
 
   async scripts(options: AssetOptions = {}) {

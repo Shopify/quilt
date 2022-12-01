@@ -15,10 +15,12 @@ export interface ResolveOptions {
 
 export class Manifests {
   path: string;
+  private caching: boolean;
   private resolvedEntry?: Manifest;
 
-  constructor(path: string | null = null) {
+  constructor(path: string | null = null, caching = true) {
     this.path = path || DEFAULT_MANIFEST_PATH;
+    this.caching = caching;
   }
 
   async resolve(userAgent, {locale}: ResolveOptions = {}): Promise<Manifest> {
@@ -26,7 +28,7 @@ export class Manifests {
       fallbackManifest,
       multiAsyncLanguageManifests,
       inlineLocaleManifests,
-    } = await loadConsolidatedManifest(this.path);
+    } = await loadConsolidatedManifest(this.path, this.caching);
 
     // We do the following to determine the correct manifest to use:
     //
@@ -69,16 +71,15 @@ function findManifestForLocale(
   return undefined;
 }
 
-let loadPromise: Promise<ReturnType<typeof groupManifests>> | null = null;
-
 function readGzipped(resolvedPath: string) {
   return readFile(resolvedPath)
     .then((zippedContent) => ungzip(zippedContent))
     .then((unzippedStr) => JSON.parse(unzippedStr.toString()));
 }
 
-function loadConsolidatedManifest(manifestPath: string) {
-  if (loadPromise) {
+let loadPromise: Promise<ReturnType<typeof groupManifests>> | null = null;
+function loadConsolidatedManifest(manifestPath: string, caching: boolean) {
+  if (loadPromise && caching) {
     return loadPromise;
   }
 

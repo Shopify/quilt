@@ -17,6 +17,7 @@ export interface Options {
   assetPrefix?: string;
   serveAssets?: boolean;
   manifestPath?: string;
+  caching?: boolean;
 }
 
 const ASSETS = Symbol('assets');
@@ -33,12 +34,14 @@ export default function middleware({
   serveAssets = false,
   assetPrefix = defaultAssetPrefix(serveAssets),
   manifestPath,
+  caching = true,
 }: Options = {}): Middleware {
   async function sewingKitMiddleware(ctx: Context, next: () => Promise<any>) {
     const assets = new Assets({
       assetPrefix,
       userAgent: ctx.get(Header.UserAgent),
       manifestPath,
+      caching,
     });
 
     setAssets(ctx, assets);
