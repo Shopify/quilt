@@ -40,5 +40,8 @@
       "import": "./index.mjs",
       "require": "./index.js"
     }
+  },
+  "dependencies": {
+    "web-vitals": "^3.0.4"
   }
 }

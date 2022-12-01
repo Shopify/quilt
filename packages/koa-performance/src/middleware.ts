@@ -249,6 +249,8 @@ const EVENT_METRIC_MAPPING = {
   [EventType.TimeToFirstByte]: LifecycleMetric.TimeToFirstByte,
   [EventType.TimeToFirstContentfulPaint]:
     LifecycleMetric.TimeToFirstContentfulPaint,
+  [EventType.TimeToLargestContentfulPaint]:
+    LifecycleMetric.TimeToLargestContentfulPaint,
   [EventType.TimeToFirstPaint]: LifecycleMetric.TimeToFirstPaint,
   [EventType.DomContentLoaded]: LifecycleMetric.DomContentLoaded,
   [EventType.FirstInputDelay]: LifecycleMetric.FirstInputDelay,

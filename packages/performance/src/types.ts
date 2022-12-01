@@ -2,6 +2,7 @@ export enum EventType {
   TimeToFirstByte = 'ttfb',
   TimeToFirstPaint = 'ttfp',
   TimeToFirstContentfulPaint = 'ttfcp',
+  TimeToLargestContentfulPaint = 'ttlcp',
   DomContentLoaded = 'dcl',
   FirstInputDelay = 'fid',
   Load = 'load',
@@ -34,6 +35,11 @@ export interface TimeToFirstPaintEvent extends BasicEvent {
 
 export interface TimeToFirstContentfulPaintEvent extends BasicEvent {
   type: EventType.TimeToFirstContentfulPaint;
+  metadata?: undefined;
+}
+
+export interface TimeToLargestContentfulPaintEvent extends BasicEvent {
+  type: EventType.TimeToLargestContentfulPaint;
   metadata?: undefined;
 }
 
@@ -85,6 +91,7 @@ export type LifecycleEvent =
   | TimeToFirstByteEvent
   | TimeToFirstPaintEvent
   | TimeToFirstContentfulPaintEvent
+  | TimeToLargestContentfulPaintEvent
   | DomContentLoadedEvent
   | FirstInputDelayEvent
   | LoadEvent;
@@ -102,6 +109,7 @@ export interface EventMap {
   [EventType.TimeToFirstByte]: TimeToFirstByteEvent;
   [EventType.TimeToFirstPaint]: TimeToFirstPaintEvent;
   [EventType.TimeToFirstContentfulPaint]: TimeToFirstContentfulPaintEvent;
+  [EventType.TimeToLargestContentfulPaint]: TimeToLargestContentfulPaintEvent;
   [EventType.DomContentLoaded]: DomContentLoadedEvent;
   [EventType.FirstInputDelay]: FirstInputDelayEvent;
   [EventType.Load]: LoadEvent;

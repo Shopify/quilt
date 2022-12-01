@@ -1,6 +1,7 @@
 export enum LifecycleMetric {
   TimeToFirstByte = 'time_to_first_byte',
   TimeToFirstContentfulPaint = 'time_to_first_contentful_paint',
+  TimeToLargestContentfulPaint = 'time_to_largest_contentful_paint',
   TimeToFirstPaint = 'time_to_first_paint',
   DomContentLoaded = 'dom_content_loaded',
   FirstInputDelay = 'first_input_delay',
