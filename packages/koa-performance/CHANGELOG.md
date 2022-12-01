@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.3.0
+
+### Minor Changes
+
+- [#2478](https://github.com/Shopify/quilt/pull/2478) [`1570b951d`](https://github.com/Shopify/quilt/commit/1570b951d2f865120dcf7f198d23a4e935fe6042) Thanks [@ryanwilsonperkin](https://github.com/ryanwilsonperkin)! - Add a new metric to track Largest Contentful Paint
+
+### Patch Changes
+
+- Updated dependencies [[`1570b951d`](https://github.com/Shopify/quilt/commit/1570b951d2f865120dcf7f198d23a4e935fe6042)]:
+  - @shopify/performance@3.2.0
+
 ## 3.2.1
 
 ### Patch Changes
