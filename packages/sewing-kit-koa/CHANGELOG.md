@@ -1,5 +1,11 @@
 # Changelog
 
+## 9.1.0
+
+### Minor Changes
+
+- [#2480](https://github.com/Shopify/quilt/pull/2480) [`248b45541`](https://github.com/Shopify/quilt/commit/248b45541ebe0c2d1aee7ced98ffa8ef532c3e8b) Thanks [@alexandcote](https://github.com/alexandcote)! - Allow consumers to disable manifest caching (useful in development).
+
 ## 9.0.3
 
 ### Patch Changes
