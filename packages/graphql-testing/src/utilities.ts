@@ -2,22 +2,16 @@ import {DocumentNode, OperationDefinitionNode} from 'graphql';
 
 import {FindOptions} from './types';
 
-export function operationNameFromFindOptions({
-  query,
-  mutation,
-  operationName,
-}: FindOptions) {
-  const passedOptions = [query, mutation, operationName].filter(Boolean);
+export function operationNameFromFindOptions({query, mutation}: FindOptions) {
+  const passedOptions = [query, mutation].filter(Boolean);
 
   if (passedOptions.length === 0) {
     return undefined;
   } else if (passedOptions.length > 1) {
-    throw new Error(
-      'You can only pass one of query, mutation, or operationName when finding a GraphQL operation',
-    );
+    throw new Error('You can only pass one of query or mutation');
   }
 
-  return operationName || operationNameFromDocument((query || mutation)!);
+  return operationNameFromDocument((query || mutation)!);
 }
 
 export function operationNameFromDocument(

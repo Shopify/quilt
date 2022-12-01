@@ -487,30 +487,6 @@ describe('graphql-testing', () => {
       });
     }
 
-    it('resolveAll() filters operations based on the given operationName when passed', async () => {
-      const graphQL = createPetPersonGraphQL();
-
-      const petContainer = mount(
-        <ApolloProvider client={graphQL.client}>
-          <MyComponent />
-          <PersonQueryComponent />
-        </ApolloProvider>,
-      );
-
-      await petContainer.act(async () => {
-        await graphQL.resolveAll({operationName: 'Person'});
-      });
-
-      expect(petContainer).toContainReactText('Jon Arbuckle');
-      expect(petContainer).not.toContainReactText('Garfield');
-
-      await petContainer.act(async () => {
-        await graphQL.resolveAll({operationName: 'Pet'});
-      });
-
-      expect(petContainer).toContainReactText('Garfield');
-    });
-
     it('resolveAll() filters operations based on the given query when passed', async () => {
       const graphQL = createPetPersonGraphQL();
 
