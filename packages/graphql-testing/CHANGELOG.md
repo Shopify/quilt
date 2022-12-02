@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.4.0
+
+### Minor Changes
+
+- [#2486](https://github.com/Shopify/quilt/pull/2486) [`51c0434a9`](https://github.com/Shopify/quilt/commit/51c0434a92134f375bd1fbfd3003bcb5e4d38d06) Thanks [@BPScott](https://github.com/BPScott)! - Deliberatly cause a `NetworkError` with a useful error message if we see a fixture that is a function that returns a function. This can happen if you do `createGraphQL({MyQuery: () => fillGraphQL(MyQuery)})` because fillGraphQL returns a function. Apollo 2 already returns a `NetworkError` if you do this but as it happens later on, the error message was much less helpful.
+
 ## 6.3.0
 
 ### Minor Changes
