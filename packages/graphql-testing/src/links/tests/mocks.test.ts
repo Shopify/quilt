@@ -38,7 +38,7 @@ describe('MockLink', () => {
     );
   });
 
-  it('returns an error message when the mock looks like a fixture', async () => {
+  it('returns an error when the mock looks like a fixture', async () => {
     const link = new MockLink({name: 'Spike'});
     const {error} = await executeOnce(link, petQuery);
 
@@ -49,7 +49,7 @@ describe('MockLink', () => {
     );
   });
 
-  it('returns an error message when there are no matching mocks', async () => {
+  it('returns an error when there are no matching mocks', async () => {
     const link = new MockLink({LostPets: {}, PetsForSale: {}});
     const {error} = await executeOnce(link, petQuery);
 
@@ -60,7 +60,7 @@ describe('MockLink', () => {
     );
   });
 
-  it('returns an error message when no fixture is returned from a mock', async () => {
+  it('returns an error when no fixture is returned from a mock', async () => {
     const link = new MockLink(() => null as unknown as MockGraphQLResponse);
 
     const {error} = await executeOnce(link, petQuery);
@@ -72,7 +72,20 @@ describe('MockLink', () => {
     );
   });
 
-  it('returns a GraphQLError when there is a GraphQLError matching an operation', async () => {
+  it('returns an error when the fixture returns a function', async () => {
+    const data = {pets: [{name: 'Spike'}]};
+    const link = new MockLink({Pet: () => () => data});
+
+    const {error} = await executeOnce(link, petQuery);
+
+    expect(error).toMatchObject(
+      new Error(
+        "Can’t perform GraphQL operation 'Pet' because no valid mocks were found (it looks like you tried to provide a function that returned a function, but the mock should be either an object or a function that retuns an object)",
+      ),
+    );
+  });
+
+  it('returns a result containing a GraphQLError when there is a GraphQLError matching an operation', async () => {
     const error = new GraphQLError(
       'error message',
       undefined,
@@ -88,7 +101,7 @@ describe('MockLink', () => {
     expect(result).toMatchObject({errors: [error]});
   });
 
-  it('returns a GraphQLError with the message from an Error matching an operation', async () => {
+  it('returns a result containing a GraphQLError with the message from an Error matching an operation', async () => {
     const error = new Error('error message');
     const link = new MockLink({
       Pet: error,
