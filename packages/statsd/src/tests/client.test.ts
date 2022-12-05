@@ -372,4 +372,21 @@ describe('StatsDClient', () => {
       expect(StatsDMock.mock.instances[1].distribution).toHaveBeenCalled();
     });
   });
+
+  describe('childClient', () => {
+    it('uses the same StatsD client', () => {
+      const options = {
+        prefix: 'ChildClientPrefix',
+        suffix: 'ChildClientSuffix',
+        globalTags: {new: 'tag'},
+      };
+      const statsDClient = new StatsDClient(defaultOptions);
+      const stats = StatsDMock.mock.instances[0];
+
+      statsDClient.childClient(options);
+
+      expect(StatsDMock.mock.instances).toHaveLength(1);
+      expect(stats.childClient).toHaveBeenCalledWith(options);
+    });
+  });
 });

@@ -25,6 +25,7 @@ const statsdClient = new StatsDClient({
   host: 'some-statsd-host.com',
   port: '8125',
   prefix: 'AppName',
+  globalTags: {hello: 'world'},
 });
 ```
 
@@ -37,6 +38,30 @@ statsdClient.distribution(
   'navigationComplete',
   100, // in milliseconds
   ['navigation', 'complete', 'performance'], // user-defined tags to go with the data
+);
+```
+
+#### `timing`
+
+Represents the timing stat
+
+```javascript
+statsdClient.timing(
+  'request_duration',
+  100, // in milliseconds
+  [], // user-defined tags to go with the data
+);
+```
+
+#### `gauge`
+
+Represents the gauge stat
+
+```javascript
+statsdClient.gauge(
+  'my_gauge',
+  123.45, // value
+  [], // user-defined tags to go with the data
 );
 ```
 
@@ -59,3 +84,19 @@ This will ensure all stats are sent and stop statsd from doing anything more.
 ```javascript
 statsdClient.close();
 ```
+
+#### `childClient`
+
+Create a child client and add more context to the client.
+The globalTags will be merged.
+The prefix and suffix will be concatenate using the `.` separator.
+
+```javascript
+statsdClient.childClient({
+  prefix: 'MyPrefix',
+  suffix: 'MySuffix',
+  globalTags: {foo: 'bar'},
+});
+```
+
+In this example the prefix will be `AppName.NewPrefix`, the suffix will be `MySuffix` and the globalTags will be `{hello: 'world', foo: 'bar'}`.
