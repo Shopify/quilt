@@ -1,4 +1,4 @@
-import {onLCP, onFID, onFCP} from 'web-vitals';
+import {onLCP, onFID, onFCP, onTTFB} from 'web-vitals';
 
 import {InflightNavigation} from './inflight';
 import {Navigation} from './navigation';
@@ -60,41 +60,27 @@ export class Performance {
       this.supportsTimingEntries &&
       (!this.supportsDetailedTime || !this.supportsNavigationEntries)
     ) {
-      withTiming(
-        ({responseStart, domContentLoadedEventStart, loadEventStart}) => {
-          // window.performance.timing uses full timestamps, while
-          // the ones coming from observing navigation entries are
-          // time from performance.timeOrigin. We just normalize these
-          // ones to be relative to "start" since things listening for
-          // events expect them to be relative to when the navigation
-          // began.
-          this.lifecycleEvent({
-            type: EventType.TimeToFirstByte,
-            start: responseStart - this.timeOrigin,
-            duration: 0,
-          });
-
-          this.lifecycleEvent({
-            type: EventType.DomContentLoaded,
-            start: domContentLoadedEventStart - this.timeOrigin,
-            duration: 0,
-          });
-
-          this.lifecycleEvent({
-            type: EventType.Load,
-            start: loadEventStart - this.timeOrigin,
-            duration: 0,
-          });
-        },
-      );
-    } else {
-      withEntriesOfType('navigation', (entry) => {
+      withTiming(({domContentLoadedEventStart, loadEventStart}) => {
+        // window.performance.timing uses full timestamps, while
+        // the ones coming from observing navigation entries are
+        // time from performance.timeOrigin. We just normalize these
+        // ones to be relative to "start" since things listening for
+        // events expect them to be relative to when the navigation
+        // began.
         this.lifecycleEvent({
-          type: EventType.TimeToFirstByte,
-          start: entry.responseStart,
+          type: EventType.DomContentLoaded,
+          start: domContentLoadedEventStart - this.timeOrigin,
           duration: 0,
         });
 
+        this.lifecycleEvent({
+          type: EventType.Load,
+          start: loadEventStart - this.timeOrigin,
+          duration: 0,
+        });
+      });
+    } else {
+      withEntriesOfType('navigation', (entry) => {
         if (entry.domContentLoadedEventStart > 0) {
           this.lifecycleEvent({
             type: EventType.DomContentLoaded,
@@ -158,6 +144,14 @@ export class Performance {
         }
       });
     }
+
+    onTTFB((metric) => {
+      this.lifecycleEvent({
+        type: EventType.TimeToFirstByte,
+        start: metric.value,
+        duration: 0,
+      });
+    });
 
     onFCP((metric) => {
       this.lifecycleEvent({
