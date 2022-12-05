@@ -1,4 +1,4 @@
-import {onLCP, onFID} from 'web-vitals';
+import {onLCP, onFID, onFCP} from 'web-vitals';
 
 import {InflightNavigation} from './inflight';
 import {Navigation} from './navigation';
@@ -11,13 +11,7 @@ import {
   referenceTime,
   hasGlobal,
 } from './utilities';
-import {
-  Event,
-  EventType,
-  LifecycleEvent,
-  TimeToFirstPaintEvent,
-  TimeToFirstContentfulPaintEvent,
-} from './types';
+import {Event, EventType, LifecycleEvent} from './types';
 
 const WATCH_RESOURCE_TYPES = ['script', 'css'];
 
@@ -155,24 +149,31 @@ export class Performance {
 
     if (this.supportsPaintEntries) {
       withEntriesOfType('paint', (entry) => {
-        const type =
-          entry.name === 'first-paint'
-            ? EventType.TimeToFirstPaint
-            : EventType.TimeToFirstContentfulPaint;
-
-        this.lifecycleEvent({type, start: entry.startTime, duration: 0} as
-          | TimeToFirstPaintEvent
-          | TimeToFirstContentfulPaintEvent);
+        if (entry.name === 'first-paint') {
+          this.lifecycleEvent({
+            type: EventType.TimeToFirstPaint,
+            start: entry.startTime,
+            duration: 0,
+          });
+        }
       });
     }
+
+    onFCP((metric) => {
+      this.lifecycleEvent({
+        type: EventType.TimeToFirstContentfulPaint,
+        start: metric.value,
+        duration: 0,
+      });
+    });
 
     onFID((metric) => {
       this.lifecycleEvent({
         type: EventType.FirstInputDelay,
         start: 0,
         duration: metric.value,
-      })
-    })
+      });
+    });
 
     onLCP((metric) => {
       this.lifecycleEvent({
