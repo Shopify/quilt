@@ -1,4 +1,4 @@
-import {onLCP} from 'web-vitals';
+import {onLCP, onFID} from 'web-vitals';
 
 import {InflightNavigation} from './inflight';
 import {Navigation} from './navigation';
@@ -166,15 +166,13 @@ export class Performance {
       });
     }
 
-    if (typeof window !== undefined && window.perfMetrics !== undefined) {
-      window.perfMetrics.onFirstInputDelay((delay) => {
-        this.lifecycleEvent({
-          type: EventType.FirstInputDelay,
-          start: now() - delay,
-          duration: delay,
-        });
-      });
-    }
+    onFID((metric) => {
+      this.lifecycleEvent({
+        type: EventType.FirstInputDelay,
+        start: 0,
+        duration: metric.value,
+      })
+    })
 
     onLCP((metric) => {
       this.lifecycleEvent({
