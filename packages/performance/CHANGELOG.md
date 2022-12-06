@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.2.1
+
+### Patch Changes
+
+- [#2488](https://github.com/Shopify/quilt/pull/2488) [`dcb3c54c0`](https://github.com/Shopify/quilt/commit/dcb3c54c064331ce45cc99958dd68d0d0a769f72) Thanks [@ryanwilsonperkin](https://github.com/ryanwilsonperkin)! - Switch recording of FCP, TTFB, FID to web-vitals implementation in place of custom solution
+
 ## 3.2.0
 
 ### Minor Changes

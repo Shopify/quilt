@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.1.0
+
+### Minor Changes
+
+- [#2489](https://github.com/Shopify/quilt/pull/2489) [`472e3556a`](https://github.com/Shopify/quilt/commit/472e3556a07cb3315261e043d19a44a01ca17432) Thanks [@alexandcote](https://github.com/alexandcote)! - Updating `hot-shots` to version 9.3.0
+
+### Patch Changes
+
+- [#2489](https://github.com/Shopify/quilt/pull/2489) [`9396ac6eb`](https://github.com/Shopify/quilt/commit/9396ac6eb66220ad1dd40c57f66c193cd14e4780) Thanks [@alexandcote](https://github.com/alexandcote)! - Allowing consumer to create a child client
+
+- [#2492](https://github.com/Shopify/quilt/pull/2492) [`da62f58f4`](https://github.com/Shopify/quilt/commit/da62f58f46bb3a27f55ef4cc59c5292b9a842a24) Thanks [@alexandcote](https://github.com/alexandcote)! - Exposing types needed to create a child client.
+
 ## 4.0.1
 
 ### Patch Changes
