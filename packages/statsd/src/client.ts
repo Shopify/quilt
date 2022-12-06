@@ -34,10 +34,19 @@ export class StatsDClient {
 
   constructor(options: Options) {
     if (isChildOptions(options)) {
-      const {client, ...childOptions} = options;
+      const {client, prefix, ...childOptions} = options;
       this.logger = client.logger;
       this.options = {...client.options, ...childOptions};
       this.statsd = client.statsd.childClient(childOptions);
+
+      if (prefix) {
+        // The concatenation of the prefix in the library is the inverse of what we want.
+        // The library concatenates the prefix like that: <ChildPrefix><ParentPrefix>
+        // but in most case we want to concatenate like this: <ParentPrefix><ChildPrefix>
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        this.statsd.prefix = `${this.statsd.prefix}${prefix}`;
+      }
       return;
     }
 
