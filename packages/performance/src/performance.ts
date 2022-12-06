@@ -164,7 +164,7 @@ export class Performance {
     onFID((metric) => {
       this.lifecycleEvent({
         type: EventType.FirstInputDelay,
-        start: 0,
+        start: now() - metric.value,
         duration: metric.value,
       });
     });
