@@ -1,4 +1,4 @@
-import {onLCP} from 'web-vitals';
+import {onLCP, onFID, onFCP, onTTFB} from 'web-vitals';
 
 import {InflightNavigation} from './inflight';
 import {Navigation} from './navigation';
@@ -11,13 +11,7 @@ import {
   referenceTime,
   hasGlobal,
 } from './utilities';
-import {
-  Event,
-  EventType,
-  LifecycleEvent,
-  TimeToFirstPaintEvent,
-  TimeToFirstContentfulPaintEvent,
-} from './types';
+import {Event, EventType, LifecycleEvent} from './types';
 
 const WATCH_RESOURCE_TYPES = ['script', 'css'];
 
@@ -66,41 +60,27 @@ export class Performance {
       this.supportsTimingEntries &&
       (!this.supportsDetailedTime || !this.supportsNavigationEntries)
     ) {
-      withTiming(
-        ({responseStart, domContentLoadedEventStart, loadEventStart}) => {
-          // window.performance.timing uses full timestamps, while
-          // the ones coming from observing navigation entries are
-          // time from performance.timeOrigin. We just normalize these
-          // ones to be relative to "start" since things listening for
-          // events expect them to be relative to when the navigation
-          // began.
-          this.lifecycleEvent({
-            type: EventType.TimeToFirstByte,
-            start: responseStart - this.timeOrigin,
-            duration: 0,
-          });
-
-          this.lifecycleEvent({
-            type: EventType.DomContentLoaded,
-            start: domContentLoadedEventStart - this.timeOrigin,
-            duration: 0,
-          });
-
-          this.lifecycleEvent({
-            type: EventType.Load,
-            start: loadEventStart - this.timeOrigin,
-            duration: 0,
-          });
-        },
-      );
-    } else {
-      withEntriesOfType('navigation', (entry) => {
+      withTiming(({domContentLoadedEventStart, loadEventStart}) => {
+        // window.performance.timing uses full timestamps, while
+        // the ones coming from observing navigation entries are
+        // time from performance.timeOrigin. We just normalize these
+        // ones to be relative to "start" since things listening for
+        // events expect them to be relative to when the navigation
+        // began.
         this.lifecycleEvent({
-          type: EventType.TimeToFirstByte,
-          start: entry.responseStart,
+          type: EventType.DomContentLoaded,
+          start: domContentLoadedEventStart - this.timeOrigin,
           duration: 0,
         });
 
+        this.lifecycleEvent({
+          type: EventType.Load,
+          start: loadEventStart - this.timeOrigin,
+          duration: 0,
+        });
+      });
+    } else {
+      withEntriesOfType('navigation', (entry) => {
         if (entry.domContentLoadedEventStart > 0) {
           this.lifecycleEvent({
             type: EventType.DomContentLoaded,
@@ -155,26 +135,39 @@ export class Performance {
 
     if (this.supportsPaintEntries) {
       withEntriesOfType('paint', (entry) => {
-        const type =
-          entry.name === 'first-paint'
-            ? EventType.TimeToFirstPaint
-            : EventType.TimeToFirstContentfulPaint;
-
-        this.lifecycleEvent({type, start: entry.startTime, duration: 0} as
-          | TimeToFirstPaintEvent
-          | TimeToFirstContentfulPaintEvent);
+        if (entry.name === 'first-paint') {
+          this.lifecycleEvent({
+            type: EventType.TimeToFirstPaint,
+            start: entry.startTime,
+            duration: 0,
+          });
+        }
       });
     }
 
-    if (typeof window !== undefined && window.perfMetrics !== undefined) {
-      window.perfMetrics.onFirstInputDelay((delay) => {
-        this.lifecycleEvent({
-          type: EventType.FirstInputDelay,
-          start: now() - delay,
-          duration: delay,
-        });
+    onTTFB((metric) => {
+      this.lifecycleEvent({
+        type: EventType.TimeToFirstByte,
+        start: metric.value,
+        duration: 0,
       });
-    }
+    });
+
+    onFCP((metric) => {
+      this.lifecycleEvent({
+        type: EventType.TimeToFirstContentfulPaint,
+        start: metric.value,
+        duration: 0,
+      });
+    });
+
+    onFID((metric) => {
+      this.lifecycleEvent({
+        type: EventType.FirstInputDelay,
+        start: now() - metric.value,
+        duration: metric.value,
+      });
+    });
 
     onLCP((metric) => {
       this.lifecycleEvent({
