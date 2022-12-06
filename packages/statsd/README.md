@@ -25,6 +25,7 @@ const statsdClient = new StatsDClient({
   host: 'some-statsd-host.com',
   port: '8125',
   prefix: 'AppName',
+  suffix: 'AppSuffix',
   globalTags: {hello: 'world'},
 });
 ```
@@ -89,14 +90,14 @@ statsdClient.close();
 
 Create a child client and add more context to the client.
 The globalTags will be merged.
-The prefix and suffix will be concatenate using the `.` separator.
+The prefix and suffix will be concatenated like in this example.
 
 ```javascript
 statsdClient.childClient({
-  prefix: 'MyPrefix',
-  suffix: 'MySuffix',
+  prefix: 'NewPrefix.',
+  suffix: '.NewSuffix',
   globalTags: {foo: 'bar'},
 });
 ```
 
-In this example the prefix will be `AppName.NewPrefix`, the suffix will be `MySuffix` and the globalTags will be `{hello: 'world', foo: 'bar'}`.
+In this example the prefix will be `NewPrefix.AppName.`, the suffix will be `AppSuffix.NewSuffix` and the globalTags will be `{hello: 'world', foo: 'bar'}`.
