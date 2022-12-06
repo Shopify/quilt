@@ -7,6 +7,7 @@ import {
   ApolloError,
   WatchQueryOptions,
   ObservableQuery,
+  NetworkStatus,
 } from 'apollo-client';
 import isEqual from 'fast-deep-equal';
 import {DocumentNode} from 'graphql-typed';
@@ -218,6 +219,15 @@ export default function useQuery<
           : undefined;
     } else if (hasError) {
       data = (queryObservable.getLastResult() || {}).data;
+    } else if (
+      result.data?.constructor === Object &&
+      Object.keys(result.data).length === 0 &&
+      result.networkStatus === NetworkStatus.ready
+    ) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        'The response payload was an empty object. This can happen if all your fields are conditional and they are all omitted',
+      );
     } else if (
       fetchPolicy === 'no-cache' &&
       (!result.data || Object.keys(result.data).length === 0)

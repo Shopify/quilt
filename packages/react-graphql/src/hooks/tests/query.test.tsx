@@ -12,8 +12,8 @@ import useQuery from '../query';
 import {mountWithGraphQL, createResolvablePromise} from './utilities';
 
 const petQuery = gql`
-  query PetQuery {
-    pets {
+  query PetQuery($includePets: Boolean! = true) {
+    pets @include(if: $includePets) {
       name
     }
   }
@@ -212,6 +212,32 @@ describe('useQuery', () => {
           data: undefined,
         }),
       );
+    });
+
+    it('returns a warning message if the response payload was an empty object', async () => {
+      const consoleErrorSpy = jest.spyOn(console, 'warn');
+      consoleErrorSpy.mockImplementation(() => {});
+
+      function MockQuery({children}) {
+        const results = useQuery(petQuery, {
+          variables: {includePets: false},
+        });
+        return children(results);
+      }
+
+      const graphQL = createGraphQL({PetQuery: {}});
+      const renderPropSpy = jest.fn(() => null);
+
+      await mountWithGraphQL(<MockQuery>{renderPropSpy}</MockQuery>, {
+        graphQL,
+      });
+
+      expect(renderPropSpy).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          data: {},
+        }),
+      );
+      consoleErrorSpy.mockRestore();
     });
   });
 
