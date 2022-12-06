@@ -1,4 +1,4 @@
-import {StatsD, ClientOptions} from 'hot-shots';
+import {StatsD, ClientOptions, ChildClientOptions} from 'hot-shots';
 import {snakeCase} from 'change-case';
 
 const UNKNOWN = 'Unknown';
@@ -16,20 +16,35 @@ export interface Options extends ClientOptions {
   snakeCase?: boolean;
 }
 
-export class StatsDClient {
-  private statsd: StatsD;
-  private logger: Logger = console;
-  private options: Options;
+export interface ChildOptions extends ChildClientOptions {
+  client: StatsDClient;
+  snakeCase?: boolean;
+}
 
-  constructor({logger, ...options}: Options) {
+export class StatsDClient {
+  protected statsd: StatsD;
+  protected logger: Logger = console;
+  protected options: Options;
+
+  constructor(options: Options | ChildOptions) {
+    if (isChildOptions(options)) {
+      const {client, ...childOptions} = options;
+      this.logger = client.logger;
+      this.options = {...client.options, ...childOptions};
+      this.statsd = client.statsd.childClient(childOptions);
+      return;
+    }
+
+    const {logger, snakeCase, ...statsdOptions} = options;
+
     if (logger) {
       this.logger = logger;
     }
 
     this.options = {
       ...options,
-      errorHandler: options.errorHandler
-        ? options.errorHandler
+      errorHandler: statsdOptions.errorHandler
+        ? statsdOptions.errorHandler
         : (error: Error) => {
             this.logger.log(
               `Error occurred in the StatsD client:\n${
@@ -92,6 +107,10 @@ export class StatsDClient {
     });
   }
 
+  childClient(options?: Omit<ChildOptions, 'client'>) {
+    return new StatsDClient({client: this, ...options});
+  }
+
   addGlobalTags(globalTags: Tags) {
     this.statsd = this.statsd.childClient({
       globalTags: this.normalizeTags(globalTags),
@@ -127,4 +146,10 @@ export class StatsDClient {
 
     return output;
   }
+}
+
+function isChildOptions(
+  options: Options | ChildOptions,
+): options is ChildOptions {
+  return 'client' in options;
 }
