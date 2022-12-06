@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.4.0
+
+### Minor Changes
+
+- [#2490](https://github.com/Shopify/quilt/pull/2490) [`c31016fa3`](https://github.com/Shopify/quilt/commit/c31016fa321ef5449973a7eb50e63fe7a86184dc) Thanks [@alexandcote](https://github.com/alexandcote)! - The middleware now accepts an optional StatsDClient instance
+
 ## 3.3.1
 
 ### Patch Changes
