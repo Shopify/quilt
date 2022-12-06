@@ -19,7 +19,8 @@ interface Tags {
 }
 
 export interface Options {
-  prefix: string;
+  statsd?: StatsDClient;
+  prefix?: string;
   development?: boolean;
   statsdHost?: string;
   statsdPort?: number;
@@ -54,12 +55,13 @@ export interface Metrics {
 }
 
 export function clientPerformanceMetrics({
+  statsd: statsdClient,
   statsdHost,
   statsdPort,
   prefix,
+  logger,
   // eslint-disable-next-line no-process-env
   development = process.env.NODE_ENV === 'development',
-  logger,
   anomalousNavigationDurationThreshold,
   anomalousNavigationDownloadSizeThreshold,
   additionalTags: getAdditionalTags,
@@ -69,7 +71,7 @@ export function clientPerformanceMetrics({
   return compose([
     bodyParser(),
     async function clientPerformanceMetricsMiddleware(ctx: Context) {
-      const statsLogger: Logger = logger || ctx.state.logger || console;
+      const appLogger: Logger = logger || ctx.state.logger || console;
 
       const {body} = ctx.request as any;
       if (!isClientMetricsBody(body)) {
@@ -77,13 +79,15 @@ export function clientPerformanceMetrics({
         return;
       }
 
-      const statsd = new StatsDClient({
-        host: statsdHost,
-        port: statsdPort,
-        logger: statsLogger,
-        snakeCase: true,
-        prefix,
-      });
+      const statsd = statsdClient
+        ? statsdClient
+        : new StatsDClient({
+            host: statsdHost,
+            port: statsdPort,
+            logger: appLogger,
+            snakeCase: true,
+            prefix,
+          });
 
       const userAgent = ctx.get(Header.UserAgent);
       const {connection, events, navigations, locale} = body;
@@ -104,7 +108,7 @@ export function clientPerformanceMetrics({
         ...additionalTags,
       };
 
-      statsLogger.log(`Adding event tags: ${JSON.stringify(tags)}`);
+      appLogger.log(`Adding event tags: ${JSON.stringify(tags)}`);
 
       for (const event of events) {
         if (
@@ -150,7 +154,7 @@ export function clientPerformanceMetrics({
           ...anomalousNavigationDurationTag,
         };
 
-        statsLogger.log(
+        appLogger.log(
           `Adding navigation tags: ${JSON.stringify(navigationTags)}`,
         );
 
@@ -205,9 +209,9 @@ export function clientPerformanceMetrics({
 
       const distributions = metrics.map(({name, value, tags}) => {
         if (development) {
-          statsLogger.log(`Skipping sending metric in dev ${name}: ${value}`);
+          appLogger.log(`Skipping sending metric in dev ${name}: ${value}`);
         } else {
-          statsLogger.log(`Sending metric ${name}: ${value}`);
+          appLogger.log(`Sending metric ${name}: ${value}`);
           return statsd.distribution(name, value, tags);
         }
       });
@@ -217,7 +221,9 @@ export function clientPerformanceMetrics({
       } catch (error) {
         ctx.status = StatusCode.InternalServerError;
       } finally {
-        await statsd.close();
+        if (!statsdClient) {
+          await statsd.close();
+        }
         ctx.status = StatusCode.Ok;
       }
     },

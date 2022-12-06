@@ -38,24 +38,19 @@ Next we import the `clientPerformanceMetrics` factory into our server, use it to
 // server.ts
 import Koa from 'koa';
 import mount from 'koa-mount';
+import {StatsDClient} from '@shopify/statsd';
 import {clientPerformanceMetrics} from '@shopify/koa-performance';
 
 // create our Koa instance for the server
 const app = new Koa();
 
-app.use(
-  mount(
-    '/client-metrics',
-    clientPerformanceMetrics({
-      // the prefix for metrics sent to StatsD
-      prefix: 'ExampleCode.',
-      // the host of the statsd server you want to send metrics to
-      statsdHost: 'YOUR STATSD HOST HERE'
-      // the port of the statsd server you want to send metrics to
-      statsdPort: 3000,
-    }),
-  ),
-);
+const statsd = new StatsDClient({
+  prefix: 'ExampleCode.',
+  host: 'YOUR STATSD HOST HERE',
+  port: 3000,
+});
+
+app.use(mount('/client-metrics', clientPerformanceMetrics({statsd})));
 
 // other middleware for your app
 // ...
@@ -83,6 +78,24 @@ interface Metrics {
     metadata: NavigationMetadata;
   }[];
 }
+```
+
+You can also create the `StatsDClient` directly in the middleware but the preferred solution is to pass an instance of your `StatsDClient` so you can reuse the same instance across your application.
+
+```
+app.use(
+  mount(
+    '/client-metrics',
+    clientPerformanceMetrics({
+      // the prefix for metrics sent to StatsD
+      prefix: 'ExampleCode.',
+      // the host of the statsd server you want to send metrics to
+      statsdHost: 'YOUR STATSD HOST HERE'
+      // the port of the statsd server you want to send metrics to
+      statsdPort: 3000,
+    })
+  )
+);
 ```
 
 ### Verify with CURL
@@ -113,8 +126,10 @@ It takes options conforming to the following interface:
 
 ```ts
 interface Options {
+  // the StatsD Client instance
+  statsd?: StatsDClient;
   // the prefix for metrics sent to StatsD
-  prefix: string;
+  prefix?: string;
   // whether the app is being run in development mode.
   development?: boolean;
   // the host of the statsd server you want to send metrics to
@@ -148,11 +163,12 @@ interface Options {
 The simplest use of the middleware factory passes only the connection information for an application's StatsD server, and the `prefix`.
 
 ```ts
-  const middleware = clientPerformanceMetrics({,
-    prefix: 'ExampleCode.',
-    statsdHost: process.env.STATSD_HOST,
-    statsdPort: process.env.STATSD_PORT,
-  });
+const statsd = new StatsDClient({
+  prefix: 'ExampleCode.',
+  host: process.env.STATSD_HOST,
+  port: process.env.STATSD_PORT,
+});
+const middleware = clientPerformanceMetrics({statsd});
 ```
 
 #### Extra tags
@@ -160,13 +176,18 @@ The simplest use of the middleware factory passes only the connection informatio
 Often, applications will want to categorize distribution data using custom tags. The `additionalTags` and `additionalNavigationTags` allow custom tags to be derived from the data sent to the middleware. The tags will then be attached to outgoing StatsD distribution calls.
 
 ```ts
-  const middleware = clientPerformanceMetrics({,
-    prefix: 'ExampleCode.',
-    statsdHost: process.env.STATSD_HOST,
-    statsdPort: process.env.STATSD_PORT,
-    additionalNavigationTags: (navigation) => ({navigationTarget: navigation.target}),
-    additionalTags: (metricsBody) => ({rtt: metricsBody.connection.rtt}),
-  });
+const statsd = new StatsDClient({
+  prefix: 'ExampleCode.',
+  host: process.env.STATSD_HOST,
+  port: process.env.STATSD_PORT,
+});
+const middleware = clientPerformanceMetrics({
+  statsd,
+  additionalNavigationTags: (navigation) => ({
+    navigationTarget: navigation.target,
+  }),
+  additionalTags: (metricsBody) => ({rtt: metricsBody.connection.rtt}),
+});
 ```
 
 #### Extra metrics
@@ -174,21 +195,26 @@ Often, applications will want to categorize distribution data using custom tags.
 Applications also commonly need to send custom distribution data. The `additionalNavigationMetrics` option allow custom metrics to be derived from the data sent to the middleware. These will then be sent using `StatsD`'s `distribution` method.
 
 ```ts
-  const middleware = clientPerformanceMetrics({,
-    prefix: 'ExampleCode.',
-    statsdHost: process.env.STATSD_HOST,
-    statsdPort: process.env.STATSD_PORT,
-    additionalNavigationMetrics: ({events}) => {
-      const weight = navigation.events
-        .filter((event) => event.size != null)
-        .reduce((total, event) => {
-          total + event.size
-        }, 0);
+const statsd = new StatsDClient({
+  prefix: 'ExampleCode.',
+  host: process.env.STATSD_HOST,
+  port: process.env.STATSD_PORT,
+});
+const middleware = clientPerformanceMetrics({
+  statsd,
+  additionalNavigationMetrics: ({events}) => {
+    const weight = navigation.events
+      .filter((event) => event.size != null)
+      .reduce((total, event) => {
+        total + event.size;
+      }, 0);
 
-      return [{
+    return [
+      {
         name: 'navigationTotalResourceWeight',
-        value: weight
-      }];
-    },
-  });
+        value: weight,
+      },
+    ];
+  },
+});
 ```
