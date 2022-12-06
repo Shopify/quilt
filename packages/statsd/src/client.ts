@@ -1,4 +1,8 @@
-import {StatsD, ClientOptions, ChildClientOptions} from 'hot-shots';
+import {
+  StatsD,
+  ClientOptions as HotShotClientOptions,
+  ChildClientOptions as HotShotChildOptions,
+} from 'hot-shots';
 import {snakeCase} from 'change-case';
 
 const UNKNOWN = 'Unknown';
@@ -11,22 +15,24 @@ type Tags =
   | {[key: string]: string | number | boolean | null | undefined}
   | string[];
 
-export interface Options extends ClientOptions {
+export interface ClientOptions extends HotShotClientOptions {
   logger?: Logger;
   snakeCase?: boolean;
 }
 
-export interface ChildOptions extends ChildClientOptions {
+export interface ChildOptions extends HotShotChildOptions {
   client: StatsDClient;
   snakeCase?: boolean;
 }
 
+export type Options = ClientOptions | ChildOptions;
+
 export class StatsDClient {
   protected statsd: StatsD;
   protected logger: Logger = console;
-  protected options: Options;
+  protected options: ClientOptions;
 
-  constructor(options: Options | ChildOptions) {
+  constructor(options: Options) {
     if (isChildOptions(options)) {
       const {client, ...childOptions} = options;
       this.logger = client.logger;
@@ -148,8 +154,6 @@ export class StatsDClient {
   }
 }
 
-function isChildOptions(
-  options: Options | ChildOptions,
-): options is ChildOptions {
+function isChildOptions(options: Options): options is ChildOptions {
   return 'client' in options;
 }
