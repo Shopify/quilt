@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.0.2
+
+### Patch Changes
+
+- Updated dependencies [[`9396ac6eb`](https://github.com/Shopify/quilt/commit/9396ac6eb66220ad1dd40c57f66c193cd14e4780), [`472e3556a`](https://github.com/Shopify/quilt/commit/472e3556a07cb3315261e043d19a44a01ca17432), [`da62f58f4`](https://github.com/Shopify/quilt/commit/da62f58f46bb3a27f55ef4cc59c5292b9a842a24)]:
+  - @shopify/statsd@4.1.0
+
 ## 2.0.1
 
 ### Patch Changes
