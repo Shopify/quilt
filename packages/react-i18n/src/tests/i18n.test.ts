@@ -875,6 +875,43 @@ describe('I18n', () => {
     });
   });
 
+  describe('#formatCurrency() form:auto', () => {
+    it.each`
+      locale     | currency | expected
+      ${'cs-CZ'} | ${'CZK'} | ${'1 234,56 Kč CZK'}
+      ${'de-AT'} | ${'EUR'} | ${'€ 1 234,56 EUR'}
+      ${'de-AT'} | ${'JPY'} | ${'¥ 1 235 JPY'}
+      ${'de-AT'} | ${'OMR'} | ${'OMR 1 234,560'}
+      ${'de-AT'} | ${'USD'} | ${'$ 1 234,56 USD'}
+      ${'de-AT'} | ${'CAD'} | ${'$ 1 234,56'}
+      ${'en-AU'} | ${'AUD'} | ${'$1,234.56 AUD'}
+      ${'en-US'} | ${'EUR'} | ${'€1,234.56 EUR'}
+      ${'en-US'} | ${'JPY'} | ${'¥1,235 JPY'}
+      ${'en-US'} | ${'OMR'} | ${'OMR 1,234.560'}
+      ${'en-US'} | ${'USD'} | ${'$1,234.56 USD'}
+      ${'en-US'} | ${'CAD'} | ${'$1,234.56'}
+      ${'fr-FR'} | ${'EUR'} | ${'1 234,56 € EUR'}
+      ${'fr-FR'} | ${'JPY'} | ${'1 235 ¥ JPY'}
+      ${'fr-FR'} | ${'OMR'} | ${'1 234,560 OMR'}
+      ${'fr-FR'} | ${'USD'} | ${'1 234,56 $ USD'}
+      ${'fr-FR'} | ${'CAD'} | ${'1 234,56 $'}
+      ${'ar-EG'} | ${'CAD'} | ${'١٬٢٣٤٫٥٦ $'}
+      ${'ar-EG'} | ${'USD'} | ${'١٬٢٣٤٫٥٦ $ USD'}
+    `(
+      'formats 1234.56 of $currency in $locale to expected $expected',
+      ({locale, currency, expected}) => {
+        const amount = 1234.56;
+
+        const i18n = new I18n(defaultTranslations, {locale, currency: 'CAD'});
+        const result = i18n.formatCurrency(amount, {
+          form: 'auto',
+          currency,
+        });
+        expect(sanitizeSpaces(result)).toBe(expected);
+      },
+    );
+  });
+
   describe('#formatCurrency() form:explicit', () => {
     it.each`
       locale     | currency | expected

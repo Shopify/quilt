@@ -4,9 +4,10 @@ export function getCurrencySymbol(
   locale: string,
   options: Intl.NumberFormatOptions,
 ) {
-  const delimiters = ',.';
+  const delimiters = ',.٫';
+  const numerals = '0٠';
   const directionControlCharacters = /[\u200E\u200F]/;
-  const numReg = new RegExp(`0[${delimiters}]*0*`);
+  const numReg = new RegExp(`[${numerals}][${delimiters}]*[${numerals}]*`);
 
   const currencyStringRaw = formatCurrency(0, locale, options);
   const currencyString = currencyStringRaw.replace(
