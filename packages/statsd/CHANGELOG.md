@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.1.1
+
+### Patch Changes
+
+- [#2494](https://github.com/Shopify/quilt/pull/2494) [`da04b9e63`](https://github.com/Shopify/quilt/commit/da04b9e63819a51abfca04008e01f6935d886297) Thanks [@alexandcote](https://github.com/alexandcote)! - When using a child client concatenation of prefixes is now ordered as `ParentPrefix.ChildPrefix`, which is a more generally desired behaviour. Previously this was `ChildPrefix.ParentPrefix`.
+
 ## 4.1.0
 
 ### Minor Changes
