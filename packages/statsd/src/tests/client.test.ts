@@ -13,7 +13,8 @@ describe('StatsDClient', () => {
   const defaultOptions = {
     host: 'localhost',
     port: 1234,
-    prefix: 'MyModule',
+    prefix: 'MyPrefix',
+    suffix: 'MySuffix',
     globalTags: {
       aaa: 'A',
     },
@@ -376,17 +377,36 @@ describe('StatsDClient', () => {
   describe('childClient', () => {
     it('uses the same StatsD client', () => {
       const options = {
-        prefix: 'ChildClientPrefix',
-        suffix: 'ChildClientSuffix',
+        prefix: '.ChildClientPrefix',
+        suffix: '.ChildClientSuffix',
         globalTags: {new: 'tag'},
       };
+
       const statsDClient = new StatsDClient(defaultOptions);
       const stats = StatsDMock.mock.instances[0];
 
+      let childClient;
+      let parentClient;
+      jest.spyOn(stats, 'childClient').mockImplementationOnce((...options) => {
+        const StatsD = jest.requireActual('hot-shots').StatsD;
+        parentClient = new StatsD(defaultOptions);
+        jest.spyOn(parentClient, 'childClient');
+        childClient = parentClient.childClient(...options);
+        return childClient;
+      });
+
       statsDClient.childClient(options);
 
-      expect(StatsDMock.mock.instances).toHaveLength(1);
-      expect(stats.childClient).toHaveBeenCalledWith(options);
+      expect(parentClient.childClient).toHaveBeenCalledWith({
+        suffix: options.suffix,
+        globalTags: options.globalTags,
+      });
+      expect(childClient.prefix).toBe(
+        `${defaultOptions.prefix}${options.prefix}`,
+      );
+      expect(childClient.suffix).toBe(
+        `${defaultOptions.suffix}${options.suffix}`,
+      );
     });
   });
 });
