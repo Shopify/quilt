@@ -875,6 +875,44 @@ describe('I18n', () => {
     });
   });
 
+  describe('#formatCurrency() form:auto', () => {
+    it.each`
+      locale     | currency | expected
+      ${'cs-CZ'} | ${'CZK'} | ${'1 234,56 Kč CZK'}
+      ${'de-AT'} | ${'EUR'} | ${'€ 1 234,56 EUR'}
+      ${'de-AT'} | ${'JPY'} | ${'¥ 1 235 JPY'}
+      ${'de-AT'} | ${'OMR'} | ${'OMR 1 234,560'}
+      ${'de-AT'} | ${'USD'} | ${'$ 1 234,56 USD'}
+      ${'de-AT'} | ${'CAD'} | ${'$ 1 234,56'}
+      ${'en-AU'} | ${'AUD'} | ${'$1,234.56 AUD'}
+      ${'en-US'} | ${'EUR'} | ${'€1,234.56 EUR'}
+      ${'en-US'} | ${'JPY'} | ${'¥1,235 JPY'}
+      ${'en-US'} | ${'OMR'} | ${'OMR 1,234.560'}
+      ${'en-US'} | ${'USD'} | ${'$1,234.56 USD'}
+      ${'en-US'} | ${'CAD'} | ${'$1,234.56'}
+      ${'fr-FR'} | ${'EUR'} | ${'1 234,56 € EUR'}
+      ${'fr-FR'} | ${'JPY'} | ${'1 235 ¥ JPY'}
+      ${'fr-FR'} | ${'OMR'} | ${'1 234,560 OMR'}
+      ${'fr-FR'} | ${'USD'} | ${'1 234,56 $ USD'}
+      ${'fr-FR'} | ${'CAD'} | ${'1 234,56 $'}
+      ${'ar-EG'} | ${'CAD'} | ${'$ 1,234.56'}
+      ${'ar-EG'} | ${'USD'} | ${'$ 1,234.56 USD'}
+      ${'he-IL'} | ${'USD'} | ${'1,234.56 $ USD'}
+    `(
+      'formats 1234.56 of $currency in $locale to expected $expected',
+      ({locale, currency, expected}) => {
+        const amount = 1234.56;
+
+        const i18n = new I18n(defaultTranslations, {locale, currency: 'CAD'});
+        const result = i18n.formatCurrency(amount, {
+          form: 'auto',
+          currency,
+        });
+        expect(sanitizeSpaces(result)).toBe(expected);
+      },
+    );
+  });
+
   describe('#formatCurrency() form:explicit', () => {
     it.each`
       locale     | currency | expected
@@ -892,6 +930,8 @@ describe('I18n', () => {
       ${'fr-FR'} | ${'JPY'} | ${'1 235 ¥ JPY'}
       ${'fr-FR'} | ${'OMR'} | ${'1 234,560 OMR'}
       ${'fr-FR'} | ${'USD'} | ${'1 234,56 $ USD'}
+      ${'ar-EG'} | ${'USD'} | ${'$ 1,234.56 USD'}
+      ${'he-IL'} | ${'USD'} | ${'1,234.56 $ USD'}
     `(
       'formats 1234.56 of $currency in $locale to expected $expected',
       ({locale, currency, expected}) => {
@@ -924,6 +964,8 @@ describe('I18n', () => {
       ${'fr-FR'} | ${'JPY'} | ${'-1 235 ¥ JPY'}
       ${'fr-FR'} | ${'OMR'} | ${'-1 234,560 OMR'}
       ${'fr-FR'} | ${'USD'} | ${'-1 234,56 $ USD'}
+      ${'ar-EG'} | ${'USD'} | ${'\u200E-$ 1,234.56 USD'}
+      ${'he-IL'} | ${'USD'} | ${'\u200E-1,234.56 $ USD'}
     `(
       'formats -1234.56 of $currency in $locale to expected $expected',
       ({locale, currency, expected}) => {
@@ -955,6 +997,8 @@ describe('I18n', () => {
       ${'fr-FR'} | ${'JPY'} | ${'1 235'}
       ${'fr-FR'} | ${'OMR'} | ${'1 234,560'}
       ${'fr-FR'} | ${'USD'} | ${'1 234,56'}
+      ${'ar-EG'} | ${'USD'} | ${'1,234.56'}
+      ${'he-IL'} | ${'USD'} | ${'1,234.56'}
     `(
       'formats 1234.56 of $currency in $locale to expected $expected',
       ({locale, currency, expected}) => {
@@ -986,6 +1030,8 @@ describe('I18n', () => {
       ${'fr-FR'} | ${'JPY'} | ${'-1 235'}
       ${'fr-FR'} | ${'OMR'} | ${'-1 234,560'}
       ${'fr-FR'} | ${'USD'} | ${'-1 234,56'}
+      ${'ar-EG'} | ${'USD'} | ${'\u200E-1,234.56'}
+      ${'he-IL'} | ${'USD'} | ${'\u200E-1,234.56'}
     `(
       'formats -1234.56 of $currency in $locale to expected $expected',
       ({locale, currency, expected}) => {
@@ -1020,6 +1066,7 @@ describe('I18n', () => {
       ${'sv-SE'} | ${'USD'} | ${'1 234,56 $'}
       ${'en-US'} | ${'SGD'} | ${'$1,234.56'}
       ${'fr-FR'} | ${'SGD'} | ${'1 234,56 $'}
+      ${'ar-EG'} | ${'USD'} | ${'$ 1,234.56'}
     `(
       'formats 1234.56 of $currency in $locale to expected $expected',
       ({locale, currency, expected}) => {
@@ -1048,9 +1095,11 @@ describe('I18n', () => {
       ${'fr-FR'} | ${'JPY'} | ${'-1 235 ¥'}
       ${'fr-FR'} | ${'OMR'} | ${'-1 234,560 OMR'}
       ${'fr-FR'} | ${'USD'} | ${'-1 234,56 $'}
-      ${'sv-SE'} | ${'USD'} | ${'-1 234,56 $'}
+      ${'sv-SE'} | ${'USD'} | ${'\u22121 234,56 $'}
       ${'en-US'} | ${'SGD'} | ${'-$1,234.56'}
       ${'fr-FR'} | ${'SGD'} | ${'-1 234,56 $'}
+      ${'ar-EG'} | ${'USD'} | ${'\u200E-$ 1,234.56'}
+      ${'he-IL'} | ${'USD'} | ${'\u200E-1,234.56 $'}
     `(
       'formats -1234.56 of $currency in $locale to expected $expected',
       ({locale, currency, expected}) => {
@@ -1277,6 +1326,30 @@ describe('I18n', () => {
           });
           expect(i18n.unformatCurrency('123,9999', 'JOD')).toBe('124.000');
           expect(i18n.unformatCurrency('123,4567', 'JOD')).toBe('123.457');
+        });
+      });
+
+      describe('sv-SE locale', () => {
+        it('unformats currency with non-standard negative sign', () => {
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            locale: 'sv-SE',
+          });
+          expect(i18n.unformatCurrency('\u22121 234,56 $', 'USD')).toBe(
+            '-1234.56',
+          );
+        });
+      });
+
+      describe('he-IL locale', () => {
+        it('unformats currency with direction control characters and whitespace before negative sign', () => {
+          const i18n = new I18n(defaultTranslations, {
+            ...defaultDetails,
+            locale: 'he-IL',
+          });
+          expect(i18n.unformatCurrency(' \u200E-1,234.56 $ USD', 'USD')).toBe(
+            '-1234.56',
+          );
         });
       });
 
