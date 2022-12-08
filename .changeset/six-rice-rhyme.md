@@ -1,5 +1,5 @@
 ---
-'@shopify/react-i18n': patch
+'@shopify/react-i18n': minor
 ---
 
-Support currency formatting for `ar-EG` and other Arabic locales.
+Improve currency formatting by enforcing latin number formatting and preserving negative sign and directional control characters.

@@ -31,6 +31,7 @@ import {
   Weekday,
   currencyDecimalPlaces,
   DEFAULT_DECIMAL_PLACES,
+  DIRECTION_CONTROL_CHARACTERS,
   EASTERN_NAME_ORDER_FORMATTERS,
   CurrencyShortFormException,
 } from './constants';
@@ -67,6 +68,7 @@ const NEGATIVE_SIGN = '-';
 const REGEX_DIGITS = /\d/g;
 const REGEX_NON_DIGITS = /\D/g;
 const REGEX_PERIODS = /\./g;
+const NEGATIVE_CHARACTERS = '\\p{Pd}\u2212';
 
 export class I18n {
   readonly locale: string;
@@ -445,15 +447,18 @@ export class I18n {
     options: NumberFormatOptions = {},
   ): string {
     const formattedAmount = this.formatCurrencyNone(amount, options);
-    const shortSymbol = this.getShortCurrencySymbol(options.currency);
+    const negativeRegex = new RegExp(
+      `[${DIRECTION_CONTROL_CHARACTERS}]*[${NEGATIVE_CHARACTERS}]`,
+      'gu',
+    );
+    const negativeMatch = negativeRegex.exec(formattedAmount)?.shift() || '';
 
+    const shortSymbol = this.getShortCurrencySymbol(options.currency);
     const formattedWithSymbol = shortSymbol.prefixed
       ? `${shortSymbol.symbol}${formattedAmount}`
       : `${formattedAmount}${shortSymbol.symbol}`;
 
-    return amount < 0
-      ? `-${formattedWithSymbol.replace(/[-−]/, '')}`
-      : formattedWithSymbol;
+    return `${negativeMatch}${formattedWithSymbol.replace(negativeMatch, '')}`;
   }
 
   private formatCurrencyNone(
@@ -744,8 +749,11 @@ export class I18n {
     const integerValue = this.integerValue(input, lastIndexOfDecimal);
     const decimalValue = this.decimalValue(input, lastIndexOfDecimal);
 
-    const isNegative = input.trim().startsWith(NEGATIVE_SIGN);
-    const negativeSign = isNegative ? NEGATIVE_SIGN : '';
+    const negativeRegex = new RegExp(
+      `^[${DIRECTION_CONTROL_CHARACTERS}\\s]*[${NEGATIVE_CHARACTERS}]`,
+      'u',
+    );
+    const negativeSign = input.match(negativeRegex) ? NEGATIVE_SIGN : '';
 
     const normalizedDecimal = lastIndexOfDecimal === -1 ? '' : PERIOD;
     const normalizedValue = `${negativeSign}${integerValue}${normalizedDecimal}${decimalValue}`;

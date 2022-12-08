@@ -1,20 +1,15 @@
+import {DIRECTION_CONTROL_CHARACTERS} from '../constants';
+
 import {memoizedNumberFormatter} from './translate';
 
 export function getCurrencySymbol(
   locale: string,
   options: Intl.NumberFormatOptions,
 ) {
-  const delimiters = ',.٫';
-  const numerals = '0٠';
-  const directionControlCharacters = /[\u200E\u200F]/;
-  const numReg = new RegExp(`[${numerals}][${delimiters}]*[${numerals}]*`);
-
   const currencyStringRaw = formatCurrency(0, locale, options);
-  const currencyString = currencyStringRaw.replace(
-    directionControlCharacters,
-    '',
-  );
-  const matchResult = numReg.exec(currencyString);
+  const controlChars = new RegExp(`[${DIRECTION_CONTROL_CHARACTERS}]*`, 'gu');
+  const currencyString = currencyStringRaw.replace(controlChars, '');
+  const matchResult = /\p{Nd}\p{Po}*\p{Nd}*/gu.exec(currencyString);
   if (!matchResult) {
     throw new Error(
       `Number input in locale ${locale} is currently not supported.`,

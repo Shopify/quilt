@@ -26,13 +26,28 @@ export function memoizedNumberFormatter(
   locales?: string | string[],
   options?: Intl.NumberFormatOptions,
 ) {
-  const key = numberFormatCacheKey(locales, options);
+  // force a latin locale for number formatting
+  const latnLocales = latinLocales(locales);
+  const key = numberFormatCacheKey(latnLocales, options);
   if (numberFormats.has(key)) {
     return numberFormats.get(key)!;
   }
-  const i = new Intl.NumberFormat(locales, options);
+  const i = new Intl.NumberFormat(latnLocales, options);
   numberFormats.set(key, i);
   return i;
+}
+
+function latinLocales(locales?: string | string[]) {
+  return Array.isArray(locales)
+    ? locales.map((locale) => latinLocale(locale)!)
+    : latinLocale(locales);
+}
+
+function latinLocale(locale?: string) {
+  if (!locale) return locale;
+  return new Intl.Locale(locale, {
+    numberingSystem: 'latn',
+  }).toString();
 }
 
 export const PSEUDOTRANSLATE_OPTIONS: PseudotranslateOptions = {
