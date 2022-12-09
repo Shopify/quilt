@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.5.0
+
+### Minor Changes
+
+- [#2501](https://github.com/Shopify/quilt/pull/2501) [`81ceec1a1`](https://github.com/Shopify/quilt/commit/81ceec1a14130ef4d26354bc21d736978fed3d60) Thanks [@trishrempel](https://github.com/trishrempel)! - Improve currency formatting by enforcing latin number formatting and preserving negative sign and directional control characters.
+
 ## 7.4.0
 
 ### Minor Changes
