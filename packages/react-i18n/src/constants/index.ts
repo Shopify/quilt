@@ -216,3 +216,5 @@ export const CurrencyShortFormException = {
   BRL: 'R$',
   HKD: 'HK$',
 } as const;
+
+export const DIRECTION_CONTROL_CHARACTERS = '\\p{Cf}';
