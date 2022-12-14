@@ -18,6 +18,8 @@ const MISSING_TRANSLATION = Symbol('Missing translation');
 const CARDINAL_PLURALIZATION_KEY_NAME = 'count';
 const ORDINAL_PLURALIZATION_KEY_NAME = 'ordinal';
 const SEPARATOR = '.';
+const UNICODE_NUMBERING_SYSTEM = '-u-nu-';
+const LATIN = 'latn';
 
 const isString = (value: any): value is string => typeof value === 'string';
 
@@ -45,9 +47,22 @@ function latinLocales(locales?: string | string[]) {
 
 function latinLocale(locale?: string) {
   if (!locale) return locale;
-  return new Intl.Locale(locale, {
-    numberingSystem: 'latn',
-  }).toString();
+  // Intl.Locale was added to iOS in v14. See https://caniuse.com/?search=Intl.Locale
+  // We still support ios 12/13, so we need to check if this works and fallback to the default behaviour if not
+  try {
+    return new Intl.Locale(locale, {
+      numberingSystem: LATIN,
+    }).toString();
+  } catch {
+    const numberingSystemRegex = new RegExp(
+      `(?:-x|${UNICODE_NUMBERING_SYSTEM}).*`,
+      'g',
+    );
+    const latinNumberingSystem = `${UNICODE_NUMBERING_SYSTEM}${LATIN}`;
+    return locale
+      .replace(numberingSystemRegex, '')
+      .concat(latinNumberingSystem);
+  }
 }
 
 export const PSEUDOTRANSLATE_OPTIONS: PseudotranslateOptions = {
