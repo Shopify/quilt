@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.0.13
+
+### Patch Changes
+
+- Updated dependencies [[`a7afa5f8f`](https://github.com/Shopify/quilt/commit/a7afa5f8f9e7e9b7e4e008de8062def7a614939e)]:
+  - @shopify/react-i18n@7.5.1
+
 ## 3.0.12
 
 ### Patch Changes

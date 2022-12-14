@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.5.1
+
+### Patch Changes
+
+- [#2507](https://github.com/Shopify/quilt/pull/2507) [`a7afa5f8f`](https://github.com/Shopify/quilt/commit/a7afa5f8f9e7e9b7e4e008de8062def7a614939e) Thanks [@trishrempel](https://github.com/trishrempel)! - Provide fallback for Intl.Locale functionality in memoizedNumberFormatter()
+
 ## 7.5.0
 
 ### Minor Changes
