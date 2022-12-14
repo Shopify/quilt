@@ -38,6 +38,34 @@ describe('react-bugsnag', () => {
     const component = mount(<Bugsnag client={client} />);
     expect(component).toContainReactComponent(Boundary);
   });
+
+  it('passes bugsnag ErrorBoundary props to <Boundary /> component', () => {
+    const FakeBoundary = ({children}) => <>{children}</>;
+    const client = {
+      ...fakeBugsnag(),
+      getPlugin: () => {
+        return {
+          createErrorBoundary: () => FakeBoundary,
+        };
+      },
+    };
+
+    const FallbackComponent = () => <div />;
+    const onError = jest.fn();
+
+    const component = mount(
+      <Bugsnag
+        client={client}
+        FallbackComponent={FallbackComponent}
+        onError={onError}
+      />,
+    );
+
+    expect(component).toContainReactComponent(FakeBoundary, {
+      FallbackComponent,
+      onError,
+    });
+  });
 });
 
 function fakeBugsnag() {

@@ -1,5 +1,5 @@
 import React, {useRef, ReactNode} from 'react';
-import {Client} from '@bugsnag/js';
+import {Client, OnErrorCallback} from '@bugsnag/js';
 
 import {ErrorLoggerContext, noopErrorLogger} from './context';
 
@@ -10,9 +10,19 @@ export function NoopBoundary({children}: {children: ReactNode}) {
 export function Bugsnag({
   client,
   children,
+  onError,
+  FallbackComponent,
 }: {
   client?: Client;
   children?: React.ReactNode;
+  // Copy-pasted @bugsang/plugin-react because this type is not exported or made otherwise available
+  // through typescript
+  onError?: OnErrorCallback;
+  FallbackComponent?: React.ComponentType<{
+    error: Error;
+    info: React.ErrorInfo;
+    clearError: () => void;
+  }>;
 }) {
   const Boundary = useRef(() => {
     if (client) {
@@ -32,7 +42,9 @@ export function Bugsnag({
 
   return (
     <ErrorLoggerContext.Provider value={client || noopErrorLogger}>
-      <Boundary>{children}</Boundary>
+      <Boundary FallbackComponent={FallbackComponent} onError={onError}>
+        {children}
+      </Boundary>
     </ErrorLoggerContext.Provider>
   );
 }
