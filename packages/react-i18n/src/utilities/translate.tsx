@@ -4,6 +4,7 @@ import {
   pseudotranslate as pseudotranslateString,
   PseudotranslateOptions,
 } from '@shopify/i18n';
+import Decimal from 'decimal.js-light';
 
 import {
   TranslationDictionary,
@@ -23,6 +24,11 @@ const LATIN = 'latn';
 
 const isString = (value: any): value is string => typeof value === 'string';
 
+export interface StringNumberFormatter {
+  format(amount: string): string;
+  resolvedOptions(): Intl.ResolvedNumberFormatOptions;
+}
+
 const numberFormats = new Map<string, Intl.NumberFormat>();
 export function memoizedNumberFormatter(
   locales?: string | string[],
@@ -37,6 +43,83 @@ export function memoizedNumberFormatter(
   const i = new Intl.NumberFormat(latnLocales, options);
   numberFormats.set(key, i);
   return i;
+}
+
+// Based on https://stackoverflow.com/a/68906367
+const stringNumberFormats = new Map<string, StringNumberFormatter>();
+export function memoizedStringNumberFormatter(
+  locales?: string | string[],
+  options?: Intl.NumberFormatOptions,
+): StringNumberFormatter {
+  const latnLocales = latinLocales(locales);
+  const key = numberFormatCacheKey(latnLocales, options);
+  if (stringNumberFormats.has(key)) {
+    return stringNumberFormats.get(key)!;
+  }
+
+  const formatter: StringNumberFormatter = {
+    format(amount: string): string {
+      let decimal = new Decimal(amount);
+      const originalSd = decimal.sd(false);
+
+      if (
+        options?.minimumSignificantDigits &&
+        originalSd > options.minimumSignificantDigits
+      ) {
+        decimal = decimal.toSignificantDigits(options.minimumSignificantDigits);
+      }
+
+      if (
+        options?.maximumSignificantDigits &&
+        originalSd > options.maximumSignificantDigits
+      ) {
+        decimal = decimal.toSignificantDigits(options.maximumSignificantDigits);
+      }
+
+      const [mainString, decimalString] = decimal.valueOf().split('.');
+
+      const decimalFormat = new Intl.NumberFormat(latnLocales, {
+        localeMatcher: options?.localeMatcher,
+        minimumFractionDigits: options?.minimumFractionDigits,
+        maximumFractionDigits: options?.maximumFractionDigits,
+      });
+      const decimalFullString = `0.${decimalString}`;
+      const decimalFullNumber = Number.parseFloat(decimalFullString);
+      const decimalFullFinal = decimalFormat.format(decimalFullNumber);
+      const decimalFinal = decimalFullFinal.slice(1);
+
+      const mainFormat = new Intl.NumberFormat(latnLocales, {
+        localeMatcher: options?.localeMatcher,
+        useGrouping: options?.useGrouping,
+        minimumIntegerDigits: options?.minimumIntegerDigits,
+        minimumFractionDigits: 0,
+      });
+      let mainBigInt = BigInt(mainString);
+      if (decimalFullFinal.startsWith('1')) mainBigInt += BigInt(1);
+      const mainFinal = mainFormat.format(mainBigInt);
+
+      const amountFinal = `${mainFinal}${decimalFinal}`;
+      const finalFormatter = new Intl.NumberFormat(latnLocales, {
+        localeMatcher: options?.localeMatcher,
+        style: options?.style,
+        currency: options?.currency,
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      });
+      const template = finalFormatter.format(0);
+
+      return template.replace('0', amountFinal);
+    },
+    resolvedOptions(): Intl.ResolvedNumberFormatOptions {
+      const dummyFormat = Intl.NumberFormat(latnLocales, options);
+
+      return dummyFormat.resolvedOptions();
+    },
+  };
+
+  stringNumberFormats.set(key, formatter);
+
+  return formatter;
 }
 
 function latinLocales(locales?: string | string[]) {

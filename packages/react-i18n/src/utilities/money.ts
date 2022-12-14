@@ -1,6 +1,9 @@
 import {DIRECTION_CONTROL_CHARACTERS} from '../constants';
 
-import {memoizedNumberFormatter} from './translate';
+import {
+  memoizedNumberFormatter,
+  memoizedStringNumberFormatter,
+} from './translate';
 
 export function getCurrencySymbol(
   locale: string,
@@ -32,6 +35,17 @@ export function formatCurrency(
   options: Intl.NumberFormatOptions,
 ) {
   return memoizedNumberFormatter(locale, {
+    style: 'currency',
+    ...options,
+  }).format(amount);
+}
+
+export function formatStringCurrency(
+  amount: string,
+  locale: string,
+  options: Intl.NumberFormatOptions,
+) {
+  return memoizedStringNumberFormatter(locale, {
     style: 'currency',
     ...options,
   }).format(amount);

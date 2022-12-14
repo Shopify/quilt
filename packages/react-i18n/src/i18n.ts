@@ -46,6 +46,7 @@ import {
   getTranslationTree,
   TranslateOptions as RootTranslateOptions,
   memoizedNumberFormatter,
+  memoizedStringNumberFormatter,
   memoizedPluralRules,
   convertFirstSpaceToNonBreakingSpace,
 } from './utilities';
@@ -241,6 +242,30 @@ export class I18n {
     }
 
     return memoizedNumberFormatter(locale, {
+      style: as,
+      maximumFractionDigits: precision,
+      currency,
+      ...options,
+    }).format(amount);
+  }
+
+  formatStringNumber(
+    amount: string,
+    {as, precision, ...options}: NumberFormatOptions = {},
+  ) {
+    const {locale, defaultCurrency: currency} = this;
+
+    if (as === 'currency' && currency == null && options.currency == null) {
+      this.onError(
+        new MissingCurrencyCodeError(
+          `formatNumber(amount, {as: 'currency'}) cannot be called without a currency code.`,
+        ),
+      );
+
+      return '';
+    }
+
+    return memoizedStringNumberFormatter(locale, {
       style: as,
       maximumFractionDigits: precision,
       currency,

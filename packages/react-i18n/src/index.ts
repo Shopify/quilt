@@ -12,6 +12,7 @@ export {withI18n} from './decorator';
 export type {WithI18nProps} from './decorator';
 export {
   memoizedNumberFormatter,
+  memoizedStringNumberFormatter,
   translate,
   DEFAULT_FORMAT,
   MUSTACHE_FORMAT,

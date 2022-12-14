@@ -9,6 +9,7 @@ import {
   memoizedPluralRules,
   ERB_FORMAT,
   MUSTACHE_FORMAT,
+  memoizedStringNumberFormatter,
 } from '../utilities';
 
 const {pseudotranslate} = jest.requireMock('@shopify/i18n') as {
@@ -166,6 +167,42 @@ describe('memoizedNumberFormatter', () => {
       style: 'decimal',
     });
     expect(numberFormatter).toBeInstanceOf(Intl.NumberFormat);
+    expect(numberFormatter.resolvedOptions()).toMatchObject({style: 'decimal'});
+  });
+});
+
+describe('memoizedStringNumberFormatter', () => {
+  it('returns the same object when passed the same arguments', () => {
+    const numberFormatterA = memoizedStringNumberFormatter(locale);
+
+    const numberFormatterB = memoizedStringNumberFormatter(locale);
+    expect(numberFormatterB).toBe(numberFormatterA);
+  });
+
+  it('returns the same object when passed multiple locales as an array', () => {
+    const locales = ['en-US', 'en-CA'];
+    const numberFormatterA = memoizedStringNumberFormatter(locales);
+
+    const numberFormatterB = memoizedStringNumberFormatter(locales);
+    expect(numberFormatterB).toBe(numberFormatterA);
+  });
+
+  it('returns different object when passed different arguments', () => {
+    const numberFormatterA = memoizedStringNumberFormatter(locale);
+
+    const numberFormatterB = memoizedStringNumberFormatter(locale, {
+      style: 'decimal',
+    });
+    expect(numberFormatterB).not.toBe(numberFormatterA);
+    expect(numberFormatterB.resolvedOptions()).toMatchObject({
+      style: 'decimal',
+    });
+  });
+
+  it('passes options to Intl.NumberFormat constructor', () => {
+    const numberFormatter = memoizedStringNumberFormatter(locale, {
+      style: 'decimal',
+    });
     expect(numberFormatter.resolvedOptions()).toMatchObject({style: 'decimal'});
   });
 });
