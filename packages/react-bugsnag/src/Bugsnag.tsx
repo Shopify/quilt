@@ -1,5 +1,6 @@
-import React, {useRef, ReactNode} from 'react';
-import {Client, OnErrorCallback} from '@bugsnag/js';
+import React, {useRef, ReactNode, ComponentProps} from 'react';
+import {Client} from '@bugsnag/js';
+import {BugsnagErrorBoundary} from '@bugsnag/plugin-react';
 
 import {ErrorLoggerContext, noopErrorLogger} from './context';
 
@@ -10,20 +11,8 @@ export function NoopBoundary({children}: {children: ReactNode}) {
 export function Bugsnag({
   client,
   children,
-  onError,
-  FallbackComponent,
-}: {
-  client?: Client;
-  children?: React.ReactNode;
-  // Copy-pasted @bugsang/plugin-react because this type is not exported or made otherwise available
-  // through typescript
-  onError?: OnErrorCallback;
-  FallbackComponent?: React.ComponentType<{
-    error: Error;
-    info: React.ErrorInfo;
-    clearError: () => void;
-  }>;
-}) {
+  ...props
+}: ComponentProps<BugsnagErrorBoundary> & {client: Client}) {
   const Boundary = useRef(() => {
     if (client) {
       const reactPlugin = client.getPlugin('react');
@@ -42,9 +31,7 @@ export function Bugsnag({
 
   return (
     <ErrorLoggerContext.Provider value={client || noopErrorLogger}>
-      <Boundary FallbackComponent={FallbackComponent} onError={onError}>
-        {children}
-      </Boundary>
+      <Boundary {...props}>{children}</Boundary>
     </ErrorLoggerContext.Provider>
   );
 }

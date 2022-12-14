@@ -1277,12 +1277,10 @@
     pump "^3.0.0"
     stack-generator "^2.0.3"
 
-"@bugsnag/plugin-react@^7.1.1":
-  version "7.1.1"
-  resolved "https://registry.yarnpkg.com/@bugsnag/plugin-react/-/plugin-react-7.1.1.tgz#6faf74546ee8c553083a027b69eb55b5f2ac3778"
-  integrity sha512-bxz3hZa0Our7OO42sVsHWgzEuw0vdTC2cCVG1vXKQUeFQqgggMizC8yzSbxCGaqyj04Dui/YzlYnAGV3MRoUjQ==
-  dependencies:
-    "@bugsnag/core" "^7.1.1"
+"@bugsnag/plugin-react@^7.18.0":
+  version "7.18.0"
+  resolved "https://registry.yarnpkg.com/@bugsnag/plugin-react/-/plugin-react-7.18.0.tgz#cce7e0185ba4f7c2ca581138efa3f0f6ad1c5564"
+  integrity sha512-i4FYauv/8G1ZRH4dTegYPzw5+xt76ubt1GCr4wRieD8q5QBKcvHIqaNrnM9yQ/QNmWnz24LeCCDUVdIb5SrhPA==
 
 "@bugsnag/safe-json-stringify@^5.0.0":
   version "5.0.0"
