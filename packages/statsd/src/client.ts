@@ -80,13 +80,13 @@ export class StatsDClient {
     stat: string | string[],
     value: number,
     tags?: Tags,
-    options?: MetricOptions,
+    options: MetricOptions = {},
   ) {
     return new Promise<void>((resolve) => {
       this.statsd.distribution(
         stat,
         value,
-        options?.sampleRate,
+        options.sampleRate,
         this.normalizeTags(tags),
         this.createCallback(resolve),
       );
@@ -97,13 +97,13 @@ export class StatsDClient {
     stat: string | string[],
     value: number,
     tags?: Tags,
-    options?: MetricOptions,
+    options: MetricOptions = {},
   ) {
     return new Promise<void>((resolve) => {
       this.statsd.timing(
         stat,
         value,
-        options?.sampleRate,
+        options.sampleRate,
         this.normalizeTags(tags),
         this.createCallback(resolve),
       );
@@ -114,25 +114,25 @@ export class StatsDClient {
     stat: string | string[],
     value: number,
     tags?: Tags,
-    options?: MetricOptions,
+    options: MetricOptions = {},
   ) {
     return new Promise<void>((resolve) => {
       this.statsd.gauge(
         stat,
         value,
-        options?.sampleRate,
+        options.sampleRate,
         this.normalizeTags(tags),
         this.createCallback(resolve),
       );
     });
   }
 
-  increment(stat: string | string[], tags?: Tags, options?: MetricOptions) {
+  increment(stat: string | string[], tags?: Tags, options: MetricOptions = {}) {
     return new Promise<void>((resolve) => {
       this.statsd.increment(
         stat,
         1,
-        options?.sampleRate,
+        options.sampleRate,
         this.normalizeTags(tags),
         this.createCallback(resolve),
       );
