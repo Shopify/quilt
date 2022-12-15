@@ -25,6 +25,7 @@ describe('StatsDClient', () => {
   const tagName = 'fooBar';
   const tagValue = 'camelCasedFooBar';
   const tags = {[tagName]: tagValue};
+  const sampleRate = 0.5;
 
   it('passes all the options to the statsd client', () => {
     const statsDClient = new StatsDClient(defaultOptions);
@@ -40,7 +41,7 @@ describe('StatsDClient', () => {
   describe('distribution', () => {
     it('passes distribution metrics to the statsd client', () => {
       const statsDClient = new StatsDClient(defaultOptions);
-      statsDClient.distribution(stat, value, tags);
+      statsDClient.distribution(stat, value, tags, {sampleRate});
 
       const stats = StatsDMock.mock.instances[0];
       const distributionFn = stats.distribution;
@@ -48,6 +49,7 @@ describe('StatsDClient', () => {
       expect(distributionFn).toHaveBeenCalledWith(
         stat,
         value,
+        sampleRate,
         tags,
         expect.any(Function),
       );
@@ -66,6 +68,7 @@ describe('StatsDClient', () => {
       expect(distributionFn).toHaveBeenCalledWith(
         stat,
         value,
+        undefined,
         {foo_bar: tagValue},
         expect.any(Function),
       );
@@ -78,7 +81,7 @@ describe('StatsDClient', () => {
 
       const error = new Error('Something went wrong!');
       statsDMock.distribution.mockImplementation(
-        (_name, _value, _tags, callback) => {
+        (_name, _value, _sampleRate, _tags, callback) => {
           callback(error);
         },
       );
@@ -97,7 +100,7 @@ describe('StatsDClient', () => {
 
       const error = new Error('Something went wrong!');
       statsDMock.distribution.mockImplementation(
-        (_name, _value, _tags, callback) => {
+        (_name, _value, _sampleRate, _tags, callback) => {
           callback(error);
         },
       );
@@ -110,7 +113,7 @@ describe('StatsDClient', () => {
   describe('timing', () => {
     it('passes timing metrics to the statsd client', () => {
       const statsDClient = new StatsDClient(defaultOptions);
-      statsDClient.timing(stat, value, tags);
+      statsDClient.timing(stat, value, tags, {sampleRate});
 
       const stats = StatsDMock.mock.instances[0];
       const timingFn = stats.timing;
@@ -118,6 +121,7 @@ describe('StatsDClient', () => {
       expect(timingFn).toHaveBeenCalledWith(
         stat,
         value,
+        sampleRate,
         tags,
         expect.any(Function),
       );
@@ -136,6 +140,7 @@ describe('StatsDClient', () => {
       expect(timingFn).toHaveBeenCalledWith(
         stat,
         value,
+        undefined,
         {foo_bar: tagValue},
         expect.any(Function),
       );
@@ -147,9 +152,11 @@ describe('StatsDClient', () => {
       const statsDMock = StatsDMock.mock.instances[0];
 
       const error = new Error('Something went wrong!');
-      statsDMock.timing.mockImplementation((_name, _value, _tags, callback) => {
-        callback(error);
-      });
+      statsDMock.timing.mockImplementation(
+        (_name, _value, _sampleRate, _tags, callback) => {
+          callback(error);
+        },
+      );
 
       statsDClient.timing(stat, value, tags);
       expect(errorHandler).toHaveBeenCalledWith(error);
@@ -164,9 +171,11 @@ describe('StatsDClient', () => {
       const statsDMock = StatsDMock.mock.instances[0];
 
       const error = new Error('Something went wrong!');
-      statsDMock.timing.mockImplementation((_name, _value, _tags, callback) => {
-        callback(error);
-      });
+      statsDMock.timing.mockImplementation(
+        (_name, _value, _sampleRate, _tags, callback) => {
+          callback(error);
+        },
+      );
 
       statsDClient.timing(stat, value, tags);
       expect(logSpy).toHaveBeenCalled();
@@ -176,7 +185,7 @@ describe('StatsDClient', () => {
   describe('gauge', () => {
     it('passes gauge metrics to the statsd client', () => {
       const statsDClient = new StatsDClient(defaultOptions);
-      statsDClient.gauge(stat, value, tags);
+      statsDClient.gauge(stat, value, tags, {sampleRate});
 
       const stats = StatsDMock.mock.instances[0];
       const gaugeFn = stats.gauge;
@@ -184,6 +193,7 @@ describe('StatsDClient', () => {
       expect(gaugeFn).toHaveBeenCalledWith(
         stat,
         value,
+        sampleRate,
         tags,
         expect.any(Function),
       );
@@ -202,6 +212,7 @@ describe('StatsDClient', () => {
       expect(gaugeFn).toHaveBeenCalledWith(
         stat,
         value,
+        undefined,
         {foo_bar: tagValue},
         expect.any(Function),
       );
@@ -213,9 +224,11 @@ describe('StatsDClient', () => {
       const statsDMock = StatsDMock.mock.instances[0];
 
       const error = new Error('Something went wrong!');
-      statsDMock.gauge.mockImplementation((_name, _value, _tags, callback) => {
-        callback(error);
-      });
+      statsDMock.gauge.mockImplementation(
+        (_name, _value, _sampleRate, _tags, callback) => {
+          callback(error);
+        },
+      );
 
       statsDClient.gauge(stat, value, tags);
       expect(errorHandler).toHaveBeenCalledWith(error);
@@ -230,9 +243,11 @@ describe('StatsDClient', () => {
       const statsDMock = StatsDMock.mock.instances[0];
 
       const error = new Error('Something went wrong!');
-      statsDMock.gauge.mockImplementation((_name, _value, _tags, callback) => {
-        callback(error);
-      });
+      statsDMock.gauge.mockImplementation(
+        (_name, _value, _sampleRate, _tags, callback) => {
+          callback(error);
+        },
+      );
 
       statsDClient.gauge(stat, value, tags);
       expect(logSpy).toHaveBeenCalled();
@@ -242,7 +257,7 @@ describe('StatsDClient', () => {
   describe('increment', () => {
     it('passes increment metrics to the statsd client', () => {
       const statsDClient = new StatsDClient(defaultOptions);
-      statsDClient.increment(stat, tags);
+      statsDClient.increment(stat, tags, {sampleRate});
 
       const stats = StatsDMock.mock.instances[0];
       const incrementFn = stats.increment;
@@ -250,6 +265,7 @@ describe('StatsDClient', () => {
       expect(incrementFn).toHaveBeenCalledWith(
         stat,
         1,
+        sampleRate,
         tags,
         expect.any(Function),
       );
@@ -268,6 +284,7 @@ describe('StatsDClient', () => {
       expect(incrementFn).toHaveBeenCalledWith(
         stat,
         1,
+        undefined,
         {foo_bar: tagValue},
         expect.any(Function),
       );
@@ -280,7 +297,7 @@ describe('StatsDClient', () => {
 
       const error = new Error('Something went wrong!');
       statsDMock.increment.mockImplementation(
-        (_name, _value, _tags, callback) => {
+        (_name, _value, _sampleRate, _tags, callback) => {
           callback(error);
         },
       );
@@ -299,7 +316,7 @@ describe('StatsDClient', () => {
 
       const error = new Error('Something went wrong!');
       statsDMock.increment.mockImplementation(
-        (_name, _value, _tags, callback) => {
+        (_name, _value, _sampleRate, _tags, callback) => {
           callback(error);
         },
       );

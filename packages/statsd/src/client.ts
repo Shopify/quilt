@@ -25,6 +25,10 @@ export interface ChildOptions extends HotShotChildOptions {
   snakeCase?: boolean;
 }
 
+export interface MetricOptions {
+  sampleRate?: number;
+}
+
 export type Options = ClientOptions | ChildOptions;
 
 export class StatsDClient {
@@ -72,44 +76,63 @@ export class StatsDClient {
     this.statsd = new StatsD(this.options);
   }
 
-  distribution(stat: string | string[], value: number, tags?: Tags) {
+  distribution(
+    stat: string | string[],
+    value: number,
+    tags?: Tags,
+    options?: MetricOptions,
+  ) {
     return new Promise<void>((resolve) => {
       this.statsd.distribution(
         stat,
         value,
+        options?.sampleRate,
         this.normalizeTags(tags),
         this.createCallback(resolve),
       );
     });
   }
 
-  timing(stat: string | string[], value: number, tags?: Tags) {
+  timing(
+    stat: string | string[],
+    value: number,
+    tags?: Tags,
+    options?: MetricOptions,
+  ) {
     return new Promise<void>((resolve) => {
       this.statsd.timing(
         stat,
         value,
+        options?.sampleRate,
         this.normalizeTags(tags),
         this.createCallback(resolve),
       );
     });
   }
 
-  gauge(stat: string | string[], value: number, tags?: Tags) {
+  gauge(
+    stat: string | string[],
+    value: number,
+    tags?: Tags,
+    options?: MetricOptions,
+  ) {
     return new Promise<void>((resolve) => {
       this.statsd.gauge(
         stat,
         value,
+        options?.sampleRate,
         this.normalizeTags(tags),
         this.createCallback(resolve),
       );
     });
   }
 
-  increment(stat: string | string[], tags?: Tags) {
+  increment(stat: string | string[], tags?: Tags, options?: MetricOptions) {
     return new Promise<void>((resolve) => {
       this.statsd.increment(
         stat,
         1,
+        options?.sampleRate,
         this.normalizeTags(tags),
         this.createCallback(resolve),
       );
