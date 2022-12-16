@@ -1,5 +1,6 @@
-import React, {useRef, ReactNode} from 'react';
+import React, {useRef, ReactNode, ComponentProps} from 'react';
 import {Client} from '@bugsnag/js';
+import {BugsnagErrorBoundary} from '@bugsnag/plugin-react';
 
 import {ErrorLoggerContext, noopErrorLogger} from './context';
 
@@ -10,10 +11,8 @@ export function NoopBoundary({children}: {children: ReactNode}) {
 export function Bugsnag({
   client,
   children,
-}: {
-  client?: Client;
-  children?: React.ReactNode;
-}) {
+  ...props
+}: ComponentProps<BugsnagErrorBoundary> & {client: Client}) {
   const Boundary = useRef(() => {
     if (client) {
       const reactPlugin = client.getPlugin('react');
@@ -32,7 +31,7 @@ export function Bugsnag({
 
   return (
     <ErrorLoggerContext.Provider value={client || noopErrorLogger}>
-      <Boundary>{children}</Boundary>
+      <Boundary {...props}>{children}</Boundary>
     </ErrorLoggerContext.Provider>
   );
 }

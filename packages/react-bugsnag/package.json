@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@bugsnag/js": "^7.1.1",
-    "@bugsnag/plugin-react": "^7.1.1"
+    "@bugsnag/plugin-react": "^7.18.0"
   },
   "peerDependencies": {
     "react": ">=16.8.0 <19.0.0"
