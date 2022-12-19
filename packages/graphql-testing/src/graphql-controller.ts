@@ -1,16 +1,16 @@
-import {ApolloLink} from 'apollo-link';
+import { ApolloLink } from 'apollo-link';
 import {
   InMemoryCache,
   IntrospectionFragmentMatcher,
   InMemoryCacheConfig,
 } from 'apollo-cache-inmemory';
-import {ApolloClient} from 'apollo-client';
+import { ApolloClient } from 'apollo-client';
 
-import {TestingApolloClient} from './client';
-import {MockLink, InflightLink} from './links';
-import {Operations} from './operations';
-import {operationNameFromFindOptions} from './utilities';
-import {GraphQLMock, MockRequest, FindOptions} from './types';
+import { TestingApolloClient } from './client';
+import { MockLink, InflightLink } from './links';
+import { Operations } from './operations';
+import { operationNameFromFindOptions } from './utilities';
+import { GraphQLMock, MockRequest, FindOptions } from './types';
 
 export interface Options {
   unionOrIntersectionTypes?: any[];
@@ -27,7 +27,7 @@ export class GraphQL {
   readonly client: ApolloClient<unknown>;
   readonly operations = new Operations();
 
-  private readonly pendingRequests = new Set<MockRequest>();
+  readonly pendingRequests = new Set<MockRequest>();
   private readonly wrappers: Wrapper[] = [];
   private readonly mockLink: MockLink | null = null;
 
@@ -77,6 +77,8 @@ export class GraphQL {
 
   async resolveAll(options: FindOptions = {}) {
     const finalOperationName = operationNameFromFindOptions(options);
+    console.log('Array.from(this.pendingRequests): ')
+    console.log(Array.from(this.pendingRequests))
 
     await this.wrappers.reduce<() => Promise<void>>(
       (perform, wrapper) => {
@@ -86,12 +88,12 @@ export class GraphQL {
         const allPendingRequests = Array.from(this.pendingRequests);
         const matchingRequests = finalOperationName
           ? allPendingRequests.filter(
-              ({operation: {operationName}}) =>
-                operationName === finalOperationName,
-            )
+            ({ operation: { operationName } }) =>
+              operationName === finalOperationName,
+          )
           : allPendingRequests;
 
-        await Promise.all(matchingRequests.map(({resolve}) => resolve()));
+        await Promise.all(matchingRequests.map(({ resolve }) => resolve()));
       },
     )();
   }
