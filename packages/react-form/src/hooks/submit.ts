@@ -1,5 +1,5 @@
 import {useState, useCallback} from 'react';
-import {useLazyRef, useMountedRef} from '@shopify/react-hooks';
+import {useLazyRef} from '@shopify/react-hooks';
 
 import {
   FormMapping,
@@ -23,7 +23,6 @@ export function useSubmit<T extends FieldBag>(
   makeCleanAfterSubmit = false,
   dynamicListBag?: DynamicListBag,
 ) {
-  const mounted = useMountedRef();
   const [submitting, setSubmitting] = useState(false);
   const [submitErrors, setSubmitErrors] = useState([] as FormError[]);
 
@@ -56,10 +55,6 @@ export function useSubmit<T extends FieldBag>(
       setSubmitting(true);
       const result = await onSubmit(getValues(fields));
 
-      if (mounted.current === false) {
-        return;
-      }
-
       setSubmitting(false);
 
       if (result.status === 'fail') {
@@ -76,7 +71,6 @@ export function useSubmit<T extends FieldBag>(
       fieldBagRef,
       dynamicListBagRef,
       onSubmit,
-      mounted,
       setErrors,
       makeCleanAfterSubmit,
     ],

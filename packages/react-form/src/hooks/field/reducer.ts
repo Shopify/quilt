@@ -149,7 +149,7 @@ export function useFieldReducer<Value>(
 
 export function initialFieldState<Value>(value: Value): FieldState<Value> {
   return {
-    value,
+    value: value,
     defaultValue: value,
     error: undefined,
     touched: false,
