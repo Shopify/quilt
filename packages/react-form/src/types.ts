@@ -2,6 +2,8 @@ import {ChangeEvent} from 'react';
 
 import {DynamicList} from './hooks/list/dynamiclist';
 
+export type {DynamicList} from './hooks/list/dynamiclist';
+
 export type ErrorValue = string | undefined;
 export type DirtyStateComparator<Value> = (
   defaultValue: Value,
