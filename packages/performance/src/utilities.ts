@@ -182,13 +182,13 @@ export function getResourceTypeFromEntry({
 
 function getResourceTypeFromInitiator(
   initiatorType: string,
-): EventType.StyleDownload | EventType.ScriptDownload | null {
+): EventType.StyleDownload | EventType.ScriptDownload | 'unsupported' {
   const eventTypes = {
     css: EventType.StyleDownload,
     script: EventType.ScriptDownload,
   };
 
-  return eventTypes[initiatorType] || null;
+  return eventTypes[initiatorType] || 'unsupported';
 }
 
 function getResourceTypeFromLinkInitiator(name: string) {
@@ -200,5 +200,5 @@ function getResourceTypeFromLinkInitiator(name: string) {
     return EventType.ScriptDownload;
   }
 
-  return null;
+  return 'unsupported';
 }

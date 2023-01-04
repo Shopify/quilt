@@ -3,12 +3,12 @@ import {EventType} from '../types';
 
 describe('utilities', () => {
   describe('getResourceTypeFromEntry()', () => {
-    it('returns null for unsupported initiator types', () => {
+    it('returns "unsupported" for unsupported initiator types', () => {
       expect(
         getResourceTypeFromEntry({
           initiatorType: 'audio',
         } as PerformanceResourceTiming),
-      ).toBeNull();
+      ).toBe('unsupported');
     });
 
     it('returns stylesheet event type when initiatorType is css', () => {

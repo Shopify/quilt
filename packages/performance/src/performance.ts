@@ -107,7 +107,7 @@ export class Performance {
         }
 
         const type = getResourceTypeFromEntry(entry);
-        if (type == null) {
+        if (type === 'unsupported') {
           return;
         }
 
