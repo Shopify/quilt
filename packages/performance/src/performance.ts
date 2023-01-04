@@ -10,6 +10,7 @@ import {
   supportsPerformanceObserver,
   referenceTime,
   hasGlobal,
+  getResourceTypeFromEntry,
 } from './utilities';
 import {Event, EventType, LifecycleEvent} from './types';
 
@@ -105,16 +106,9 @@ export class Performance {
           return;
         }
 
-        let type: EventType.StyleDownload | EventType.ScriptDownload;
-        if (entry.initiatorType === 'link' && !entry.name.endsWith('.css')) {
+        const type = getResourceTypeFromEntry(entry);
+        if (type == null) {
           return;
-        } else if (
-          entry.initiatorType === 'link' ||
-          entry.initiatorType === 'css'
-        ) {
-          type = EventType.StyleDownload;
-        } else {
-          type = EventType.ScriptDownload;
         }
 
         this.event(
