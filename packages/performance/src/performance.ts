@@ -13,7 +13,7 @@ import {
 } from './utilities';
 import {Event, EventType, LifecycleEvent} from './types';
 
-const WATCH_RESOURCE_TYPES = ['script', 'css'];
+const WATCH_RESOURCE_TYPES = ['script', 'css', 'link'];
 
 interface EventMap {
   navigation: (navigation: Navigation) => void;
@@ -105,12 +105,21 @@ export class Performance {
           return;
         }
 
+        let type: EventType.StyleDownload | EventType.ScriptDownload;
+        if (entry.initiatorType === 'link' && !entry.name.endsWith('.css')) {
+          return;
+        } else if (
+          entry.initiatorType === 'link' ||
+          entry.initiatorType === 'css'
+        ) {
+          type = EventType.StyleDownload;
+        } else {
+          type = EventType.ScriptDownload;
+        }
+
         this.event(
           {
-            type:
-              entry.initiatorType === 'script'
-                ? EventType.ScriptDownload
-                : EventType.StyleDownload,
+            type,
             start: entry.startTime,
             duration: entry.duration,
             metadata: {
