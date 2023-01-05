@@ -22,6 +22,7 @@ describe('getMimeTypeFromFilename', () => {
     [MimeType.Zip, 'files.zip'],
     [MimeType.Webp, 'image.webp'],
     [MimeType.Heic, 'image.heic'],
+    [MimeType.Svg, 'image.svg'],
   ])('returns %s for %s', (mimeType, filename) => {
     const actualMimeType = getMimeTypeFromFilename(filename);
 

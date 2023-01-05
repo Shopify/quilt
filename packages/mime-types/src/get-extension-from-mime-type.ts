@@ -38,6 +38,8 @@ export function getExtensionFromMimeType(mimeType: MimeType) {
       return '.webp';
     case MimeType.Heic:
       return '.heic';
+    case MimeType.Svg:
+      return '.svg';
   }
 
   const nope: never = mimeType;
