@@ -20,6 +20,7 @@ describe('getExtensionFromMimeType', () => {
   assertExtensionForMimeType('.zip', MimeType.Zip);
   assertExtensionForMimeType('.webp', MimeType.Webp);
   assertExtensionForMimeType('.heic', MimeType.Heic);
+  assertExtensionForMimeType('.svg', MimeType.Svg);
 });
 
 function assertExtensionForMimeType(extension: string, mimeType: MimeType) {
