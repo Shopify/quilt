@@ -3,7 +3,9 @@ import {fixtures} from '@shopify/address-mocks';
 
 import {renderLineTemplate} from '../utilities';
 
-const Canada = fixtures.country.EN.data.country;
+const Canada = fixtures.countries.EN.data.countries.find(
+  ({code}) => code === 'CA',
+)!;
 
 const address: Address = {
   company: 'Shopify',
