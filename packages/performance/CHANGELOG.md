@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.2.2
+
+### Patch Changes
+
+- [#2518](https://github.com/Shopify/quilt/pull/2518) [`fbf76bcc5`](https://github.com/Shopify/quilt/commit/fbf76bcc550f5178cf939d44d6559c4e882a7ccd) Thanks [@CameronGorrie](https://github.com/CameronGorrie)! - Performance now emits CSS resource download timing data when initiated by a link tag
+
 ## 3.2.1
 
 ### Patch Changes

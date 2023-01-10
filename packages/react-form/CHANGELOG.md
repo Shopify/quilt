@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.5.0
+
+### Minor Changes
+
+- [#2517](https://github.com/Shopify/quilt/pull/2517) [`a2ffd5a01`](https://github.com/Shopify/quilt/commit/a2ffd5a018c030ed6d4c35aebf83a1021ed7f01d) Thanks [@weslleyaraujo](https://github.com/weslleyaraujo)! - Export DynamicList interface
+
 ## 2.4.1
 
 ### Patch Changes

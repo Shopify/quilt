@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.0
+
+### Minor Changes
+
+- [#2521](https://github.com/Shopify/quilt/pull/2521) [`19002630b`](https://github.com/Shopify/quilt/commit/19002630b8af10d18a4367f2afe070c584d59537) Thanks [@FredyPla](https://github.com/FredyPla)! - Add SVG mimetype
+
 ## 2.1.0
 
 ### Minor Changes
