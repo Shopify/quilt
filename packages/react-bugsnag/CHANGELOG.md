@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.1.0
+
+### Minor Changes
+
+- [#2505](https://github.com/Shopify/quilt/pull/2505) [`578a7a7e2`](https://github.com/Shopify/quilt/commit/578a7a7e27e99b224bc16d2d5bdc171ab58bdb4a) Thanks [@KevinMind](https://github.com/KevinMind)! - allow passing props to bugsnag error boundary component
+
 ## 3.0.3
 
 ### Patch Changes

@@ -41,6 +41,8 @@ export function getMimeTypeFromFilename(filename: string) {
       return MimeType.Webp;
     case 'heic':
       return MimeType.Heic;
+    case 'svg':
+      return MimeType.Svg;
   }
 }
 

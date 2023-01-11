@@ -1,5 +1,14 @@
 # Changelog
 
+## 4.2.0
+
+### Minor Changes
+
+- [#2511](https://github.com/Shopify/quilt/pull/2511) [`3b228b4f3`](https://github.com/Shopify/quilt/commit/3b228b4f34a57894ad552188f55dfce372324b85) Thanks [@ryanwilsonperkin](https://github.com/ryanwilsonperkin)! - Introduces an optional parameter to all metrics methods to allow them to accept
+  a sampleRate and provide sampling independently of the sampleRate settings
+  specified on the client itself. Allows the developer to opt in or out of
+  sampling on a metric-by-metric basis.
+
 ## 4.1.1
 
 ### Patch Changes

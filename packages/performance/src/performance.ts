@@ -10,10 +10,11 @@ import {
   supportsPerformanceObserver,
   referenceTime,
   hasGlobal,
+  getResourceTypeFromEntry,
 } from './utilities';
 import {Event, EventType, LifecycleEvent} from './types';
 
-const WATCH_RESOURCE_TYPES = ['script', 'css'];
+const WATCH_RESOURCE_TYPES = ['script', 'css', 'link'];
 
 interface EventMap {
   navigation: (navigation: Navigation) => void;
@@ -105,12 +106,14 @@ export class Performance {
           return;
         }
 
+        const type = getResourceTypeFromEntry(entry);
+        if (type === 'unsupported') {
+          return;
+        }
+
         this.event(
           {
-            type:
-              entry.initiatorType === 'script'
-                ? EventType.ScriptDownload
-                : EventType.StyleDownload,
+            type,
             start: entry.startTime,
             duration: entry.duration,
             metadata: {

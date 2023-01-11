@@ -17,4 +17,5 @@ export enum MimeType {
   Zip = 'application/zip',
   Webp = 'image/webp',
   Heic = 'image/heic',
+  Svg = 'image/svg+xml',
 }

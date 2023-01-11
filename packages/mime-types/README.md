@@ -24,6 +24,7 @@ The types of files currently supported are:
   'image/gif',
   'image/webp',
   'image/heic',
+  'image/svg+xml',
   'application/pdf',
   'video/mp4',
   'video/quicktime',

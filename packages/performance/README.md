@@ -120,6 +120,11 @@ Learn more about [first paint](https://developers.google.com/web/fundamentals/pe
 The time until the browser renders the first bit of content from the DOM.
 Learn more about this [first Contentful Paint](https://developers.google.com/web/tools/lighthouse/audits/first-contentful-paint).
 
+##### Largest Contentful Paint (`EventType.TimeToFirstContentfulPaint`)
+
+The render time of the largest image or text block visible within the viewport, relative to when the page first started loading.
+Learn more about this [Largest Contentful Paint](https://web.dev/lcp/).
+
 ##### DOM Content Loaded (`EventType.DomContentLoaded`)
 
 The time until the DOM has been entirely loaded and parsed.

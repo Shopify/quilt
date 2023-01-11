@@ -1,3 +1,5 @@
+import {EventType} from './types';
+
 export function referenceTime() {
   // If no performance, then we always used Date.now(), which is a full
   // (if inaccurate) timestamp
@@ -165,4 +167,38 @@ function squashRanges(ranges: Range[]) {
         ) - start,
     };
   }, first);
+}
+
+export function getResourceTypeFromEntry({
+  initiatorType,
+  name,
+}: PerformanceResourceTiming) {
+  if (initiatorType === 'link') {
+    return getResourceTypeFromLinkInitiator(name);
+  } else {
+    return getResourceTypeFromInitiator(initiatorType);
+  }
+}
+
+function getResourceTypeFromInitiator(
+  initiatorType: string,
+): EventType.StyleDownload | EventType.ScriptDownload | 'unsupported' {
+  const eventTypes = {
+    css: EventType.StyleDownload,
+    script: EventType.ScriptDownload,
+  };
+
+  return eventTypes[initiatorType] || 'unsupported';
+}
+
+function getResourceTypeFromLinkInitiator(name: string) {
+  if (name.endsWith('.css')) {
+    return EventType.StyleDownload;
+  }
+
+  if (name.endsWith('.js')) {
+    return EventType.ScriptDownload;
+  }
+
+  return 'unsupported';
 }
