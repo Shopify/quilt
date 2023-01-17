@@ -157,10 +157,10 @@ export default function Html({
         {metaMarkup}
         {linkMarkup}
 
+        {blockingScriptsMarkup}
         {stylesheetMarkup}
         {inlineStylesMarkup}
         {headMarkup}
-        {blockingScriptsMarkup}
         {deferredScriptsMarkup}
         {preloadAssetsMarkup}
       </head>
