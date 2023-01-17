@@ -79,18 +79,18 @@ describe('createRender', () => {
 
       // Assets from manifest are still present
       expect(bodyResult).toContain(
-        '<script src="main.js" crossorigin="anonymous" type="text/javascript" defer=""></script>',
+        '<script src="main.js" crossorigin="anonymous" defer=""></script>',
       );
       expect(bodyResult).toContain(
-        '<link rel="stylesheet" type="text/css" href="main.css" crossorigin="anonymous"/>',
+        '<link rel="stylesheet" href="main.css" crossorigin="anonymous"/>',
       );
 
       // Additional script/style assets are added
       expect(bodyResult).toContain(
-        '<script src="/extraScript.js" crossorigin="anonymous" type="text/javascript" defer=""></script>',
+        '<script src="/extraScript.js" crossorigin="anonymous" defer=""></script>',
       );
       expect(bodyResult).toContain(
-        '<link rel="stylesheet" type="text/css" href="/extraStyle.css" crossorigin="anonymous"/>',
+        '<link rel="stylesheet" href="/extraStyle.css" crossorigin="anonymous"/>',
       );
 
       // Other props work

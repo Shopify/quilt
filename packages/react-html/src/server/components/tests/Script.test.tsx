@@ -23,11 +23,11 @@ describe('<Script />', () => {
   });
 
   describe('type', () => {
-    it('defaults to text/javascript', () => {
+    it('omitted by default', () => {
       const script = mount(<Script src="foo.js" />);
 
-      expect(script).toContainReactComponent('script', {
-        type: 'text/javascript',
+      expect(script).not.toContainReactComponent('script', {
+        type: expect.anything(),
       });
       expect(script).not.toContainReactComponent('script', {
         noModule: expect.anything(),

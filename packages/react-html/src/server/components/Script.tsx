@@ -10,7 +10,7 @@ export function Script(props: Props) {
 
   const attributes = {
     ...otherProps,
-    type: !type || isNoModule ? 'text/javascript' : type,
+    type: isNoModule ? 'text/javascript' : type,
     defer: type === 'module' ? undefined : defer,
     noModule: isNoModule ? true : undefined,
   };

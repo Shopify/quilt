@@ -70,7 +70,7 @@ export async function createServer({serve: servePath}: {serve: string}) {
     mount('/', (ctx: Context) => {
       ctx.body = `
         <html>
-          <body><script type="text/javascript" src="/assets/main.js"></script></body>
+          <body><script src="/assets/main.js"></script></body>
         </html>
       `;
     }),
