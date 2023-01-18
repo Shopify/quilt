@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.0.0
+
+### Major Changes
+
+- [#2526](https://github.com/Shopify/quilt/pull/2526) [`eece629bd`](https://github.com/Shopify/quilt/commit/eece629bd750fb9c8eef26bb39937d3f645cd486) Thanks [@atesgoral](https://github.com/atesgoral)! - Remove the deprecated type attribute from generated HTML for <style> and <script> elements.
+
+  Marking this as a breaking change because it may affect consumers expecting these attributes to be present.
+
 ## 5.0.1
 
 ### Patch Changes
