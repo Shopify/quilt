@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.0.9
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @shopify/react-universal-provider@3.0.7
+
 ## 5.0.8
 
 ### Patch Changes
