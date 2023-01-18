@@ -15,7 +15,6 @@ describe('<Stylesheet />', () => {
 
     expect(style).toContainReactComponent('link', {
       href: 'foo.css',
-      type: 'text/css',
       rel: 'stylesheet',
       integrity: '00000000',
       crossOrigin: 'anonymous',

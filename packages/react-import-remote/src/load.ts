@@ -52,7 +52,6 @@ export function clearCache() {
 
 function scriptTagFor(source: string, nonce: string) {
   const node = document.createElement('script');
-  node.setAttribute('type', 'text/javascript');
   node.setAttribute('src', source);
 
   if (nonce.length > 0) {

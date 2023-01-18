@@ -5,5 +5,5 @@ export interface Props extends React.LinkHTMLAttributes<HTMLLinkElement> {
 }
 
 export function Stylesheet(props: Props) {
-  return <link rel="stylesheet" type="text/css" {...props} />;
+  return <link rel="stylesheet" {...props} />;
 }

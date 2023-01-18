@@ -5,5 +5,5 @@ export interface Props extends React.StyleHTMLAttributes<HTMLStyleElement> {
 }
 
 export function InlineStyle(props: Props) {
-  return <style type="text/css" {...props} />;
+  return <style {...props} />;
 }

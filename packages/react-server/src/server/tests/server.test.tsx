@@ -86,10 +86,10 @@ describe('createServer()', () => {
     const response = await wrapper.fetch('/');
 
     await expect(response).toHaveBodyText(
-      `<script src="/extraScript.js" crossorigin="anonymous" type="text/javascript" defer="">`,
+      `<script src="/extraScript.js" crossorigin="anonymous" defer="">`,
     );
     await expect(response).toHaveBodyText(
-      `<link rel="stylesheet" type="text/css" href="/extraStyle.css" crossorigin="anonymous"/>`,
+      `<link rel="stylesheet" href="/extraStyle.css" crossorigin="anonymous"/>`,
     );
     await expect(response).toHaveBodyText(
       `<script>let ScriptFromHeadMarkup = 1;</script>`,
