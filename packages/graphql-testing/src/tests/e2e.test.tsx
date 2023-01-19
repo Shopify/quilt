@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {GraphQLError} from 'graphql';
 import gql from 'graphql-tag';
 import {DocumentNode} from 'graphql-typed';
@@ -15,6 +15,18 @@ const createImmutableGraphQL = createGraphQLFactory({
 
 const petQuery: DocumentNode<{pet?: {name: string} | null}, {id: string}> = gql`
   query Pet($id: ID!) {
+    pet(id: $id) {
+      ...CatInfo
+    }
+  }
+
+  fragment CatInfo on Cat {
+    name
+  }
+`;
+
+const catQuery: DocumentNode<{pet?: {name: string} | null}, {id: string}> = gql`
+  query Cat($id: ID!) {
     pet(id: $id) {
       ...CatInfo
     }
@@ -49,9 +61,11 @@ function ApolloResult({result}: {result: ReturnType<typeof useQuery>}) {
   return null;
 }
 
-function MyComponent({id = '1'} = {}) {
-  const queryResult = useQuery(petQuery, {variables: {id}});
+function MyComponent({id = '1', queryToUse = petQuery}) {
+  console.log(queryToUse.definitions[0].name);
+  const queryResult = useQuery(queryToUse, {variables: {id}});
   const {data, loading, error, refetch} = queryResult;
+  console.log(data);
 
   const errorMarkup = error ? <p className="error">{error.message}</p> : null;
   const loadingMarkup = loading ? <p>Loading</p> : null;
@@ -129,6 +143,34 @@ function MyComponentWithFetchMore({itemsPerPage = 1} = {}) {
     </>
   );
 }
+
+// function MyComponentLoadMultiple({ids = ['1','2']} = {}) {
+//   // const queryResult = useQuery(petQuery, {variables: {id}});
+//   // const {data, loading, error, refetch} = queryResult;
+//   const [names, setNames] = useState([]);
+//   const [loadingIds, setLoadingIds] = useState(ids);
+
+//   useEffect(() => {
+//     ids.forEach(id => {
+//       const queryResult = useQuery(petQuery, {variables: {id}});
+//       const {data, loading, error, refetch} = queryResult;
+//     });
+//   }, [])
+
+//   const errorMarkup = error ? <p className="error">{error.message}</p> : null;
+//   const loadingMarkup = loading ? <p>Loading</p> : null;
+//   const petsMarkup =
+//     data != null && data.pet != null ? <p>{data.pet.name}</p> : null;
+
+//   return (
+//     <>
+//       <ApolloResult result={queryResult} />
+//       {loadingMarkup}
+//       {petsMarkup}
+//       {errorMarkup}
+//     </>
+//   );
+// }
 
 describe('graphql-testing', () => {
   it('does not resolve immediately', () => {
@@ -302,6 +344,92 @@ describe('graphql-testing', () => {
     const queryResult = myComponent.find(ApolloResult)!.prop('result');
     expect(queryResult.data).toStrictEqual(mockPetQueryData);
     expect(myComponent).toContainReactText('Garfield');
+  });
+
+  // const graphQL = createGraphQL({
+  //   Pets: ({
+  //     variables: {first = 10, after},
+  //   }: {
+  //     variables: {first?: number; after: string};
+  //   }) => {
+  //     const fullData = [
+  //       {cursor: 'a', node: {__typename: 'Cat', name: 'Garfield'}},
+  //       {cursor: 'b', node: {__typename: 'Cat', name: 'Nermal'}},
+  //       {cursor: 'c', node: {__typename: 'Cat', name: 'Arlene'}},
+  //       {cursor: 'd', node: {__typename: 'Cat', name: 'Not Odie'}},
+  //     ].map((item) => ({__typename: 'Edge', ...item}));
+
+  //     // eslint-disable-next-line jest/no-if
+  //     const startPosition = after
+  //       ? fullData.findIndex((item) => item.cursor === after) + 1
+  //       : 0;
+
+  //     return {
+  //       pets: {
+  //         __typename: 'Pets',
+  //         edges: fullData.slice(startPosition, startPosition + first),
+  //       },
+  //     };
+  //   },
+  // });
+
+  it.only('resolves only a specific query when specified', async () => {
+    const graphQL = createGraphQL({
+      Pet: {pet: {__typename: 'Cat', name: 'Garfield'}},
+      Cat: {pet: {__typename: 'Cat', name: 'Nermal'}}
+    });
+
+    const petComponent = mount(
+      <ApolloProvider client={graphQL.client}>
+        <MyComponent queryToUse={petQuery} />
+        <MyComponent queryToUse={catQuery} />
+      </ApolloProvider>,
+    );
+
+    await petComponent.act(async () => {
+      await graphQL.resolveAll();
+    });
+
+    expect(petComponent).toContainReactText('Garfield');
+    expect(petComponent).toContainReactText('Nermal');
+  });
+
+  it.skip('resolves a given query based on specified inputs', async () => {
+    const graphQL = createGraphQL({
+      Pet: ({
+        variables: {id = '1'},
+      }: {
+        variables: {id: string};
+      }) => {
+        const petOptions = [
+          {__typename: 'Cat', name: 'Garfield'},
+          {__typename: 'Cat', name: 'Nermal'}
+        ];
+
+        return {pet: petOptions[Number(id) - 1]}
+      },
+    });
+
+    const pet1Component = mount(
+      <ApolloProvider client={graphQL.client}>
+        <MyComponent id="1" />
+      </ApolloProvider>,
+    );
+
+    const pet2Component = mount(
+      <ApolloProvider client={graphQL.client}>
+        <MyComponent id="2" />
+      </ApolloProvider>,
+    );
+
+    await pet1Component.act(async () => {
+      await pet2Component.act(async () => {
+        await graphQL.resolveAll();
+      });
+    });
+
+    expect(pet1Component).toContainReactText('Garfield');
+    expect(pet2Component).toContainReactText('Nermal');
   });
 
   it('allows for mock updates after it has been initialized', async () => {
