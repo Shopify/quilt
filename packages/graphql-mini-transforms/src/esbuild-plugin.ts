@@ -1,4 +1,5 @@
 import fs from 'fs';
+import {dirname} from 'path';
 
 import {parse, DocumentNode} from 'graphql';
 import type {Plugin, PluginBuild} from 'esbuild';
@@ -39,6 +40,7 @@ async function loadDocument(
     imports.map(async (imported) => {
       const resolved = await build.resolve(imported, {
         kind: 'import-statement',
+        resolveDir: dirname(path),
       });
       if (resolved.errors.length > 0) {
         throw new Error(JSON.stringify(resolved.errors, null, 2));
