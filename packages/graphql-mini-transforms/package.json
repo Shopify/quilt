@@ -46,6 +46,7 @@
     "graphql-typed": "^2.0.1"
   },
   "devDependencies": {
+    "esbuild": "*",
     "@types/common-tags": "^1.8.0",
     "common-tags": "^1.8.0",
     "webpack": "^5.38.0"
