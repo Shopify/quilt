@@ -41,7 +41,7 @@ async function loadDocument(
         kind: 'import-statement',
       });
       if (resolved.errors.length > 0) {
-        throw new Error(resolved.errors.join(','));
+        throw new Error(JSON.stringify(resolved.errors, null, 2));
       }
       return loadDocument(resolved.path, build);
     }),
