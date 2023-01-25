@@ -5,6 +5,7 @@ React I18n is a schema comprised of a structure of nested key-value pairs (KVPs)
 <!-- Created using "Markdown All in One" extension for VS Code -->
 
 - [History](#history)
+  - [Version 3.0](#version-30)
   - [Version 2.0](#version-20)
   - [Version 1.0](#version-10)
 - [Versioning](#versioning)
@@ -27,6 +28,10 @@ React I18n is a schema comprised of a structure of nested key-value pairs (KVPs)
   - [Interpolation](#interpolation)
 
 # History
+
+## Version 3.0
+
+- Expands the list of reserved cardinal plural keys to include the explicit `"0"` and `"1"` keys.
 
 ## Version 2.0
 
@@ -126,7 +131,14 @@ In order to avoid key collisions, the following keys are reserved for use as car
 
 These keys are derived from the names given to the cardinal pluralization rules of all languages, as defined in the [Unicode Consortium's Common Locale Data Repository (CLDR)](https://github.com/unicode-org/cldr).
 
-This list is current as of version `37` of the CLDR. In the unlikely event that new cardinal pluralization rule names are added, they will be added to this reserved list in a future version of this specification.
+This list is current as of version `42` of the CLDR. In the unlikely event that new cardinal pluralization rule names are added, they will be added to this reserved list in a future version of this specification.
+
+Further, the following keys are reserved for use as cardinal pluralization keys and must not be used as keys of leaf KVPs outside of a cardinal pluralization context:
+
+- `"0"`
+- `"1"`
+
+These keys are derived from the [CLDR's explicit 0 and 1 rules](https://unicode-org.github.io/cldr/ldml/tr35-numbers.html#Explicit_0_1_rules)
 
 **Example INVALID English file:**
 
@@ -308,7 +320,7 @@ Comments follow the [JSON5 syntax for comments](https://spec.json5.org/#comments
 React I18n's schema is loosely based on the [Rails I18n](https://guides.rubyonrails.org/i18n.html) schema.
 This section compares the two schemas, in order to point out the ways in which they differ from one another.
 
-### Root locale key
+## Root locale key
 
 Rails I18n has a locale root key, while React I18n doesn't:
 
@@ -330,7 +342,7 @@ en:
 Note the `en` (for English) locale key that is the root key for the Rails I18n file.
 This key is not present in the React I18n file. The locale of a React I18n file is stored outside of the file contents. By convention, the locale is typically stored within the filename (eg. `en.json` for an English locale file).
 
-### Pluralization
+## Pluralization
 
 Rails I18n (when using the default backend) allows for the use of a `zero` key (regardless of the source language), while React I18n doesn't.
 
@@ -363,7 +375,7 @@ en:
 }
 ```
 
-### Interpolation
+## Interpolation
 
 While neither schema defines an interpolation syntax, the most common syntax used in Rails I18n is `%{}`, while in React I18n, the most common syntax is `{}`.
 
