@@ -5,12 +5,11 @@ import {
   InMemoryCacheConfig,
 } from 'apollo-cache-inmemory';
 import {ApolloClient} from 'apollo-client';
-import isEqual from 'fast-deep-equal';
 
 import {TestingApolloClient} from './client';
 import {MockLink, InflightLink} from './links';
 import {Operations} from './operations';
-import {operationNameFromFindOptions} from './utilities';
+import {operationNameFromFindOptions, variablesMatch} from './utilities';
 import {GraphQLMock, MockRequest, FindOptions} from './types';
 
 export interface Options {
@@ -87,10 +86,11 @@ export class GraphQL {
         const allPendingRequests = Array.from(this.pendingRequests);
         const matchingRequests = finalOperationName
           ? allPendingRequests.filter(
-            ({operation: {operationName, variables}}) =>
-              operationName === finalOperationName &&
-              (!options.variables || isEqual(variables, options.variables)),
-          )
+              ({operation: {operationName, variables}}) =>
+                operationName === finalOperationName &&
+                (!options.variables ||
+                  variablesMatch(variables, options.variables)),
+            )
           : allPendingRequests;
 
         await Promise.all(matchingRequests.map(({resolve}) => resolve()));

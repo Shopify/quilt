@@ -51,3 +51,18 @@ function operationTypeFromDocumentNode(document: DocumentNode) {
 
   return operation && operation.operation;
 }
+
+export function variablesMatch(
+  operationVariables: Record<string, any>,
+  providedVariables: NonNullable<FindOptions['variables']>,
+) {
+  return Object.entries(operationVariables).every(([key, val]) => {
+    if (val && typeof val === 'object') {
+      return (
+        providedVariables[key] && variablesMatch(val, providedVariables[key])
+      );
+    }
+
+    return providedVariables[key] === val;
+  });
+}

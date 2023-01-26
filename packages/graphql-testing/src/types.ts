@@ -4,7 +4,7 @@ import {GraphQLRequest, Operation} from 'apollo-link';
 export interface FindOptions {
   query?: DocumentNode | {resolver: {resolved?: DocumentNode}};
   mutation?: DocumentNode;
-  variables?: {[key: string]: any};
+  variables?: Record<string, any>;
 
   /**
    * @deprecated Please use `query` or `mutation` instead.
