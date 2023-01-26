@@ -2,7 +2,7 @@ import React from 'react';
 import {flushSync} from 'react-dom';
 import type {Root as ReactRoot} from 'react-dom/client';
 import {act} from 'react-dom/test-utils';
-import {findCurrentFiberUsingSlowPath} from 'react-reconciler/reflection';
+import {findCurrentFiberUsingSlowPath} from 'react-reconciler/reflection.js';
 
 import {TestWrapper} from './TestWrapper';
 import {Element} from './element';
