@@ -169,6 +169,8 @@ describe('translate()', () => {
     // Lots of spaces to make sure we're taking the whole match length into account.
     [id]: 'foo {    bar     } baz',
     pluralizations: {
+      '0': 'I have no car!', // eslint-disable-line @typescript-eslint/naming-convention
+      '1': 'I have a single car!', // eslint-disable-line @typescript-eslint/naming-convention
       one: 'I have {count} car!',
       other: 'I have {count} cars!',
       ordinal: {
@@ -194,13 +196,22 @@ describe('translate()', () => {
   });
 
   it('returns selects the proper values for cardinal pluralization', () => {
+    const translationNone = translate(
+      'pluralizations',
+      {replacements: {count: 0}},
+      translations,
+      locale,
+    );
+
+    expect(translationNone).toBe('I have no car!');
+
     const translationOne = translate(
       'pluralizations',
       {replacements: {count: 1}},
       translations,
       locale,
     );
-    expect(translationOne).toBe('I have 1 car!');
+    expect(translationOne).toBe('I have a single car!');
 
     const translationOther = translate(
       'pluralizations',

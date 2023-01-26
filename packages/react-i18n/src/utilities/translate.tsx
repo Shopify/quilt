@@ -226,9 +226,16 @@ function translateWithDictionary(
     const count = replacements[CARDINAL_PLURALIZATION_KEY_NAME];
 
     if (typeof count === 'number') {
-      const group = memoizedPluralRules(locale).select(count);
-      result = result[group] || result.other;
-
+      // Explicit 0 and 1 rules take precedence over the pluralization rules
+      // https://unicode-org.github.io/cldr/ldml/tr35-numbers.html#Explicit_0_1_rules
+      if (count === 0 && result['0'] !== undefined) {
+        result = result['0'];
+      } else if (count === 1 && result['1'] !== undefined) {
+        result = result['1'];
+      } else {
+        const group = memoizedPluralRules(locale).select(count);
+        result = result[group] || result.other;
+      }
       additionalReplacements[CARDINAL_PLURALIZATION_KEY_NAME] =
         memoizedNumberFormatter(locale).format(count);
     }
