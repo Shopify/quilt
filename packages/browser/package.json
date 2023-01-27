@@ -32,7 +32,7 @@
     "index.esnext"
   ],
   "dependencies": {
-    "ua-parser-js": "^0.7.30"
+    "ua-parser-js": "^0.7.33"
   },
   "module": "index.mjs",
   "esnext": "index.esnext",
