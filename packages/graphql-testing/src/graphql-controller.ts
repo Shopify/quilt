@@ -77,6 +77,7 @@ export class GraphQL {
 
   async resolveAll(options: FindOptions = {}) {
     const finalOperationName = operationNameFromFindOptions(options);
+    const {filter: customFilter} = options;
 
     await this.wrappers.reduce<() => Promise<void>>(
       (perform, wrapper) => {
@@ -86,9 +87,13 @@ export class GraphQL {
         const allPendingRequests = Array.from(this.pendingRequests);
         const matchingRequests = finalOperationName
           ? allPendingRequests.filter(
-              ({operation: {operationName}}) =>
-                operationName === finalOperationName,
-            )
+            ({operation}) => {
+              const {operationName} = operation;
+              const filterIncludesResult = customFilter ? customFilter(operation) : true;
+
+              return filterIncludesResult && operationName === finalOperationName;
+            },
+          )
           : allPendingRequests;
 
         await Promise.all(matchingRequests.map(({resolve}) => resolve()));
