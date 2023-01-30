@@ -406,4 +406,50 @@ describe('graphql-testing', () => {
     );
     expect(myComponent).toContainReactText('LoadedCount: 3');
   });
+
+    describe('FindOptions', () => {
+      it.only('resolveAll() filters operations based on the filter function when passed', async () => {
+        const graphQL = createGraphQL({
+          Pet: ({
+            variables: {id = '1'},
+          }: {
+            variables: {id: string};
+          }) => {
+            const petOptions = [
+              {__typename: 'Cat', name: 'Garfield'},
+              {__typename: 'Cat', name: 'Nermal'}
+            ];
+
+            return {pet: petOptions[Number(id) - 1]}
+          },
+        });
+
+        const petContainer = mount(<ApolloProvider client={graphQL.client}>
+            <MyComponent id="1" />
+            <MyComponent id="2" />
+          </ApolloProvider>
+        );
+
+        await petContainer.act(async () => {
+            await graphQL.resolveAll({filter: (operation) => {
+              return operation.variables.id === '1';
+            }});
+        });
+
+        expect(petContainer).toContainReactText('Garfield');
+        expect(petContainer).not.toContainReactText('Nermal');
+
+        await petContainer.act(async () => {
+            await graphQL.resolveAll({filter: (operation) => {
+              return operation.variables.id === '2';
+            }});
+        });
+
+        expect(petContainer).toContainReactText('Nermal');
+      });
+
+      it.todo('resolveAll() filters operations based on the given operationName when passed');
+      it.todo('resolveAll() filters operations based on the given query when passed');
+      it.todo('resolveAll() filters operations based on the given mutation when passed');
+    });
 });
