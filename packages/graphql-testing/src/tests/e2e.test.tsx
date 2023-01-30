@@ -408,7 +408,7 @@ describe('graphql-testing', () => {
   });
 
     describe('FindOptions', () => {
-      it.only('resolveAll() filters operations based on the filter function when passed', async () => {
+      it('resolveAll() filters operations based on the filter function when passed', async () => {
         const graphQL = createGraphQL({
           Pet: ({
             variables: {id = '1'},
