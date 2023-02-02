@@ -3,17 +3,18 @@ import {DocumentNode, OperationDefinitionNode} from 'graphql';
 import {FindOptions} from './types';
 
 export function operationNameFromFindOptions({
+  filter,
   query,
   mutation,
   operationName,
 }: FindOptions) {
-  const passedOptions = [query, mutation, operationName].filter(Boolean);
+  const passedOptions = [filter, query, mutation, operationName].filter(Boolean);
 
   if (passedOptions.length === 0) {
     return undefined;
   } else if (passedOptions.length > 1) {
     throw new Error(
-      'You can only pass one of query, mutation, or operationName when finding a GraphQL operation',
+      'You can only pass one of filter, query, mutation, or operationName when finding a GraphQL operation',
     );
   }
 
