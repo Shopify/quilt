@@ -15,13 +15,19 @@ interface NavigatorWithConnection extends Navigator {
   connection: {saveData: boolean};
 }
 
-export const INTENTION_DELAY_MS = 150;
+export const INTENTION_DELAY_MS = 2000;
+export const SENSITIVITY = 10;
 
 class ConnectedPrefetcher extends React.PureComponent<Props, State> {
   state: State = {};
   private timeout?: ReturnType<typeof setTimeout>;
   private timeoutUrl?: URL;
   private prefetchAgressively = shouldPrefetchAggressively();
+
+  private x = 0;
+  private y = 0;
+  private pX = 0;
+  private pY = 0;
 
   render() {
     const {url} = this.state;
@@ -57,6 +63,11 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
           event="focusout"
           handler={this.handlePointerLeave}
         />
+        <EventListener
+          passive
+          event="mousemove"
+          handler={this.handleMouseMove}
+        />
       </>
     ) : null;
 
@@ -78,6 +89,11 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
     );
   }
 
+  private handleMouseMove = ({clientX, clientY}: MouseEvent) => {
+    this.x = clientX;
+    this.y = clientY;
+  };
+
   private handlePressStart = ({target}: MouseEvent) => {
     this.clearTimeout();
 
@@ -89,6 +105,22 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
 
     if (url != null) {
       this.setState({url});
+    }
+  };
+
+  private compare = (url: URL | undefined) => {
+    const {x, y} = this;
+    if (this.timeout) {
+      this.clearTimeout();
+    }
+    // Calculate the change of the mouse position
+    // If it is smaller than the sensitivity, we can assume that the user is intending on visiting the link
+    if (Math.abs(this.pX - x) + Math.abs(this.pY - y) < SENSITIVITY) {
+      this.setState({url});
+    } else {
+      this.pX = x;
+      this.pY = y;
+      this.timeout = setTimeout(() => this.compare(url), INTENTION_DELAY_MS);
     }
   };
 
@@ -127,7 +159,8 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
     }
   };
 
-  private handlePointerEnter = ({target}: MouseEvent | FocusEvent) => {
+  private handlePointerEnter = (event: MouseEvent | FocusEvent) => {
+    const {target} = event;
     if (target == null) {
       return;
     }
@@ -148,10 +181,8 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
     }
 
     this.timeoutUrl = url;
-    this.timeout = setTimeout(() => {
-      this.clearTimeout();
-      this.setState({url});
-    }, INTENTION_DELAY_MS);
+
+    this.compare(url);
   };
 
   private clearTimeout() {

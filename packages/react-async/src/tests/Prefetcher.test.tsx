@@ -41,27 +41,72 @@ describe('<Prefetch />', () => {
     expect(prefetcher).not.toContainReactComponent(MockComponent);
   });
 
-  it('prefetches a component when hovering over an element with a matching href for enough time', () => {
+  it('prefetches a component when hovering over an element with a matching href for enough time and mouse movement below 10', () => {
     const manager = createPrefetchManager([
       {render: () => <MockComponent />, path},
     ]);
+    const mockEl = mockElement(`<a href="${path}"></a>`);
     const prefetcher = mount(
-      <PrefetchContext.Provider value={manager}>
-        <Prefetcher />
-      </PrefetchContext.Provider>,
+      <div className="wrapper">
+        <PrefetchContext.Provider value={manager}>
+          <Prefetcher />
+        </PrefetchContext.Provider>
+      </div>,
     );
 
     triggerListener(prefetcher, 'mouseover', {
-      target: mockElement(`<a href="${path}"></a>`),
+      target: mockEl,
     });
 
     expect(prefetcher).not.toContainReactComponent(MockComponent);
 
     prefetcher.act(() => {
+      triggerListener(
+        prefetcher,
+        'mousemove',
+        {
+          target: mockEl,
+        },
+        {clientX: 5, clientY: 4},
+      );
       clock.tick(INTENTION_DELAY_MS + 1);
     });
 
     expect(prefetcher).toContainReactComponent(MockComponent);
+  });
+
+  it('does not prefetches a component when hovering over an element with a matching href for enough time and mouse movement above 10', () => {
+    const manager = createPrefetchManager([
+      {render: () => <MockComponent />, path},
+    ]);
+    const mockEl = mockElement(`<a href="${path}"></a>`);
+    const prefetcher = mount(
+      <div className="wrapper">
+        <PrefetchContext.Provider value={manager}>
+          <Prefetcher />
+        </PrefetchContext.Provider>
+      </div>,
+    );
+
+    triggerListener(prefetcher, 'mouseover', {
+      target: mockEl,
+    });
+
+    expect(prefetcher).not.toContainReactComponent(MockComponent);
+
+    prefetcher.act(() => {
+      triggerListener(
+        prefetcher,
+        'mousemove',
+        {
+          target: mockEl,
+        },
+        {clientX: 5, clientY: 5},
+      );
+      clock.tick(INTENTION_DELAY_MS + 1);
+    });
+
+    expect(prefetcher).not.toContainReactComponent(MockComponent);
   });
 
   it('prefetches a component when focusing on an element with a matching href for enough time', () => {
@@ -250,14 +295,16 @@ type EventName =
   | 'mouseover'
   | 'mouseout'
   | 'focusin'
-  | 'focusout';
+  | 'focusout'
+  | 'mousemove';
 
 function triggerListener(
   prefetcher: Root<unknown>,
   event: EventName,
   arg: Partial<FocusEvent>,
+  options?: Partial<MouseEvent>,
 ) {
-  getListener(prefetcher, event)!.trigger('handler', arg);
+  getListener(prefetcher, event)!.trigger('handler', {...arg, ...options});
 }
 
 function getListener(prefetcher: Root<unknown>, event: EventName) {
