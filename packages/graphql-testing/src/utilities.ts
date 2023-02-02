@@ -12,7 +12,7 @@ export function operationNameFromFindOptions({
     Boolean,
   );
 
-  if (passedOptions.length === 0) {
+  if (!(query || mutation || operationName)) {
     return undefined;
   } else if (passedOptions.length > 1) {
     throw new Error(
