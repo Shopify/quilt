@@ -8,7 +8,9 @@ export function operationNameFromFindOptions({
   mutation,
   operationName,
 }: FindOptions) {
-  const passedOptions = [filter, query, mutation, operationName].filter(Boolean);
+  const passedOptions = [filter, query, mutation, operationName].filter(
+    Boolean,
+  );
 
   if (passedOptions.length === 0) {
     return undefined;

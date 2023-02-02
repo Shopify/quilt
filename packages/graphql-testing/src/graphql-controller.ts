@@ -85,21 +85,18 @@ export class GraphQL {
       },
       async () => {
         const allPendingRequests = Array.from(this.pendingRequests);
-        
+
         let matchingRequests = allPendingRequests;
 
         if (customFilter) {
-          matchingRequests = allPendingRequests.filter(
-            ({operation}) => customFilter(operation)
+          matchingRequests = allPendingRequests.filter(({operation}) =>
+            customFilter(operation),
           );
-        }
-        else if (finalOperationName) {
-          matchingRequests = allPendingRequests.filter(
-            ({operation}) => {
-              const {operationName} = operation;
-              return operationName === finalOperationName;
-            },
-          );
+        } else if (finalOperationName) {
+          matchingRequests = allPendingRequests.filter(({operation}) => {
+            const {operationName} = operation;
+            return operationName === finalOperationName;
+          });
         }
 
         await Promise.all(matchingRequests.map(({resolve}) => resolve()));

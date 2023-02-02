@@ -25,7 +25,10 @@ const petQuery: DocumentNode<{pet?: {name: string} | null}, {id: string}> = gql`
   }
 `;
 
-const personQuery: DocumentNode<{person?: {name: string} | null}, {id: string}> = gql`
+const personQuery: DocumentNode<
+  {person?: {name: string} | null},
+  {id: string}
+> = gql`
   query Person($id: ID!) {
     person(id: $id) {
       ...PersonInfo
@@ -419,147 +422,143 @@ describe('graphql-testing', () => {
     expect(myComponent).toContainReactText('LoadedCount: 3');
   });
 
-    describe('FindOptions', () => {
-      it('resolveAll() filters operations based on the filter function when passed', async () => {
-        const graphQL = createGraphQL({
-          Pet: ({
-            variables: {id = '1'},
-          }: {
-            variables: {id: string};
-          }) => {
-            const petOptions = [
-              {__typename: 'Cat', name: 'Garfield'},
-              {__typename: 'Cat', name: 'Nermal'}
-            ];
+  describe('FindOptions', () => {
+    it('resolveAll() filters operations based on the filter function when passed', async () => {
+      const graphQL = createGraphQL({
+        Pet: ({variables: {id = '1'}}: {variables: {id: string}}) => {
+          const petOptions = [
+            {__typename: 'Cat', name: 'Garfield'},
+            {__typename: 'Cat', name: 'Nermal'},
+          ];
 
-            return {pet: petOptions[Number(id) - 1]}
-          },
-        });
-
-        const petContainer = mount(<ApolloProvider client={graphQL.client}>
-            <MyComponent id="1" />
-            <MyComponent id="2" />
-          </ApolloProvider>
-        );
-
-        await petContainer.act(async () => {
-            await graphQL.resolveAll({filter: (operation) => {
-              return operation.variables.id === '1';
-            }});
-        });
-
-        expect(petContainer).toContainReactText('Garfield');
-        expect(petContainer).not.toContainReactText('Nermal');
-
-        await petContainer.act(async () => {
-            await graphQL.resolveAll({filter: (operation) => {
-              return operation.variables.id === '2';
-            }});
-        });
-
-        expect(petContainer).toContainReactText('Nermal');
+          return {pet: petOptions[Number(id) - 1]};
+        },
       });
 
-      function PersonQueryComponent({id = '1'} = {}) {
-        const queryResult = useQuery(personQuery, {variables: {id}});
-        const {data, loading} = queryResult;
+      const petContainer = mount(
+        <ApolloProvider client={graphQL.client}>
+          <MyComponent id="1" />
+          <MyComponent id="2" />
+        </ApolloProvider>,
+      );
 
-        return <>
+      await petContainer.act(async () => {
+        await graphQL.resolveAll({
+          filter: (operation) => {
+            return operation.variables.id === '1';
+          },
+        });
+      });
+
+      expect(petContainer).toContainReactText('Garfield');
+      expect(petContainer).not.toContainReactText('Nermal');
+
+      await petContainer.act(async () => {
+        await graphQL.resolveAll({
+          filter: (operation) => {
+            return operation.variables.id === '2';
+          },
+        });
+      });
+
+      expect(petContainer).toContainReactText('Nermal');
+    });
+
+    function PersonQueryComponent({id = '1'} = {}) {
+      const queryResult = useQuery(personQuery, {variables: {id}});
+      const {data, loading} = queryResult;
+
+      return (
+        <>
           {loading && <p>Loading...</p>}
           {data?.person && <p>{data.person.name}</p>}
         </>
-      }
+      );
+    }
 
-      function createPetPersonGraphQL() {
-        return createGraphQL({
-          Pet: ({
-            variables: {id = '1'},
-          }: {
-            variables: {id: string};
-          }) => {
-            return {pet: {__typename: 'Cat', name: 'Garfield'}}
-          },
-          Person: ({
-            variables: {id = '1'},
-          }: {
-            variables: {id: string};
-          }) => {
-            const personOptions = [
-              {__typename: 'Person', name: 'Jon Arbuckle'},
-            ];
+    function createPetPersonGraphQL() {
+      return createGraphQL({
+        Pet: ({variables: {id = '1'}}: {variables: {id: string}}) => {
+          return {pet: {__typename: 'Cat', name: 'Garfield'}};
+        },
+        Person: ({variables: {id = '1'}}: {variables: {id: string}}) => {
+          const personOptions = [{__typename: 'Person', name: 'Jon Arbuckle'}];
 
-            return {person: personOptions[Number(id) - 1]}
-          },
-        });
-      }
+          return {person: personOptions[Number(id) - 1]};
+        },
+      });
+    }
 
-      it('resolveAll() filters operations based on the given operationName when passed', async () => {
-        const graphQL = createPetPersonGraphQL();
+    it('resolveAll() filters operations based on the given operationName when passed', async () => {
+      const graphQL = createPetPersonGraphQL();
 
-        const petContainer = mount(<ApolloProvider client={graphQL.client}>
-            <MyComponent />
-            <PersonQueryComponent />
-          </ApolloProvider>
-        );
+      const petContainer = mount(
+        <ApolloProvider client={graphQL.client}>
+          <MyComponent />
+          <PersonQueryComponent />
+        </ApolloProvider>,
+      );
 
-        await petContainer.act(async () => {
-            await graphQL.resolveAll({operationName: 'Person'});
-        });
-
-        expect(petContainer).toContainReactText('Jon Arbuckle');
-        expect(petContainer).not.toContainReactText('Garfield');
-
-        await petContainer.act(async () => {
-          await graphQL.resolveAll({operationName: 'Pet'});
-        });
-
-        expect(petContainer).toContainReactText('Garfield');
+      await petContainer.act(async () => {
+        await graphQL.resolveAll({operationName: 'Person'});
       });
 
-      it('resolveAll() filters operations based on the given query when passed', async () => {
-        const graphQL = createPetPersonGraphQL();
+      expect(petContainer).toContainReactText('Jon Arbuckle');
+      expect(petContainer).not.toContainReactText('Garfield');
 
-        const petContainer = mount(<ApolloProvider client={graphQL.client}>
-            <MyComponent />
-            <PersonQueryComponent />
-          </ApolloProvider>
-        );
-
-        await petContainer.act(async () => {
-            await graphQL.resolveAll({query: personQuery});
-        });
-
-        expect(petContainer).toContainReactText('Jon Arbuckle');
-        expect(petContainer).not.toContainReactText('Garfield');
-
-        await petContainer.act(async () => {
-          await graphQL.resolveAll({query: petQuery});
-        });
-
-        expect(petContainer).toContainReactText('Garfield');
+      await petContainer.act(async () => {
+        await graphQL.resolveAll({operationName: 'Pet'});
       });
 
-      it('resolveAll() filters operations based on the given mutation when passed', async () => {
-        const graphQL = createPetPersonGraphQL();
-
-        const petContainer = mount(<ApolloProvider client={graphQL.client}>
-            <MyComponent />
-            <PersonQueryComponent />
-          </ApolloProvider>
-        );
-
-        await petContainer.act(async () => {
-            await graphQL.resolveAll({mutation: personQuery});
-        });
-
-        expect(petContainer).toContainReactText('Jon Arbuckle');
-        expect(petContainer).not.toContainReactText('Garfield');
-
-        await petContainer.act(async () => {
-          await graphQL.resolveAll({mutation: petQuery});
-        });
-
-        expect(petContainer).toContainReactText('Garfield');
-      });
+      expect(petContainer).toContainReactText('Garfield');
     });
+
+    it('resolveAll() filters operations based on the given query when passed', async () => {
+      const graphQL = createPetPersonGraphQL();
+
+      const petContainer = mount(
+        <ApolloProvider client={graphQL.client}>
+          <MyComponent />
+          <PersonQueryComponent />
+        </ApolloProvider>,
+      );
+
+      await petContainer.act(async () => {
+        await graphQL.resolveAll({query: personQuery});
+      });
+
+      expect(petContainer).toContainReactText('Jon Arbuckle');
+      expect(petContainer).not.toContainReactText('Garfield');
+
+      await petContainer.act(async () => {
+        await graphQL.resolveAll({query: petQuery});
+      });
+
+      expect(petContainer).toContainReactText('Garfield');
+    });
+
+    it('resolveAll() filters operations based on the given mutation when passed', async () => {
+      const graphQL = createPetPersonGraphQL();
+
+      const petContainer = mount(
+        <ApolloProvider client={graphQL.client}>
+          <MyComponent />
+          <PersonQueryComponent />
+        </ApolloProvider>,
+      );
+
+      await petContainer.act(async () => {
+        await graphQL.resolveAll({mutation: personQuery});
+      });
+
+      expect(petContainer).toContainReactText('Jon Arbuckle');
+      expect(petContainer).not.toContainReactText('Garfield');
+
+      await petContainer.act(async () => {
+        await graphQL.resolveAll({mutation: petQuery});
+      });
+
+      expect(petContainer).toContainReactText('Garfield');
+    });
+  });
 });
