@@ -4,7 +4,6 @@ import {GraphQLRequest, Operation} from 'apollo-link';
 export interface FindOptions {
   query?: DocumentNode | {resolver: {resolved?: DocumentNode}};
   mutation?: DocumentNode;
-  filter?: (filterFn: Operation) => boolean;
 
   /**
    * @deprecated Please use `query` or `mutation` instead.

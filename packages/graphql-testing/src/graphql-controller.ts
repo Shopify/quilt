@@ -19,6 +19,10 @@ export interface Options {
   assumeImmutableResults?: boolean;
 }
 
+interface ResolveAllFindOptions extends FindOptions {
+  filter?: (operation: MockRequest['operation']) => boolean;
+}
+
 interface Wrapper {
   (perform: () => Promise<void>): Promise<void>;
 }
@@ -75,9 +79,20 @@ export class GraphQL {
     this.mockLink.updateMock(mock);
   }
 
-  async resolveAll(options: FindOptions = {}) {
+  async resolveAll(options: ResolveAllFindOptions = {}) {
     const finalOperationName = operationNameFromFindOptions(options);
-    const {filter: customFilter} = options;
+
+    const requestFilter = ({operation}: MockRequest) => {
+      const nameMatchesOrWasNotSet = finalOperationName
+        ? finalOperationName === operation.operationName
+        : true;
+
+      const customFilterMatchesOrWasNotSet = options.filter
+        ? options.filter(operation)
+        : true;
+
+      return nameMatchesOrWasNotSet && customFilterMatchesOrWasNotSet;
+    };
 
     await this.wrappers.reduce<() => Promise<void>>(
       (perform, wrapper) => {
@@ -85,19 +100,7 @@ export class GraphQL {
       },
       async () => {
         const allPendingRequests = Array.from(this.pendingRequests);
-
-        let matchingRequests = allPendingRequests;
-
-        if (customFilter) {
-          matchingRequests = allPendingRequests.filter(({operation}) =>
-            customFilter(operation),
-          );
-        } else if (finalOperationName) {
-          matchingRequests = allPendingRequests.filter(({operation}) => {
-            const {operationName} = operation;
-            return operationName === finalOperationName;
-          });
-        }
+        const matchingRequests = allPendingRequests.filter(requestFilter);
 
         await Promise.all(matchingRequests.map(({resolve}) => resolve()));
       },
