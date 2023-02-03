@@ -15,7 +15,6 @@
     {"path": "../async"},
     {"path": "../react-async"},
     {"path": "../react-effect"},
-    {"path": "../react-hooks"},
     {"path": "../react-idle"},
     {"path": "../react-testing"},
     {"path": "../useful-types"},

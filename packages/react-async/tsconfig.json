@@ -13,7 +13,6 @@
   "references": [
     {"path": "../async"},
     {"path": "../react-effect"},
-    {"path": "../react-hooks"},
     {"path": "../react-hydrate"},
     {"path": "../react-idle"},
     {"path": "../react-intersection-observer"},
