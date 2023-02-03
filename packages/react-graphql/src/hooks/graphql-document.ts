@@ -1,7 +1,6 @@
 import {useState, useEffect, useCallback} from 'react';
 import {OperationVariables} from 'apollo-client';
 import {DocumentNode} from 'graphql-typed';
-import {useMountedRef} from '@shopify/react-hooks';
 import {useAsyncAsset} from '@shopify/react-async';
 
 import {AsyncDocumentNode} from '../types';
@@ -26,20 +25,16 @@ export default function useGraphQLDocument<
     }
   });
 
-  const mounted = useMountedRef();
-
   const loadDocument = useCallback(async () => {
     if (!isDocumentNode(documentOrAsyncDocument)) {
       try {
         const resolved = await documentOrAsyncDocument.resolver.resolve();
-        if (mounted.current) {
-          setDocument(resolved);
-        }
+        setDocument(resolved);
       } catch (error) {
         throw Error('error loading GraphQL document');
       }
     }
-  }, [documentOrAsyncDocument, mounted]);
+  }, [documentOrAsyncDocument]);
 
   useEffect(() => {
     if (!document) {
