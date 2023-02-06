@@ -184,7 +184,7 @@ describe('translate()', () => {
   it('returns selects the proper values for cardinal pluralization', () => {
     const translationNone = translate(
       'pluralizations',
-      {replacements: {count: 0}},
+      {count: 0},
       translations,
       locale,
     );
@@ -193,7 +193,7 @@ describe('translate()', () => {
 
     const translationOne = translate(
       'pluralizations',
-      {replacements: {count: 1}},
+      {count: 1},
       translations,
       locale,
     );
@@ -201,7 +201,7 @@ describe('translate()', () => {
 
     const translationOther = translate(
       'pluralizations',
-      {replacements: {count: 2}},
+      {count: 2},
       translations,
       locale,
     );
@@ -211,25 +211,25 @@ describe('translate()', () => {
   it('returns selects the proper values for ordinal pluralization', () => {
     const translationFirst = translate(
       'pluralizations',
-      {replacements: {ordinal: 1}},
+      {ordinal: 1},
       translations,
       locale,
     );
     const translationSecond = translate(
       'pluralizations',
-      {replacements: {ordinal: 2}},
+      {ordinal: 2},
       translations,
       locale,
     );
     const translationThird = translate(
       'pluralizations',
-      {replacements: {ordinal: 3}},
+      {ordinal: 3},
       translations,
       locale,
     );
     const translationFourth = translate(
       'pluralizations',
-      {replacements: {ordinal: 4}},
+      {ordinal: 4},
       translations,
       locale,
     );
@@ -243,12 +243,7 @@ describe('translate()', () => {
     'returns a string when a simple replacement is used',
     (replacementValue) => {
       const replacements = {bar: replacementValue};
-      const translation = translate(
-        'test',
-        {replacements},
-        translations,
-        locale,
-      );
+      const translation = translate('test', replacements, translations, locale);
 
       expect(translation).toBe(`foo ${replacementValue} baz`);
     },
