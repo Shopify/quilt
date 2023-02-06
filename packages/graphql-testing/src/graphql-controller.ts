@@ -80,19 +80,22 @@ export class GraphQL {
   }
 
   async resolveAll(options: ResolveAllFindOptions = {}) {
-    const finalOperationName = operationNameFromFindOptions(options);
+    let requestFilter: ((operation: MockRequest) => boolean) | undefined;
 
-    const requestFilter = ({operation}: MockRequest) => {
-      const nameMatchesOrWasNotSet = finalOperationName
-        ? finalOperationName === operation.operationName
-        : true;
+    if (Object.keys(options).length) {
+      const finalOperationName = operationNameFromFindOptions(options);
+      requestFilter = ({operation}) => {
+        const nameMatchesOrWasNotSet = finalOperationName
+          ? finalOperationName === operation.operationName
+          : true;
 
-      const customFilterMatchesOrWasNotSet = options.filter
-        ? options.filter(operation)
-        : true;
+        const customFilterMatchesOrWasNotSet = options.filter
+          ? options.filter(operation)
+          : true;
 
-      return nameMatchesOrWasNotSet && customFilterMatchesOrWasNotSet;
-    };
+        return nameMatchesOrWasNotSet && customFilterMatchesOrWasNotSet;
+      };
+    }
 
     await this.wrappers.reduce<() => Promise<void>>(
       (perform, wrapper) => {
@@ -100,7 +103,9 @@ export class GraphQL {
       },
       async () => {
         const allPendingRequests = Array.from(this.pendingRequests);
-        const matchingRequests = allPendingRequests.filter(requestFilter);
+        const matchingRequests = requestFilter
+          ? allPendingRequests.filter(requestFilter)
+          : allPendingRequests;
 
         await Promise.all(matchingRequests.map(({resolve}) => resolve()));
       },
