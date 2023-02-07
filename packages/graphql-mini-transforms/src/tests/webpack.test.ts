@@ -253,7 +253,7 @@ describe('graphql-mini-transforms/webpack', () => {
         createLoaderContext({query: {simple: true}}),
       );
 
-      expect(result).toHaveProperty('name', undefined);
+      expect(result).not.toHaveProperty('name');
     });
   });
 });

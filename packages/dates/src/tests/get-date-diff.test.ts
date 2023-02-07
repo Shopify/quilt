@@ -38,7 +38,7 @@ describe('getDateDiff()', () => {
 
   describe('second date defaults to today', () => {
     beforeEach(() => {
-      jest.useFakeTimers('modern');
+      jest.useFakeTimers();
       jest.setSystemTime(now);
     });
 
