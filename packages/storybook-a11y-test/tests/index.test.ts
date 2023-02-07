@@ -21,9 +21,8 @@ describe('can test a story', () => {
 
   beforeAll(() => {
     return new Promise((resolve, reject) => {
-      const icuDataPath = path.dirname(require.resolve('full-icu'));
       exec(
-        `NODE_ICU_DATA=${icuDataPath} yarn run build-storybook`,
+        `yarn run build-storybook`,
         {
           cwd: path.resolve(__dirname, '../'),
         },
