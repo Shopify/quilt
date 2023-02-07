@@ -27,7 +27,7 @@
     "@shopify/decorators": "^3.0.1"
   },
   "devDependencies": {
-    "@shopify/jest-dom-mocks": "^4.0.2"
+    "@shopify/jest-dom-mocks": "^4.1.0"
   },
   "files": [
     "build/",

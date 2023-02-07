@@ -1,5 +1,19 @@
 # Changelog
 
+## 9.3.0
+
+### Minor Changes
+
+- [#2409](https://github.com/Shopify/quilt/pull/2409) [`0bff6fad7`](https://github.com/Shopify/quilt/commit/0bff6fad7b0630d1b796bb457d8d86e81ececedd) Thanks [@BPScott](https://github.com/BPScott)! - Update types to account changes in TypeScript 4.8 and 4.9. [Propogate contstraints on generic types](https://devblogs.microsoft.com/typescript/announcing-typescript-4-8/#unconstrained-generics-no-longer-assignable-to) and update type usage relating to `Window` and `Navigator`. Technically this makes some types stricter, as attempting to pass `null|undefined` into certain functions is now disallowed by TypeScript, but these were never expected runtime values in the first place.
+
+- [#2409](https://github.com/Shopify/quilt/pull/2409) [`0bff6fad7`](https://github.com/Shopify/quilt/commit/0bff6fad7b0630d1b796bb457d8d86e81ececedd) Thanks [@BPScott](https://github.com/BPScott)! - `extends {}` has been added to the `Data` / `Variables` / `DeepPartial` generic types on the `useQuery` and `useGraphQLDocument` hooks, the `createAsyncQuery`,`createAsyncQueryComponent` functions and the `Query` component. If you use typescript's `strictNullChecks` option and define functions that contain generics that are then passed into any of these functions you may need add an `extends {}` to your code as well, per [the typescript 4.8 changelog](https://devblogs.microsoft.com/typescript/announcing-typescript-4-8/#unconstrained-generics-no-longer-assignable-to). For example, replace `<Data>` with `<Data extends {}>`.
+
+### Patch Changes
+
+- Updated dependencies [[`0bff6fad7`](https://github.com/Shopify/quilt/commit/0bff6fad7b0630d1b796bb457d8d86e81ececedd), [`0bff6fad7`](https://github.com/Shopify/quilt/commit/0bff6fad7b0630d1b796bb457d8d86e81ececedd)]:
+  - @shopify/react-async@5.1.0
+  - @shopify/react-idle@3.1.0
+
 ## 9.2.3
 
 ### Patch Changes

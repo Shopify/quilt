@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.6.0
+
+### Minor Changes
+
+- [#2539](https://github.com/Shopify/quilt/pull/2539) [`4fe13713a`](https://github.com/Shopify/quilt/commit/4fe13713a7c6b8be5ff44b312c8f9a1cd12e6369) Thanks [@movermeyer](https://github.com/movermeyer)! - Allow CLDR explicit "0" and "1" pluralization keys
+
 ## 7.5.1
 
 ### Patch Changes
