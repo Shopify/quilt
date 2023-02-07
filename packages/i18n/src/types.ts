@@ -1,10 +1,5 @@
 import {I18nError} from './errors';
 
-export enum LanguageDirection {
-  Rtl,
-  Ltr,
-}
-
 export interface I18nDetails {
   locale: string;
   country?: string;
@@ -23,5 +18,3 @@ export interface TranslationDictionary {
 export interface PrimitiveReplacementDictionary {
   [key: string]: string | number;
 }
-
-export {CurrencyCode} from './currencyCode';

@@ -1,4 +1,4 @@
-import {Replacements} from './types';
+import {PrimitiveReplacementDictionary as Replacements} from './types';
 
 export class MissingTranslationError extends Error {
   constructor(key: string, locale: string) {
