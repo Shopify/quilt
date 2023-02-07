@@ -1,4 +1,4 @@
-import {Replacements} from './types';
+import {ReplacementDictionary as Replacements} from './types';
 
 export class MissingTranslationError extends Error {
   constructor(key: string, locale: string) {
@@ -21,29 +21,3 @@ export class MissingReplacementError extends Error {
     super(errorMessage);
   }
 }
-export class MissingCurrencyCodeError extends Error {
-  constructor(additionalMessage = '') {
-    const baseErrorMessage = 'No currency code provided.';
-    super(
-      additionalMessage === ''
-        ? baseErrorMessage
-        : `${baseErrorMessage} ${additionalMessage}`,
-    );
-  }
-}
-export class MissingCountryError extends Error {
-  constructor(additionalMessage = '') {
-    const baseErrorMessage = 'No country code provided.';
-    super(
-      additionalMessage === ''
-        ? baseErrorMessage
-        : `${baseErrorMessage} ${additionalMessage}`,
-    );
-  }
-}
-
-export type I18nError =
-  | MissingTranslationError
-  | MissingReplacementError
-  | MissingCurrencyCodeError
-  | MissingCountryError;
