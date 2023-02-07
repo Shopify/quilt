@@ -1,9 +1,7 @@
 import {memoize as memoizeFn} from '@shopify/function-enhancers';
 
-import {TranslationDictionary, PrimitiveReplacementDictionary} from '../types';
-import {MissingTranslationError, MissingReplacementError} from '../errors';
-
-import {DEFAULT_FORMAT} from './interpolate';
+import {TranslationDictionary, ReplacementDictionary} from './types';
+import {MissingTranslationError, MissingReplacementError} from './errors';
 
 const MISSING_TRANSLATION = Symbol('Missing translation');
 const CARDINAL_PLURALIZATION_KEY_NAME = 'count';
@@ -15,6 +13,13 @@ const LATIN = 'latn';
 const isString = (value: any): value is string => typeof value === 'string';
 
 const numberFormats = new Map<string, Intl.NumberFormat>();
+
+/**
+ * Used to interpolate a string with values from an object.
+ * `{key}` will be replaced with `replacements[key]`.
+ */
+export const INTERPOLATE_FORMAT = /{\s*(\w+)\s*}/g;
+
 export function memoizedNumberFormatter(
   locales?: string | string[],
   options?: Intl.NumberFormatOptions,
@@ -77,7 +82,7 @@ export const memoizedPluralRules = memoizeFn(
 
 export function translate(
   id: string,
-  replacements: PrimitiveReplacementDictionary,
+  replacements: ReplacementDictionary,
   translations: TranslationDictionary | TranslationDictionary[],
   locale: string,
 ): string {
@@ -105,7 +110,7 @@ function translateWithDictionary(
   id: string,
   translations: TranslationDictionary,
   locale: string,
-  replacements?: PrimitiveReplacementDictionary,
+  replacements?: ReplacementDictionary,
 ): string | typeof MISSING_TRANSLATION {
   let result: string | TranslationDictionary = translations;
 
@@ -177,11 +182,11 @@ function translateWithDictionary(
 
 function updateStringWithReplacements(
   str: string,
-  replacements: PrimitiveReplacementDictionary = {},
+  replacements: ReplacementDictionary = {},
 ): string {
   const pieces: string[] = [];
 
-  const replaceFinder = new RegExp(DEFAULT_FORMAT, 'g');
+  const replaceFinder = new RegExp(INTERPOLATE_FORMAT, 'g');
 
   let lastOffset = 0;
 

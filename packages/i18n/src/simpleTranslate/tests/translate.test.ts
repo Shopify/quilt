@@ -2,7 +2,32 @@ import {
   memoizedNumberFormatter,
   numberFormatCacheKey,
   translate,
+  INTERPOLATE_FORMAT,
 } from '../translate';
+
+describe('DEFAULT_FORMAT', () => {
+  it.each([
+    // Matches
+    ['{foo}', ['foo']],
+    ['{f}', ['f']],
+    ['{{foo}}', ['foo']],
+    ['test {foo }', ['foo']],
+    ['{ foo} test', ['foo']],
+    ['test {     foo   } test', ['foo']],
+    ['test {foo} test {bar}', ['foo', 'bar']],
+    // No matches
+    ['{}', []],
+    ['{     }', []],
+    ['{ test {}', []],
+  ])('matches "%s" with keys %p', (input, keys) => {
+    expect.assertions(keys.length);
+    Array.from(input.matchAll(INTERPOLATE_FORMAT)).forEach(
+      ([_, key], matchIndex) => {
+        expect(key).toBe(keys[matchIndex]);
+      },
+    );
+  });
+});
 
 describe('memoizedNumberFormatter()', () => {
   it.each`
