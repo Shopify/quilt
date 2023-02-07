@@ -2314,59 +2314,6 @@
     supports-hyperlinks "^2.1.0"
     yargs "^17.2.1"
 
-"@shopify/loom-plugin-babel@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@shopify/loom-plugin-babel/-/loom-plugin-babel-1.0.1.tgz#6dcc6e4bc96774e30bf8a4c1da0db03324683bd0"
-  integrity sha512-/wigmMJby9uGQVm9rO4+YeqV9YMWPJ6Jr2XZ1rCAHcEOKq0qUGXdXsF8D46ffbh2HTKrOAk7ELoN/7VEelNiow==
-  dependencies:
-    "@shopify/loom" "^1.0.1"
-    "@types/babel__core" "^7.1.7"
-    core-js "^3.14.0"
-
-"@shopify/loom-plugin-build-library@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@shopify/loom-plugin-build-library/-/loom-plugin-build-library-1.0.2.tgz#fa91eb0dd9d074a5895505dd83d193672b70ca7d"
-  integrity sha512-E83qdeXQoWMmdJylA0DdfWTd2rl0rLhguLvOiZfKXhjAbW34DgB2n00wBAAGPykEbW9MB/ptsJR7R0aYoQWr/Q==
-  dependencies:
-    "@rollup/plugin-babel" "^5.3.0"
-    "@rollup/plugin-commonjs" "^19.0.0"
-    "@rollup/plugin-node-resolve" "^13.0.0"
-    "@shopify/babel-preset" "^24.1.4"
-    "@shopify/loom" "^1.0.1"
-    "@shopify/loom-plugin-babel" "^1.0.1"
-    "@shopify/loom-plugin-jest" "^1.0.1"
-    "@shopify/loom-plugin-rollup" "^1.0.1"
-    "@shopify/loom-plugin-typescript" "^1.1.0"
-    babel-jest "^27.2.4"
-    common-ancestor-path "^1.0.1"
-    rollup-plugin-node-externals "^2.2.0"
-
-"@shopify/loom-plugin-jest@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@shopify/loom-plugin-jest/-/loom-plugin-jest-1.0.1.tgz#01744354690ce5f62f3ee5f62350338979f9825c"
-  integrity sha512-PzIgdsEnZ5tdrahHkGlBu7ZU4KcZJK8zEQ5LXnU+PrOnGXjHlRzA048ED0CA2DKB5N4mOLp/M8l6Mkn2bN/X2A==
-  dependencies:
-    "@shopify/loom" "^1.0.1"
-    "@types/jest" "^27.0.2"
-    jest "^27.2.4"
-    jest-watch-typeahead "^1.0.0"
-
-"@shopify/loom-plugin-rollup@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@shopify/loom-plugin-rollup/-/loom-plugin-rollup-1.0.1.tgz#fb87c73e0f2031bc5b5bcca974668f9b2d406a43"
-  integrity sha512-kQ94AJHoErM/tsZDwyNWpidgqFWWbuU3e+6Xb2cpBa2vqXoFiplgxWZP5GayoRF83zNn/U82kRDlH7wQJPtIXA==
-  dependencies:
-    "@shopify/loom" "^1.0.1"
-    rollup "^2.60.1"
-
-"@shopify/loom-plugin-typescript@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@shopify/loom-plugin-typescript/-/loom-plugin-typescript-1.1.0.tgz#7bf526d3ef7f7488d5d066f4851c352cb06743c6"
-  integrity sha512-uoo89fCunsdlv0KReaDi0PYQFHaH7A+aTBeKlwfFW51DXJnXn2bHPCmzPXFtAds5YoByxQkHcfkJCZIKWYnZ1w==
-  dependencies:
-    "@shopify/loom" "^1.0.1"
-    typescript "^4.3.5"
-
 "@shopify/loom@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@shopify/loom/-/loom-1.0.1.tgz#d56a50570f3e445ac40ad1962a6f0a5a67b28a12"
@@ -5788,11 +5735,6 @@ commander@^6.2.1:
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/commander/-/commander-6.2.1.tgz#0792eb682dfbc325999bb2b84fddddba110ac73c"
   integrity sha512-U7VdrJFnJgo4xjrHpTzu0yrHPGImdsmD95ZlgYSEajAn2JKzDhDTPG9kBTefmObL2w/ngeZnilk+OV9CG3d7UA==
-
-common-ancestor-path@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/common-ancestor-path/-/common-ancestor-path-1.0.1.tgz#4f7d2d1394d91b7abdf51871c62f71eadb0182a7"
-  integrity sha512-L3sHRo1pXXEqX8VU28kfgUY+YGsk09hPqZiZmLacNib6XNTCM8ubYeT7ryXQw8asB1sKgcU5lkB7ONug08aB8w==
 
 common-path-prefix@^3.0.0:
   version "3.0.0"
@@ -14182,7 +14124,7 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^4.3.5, typescript@~4.9.5:
+typescript@~4.9.5:
   version "4.9.5"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.9.5.tgz#095979f9bcc0d09da324d58d03ce8f8374cbe65a"
   integrity sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 import {existsSync} from 'fs';
 
 import {
@@ -8,22 +6,15 @@ import {
   createProjectBuildPlugin,
   createProjectTestPlugin,
   DiagnosticError,
+  LogLevel,
 } from '@shopify/loom';
-import {buildLibrary, babel} from '@shopify/loom-plugin-build-library';
 
-// Needed so TS realises what configuration hooks are provided by Jest
-import type {} from '@shopify/loom-plugin-jest';
+import {rollupHooks, rollupBuild} from './plugin-rollup';
+import {rollupConfig} from './plugin-rollup-config';
+import {writeBinaries} from './plugin-write-binaries';
+import {writeEntrypoints} from './plugin-write-entrypoints';
 
-/** Optional value that can be provided to override the version of React used in tests */
-// eslint-disable-next-line no-process-env
-const REACT_VERSION = process.env.REACT_VERSION ?? '';
-
-export function quiltPackage({
-  isIsomorphic = true,
-  jestEnv = 'jsdom',
-  jestTestRunner = 'jest-circus',
-  polyfill = true,
-} = {}) {
+export function quiltPackage({isIsomorphic = true, polyfill = true} = {}) {
   // The babel preset polyfills by default, if we don't want polyfilling to
   // occur we need to turn some options off
   const polyfillOptions = polyfill ? {} : {useBuiltIns: false, corejs: false};
@@ -33,45 +24,26 @@ export function quiltPackage({
     : 'node 14.17.0';
 
   return createComposedProjectPlugin<Package>('Quilt.Package', [
-    buildLibrary({
+    rollupHooks(),
+    rollupBuild(),
+    rollupConfig({
       targets,
-      commonjs: true,
-      esmodules: true,
-      esnext: true,
-      rootEntrypoints: true,
-      jestTestEnvironment: jestEnv,
-    }),
-    babel({
-      config: {
+      babelConfig: {
         presets: [
           [
             '@shopify/babel-preset',
             {typescript: true, react: true, ...polyfillOptions},
           ],
         ],
+        // Disable loading content from babel.config.js
+        configFile: false,
       },
+      commonjs: true,
+      esmodules: true,
+      esnext: true,
     }),
-    createProjectTestPlugin('Quilt.PackageTest', ({hooks}) => {
-      hooks.configure.hook((hooks) => {
-        hooks.jestTestRunner?.hook(() => jestTestRunner);
-
-        hooks.jestTransform?.hook((transforms) => ({
-          ...transforms,
-          '\\.(gql|graphql)$': 'jest-transform-graphql',
-        }));
-
-        hooks.jestWatchPathIgnorePatterns?.hook((patterns) => [
-          ...patterns,
-          '<rootDir>/.*/tests?/.*fixtures',
-        ]);
-
-        hooks.jestModuleNameMapper?.hook((moduleNames) => ({
-          ...moduleNames,
-          '^react-dom((/.*)?)$': `react-dom${REACT_VERSION}$1`,
-          '^react((/.*)?)$': `react${REACT_VERSION}$1`,
-        }));
-      });
-    }),
+    writeBinaries(),
+    writeEntrypoints({commonjs: true, esmodules: true, esnext: true}),
     runTsd(),
   ]);
 }
