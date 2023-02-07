@@ -1,7 +1,6 @@
 import {useState, useCallback, useContext} from 'react';
 import {Resolver} from '@shopify/async';
 import {useServerEffect} from '@shopify/react-effect';
-import {useMountedRef} from '@shopify/react-hooks';
 import {IfAllOptionalKeys, NoInfer} from '@shopify/useful-types';
 
 import {AsyncAssetContext} from './context/assets';
@@ -70,8 +69,6 @@ export function useAsync<T>(
     immediate || typeof window !== 'undefined' ? resolver.resolved : null,
   );
 
-  const mounted = useMountedRef();
-
   const load = useCallback(async (): Promise<T | Error> => {
     if (value != null) {
       return value;
@@ -80,25 +77,20 @@ export function useAsync<T>(
     try {
       const resolved = await resolver.resolve();
 
-      if (mounted.current) {
-        // It's important to use the function form of setValue here.
-        // Resolved is going to be a function in most cases, since it's
-        // a React component. If you do not set it using the function form,
-        // React treats the component as the function that returns state,
-        // so it sets state with the result of manually calling the component
-        // (so, usually JSX).
-        setValue(() => resolved);
-      }
+      // It's important to use the function form of setValue here.
+      // Resolved is going to be a function in most cases, since it's
+      // a React component. If you do not set it using the function form,
+      // React treats the component as the function that returns state,
+      // so it sets state with the result of manually calling the component
+      // (so, usually JSX).
+      setValue(() => resolved);
 
       return resolved;
     } catch (error) {
-      if (mounted.current) {
-        setValue(error);
-      }
-
+      setValue(error);
       return error;
     }
-  }, [mounted, resolver, value]);
+  }, [resolver, value]);
 
   const {id} = resolver;
 

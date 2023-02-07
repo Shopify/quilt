@@ -29,7 +29,6 @@
     "@shopify/async": "^4.0.1",
     "@shopify/react-async": "^5.0.6",
     "@shopify/react-effect": "^5.0.2",
-    "@shopify/react-hooks": "^3.0.2",
     "@shopify/react-idle": "^3.0.3",
     "@shopify/useful-types": "^5.1.1",
     "apollo-cache-inmemory": ">=1.0.0 <2.0.0",

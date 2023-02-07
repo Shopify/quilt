@@ -33,7 +33,6 @@
   "dependencies": {
     "@shopify/async": "^4.0.1",
     "@shopify/react-effect": "^5.0.2",
-    "@shopify/react-hooks": "^3.0.2",
     "@shopify/react-hydrate": "^3.0.6",
     "@shopify/react-idle": "^3.0.3",
     "@shopify/react-intersection-observer": "^4.0.2",
