@@ -19,7 +19,6 @@ export class I18n {
   constructor(
     public readonly translations: TranslationDictionary[],
     locale: string,
-    fallbackLocale?: string,
   ) {
     this.locale = locale;
   }

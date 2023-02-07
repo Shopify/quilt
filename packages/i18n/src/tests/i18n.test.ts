@@ -63,7 +63,7 @@ describe('I18n', () => {
       expect(result).toBe(mockResult);
       expect(translate).toHaveBeenCalledWith(
         'hello',
-        {replacements, pseudotranslate: false},
+        replacements,
         defaultTranslations,
         i18n.locale,
       );
@@ -79,7 +79,7 @@ describe('I18n', () => {
       expect(result).toBe(mockResult);
       expect(translate).toHaveBeenCalledWith(
         'hello',
-        {pseudotranslate: false},
+        {},
         defaultTranslations,
         i18n.locale,
       );
