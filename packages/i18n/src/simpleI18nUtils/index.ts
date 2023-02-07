@@ -1,1 +1,1 @@
-export {translate} from './translate';
+export {translate, translationKeyExists} from './translate';

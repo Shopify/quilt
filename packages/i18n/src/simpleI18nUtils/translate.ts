@@ -80,6 +80,32 @@ export const memoizedPluralRules = memoizeFn(
     `${locale}${JSON.stringify(options)}`,
 );
 
+export function translationKeyExists(
+  id: string,
+  translations: TranslationDictionary | TranslationDictionary[],
+): boolean {
+  const normalizedTranslations = Array.isArray(translations)
+    ? translations
+    : [translations];
+
+  let result: string | TranslationDictionary;
+
+  for (const translationDictionary of normalizedTranslations) {
+    result = translationDictionary;
+
+    for (const part of id.split(SEPARATOR)) {
+      result = result[part];
+      if (!result) break;
+    }
+
+    if (result) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 export function translate(
   id: string,
   replacements: ReplacementDictionary,

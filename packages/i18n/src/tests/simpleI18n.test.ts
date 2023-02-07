@@ -105,4 +105,21 @@ describe('I18n', () => {
       );
     });
   });
+
+  describe('#translationKeyExists', () => {
+    it('returns true if the translation key exists', () => {
+      const i18n = new SimpleI18n(defaultTranslations, defaultLocale);
+      const result = i18n.translationKeyExists('hello');
+
+      expect(result).toBe(true);
+    });
+
+    it('returns false if the translation key does not exist', () => {
+      const key = 'foo';
+      const i18n = new SimpleI18n(defaultTranslations, defaultLocale);
+      const result = i18n.translationKeyExists(key);
+
+      expect(result).toBe(false);
+    });
+  });
 });
