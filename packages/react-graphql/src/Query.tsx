@@ -9,11 +9,10 @@ interface QueryComponentOptions<Data, Variables> extends QueryHookOptions {
   query: DocumentNode<Data, Variables>;
 }
 
-export function Query<Data = any, Variables = OperationVariables>({
-  children,
-  query,
-  ...options
-}: QueryComponentOptions<Data, Variables>) {
+export function Query<
+  Data extends {} = any,
+  Variables extends OperationVariables = OperationVariables,
+>({children, query, ...options}: QueryComponentOptions<Data, Variables>) {
   const opts = [options] as IfAllNullableKeys<
     Variables,
     [QueryHookOptions<Data, NoInfer<Variables>>?],

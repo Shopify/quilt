@@ -8,7 +8,7 @@ interface Props<Fields> {
   children(fields: FieldDescriptors<Fields>): React.ReactNode;
 }
 
-export default class Nested<Fields> extends React.PureComponent<
+export default class Nested<Fields extends object> extends React.PureComponent<
   Props<Fields>,
   never
 > {

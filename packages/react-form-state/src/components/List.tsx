@@ -9,7 +9,7 @@ interface Props<Fields> {
   getChildKey?(item: Fields): string;
 }
 
-export default class List<Fields> extends React.PureComponent<
+export default class List<Fields extends object> extends React.PureComponent<
   Props<Fields>,
   never
 > {

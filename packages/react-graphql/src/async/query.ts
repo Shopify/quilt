@@ -8,7 +8,11 @@ import {AsyncDocumentNode, QueryProps, VariableOptions} from '../types';
 export interface Options<Data, Variables, DeepPartial>
   extends ResolverOptions<DocumentNode<Data, Variables, DeepPartial>> {}
 
-export function createAsyncQuery<Data, Variables, DeepPartial>({
+export function createAsyncQuery<
+  Data extends {},
+  Variables extends {},
+  DeepPartial extends {},
+>({
   id,
   load,
 }: Options<Data, Variables, DeepPartial>): AsyncDocumentNode<

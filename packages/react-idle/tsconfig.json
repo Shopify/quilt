@@ -13,7 +13,6 @@
   "references": [
     {"path": "../async"},
     {"path": "../jest-dom-mocks"},
-    {"path": "../react-testing"},
-    {"path": "../useful-types"}
+    {"path": "../react-testing"}
   ]
 }

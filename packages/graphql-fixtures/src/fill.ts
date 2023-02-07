@@ -95,6 +95,10 @@ export type DeepThunk<T, Data, Variables, DeepPartial> =
   | null
   | undefined;
 
+// The `undefined extends Variables ? {} : Variables` dance is needed to coerce
+// variables that are undefined to an empty object, so that it matches the shape
+// of `GraphQLOperation`, because that has a default value of `{}` on the
+// variables generic type.
 export type GraphQLFillerData<Operation extends GraphQLOperation> =
   Operation extends GraphQLOperation<
     infer Data,
@@ -102,9 +106,14 @@ export type GraphQLFillerData<Operation extends GraphQLOperation> =
     infer PartialData
   >
     ? Thunk<
-        DeepThunk<PartialData, Data, Variables, PartialData>,
+        DeepThunk<
+          PartialData,
+          Data,
+          undefined extends Variables ? {} : Variables,
+          PartialData
+        >,
         Data,
-        Variables,
+        undefined extends Variables ? {} : Variables,
         PartialData
       >
     : never;
@@ -149,7 +158,11 @@ export function createFiller(
 
   const context = {schema, resolvers};
 
-  return function fill<Data, Variables, PartialData>(
+  return function fill<
+    Data extends {},
+    Variables extends {},
+    PartialData extends {},
+  >(
     _document: GraphQLOperation<Data, Variables, PartialData>,
     data?: GraphQLFillerData<GraphQLOperation<Data, Variables, PartialData>>,
   ): (request: GraphQLRequest<Data, Variables, PartialData>) => Data {

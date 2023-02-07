@@ -1,7 +1,8 @@
 import {set} from './utilities';
 
 export interface NavigatorWithConnection extends Navigator {
-  connection: Navigator['connection'] & {
+  connection: EventTarget & {
+    type: string;
     downlink: number;
     effectiveType: string;
     onchange: null | Function;

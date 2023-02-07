@@ -3,7 +3,6 @@ export type {
   RequestIdleCallbackOptions,
   RequestIdleCallbackDeadline,
   RequestIdleCallbackHandle,
-  WindowWithRequestIdleCallback,
 } from '@shopify/async';
 
 export enum UnsupportedBehavior {

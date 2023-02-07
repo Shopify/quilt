@@ -1,11 +1,6 @@
 import React from 'react';
-import {ExtendedWindow} from '@shopify/useful-types';
 import {useIntersection} from '@shopify/react-intersection-observer';
-import {
-  DeferTiming,
-  WindowWithRequestIdleCallback,
-  RequestIdleCallbackHandle,
-} from '@shopify/async';
+import {DeferTiming, RequestIdleCallbackHandle} from '@shopify/async';
 import {useMountedRef} from '@shopify/react-hooks';
 
 import load from './load';
@@ -98,9 +93,7 @@ export function useImportRemote<Imported = unknown>(
   React.useEffect(() => {
     if (defer === DeferTiming.Idle) {
       if ('requestIdleCallback' in window) {
-        idleCallbackHandle.current = (
-          window as ExtendedWindow<WindowWithRequestIdleCallback>
-        ).requestIdleCallback(loadRemote);
+        idleCallbackHandle.current = window.requestIdleCallback(loadRemote);
       } else {
         loadRemote();
       }

@@ -7,9 +7,9 @@ import {useAsyncAsset} from '@shopify/react-async';
 import {AsyncDocumentNode} from '../types';
 
 export default function useGraphQLDocument<
-  Data = any,
-  Variables = OperationVariables,
-  DeepPartial = {},
+  Data extends {} = any,
+  Variables extends OperationVariables = OperationVariables,
+  DeepPartial extends {} = {},
 >(
   documentOrAsyncDocument:
     | DocumentNode<Data, Variables>

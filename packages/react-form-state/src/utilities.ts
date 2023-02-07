@@ -4,7 +4,7 @@ import {FieldDescriptor} from './types';
 
 export {isEqual};
 
-export function mapObject<Input, Output>(
+export function mapObject<Input extends object, Output>(
   input: Input,
   mapper: (value: any, key: string & keyof Input) => any,
 ) {

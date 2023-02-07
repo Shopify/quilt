@@ -1,11 +1,6 @@
 import {useEffect, useRef} from 'react';
-import {ExtendedWindow} from '@shopify/useful-types';
 
-import {
-  RequestIdleCallbackHandle,
-  WindowWithRequestIdleCallback,
-  UnsupportedBehavior,
-} from './types';
+import {RequestIdleCallbackHandle, UnsupportedBehavior} from './types';
 
 export function useIdleCallback(
   callback: () => void,
@@ -15,11 +10,9 @@ export function useIdleCallback(
 
   useEffect(() => {
     if ('requestIdleCallback' in window) {
-      handle.current = (
-        window as ExtendedWindow<WindowWithRequestIdleCallback>
-      ).requestIdleCallback(() => callback());
+      handle.current = window.requestIdleCallback(() => callback());
     } else if (unsupportedBehavior === UnsupportedBehavior.AnimationFrame) {
-      handle.current = window.requestAnimationFrame(() => {
+      handle.current = (window as Window).requestAnimationFrame(() => {
         callback();
       });
     } else {
@@ -35,11 +28,9 @@ export function useIdleCallback(
       }
 
       if ('cancelIdleCallback' in window) {
-        (
-          window as ExtendedWindow<WindowWithRequestIdleCallback>
-        ).cancelIdleCallback(currentHandle);
+        window.cancelIdleCallback(currentHandle);
       } else if (unsupportedBehavior === UnsupportedBehavior.AnimationFrame) {
-        window.cancelAnimationFrame(currentHandle);
+        (window as Window).cancelAnimationFrame(currentHandle);
       }
     };
   }, [callback, unsupportedBehavior]);

@@ -1,6 +1,6 @@
-import {ExtendedWindow} from '@shopify/useful-types';
-
 const cache = new Map<string, Promise<any>>();
+
+type ExtendedWindow<T> = Window & typeof globalThis & T;
 
 export default function load<
   Imported = any,
