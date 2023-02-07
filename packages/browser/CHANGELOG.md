@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.1.2
+
+### Patch Changes
+
+- [#2542](https://github.com/Shopify/quilt/pull/2542) [`99a9903f1`](https://github.com/Shopify/quilt/commit/99a9903f1c17b9a3a526913685427e545727b152) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump dependency on `ua-parser-js` to `^0.7.33`
+
 ## 3.1.1
 
 ### Patch Changes
