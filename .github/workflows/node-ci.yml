@@ -59,9 +59,9 @@ jobs:
       - name: Unit tests
         run: yarn test "^(?:(?!(address|react-server|web-worker)).)*$"
         env:
-          REACT_VERSION: ${{ matrix.react-version}}
+          REACT_VERSION: ${{ matrix.react-version }}
 
       - name: E2E tests
-        run: yarn test --debug "(address|react-server|web-worker)"
+        run: yarn test --runInBand --forceExit "(address|react-server|web-worker)"
         env:
-          REACT_VERSION: ${{ matrix.react-version}}
+          REACT_VERSION: ${{ matrix.react-version }}
