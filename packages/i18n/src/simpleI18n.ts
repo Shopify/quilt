@@ -2,10 +2,10 @@ import {languageFromLocale, regionFromLocale} from './locale';
 import {
   ReplacementDictionary,
   TranslationDictionary,
-} from './simpleTranslate/types';
-import {translate} from './simpleTranslate';
+} from './simpleI18nUtils/types';
+import {translate} from './simpleI18nUtils';
 
-export class I18n {
+export class SimpleI18n {
   readonly locale: string;
 
   get language() {

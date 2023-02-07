@@ -1,17 +1,13 @@
-import {I18n} from '../i18n';
-import {MissingTranslationError} from '../simpleTranslate/errors';
+import {SimpleI18n} from '../simpleI18n';
+import {MissingTranslationError} from '../simpleI18nUtils/errors';
 
-jest.mock('../simpleTranslate', () => ({
-  ...jest.requireActual('../simpleTranslate'),
+jest.mock('../simpleI18nUtils', () => ({
+  ...jest.requireActual('../simpleI18nUtils'),
   translate: jest.fn(),
-  getTranslationTree: jest.fn(),
-  getCurrencySymbol: jest.fn(
-    jest.requireActual('../simpleTranslate').getCurrencySymbol,
-  ),
 }));
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const translate: jest.Mock = require('../simpleTranslate').translate;
+const translate: jest.Mock = require('../simpleI18nUtils').translate;
 
 describe('I18n', () => {
   const defaultLocale = 'en-ca';
@@ -24,7 +20,7 @@ describe('I18n', () => {
   describe('#locale', () => {
     it('is exposed publicly', () => {
       const locale = 'fr-ca';
-      const i18n = new I18n(defaultTranslations, locale);
+      const i18n = new SimpleI18n(defaultTranslations, locale);
       expect(i18n).toHaveProperty('locale', locale);
     });
   });
@@ -32,7 +28,7 @@ describe('I18n', () => {
   describe('#language', () => {
     it('is determined from the locale', () => {
       const locale = 'fr-ca';
-      const i18n = new I18n(defaultTranslations, locale);
+      const i18n = new SimpleI18n(defaultTranslations, locale);
       expect(i18n).toHaveProperty('language', 'fr');
     });
   });
@@ -40,13 +36,13 @@ describe('I18n', () => {
   describe('#region', () => {
     it('is determined from the locale', () => {
       const locale = 'fr-ca';
-      const i18n = new I18n(defaultTranslations, locale);
+      const i18n = new SimpleI18n(defaultTranslations, locale);
       expect(i18n).toHaveProperty('region', 'CA');
     });
 
     it('is undefined when the locale does not have a country code', () => {
       const locale = 'fr';
-      const i18n = new I18n(defaultTranslations, locale);
+      const i18n = new SimpleI18n(defaultTranslations, locale);
       expect(i18n).toHaveProperty('region', undefined);
     });
   });
@@ -57,7 +53,7 @@ describe('I18n', () => {
       const replacements = {name: 'Chris'};
       translate.mockReturnValue(mockResult);
 
-      const i18n = new I18n(defaultTranslations, defaultLocale);
+      const i18n = new SimpleI18n(defaultTranslations, defaultLocale);
       const result = i18n.translate('hello', replacements);
 
       expect(result).toBe(mockResult);
@@ -73,7 +69,7 @@ describe('I18n', () => {
       const mockResult = 'translated string';
       translate.mockReturnValue(mockResult);
 
-      const i18n = new I18n(defaultTranslations, defaultLocale);
+      const i18n = new SimpleI18n(defaultTranslations, defaultLocale);
       const result = i18n.translate('hello');
 
       expect(result).toBe(mockResult);
@@ -92,7 +88,7 @@ describe('I18n', () => {
         throw error;
       });
 
-      const i18n = new I18n(defaultTranslations, defaultLocale);
+      const i18n = new SimpleI18n(defaultTranslations, defaultLocale);
       expect(() => i18n.translate(key)).toThrow(error);
     });
 
@@ -103,7 +99,7 @@ describe('I18n', () => {
         throw error;
       });
 
-      const i18n = new I18n(defaultTranslations, defaultLocale);
+      const i18n = new SimpleI18n(defaultTranslations, defaultLocale);
       expect(() => i18n.translate(key)).toThrow(
         `Missing translation for key: ${key}`,
       );
