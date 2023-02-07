@@ -10,12 +10,7 @@ import {prettier} from '@shopify/loom-plugin-prettier';
 import type {} from '@shopify/loom-plugin-jest';
 
 export default createWorkspace((workspace) => {
-  workspace.use(
-    buildLibraryWorkspace(),
-    eslint(),
-    prettier({files: '**/*.{md,json,yaml,yml}'}),
-    runWorkspaceTests(),
-  );
+  workspace.use(buildLibraryWorkspace(), runWorkspaceTests());
 });
 
 function runWorkspaceTests() {
