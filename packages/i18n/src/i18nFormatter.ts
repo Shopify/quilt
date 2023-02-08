@@ -13,15 +13,22 @@ import {
   isLessThanOneYearAway,
 } from '@shopify/dates';
 import {memoize} from '@shopify/decorators';
-import {LanguageDirection, TranslationDictionary} from 'index';
-import {languageFromLocale, regionFromLocale} from 'locale';
+
 import {
   convertFirstSpaceToNonBreakingSpace,
   getCurrencySymbol,
-} from 'utilities';
-import {MissingCountryError, MissingCurrencyCodeError} from 'utilities/errors';
-import {translate, memoizedNumberFormatter} from 'utilities/translate';
-
+} from './utilities';
+import {
+  MissingCountryError,
+  MissingCurrencyCodeError,
+} from './utilities/errors';
+import {translate, memoizedNumberFormatter} from './utilities/translate';
+import {languageFromLocale, regionFromLocale} from './locale';
+import {
+  LanguageDirection,
+  TranslationDictionary,
+  FormatterConfig,
+} from './utilities/types';
 import {
   dateStyle,
   DateStyle,
@@ -53,6 +60,7 @@ const REGEX_PERIODS = /\./g;
 const NEGATIVE_CHARACTERS = '\\p{Pd}\u2212';
 
 export class I18nFormatter {
+  readonly locale: string;
   readonly translations: TranslationDictionary[];
   readonly defaultCountry?: string;
   readonly defaultCurrency?: string;
@@ -67,16 +75,14 @@ export class I18nFormatter {
   }
 
   constructor(
-    public readonly locale: string,
+    {locale, currency, timezone, country}: FormatterConfig,
     translations: TranslationDictionary[] = [],
-    defaultCurrency?: string,
-    defaultCountry?: string,
-    defaultTimezone?: string,
   ) {
     this.translations = translations;
-    this.defaultCurrency = defaultCurrency;
-    this.defaultCountry = defaultCountry;
-    this.defaultTimezone = defaultTimezone;
+    this.locale = locale;
+    this.defaultCurrency = currency;
+    this.defaultCountry = country;
+    this.defaultTimezone = timezone;
   }
 
   get languageDirection() {

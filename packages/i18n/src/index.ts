@@ -12,4 +12,5 @@ export {
 export type {
   ReplacementDictionary,
   TranslationDictionary,
+  FormatterConfig,
 } from './utilities/types';
