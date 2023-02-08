@@ -1,1 +1,1 @@
-export {translate, translationKeyExists} from './translate';
+export {memoizedNumberFormatter, memoizedPluralRules} from './functionHelpers';
