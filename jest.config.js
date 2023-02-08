@@ -51,10 +51,6 @@ const configOverrides = {
       ],
     },
   },
-  'react-server': {
-    testEnvironment: 'node',
-    testRunner: 'jest-jasmine2',
-  },
   'storybook-a11y-test': {
     testEnvironment: 'node',
   },
