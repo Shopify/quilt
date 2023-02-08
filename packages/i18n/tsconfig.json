@@ -11,6 +11,8 @@
     "./src/**/*.tsx"
   ],
   "references": [
+    {"path": "../dates"},
+    {"path": "../decorators"},
     {"path": "../function-enhancers"}
   ]
 }

@@ -1,13 +1,13 @@
 import {SimpleI18n} from '../simpleI18n';
 import {MissingTranslationError} from '../utilities/errors';
 
-jest.mock('../simpleI18nUtils', () => ({
-  ...jest.requireActual('../simpleI18nUtils'),
+jest.mock('../utilities', () => ({
+  ...jest.requireActual('../utilities'),
   translate: jest.fn(),
 }));
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const translate: jest.Mock = require('../simpleI18nUtils').translate;
+const translate: jest.Mock = require('../utilities').translate;
 
 describe('I18n', () => {
   const defaultLocale = 'en-ca';
@@ -59,9 +59,9 @@ describe('I18n', () => {
       expect(result).toBe(mockResult);
       expect(translate).toHaveBeenCalledWith(
         'hello',
-        replacements,
         defaultTranslations,
         i18n.locale,
+        replacements,
       );
     });
 
@@ -75,9 +75,9 @@ describe('I18n', () => {
       expect(result).toBe(mockResult);
       expect(translate).toHaveBeenCalledWith(
         'hello',
-        {},
         defaultTranslations,
         i18n.locale,
+        {},
       );
     });
 
