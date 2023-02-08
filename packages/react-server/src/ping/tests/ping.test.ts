@@ -10,7 +10,7 @@ describe('ping', () => {
     const wrapper = await saddle(ping);
     const response = await wrapper.fetch('/');
 
-    await expect(response).toHaveBodyText('Pong');
-    await expect(response).toHaveStatus(StatusCode.Ok);
+    expect(await response.clone().text()).toContain('Pong');
+    expect(await response.clone().status).toBe(StatusCode.Ok);
   });
 });

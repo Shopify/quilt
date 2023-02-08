@@ -60,7 +60,7 @@ describe('createServer()', () => {
 
     const response = await wrapper.fetch('/');
 
-    await expect(response).toHaveBodyText(
+    expect(await response.clone().text()).toContain(
       `<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="referrer" content="never"/></head><body><div id="app"><div>markup</div></div><script type="text/json" data-serialized-id="quilt-data">undefined</script></body></html>`,
     );
   });
@@ -85,13 +85,13 @@ describe('createServer()', () => {
 
     const response = await wrapper.fetch('/');
 
-    await expect(response).toHaveBodyText(
+    expect(await response.clone().text()).toContain(
       `<script src="/extraScript.js" crossorigin="anonymous" defer="">`,
     );
-    await expect(response).toHaveBodyText(
+    expect(await response.clone().text()).toContain(
       `<link rel="stylesheet" href="/extraStyle.css" crossorigin="anonymous"/>`,
     );
-    await expect(response).toHaveBodyText(
+    expect(await response.clone().text()).toContain(
       `<script>let ScriptFromHeadMarkup = 1;</script>`,
     );
   });
@@ -109,7 +109,7 @@ describe('createServer()', () => {
     );
     const response = await wrapper.fetch('/');
 
-    await expect(response).toHaveBodyText(
+    expect(await response.clone().text()).toContain(
       `<title data-react-html="true">${myTitle}</title>`,
     );
   });
@@ -144,7 +144,9 @@ describe('createServer()', () => {
 
     const response = await wrapper.fetch('/');
 
-    expect(response).toHaveBodyText(`<div id="app">${value}</div>`);
+    expect(await response.clone().text()).toContain(
+      `<div id="app">${value}</div>`,
+    );
   });
 
   describe('ip', () => {
