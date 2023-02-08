@@ -49,12 +49,7 @@ const configOverrides = {
           envName: 'test',
         },
       ],
-      '\\.(gql|graphql)$': 'jest-transform-graphql',
     },
-  },
-  'react-server': {
-    testEnvironment: 'node',
-    testRunner: 'jest-jasmine2',
   },
   'storybook-a11y-test': {
     testEnvironment: 'node',
@@ -84,7 +79,6 @@ function project(packageName, overrideOptions = {}) {
           envName: 'test',
         },
       ],
-      '\\.(gql|graphql)$': 'jest-transform-graphql',
     },
     testEnvironment: 'jsdom',
     testRunner: 'jest-circus',

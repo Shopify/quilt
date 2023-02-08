@@ -122,11 +122,7 @@ describe('<IntersectionObserver />', () => {
       withHtmlElement((root) => {
         mount(<IntersectionObserver {...defaultProps} root={root} />);
 
-        expect(intersectionObserverMock.observers[0]).toMatchObject({
-          options: {
-            root,
-          },
-        });
+        expect(intersectionObserverMock.observers[0].options?.root).toBe(root);
       });
     });
 
@@ -137,11 +133,7 @@ describe('<IntersectionObserver />', () => {
 
         mount(<IntersectionObserver {...defaultProps} root={`#${id}`} />);
 
-        expect(intersectionObserverMock.observers[0]).toMatchObject({
-          options: {
-            root,
-          },
-        });
+        expect(intersectionObserverMock.observers[0].options?.root).toBe(root);
       });
     });
   });
