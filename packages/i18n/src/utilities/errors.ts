@@ -22,4 +22,26 @@ export class MissingReplacementError extends Error {
   }
 }
 
+export class MissingCountryError extends Error {
+  constructor(additionalMessage = '') {
+    const baseErrorMessage = 'No country code provided.';
+    super(
+      additionalMessage === ''
+        ? baseErrorMessage
+        : `${baseErrorMessage} ${additionalMessage}`,
+    );
+  }
+}
+
+export class MissingCurrencyCodeError extends Error {
+  constructor(additionalMessage = '') {
+    const baseErrorMessage = 'No currency code provided.';
+    super(
+      additionalMessage === ''
+        ? baseErrorMessage
+        : `${baseErrorMessage} ${additionalMessage}`,
+    );
+  }
+}
+
 export type I18nError = MissingTranslationError | MissingReplacementError;

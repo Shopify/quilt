@@ -5,7 +5,7 @@ import {
   INTERPOLATE_FORMAT,
 } from '../translate';
 
-describe('DEFAULT_FORMAT', () => {
+describe('INTERPOLATE_FORMAT', () => {
   it.each([
     // Matches
     ['{foo}', ['foo']],
@@ -207,56 +207,41 @@ describe('translate()', () => {
   const locale = 'en-CA';
 
   it('returns selects the proper values for cardinal pluralization', () => {
-    const translationNone = translate(
-      'pluralizations',
-      {count: 0},
-      translations,
-      locale,
-    );
+    const translationNone = translate('pluralizations', translations, locale, {
+      count: 0,
+    });
 
     expect(translationNone).toBe('I have no car!');
 
-    const translationOne = translate(
-      'pluralizations',
-      {count: 1},
-      translations,
-      locale,
-    );
+    const translationOne = translate('pluralizations', translations, locale, {
+      count: 1,
+    });
     expect(translationOne).toBe('I have a single car!');
 
-    const translationOther = translate(
-      'pluralizations',
-      {count: 2},
-      translations,
-      locale,
-    );
+    const translationOther = translate('pluralizations', translations, locale, {
+      count: 2,
+    });
     expect(translationOther).toBe('I have 2 cars!');
   });
 
   it('returns selects the proper values for ordinal pluralization', () => {
-    const translationFirst = translate(
-      'pluralizations',
-      {ordinal: 1},
-      translations,
-      locale,
-    );
+    const translationFirst = translate('pluralizations', translations, locale, {
+      ordinal: 1,
+    });
     const translationSecond = translate(
       'pluralizations',
+      translations,
+      locale,
       {ordinal: 2},
-      translations,
-      locale,
     );
-    const translationThird = translate(
-      'pluralizations',
-      {ordinal: 3},
-      translations,
-      locale,
-    );
+    const translationThird = translate('pluralizations', translations, locale, {
+      ordinal: 3,
+    });
     const translationFourth = translate(
       'pluralizations',
-      {ordinal: 4},
       translations,
       locale,
+      {ordinal: 4},
     );
     expect(translationFirst).toBe('This is my 1st car!');
     expect(translationSecond).toBe('This is my 2nd car!');
@@ -268,7 +253,7 @@ describe('translate()', () => {
     'returns a string when a simple replacement is used',
     (replacementValue) => {
       const replacements = {bar: replacementValue};
-      const translation = translate('test', replacements, translations, locale);
+      const translation = translate('test', translations, locale, replacements);
 
       expect(translation).toBe(`foo ${replacementValue} baz`);
     },

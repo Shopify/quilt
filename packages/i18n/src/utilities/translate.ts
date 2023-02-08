@@ -7,12 +7,11 @@ const MISSING_TRANSLATION = Symbol('Missing translation');
 const CARDINAL_PLURALIZATION_KEY_NAME = 'count';
 const ORDINAL_PLURALIZATION_KEY_NAME = 'ordinal';
 const SEPARATOR = '.';
+const numberFormats = new Map<string, Intl.NumberFormat>();
 const UNICODE_NUMBERING_SYSTEM = '-u-nu-';
 const LATIN = 'latn';
 
 const isString = (value: any): value is string => typeof value === 'string';
-
-const numberFormats = new Map<string, Intl.NumberFormat>();
 
 /**
  * Used to interpolate a string with values from an object.
@@ -108,9 +107,9 @@ export function translationKeyExists(
 
 export function translate(
   id: string,
-  replacements: ReplacementDictionary,
   translations: TranslationDictionary | TranslationDictionary[],
   locale: string,
+  replacements: ReplacementDictionary = {},
 ): string {
   const normalizedTranslations = Array.isArray(translations)
     ? translations

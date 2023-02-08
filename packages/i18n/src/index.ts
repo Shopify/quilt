@@ -1,4 +1,15 @@
 export * from './locale';
 export * from './pseudotranslate';
-export * from './simpleI18n';
-export * from './simpleI18nUtils/types';
+export {SimpleI18n} from './simpleI18n';
+export {LanguageDirection, CurrencyCode} from './utilities/types';
+export type {CurrencyFormatOptions, NumberFormatOptions} from './i18nFormatter';
+export {
+  currencyDecimalPlaces,
+  DEFAULT_DECIMAL_PLACES,
+  DateStyle,
+  Weekday,
+} from './constants';
+export type {
+  ReplacementDictionary,
+  TranslationDictionary,
+} from './utilities/types';

@@ -1,5 +1,5 @@
 import {SimpleI18n} from '../simpleI18n';
-import {MissingTranslationError} from '../simpleI18nUtils/errors';
+import {MissingTranslationError} from '../utilities/errors';
 
 jest.mock('../simpleI18nUtils', () => ({
   ...jest.requireActual('../simpleI18nUtils'),
