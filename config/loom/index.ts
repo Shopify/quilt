@@ -7,11 +7,7 @@ import {rollupConfig} from './plugin-rollup-config';
 import {writeBinaries} from './plugin-write-binaries';
 import {writeEntrypoints} from './plugin-write-entrypoints';
 
-export function quiltPackage({isIsomorphic = true, polyfill = true} = {}) {
-  // The babel preset polyfills by default, if we don't want polyfilling to
-  // occur we need to turn some options off
-  const polyfillOptions = polyfill ? {} : {useBuiltIns: false, corejs: false};
-
+export function quiltPackage({isIsomorphic = true} = {}) {
   const targets = isIsomorphic
     ? 'extends @shopify/browserslist-config, node 14.17.0'
     : 'node 14.17.0';
@@ -21,16 +17,6 @@ export function quiltPackage({isIsomorphic = true, polyfill = true} = {}) {
     rollupBuild(),
     rollupConfig({
       targets,
-      babelConfig: {
-        presets: [
-          [
-            '@shopify/babel-preset',
-            {typescript: true, react: true, ...polyfillOptions},
-          ],
-        ],
-        // Disable loading content from babel.config.js
-        configFile: false,
-      },
       commonjs: true,
       esmodules: true,
       esnext: true,

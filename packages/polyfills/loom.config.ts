@@ -54,5 +54,5 @@ export default createPackage((pkg) => {
     root: './src/mutation-observer.node.ts',
   });
 
-  pkg.use(quiltPackage({polyfill: false}));
+  pkg.use(quiltPackage());
 });
