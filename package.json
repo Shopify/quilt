@@ -60,7 +60,6 @@
     "babel-loader": "^8.0.6",
     "core-js": "^3.14.0",
     "cross-fetch": "^3.0.4",
-    "element-closest": "^3.0.1",
     "eslint": "^8.9.0",
     "fs-extra": "^9.1.0",
     "get-port": "^5.0.0",
