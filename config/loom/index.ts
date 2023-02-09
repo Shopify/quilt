@@ -4,7 +4,6 @@ import {Package, createComposedProjectPlugin} from '@shopify/loom';
 
 import {rollupHooks, rollupBuild} from './plugin-rollup';
 import {rollupConfig} from './plugin-rollup-config';
-import {writeBinaries} from './plugin-write-binaries';
 import {writeEntrypoints} from './plugin-write-entrypoints';
 
 export function quiltPackage({isIsomorphic = true} = {}) {
@@ -21,7 +20,6 @@ export function quiltPackage({isIsomorphic = true} = {}) {
       esmodules: true,
       esnext: true,
     }),
-    writeBinaries(),
     writeEntrypoints({commonjs: true, esmodules: true, esnext: true}),
   ]);
 }
