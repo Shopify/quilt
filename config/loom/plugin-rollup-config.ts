@@ -8,11 +8,6 @@ import commonjs from '@rollup/plugin-commonjs';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import externals from 'rollup-plugin-node-externals';
 
-// Babel config that is provided by the hook is the same set of options as
-// defined on https://babeljs.io/docs/en/options, except the include and exclude
-// options may not be present
-interface BabelConfig extends Omit<TransformOptions, 'include' | 'exclude'> {}
-
 declare module '@shopify/loom' {
   interface BuildPackageTargetOptions {
     rollupEsnext?: boolean;
@@ -21,7 +16,6 @@ declare module '@shopify/loom' {
 
 interface RollupConfigOptions {
   targets: string;
-  babelConfig: BabelConfig;
   commonjs: boolean;
   esmodules: boolean;
   esnext: boolean;
@@ -87,8 +81,6 @@ export function rollupConfig(options: RollupConfigOptions) {
           });
 
           configuration.rollupPlugins?.hook(async (plugins) => {
-            const babelConfig = options.babelConfig;
-
             const babelTargets = isEsnextBuild
               ? ['last 1 chrome versions']
               : [options.targets];
@@ -107,7 +99,7 @@ export function rollupConfig(options: RollupConfigOptions) {
               }),
               commonjs(),
               babel({
-                ...babelConfig,
+                rootMode: 'upward',
                 // Options specific to @rollup/plugin-babel, these can not be
                 // present on the `babelConfig` object
                 extensions: ['.js', '.jsx', '.ts', '.tsx'],

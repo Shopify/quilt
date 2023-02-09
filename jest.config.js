@@ -29,28 +29,6 @@ const moduleNameMapper = {
 };
 
 const configOverrides = {
-  polyfills: {
-    transform: {
-      '^.+\\.(m?js|tsx?)$': [
-        `babel-jest`,
-        {
-          presets: [
-            [
-              '@shopify/babel-preset',
-              {
-                typescript: true,
-                react: true,
-                useBuiltIns: false,
-                corejs: false,
-              },
-            ],
-          ],
-          targets: 'current node',
-          envName: 'test',
-        },
-      ],
-    },
-  },
   'storybook-a11y-test': {
     testEnvironment: 'node',
   },
@@ -74,11 +52,7 @@ function project(packageName, overrideOptions = {}) {
     transform: {
       '^.+\\.(m?js|tsx?)$': [
         `babel-jest`,
-        {
-          presets: [['@shopify/babel-preset', {typescript: true, react: true}]],
-          targets: 'current node',
-          envName: 'test',
-        },
+        {rootMode: 'upward', targets: 'current node', envName: 'test'},
       ],
     },
     testEnvironment: 'jsdom',
