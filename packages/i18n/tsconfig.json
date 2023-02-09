@@ -10,7 +10,5 @@
     "./src/**/*.ts",
     "./src/**/*.tsx"
   ],
-  "references": [
-    {"path": "../function-enhancers"}
-  ]
+  "references": [{"path": "../function-enhancers"}]
 }
