@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.3.0
+
+### Minor Changes
+
+- [#2559](https://github.com/Shopify/quilt/pull/2559) [`761813a49`](https://github.com/Shopify/quilt/commit/761813a49393a18e6aac643582aa1676d6178145) Thanks [@BPScott](https://github.com/BPScott)! - Add `ExportFormat.TypedDocumentNode` to generates types that only use `@graphql-typed-document-node/core`. This fills in a gap where users want `@graphql-typed-document-node/core` but not `graphql-typed`.
+
 ## 3.2.2
 
 ### Patch Changes
