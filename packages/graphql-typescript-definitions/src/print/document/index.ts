@@ -119,18 +119,22 @@ export function printDocument(
   const {namespace} = context;
   const {namespace: partialNamespace} = partialContext;
   const {exportFormat = ExportFormat.Document} = options;
-  const documentType = [
+  const graphqlTypedDocumentType =
+    exportFormat === ExportFormat.Simple ? 'SimpleDocument' : 'DocumentNode';
+
+  const includeGraphqlTyped = [
     ExportFormat.Document,
     ExportFormat.DocumentWithTypedDocumentNode,
-  ].includes(exportFormat)
-    ? 'DocumentNode'
-    : 'SimpleDocument';
+    ExportFormat.Simple,
+  ].includes(exportFormat);
 
-  const includeTypedDocumentNode =
-    exportFormat === ExportFormat.DocumentWithTypedDocumentNode;
+  const includeTypedDocumentNode = [
+    ExportFormat.TypedDocumentNode,
+    ExportFormat.DocumentWithTypedDocumentNode,
+  ].includes(exportFormat);
 
-  const documentNodeImport = () => {
-    const identifier = t.identifier(documentType);
+  const graphqlTypedImport = () => {
+    const identifier = t.identifier(graphqlTypedDocumentType);
     return t.importDeclaration(
       [t.importSpecifier(identifier, identifier)],
       t.stringLiteral('graphql-typed'),
@@ -160,7 +164,7 @@ export function printDocument(
 
   const graphqlTypedTypeReference = () =>
     t.tsTypeReference(
-      t.identifier(documentType),
+      t.identifier(graphqlTypedDocumentType),
       t.tsTypeParameterInstantiation([
         t.tsTypeReference(t.identifier(context.typeName)),
         variables || t.tsNeverKeyword(),
@@ -186,16 +190,30 @@ export function printDocument(
       ]),
     );
 
+  const documentTypeTypeAnnotation = (() => {
+    const annotations: t.TSTypeReference[] = [];
+
+    if (includeGraphqlTyped) {
+      annotations.push(graphqlTypedTypeReference());
+    }
+
+    if (includeTypedDocumentNode) {
+      annotations.push(graphqlTypedDocumentNodeReference());
+    }
+
+    if (annotations.length === 0) {
+      throw new Error("Couldn't find any annotation to use");
+    }
+    if (annotations.length === 1) {
+      return annotations[0];
+    }
+
+    return t.tsIntersectionType(annotations);
+  })();
+
   const documentNodeDeclaratorIdentifier = {
     ...t.identifier('document'),
-    typeAnnotation: t.tsTypeAnnotation(
-      includeTypedDocumentNode
-        ? t.tsIntersectionType([
-            graphqlTypedTypeReference(),
-            graphqlTypedDocumentNodeReference(),
-          ])
-        : graphqlTypedTypeReference(),
-    ),
+    typeAnnotation: t.tsTypeAnnotation(documentTypeTypeAnnotation),
   };
 
   const documentNodeDeclaration = t.variableDeclaration('const', [
@@ -208,7 +226,11 @@ export function printDocument(
     t.identifier('document'),
   );
 
-  const fileBody: t.Statement[] = [documentNodeImport()];
+  const fileBody: t.Statement[] = [];
+
+  if (includeGraphqlTyped) {
+    fileBody.push(graphqlTypedImport());
+  }
 
   if (includeTypedDocumentNode) {
     fileBody.push(typedDocumentNodeImport());

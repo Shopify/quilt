@@ -39,6 +39,7 @@ const argv = yargs
     describe: 'The format to use for values exported from GraphQL documents',
     choices: [
       ExportFormat.Document,
+      ExportFormat.TypedDocumentNode,
       ExportFormat.DocumentWithTypedDocumentNode,
       ExportFormat.Simple,
     ],

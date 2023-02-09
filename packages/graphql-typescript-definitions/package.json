@@ -52,6 +52,9 @@
   "peerDependenciesMeta": {
     "@graphql-typed-document-node/core": {
       "optional": true
+    },
+    "graphql-typed": {
+      "optional": true
     }
   },
   "files": [
