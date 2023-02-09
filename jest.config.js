@@ -9,7 +9,7 @@ const root = __dirname;
 const REACT_VERSION = process.env.REACT_VERSION ?? '';
 
 const packageMapping = glob
-  .sync('./packages/*/package.json', {pwd: root})
+  .sync('./packages/*/package.json', {cwd: root})
   .map((fn) => {
     const packageJson = JSON.parse(fs.readFileSync(fn, 'utf8'));
 
@@ -65,6 +65,7 @@ const configOverrides = {
 function project(packageName, overrideOptions = {}) {
   return {
     rootDir: `packages/${packageName}`,
+    displayName: packageName,
     testRegex: ['.+\\.test\\.(js|mjs|ts|tsx|json)$'],
     moduleFileExtensions: ['js', 'mjs', 'ts', 'tsx', 'json'],
     moduleNameMapper,
@@ -102,5 +103,12 @@ module.exports = {
 
     // Everything else is the `packages/*` folders
     ...packageMapping.map(({name}) => project(name, configOverrides[name])),
+
+    // tsd type assertions using jest-runner-tsd
+    project('useful-types', {
+      displayName: {name: 'useful-types', color: 'blue'},
+      runner: 'jest-runner-tsd',
+      testRegex: ['.+\\.test-d\\.(ts|tsx)$'],
+    }),
   ],
 };
