@@ -3,7 +3,7 @@ import {
   expectAssignable,
   expectNotAssignable,
   expectNotType,
-} from 'tsd';
+} from 'tsd-lite';
 
 import {
   ArrayElement,
@@ -11,7 +11,7 @@ import {
   IfEmptyObject,
   DeepOmit,
   DeepReadonly,
-} from '../build/ts/types';
+} from '../src/types';
 
 interface Person {
   firstName: string;
