@@ -1758,8 +1758,12 @@ describe('printDocument()', () => {
         }
       `);
 
-      expect(print('query Details { name }', schema)).toContain(
-        'import { DocumentNode } from "graphql-typed";',
+      const output = print('query Details { name }', schema);
+
+      expect(output).toContain('import { DocumentNode } from "graphql-typed";');
+
+      expect(output).not.toContain(
+        'import { TypedDocumentNode } from "@graphql-typed-document-node/core";',
       );
     });
 
@@ -1777,8 +1781,69 @@ describe('printDocument()', () => {
     });
   });
 
+  describe('typedDocumentNode', () => {
+    const options = {
+      printOptions: {
+        exportFormat: ExportFormat.TypedDocumentNode,
+      },
+    };
+
+    it('imports TypedDocumentName from @graphql-typed-document-node/core', () => {
+      const schema = buildSchema(`
+        type Query {
+          name: String!
+        }
+      `);
+
+      const output = print('query Details { name }', schema, options);
+
+      expect(output).toContain(
+        'import { TypedDocumentNode } from "@graphql-typed-document-node/core";',
+      );
+
+      expect(output).not.toContain(
+        'import { DocumentNode } from "graphql-typed";',
+      );
+    });
+
+    it('exports a TypedDocumentNode as the default export with the operation data type annotation', () => {
+      const schema = buildSchema(`
+        type Query {
+          name: String!
+        }
+      `);
+
+      expect(print('query Details { name }', schema, options))
+        .toContain(stripIndent`
+        declare const document: TypedDocumentNode<DetailsQueryData, {
+          [key: string]: never;
+        }>;
+        export default document;
+      `);
+    });
+
+    it('exports a TypedDocumentNode as the default export with the operation data type annotation and variables', () => {
+      const schema = buildSchema(`
+        type Query {
+          identity(aString: String!): String!
+        }
+      `);
+
+      expect(
+        print(
+          'query Details($aString: String!) { identity(aString: $string) }',
+          schema,
+          options,
+        ),
+      ).toContain(stripIndent`
+        declare const document: TypedDocumentNode<DetailsQueryData, DetailsQueryData.Variables>;
+        export default document;
+      `);
+    });
+  });
+
   describe('documentWithTypedDocumentNode', () => {
-    const typedDocumentNodeOptions = {
+    const options = {
       printOptions: {
         exportFormat: ExportFormat.DocumentWithTypedDocumentNode,
       },
@@ -1791,9 +1856,7 @@ describe('printDocument()', () => {
         }
       `);
 
-      expect(
-        print('query Details { name }', schema, typedDocumentNodeOptions),
-      ).toContain(
+      expect(print('query Details { name }', schema, options)).toContain(
         'import { DocumentNode } from "graphql-typed";\nimport { TypedDocumentNode } from "@graphql-typed-document-node/core";',
       );
     });
@@ -1805,7 +1868,7 @@ describe('printDocument()', () => {
         }
       `);
 
-      expect(print('query Details { name }', schema, typedDocumentNodeOptions))
+      expect(print('query Details { name }', schema, options))
         .toContain(stripIndent`
         declare const document: DocumentNode<DetailsQueryData, never, DetailsQueryPartialData> & TypedDocumentNode<DetailsQueryData, {
           [key: string]: never;
@@ -1825,7 +1888,7 @@ describe('printDocument()', () => {
         print(
           'query Details($aString: String!) { identity(aString: $string) }',
           schema,
-          typedDocumentNodeOptions,
+          options,
         ),
       ).toContain(stripIndent`
         declare const document: DocumentNode<DetailsQueryData, DetailsQueryData.Variables, DetailsQueryPartialData> & TypedDocumentNode<DetailsQueryData, DetailsQueryData.Variables>;

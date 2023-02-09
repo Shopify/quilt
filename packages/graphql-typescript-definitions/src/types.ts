@@ -7,6 +7,7 @@ export enum EnumFormat {
 
 export enum ExportFormat {
   Document = 'document',
+  TypedDocumentNode = 'typedDocumentNode',
   DocumentWithTypedDocumentNode = 'documentWithTypedDocumentNode',
   Simple = 'simple',
 }
