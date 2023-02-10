@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.3.1
+
+### Patch Changes
+
+- [#2561](https://github.com/Shopify/quilt/pull/2561) [`581271848`](https://github.com/Shopify/quilt/commit/5812718484445732a4be49ded1f7047e6df39751) Thanks [@BPScott](https://github.com/BPScott)! - Republish to fix issue with index entrypoint in 3.3.0
+
 ## 3.3.0
 
 ### Minor Changes
