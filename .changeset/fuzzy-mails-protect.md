@@ -6,7 +6,7 @@ Update Apollo from v2 to v3. Replace dependencies on `apollo-client`, `apollo-ca
 
 Remove `assumeImmutableResults` and `unionOrIntersectionTypes` keys from `createGraphQLFactory()`'s options, as these concepts no longer exist in Apollo 3. Cache behavior can be controlled by setting values within the `cacheOptions` key, which is passed to [the cache constructor](https://www.apollographql.com/docs/react/caching/cache-configuration/#configuration-options). Use [`possibleTypes`](https://www.apollographql.com/docs/react/migrating/apollo-client-3-migration/#breaking-cache-changes) in place of `unionOrIntersectionTypes`.
 
-Remove the ability to filter operations using `operationName` (e.g. graphQL.operations.all({operationName: 'SampleQuery'})`). Now operations must be filtered using `query`or`mutation` keys.
+Remove the ability to filter operations using `operationName` (e.g. `graphQL.operations.all({operationName: 'SampleQuery'})`). Now operations must be filtered using `query` or `mutation` keys.
 
 Add `graphQL.waitForQueryUpdates()` method to wait for batched cache updates that occur as of Apollo 3.6.0. This is useful if you need to await on the results of a `fetchMore` call.
 
