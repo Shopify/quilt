@@ -2,7 +2,6 @@
   "extends": "./config/typescript/tsconfig.base.json",
   "compilerOptions": {"noEmit": true},
   "include": [
-    "./loom.config.ts",
     "./config/**/*.ts",
     "./tests/**/*.ts",
     "./packages/**/*.ts",

@@ -45,6 +45,7 @@ packages/*/*.esnext
 packages/*/*.mjs
 packages/*/*.js
 !packages/*/.eslintrc.js
+!packages/*/rollup.config.mjs
 
 .package-build-cache
 

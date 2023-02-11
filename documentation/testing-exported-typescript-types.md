@@ -83,16 +83,7 @@ Notice we import the types from our build folder. TSD is expecting to assert aga
 
 ## How does it work?
 
-TSD is run as a part of the build and any errors will be logged and cause your build to fail. Since TSD is testing `built` typescript typings files, loom will first build the package, and then tsd will test against the exported types.
-
-All quilt packages reference a `types` property in their package.json. This is the typings file TSD will test against. As mentioned above, this is where you should import your types from.
-
-```json
-{
-  "name": "@shopify/foo",
-  "types": "./build/ts/index.d.ts"
-}
-```
+TSD is run as a part of the jest tests and any errors will be logged and cause your test suite to fail.
 
 ## Why not just use `yarn type-check`?
 

@@ -16,11 +16,6 @@ module.exports = function (api) {
           ],
         ],
       },
-      // Target current node for loom files
-      {
-        test: ['config/loom/**/*.ts', '**/loom.config.ts'],
-        targets: 'current node',
-      },
     ],
   };
 };

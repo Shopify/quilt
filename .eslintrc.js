@@ -80,7 +80,6 @@ module.exports = {
       files: [
         '**/tests/**/*.ts',
         '**/tests/**/*.tsx',
-        '**/loom.config.ts',
         '**/*.test-d.ts',
         '**/*.test-d.tsx',
       ],
@@ -105,12 +104,6 @@ module.exports = {
         'prettier/prettier': 'off',
         'import/newline-after-import': 'off',
         'import/order': 'off',
-      },
-    },
-    {
-      files: ['**/loom.config.ts', 'config/loom/index.ts'],
-      rules: {
-        'babel/no-unused-expressions': 'off',
       },
     },
   ],
