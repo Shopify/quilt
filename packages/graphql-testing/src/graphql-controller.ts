@@ -1,9 +1,7 @@
-import {
-  ApolloClient,
-  ApolloLink,
-  InMemoryCacheConfig,
-  InMemoryCache,
-} from '@apollo/client';
+import {InMemoryCacheConfig} from '@apollo/client';
+import {ApolloClient} from '@apollo/client/core/ApolloClient.js';
+import {InMemoryCache} from '@apollo/client/cache/inmemory/inMemoryCache.js';
+import {ApolloLink} from '@apollo/client/link/core/index.js';
 
 import {MockLink, InflightLink} from './links';
 import {Operations} from './operations';

@@ -1,10 +1,6 @@
-import {
-  ApolloLink,
-  Observable,
-  Operation,
-  NextLink,
-  FetchResult,
-} from '@apollo/client';
+import {NextLink, FetchResult, Operation} from '@apollo/client';
+import {ApolloLink} from '@apollo/client/link/core/index.js';
+import {Observable} from '@apollo/client/utilities/observables/Observable.js';
 
 import {MockRequest} from '../types';
 

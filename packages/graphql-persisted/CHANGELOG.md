@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.0-20230214212250
+
+### Major Changes
+
+- [#2302](https://github.com/Shopify/quilt/pull/2302) [`7825194d9`](https://github.com/Shopify/quilt/commit/7825194d9e02b14e6420358630a80bb4fd4c256a) Thanks [@vsumner](https://github.com/vsumner)! - Update Apollo from v2 to v3. Replace dependencies on `apollo-client`, `apollo-cache-inmemory` and `apollo-link` with `@apollo/client`. When updating to Apollo v3, `@shopify/graphql-persisted`, `@shopify/graphql-testing`, `@shopify/react-graphql` and `@shopify/react-graphql-universal-provider` should all be updated at the same time, and you should follow the [Apollo3 migration guide](https://www.apollographql.com/docs/react/migrating/apollo-client-3-migration/).
+
 ## 4.0.4
 
 ## 4.0.3
