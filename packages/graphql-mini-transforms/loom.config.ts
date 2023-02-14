@@ -7,5 +7,6 @@ export default createPackage((pkg) => {
   pkg.entry({name: 'jest', root: './src/jest.ts'});
   pkg.entry({name: 'jest-simple', root: './src/jest-simple.ts'});
   pkg.entry({name: 'webpack-loader', root: './src/webpack-loader.ts'});
+  pkg.entry({name: 'esbuild-plugin', root: './src/esbuild-plugin.ts'});
   pkg.use(quiltPackage());
 });
