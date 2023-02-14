@@ -48,10 +48,17 @@ By default, the mock client will hold all the graphQL operations triggered by yo
 await graphQL.resolveAll();
 ```
 
-You can also pass a `query` or `mutation` option to `resolveAll`, which will filter the pending operations and only resolve the ones with a matching operation.
+You can also pass a `query`, `mutation` or `filter` option to `resolveAll`. `query` and `mutation` will filter the pending operations and only resolve the ones with a matching operation. `filter` allows you to write your own custom filter function based upon the operation, for instace this will allow you to filter by the variables passed to the query. If `filter` is passed in addition to `query` or `mutation` then both filters shall be applied.
 
 ```js
 await graphQL.resolveAll({query: petQuery});
+```
+
+```js
+await graphQL.resolveAll({
+  query: petQuery,
+  filter: (operation) => operation.variables.id === '1',
+});
 ```
 
 Note that, until a GraphQL operation has been resolved, it does not appear in the `operations` list described below.
