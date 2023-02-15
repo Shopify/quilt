@@ -77,6 +77,17 @@ statsdClient.increment(
 );
 ```
 
+Increment can also be supplied a value to increment the metric by.
+
+```javascript
+statsdClient.increment(
+  'myCounter',
+  ['navigation', 'complete', 'performance'], // user-defined tags to go with the data,
+  {}, // additional options
+  4, // value to increment by
+);
+```
+
 #### `close`
 
 Close statsd client.

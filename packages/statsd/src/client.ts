@@ -127,11 +127,16 @@ export class StatsDClient {
     });
   }
 
-  increment(stat: string | string[], tags?: Tags, options: MetricOptions = {}) {
+  increment(
+    stat: string | string[],
+    tags?: Tags,
+    options: MetricOptions = {},
+    value = 1,
+  ) {
     return new Promise<void>((resolve) => {
       this.statsd.increment(
         stat,
-        1,
+        value,
         options.sampleRate,
         this.normalizeTags(tags),
         this.createCallback(resolve),
