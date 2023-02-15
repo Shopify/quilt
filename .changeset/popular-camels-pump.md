@@ -2,4 +2,4 @@
 '@shopify/graphql-testing': minor
 ---
 
-Ad support for ESM
+Add support for ESM
