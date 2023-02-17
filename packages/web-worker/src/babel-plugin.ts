@@ -10,6 +10,14 @@ export const DEFAULT_PACKAGES_TO_PROCESS = {
       wrapperModule: resolve(__dirname, 'wrappers/expose.js.raw'),
     },
   ] as ProcessableImport[],
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  '@shopify/react-web-worker': [
+    {name: 'createPlainWorkerFactory'},
+    {
+      name: 'createWorkerFactory',
+      wrapperModule: resolve(__dirname, 'wrappers/expose.js.raw'),
+    },
+  ] as ProcessableImport[],
 };
 
 const loader = resolve(__dirname, 'webpack-parts/loader');
