@@ -11,6 +11,7 @@ interface Props {
 export default function Serialize({id, data}: Props) {
   const serialized = jsesc(data, {
     isScriptContext: true,
+    json: true,
   });
 
   return (
