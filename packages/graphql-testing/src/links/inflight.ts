@@ -1,3 +1,4 @@
+/* eslint-disable promise/catch-or-return */
 import {
   ApolloLink,
   Observable,
@@ -32,12 +33,18 @@ export class InflightLink extends ApolloLink {
       resolver = resolve;
     });
 
+    let operationsCompleteResolver: () => void;
+
+    const operationsCompletePromise = new Promise<void>((resolve) => {
+      operationsCompleteResolver = resolve;
+    });
+
     const request = {
       operation,
-      resolve: () => {
+      resolve: async () => {
         resolver();
+        await operationsCompletePromise;
         this.options.onResolved(request);
-        return promise;
       },
     };
 
@@ -47,15 +54,18 @@ export class InflightLink extends ApolloLink {
       return nextLink(operation).subscribe({
         complete() {
           const complete = observer.complete.bind(observer);
-          promise.then(complete).catch(complete);
+          promise
+            .then(complete)
+            .catch(complete)
+            .finally(operationsCompleteResolver);
         },
         next(result) {
           const next = observer.next.bind(observer, result);
-          promise.then(next).catch(next);
+          promise.then(next).catch(next).finally(operationsCompleteResolver);
         },
         error(error) {
           const fail = observer.error.bind(observer, error);
-          promise.then(fail).catch(fail);
+          promise.then(fail).catch(fail).finally(operationsCompleteResolver);
         },
       });
     });
