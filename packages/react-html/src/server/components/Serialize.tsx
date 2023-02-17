@@ -1,5 +1,5 @@
 import React from 'react';
-import serialize from 'serialize-javascript';
+import jsesc from 'jsesc';
 
 import {SERIALIZE_ATTRIBUTE} from '../../utilities';
 
@@ -9,10 +9,14 @@ interface Props {
 }
 
 export default function Serialize({id, data}: Props) {
+  const serialized = jsesc(data, {
+    isScriptContext: true,
+  });
+
   return (
     <script
       type="text/json"
-      dangerouslySetInnerHTML={{__html: serialize(data, {isJSON: true})}}
+      dangerouslySetInnerHTML={{__html: serialized}}
       {...{[SERIALIZE_ATTRIBUTE]: id}}
     />
   );
