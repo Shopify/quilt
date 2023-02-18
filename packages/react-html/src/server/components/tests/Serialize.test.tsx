@@ -1,5 +1,4 @@
 import React from 'react';
-import serializeJavaScript from 'serialize-javascript';
 import {mount} from '@shopify/react-testing';
 
 import Serialize from '../Serialize';
@@ -23,14 +22,20 @@ describe('<Serialize />', () => {
   describe('data', () => {
     it('serializes the content as the child contents of the script tag', () => {
       const data = {
-        foo: {bar: {baz: 'window.location = "http://dangerous.com"'}},
+        foo: {
+          bar: {
+            baz: 'window.location = "http://example.com"',
+          },
+        },
+        xss: '</script><script>alert("hax")</script>',
       };
 
       const serialize = mount(<Serialize id={id} data={data} />);
 
       expect(serialize).toContainReactComponent('script', {
         dangerouslySetInnerHTML: {
-          __html: serializeJavaScript(data, {isJSON: true}),
+          __html:
+            '{"foo":{"bar":{"baz":"window.location = \\"http://example.com\\""}},"xss":"<\\/script><script>alert(\\"hax\\")<\\/script>"}',
         },
       });
     });
