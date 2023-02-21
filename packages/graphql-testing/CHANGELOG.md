@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.5.0
+
+### Minor Changes
+
+- [#2543](https://github.com/Shopify/quilt/pull/2543) [`7c8b83134`](https://github.com/Shopify/quilt/commit/7c8b831346ec84150dd8ed178741b39408fb0fe8) Thanks [@acmertz](https://github.com/acmertz)! - Update resolveAll() to accept a custom filter option to selectively resolve requests.
+
 ## 6.4.0
 
 ### Minor Changes
