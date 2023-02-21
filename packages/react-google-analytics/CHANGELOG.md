@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.0.9
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @shopify/react-import-remote@4.1.1
+
 ## 5.0.8
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # Changelog
 
+## 13.0.1
+
+### Patch Changes
+
+- [#2570](https://github.com/Shopify/quilt/pull/2570) [`79adf2fc8`](https://github.com/Shopify/quilt/commit/79adf2fc8fc2a1bced03dee91aa2f554fe58bf9d) Thanks [@atesgoral](https://github.com/atesgoral)! - Less aggressive escaping of script tag content
+
 ## 13.0.0
 
 ### Major Changes

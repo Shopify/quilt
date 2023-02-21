@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.0.1
+
+### Patch Changes
+
+- [#2567](https://github.com/Shopify/quilt/pull/2567) [`85728a2f3`](https://github.com/Shopify/quilt/commit/85728a2f3a96ccba30a1f2ef0ca1ea3f6572b073) Thanks [@alexandcote](https://github.com/alexandcote)! - Fixing an issue with the babel-plugin when user try to import `createWorkerFactory` or `createPlainWorkerFactory` from `@shopify/react-web-worker`
+
 ## 6.0.0
 
 ### Major Changes
