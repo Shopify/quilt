@@ -101,8 +101,6 @@ describe('<Prefetch />', () => {
     });
 
     expect(prefetcher).not.toContainReactComponent(MockComponent);
-
-    // expect(prefetcher).toContainReactComponent(MockComponent);
   });
 
   it('prefetches a component when focusing on an element with a matching href for enough time', () => {
