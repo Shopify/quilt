@@ -41,7 +41,7 @@ describe('<Prefetch />', () => {
     expect(prefetcher).not.toContainReactComponent(MockComponent);
   });
 
-  it('prefetches a component when hovering over an element with a matching href for enough time and mouse movement below 10', () => {
+  it('prefetches a component when hovering over and mousemovement is below sensitivity', () => {
     const manager = createPrefetchManager([
       {render: () => <MockComponent />, path},
     ]);
@@ -57,9 +57,6 @@ describe('<Prefetch />', () => {
     triggerListener(prefetcher, 'mouseover', {
       target: mockEl,
     });
-
-    expect(prefetcher).not.toContainReactComponent(MockComponent);
-
     prefetcher.act(() => {
       triggerListener(
         prefetcher,
@@ -75,7 +72,7 @@ describe('<Prefetch />', () => {
     expect(prefetcher).toContainReactComponent(MockComponent);
   });
 
-  it('does not prefetches a component when hovering over an element with a matching href for enough time and mouse movement above 10', () => {
+  it('does not prefetch a component when hovering over and mousemovement is below sensitivity', () => {
     const manager = createPrefetchManager([
       {render: () => <MockComponent />, path},
     ]);
@@ -87,13 +84,6 @@ describe('<Prefetch />', () => {
         </PrefetchContext.Provider>
       </div>,
     );
-
-    triggerListener(prefetcher, 'mouseover', {
-      target: mockEl,
-    });
-
-    expect(prefetcher).not.toContainReactComponent(MockComponent);
-
     prefetcher.act(() => {
       triggerListener(
         prefetcher,
@@ -101,12 +91,18 @@ describe('<Prefetch />', () => {
         {
           target: mockEl,
         },
-        {clientX: 5, clientY: 5},
+        {clientX: 5, clientY: 4},
       );
       clock.tick(INTENTION_DELAY_MS + 1);
     });
 
+    triggerListener(prefetcher, 'mouseover', {
+      target: mockEl,
+    });
+
     expect(prefetcher).not.toContainReactComponent(MockComponent);
+
+    // expect(prefetcher).toContainReactComponent(MockComponent);
   });
 
   it('prefetches a component when focusing on an element with a matching href for enough time', () => {

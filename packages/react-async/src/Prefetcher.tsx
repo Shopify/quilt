@@ -15,7 +15,7 @@ interface NavigatorWithConnection extends Navigator {
   connection: {saveData: boolean};
 }
 
-export const INTENTION_DELAY_MS = 2000;
+export const INTENTION_DELAY_MS = 150;
 export const SENSITIVITY = 10;
 
 class ConnectedPrefetcher extends React.PureComponent<Props, State> {
@@ -23,11 +23,12 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
   private timeout?: ReturnType<typeof setTimeout>;
   private timeoutUrl?: URL;
   private prefetchAgressively = shouldPrefetchAggressively();
-
-  private x = 0;
-  private y = 0;
-  private pX = 0;
-  private pY = 0;
+  // Initial position of the mouse
+  private iX = 0;
+  private iY = 0;
+  // Final position of the mouse
+  private fX = 0;
+  private fY = 0;
 
   render() {
     const {url} = this.state;
@@ -90,8 +91,10 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
   }
 
   private handleMouseMove = ({clientX, clientY}: MouseEvent) => {
-    this.x = clientX;
-    this.y = clientY;
+    if (!this.timeout) {
+      this.iX = clientX;
+      this.iY = clientY;
+    }
   };
 
   private handlePressStart = ({target}: MouseEvent) => {
@@ -109,17 +112,17 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
   };
 
   private compare = (url: URL | undefined) => {
-    const {x, y} = this;
+    const {iX, iY} = this;
     if (this.timeout) {
       this.clearTimeout();
     }
     // Calculate the change of the mouse position
     // If it is smaller than the sensitivity, we can assume that the user is intending on visiting the link
-    if (Math.abs(this.pX - x) + Math.abs(this.pY - y) < SENSITIVITY) {
+    if (Math.abs(this.fX - iX) + Math.abs(this.fY - iY) < SENSITIVITY) {
       this.setState({url});
     } else {
-      this.pX = x;
-      this.pY = y;
+      this.fX = iX;
+      this.fY = iY;
       this.timeout = setTimeout(() => this.compare(url), INTENTION_DELAY_MS);
     }
   };
@@ -181,8 +184,15 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
     }
 
     this.timeoutUrl = url;
-
-    this.compare(url);
+    // If the event is a mouse event, record initial mouse position upon entering the element
+    if (event instanceof MouseEvent) {
+      this.compare(url);
+    } else {
+      this.timeout = setTimeout(() => {
+        this.clearTimeout();
+        this.setState({url});
+      }, INTENTION_DELAY_MS);
+    }
   };
 
   private clearTimeout() {
