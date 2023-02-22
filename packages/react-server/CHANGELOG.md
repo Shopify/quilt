@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.1.2
+
+### Patch Changes
+
+- [#2574](https://github.com/Shopify/quilt/pull/2574) [`0385b8f6e`](https://github.com/Shopify/quilt/commit/0385b8f6e3fa092ceb490408fbca0085280e4e1a) Thanks [@atesgoral](https://github.com/atesgoral)! - Revert replacement of serialize-javascript with jsesc due to performance regression
+
+- Updated dependencies [[`0385b8f6e`](https://github.com/Shopify/quilt/commit/0385b8f6e3fa092ceb490408fbca0085280e4e1a)]:
+  - @shopify/react-html@13.0.2
+  - @shopify/react-network@5.0.11
+  - @shopify/react-cookie@2.0.11
+
 ## 4.1.1
 
 ### Patch Changes
