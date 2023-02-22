@@ -61,7 +61,7 @@ describe('createServer()', () => {
     const response = await wrapper.fetch('/');
 
     expect(await response.clone().text()).toContain(
-      `<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="referrer" content="never"/></head><body><div id="app"><div>markup</div></div><script type="text/json" data-serialized-id="quilt-data">null</script></body></html>`,
+      `<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="referrer" content="never"/></head><body><div id="app"><div>markup</div></div><script type="text/json" data-serialized-id="quilt-data">undefined</script></body></html>`,
     );
   });
 
