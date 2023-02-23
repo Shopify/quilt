@@ -10,6 +10,9 @@ export function createBugsnagClient(options: Config) {
     // eslint-disable-next-line no-process-env
     releaseStage: process.env.NODE_ENV,
     autoTrackSessions: false,
+    // Still report inline script errors, but don't capture augmented stack traces (very expensive):
+    // See https://docs.google.com/document/d/1btW6nWLW92R5fRDtMb6PRXe19Sj1aBkJiBh_HYtPKxw/edit
+    trackInlineScripts: false,
     enabledReleaseStages: ['production', 'staging'],
     plugins: [new BugsnagPluginReact()],
     maxBreadcrumbs: 40,
