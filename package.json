@@ -48,7 +48,6 @@
     "@rollup/plugin-commonjs": "^19.0.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
     "@shopify/app-bridge": "^2.0.3",
-    "@shopify/browserslist-config": "^3.0.0",
     "@shopify/eslint-plugin": "^42.0.1",
     "@tsconfig/node-lts-strictest-esm": "^18.12.1",
     "@tsd/typescript": "^4.9.5",

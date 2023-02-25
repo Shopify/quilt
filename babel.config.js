@@ -4,7 +4,6 @@ module.exports = function (api) {
   const development = envName === 'development' || envName === 'test';
 
   return {
-    targets: getTargetsForEnv(envName),
     presets: [
       [
         '@babel/preset-env',
@@ -58,11 +57,3 @@ module.exports = function (api) {
     ],
   };
 };
-
-function getTargetsForEnv(envName) {
-  if (envName == 'test') {
-    return 'current node';
-  }
-
-  return {};
-}

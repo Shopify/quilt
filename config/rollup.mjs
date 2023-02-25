@@ -25,9 +25,7 @@ export function buildConfig(
     path.resolve(cwd, filePath),
   );
 
-  const targets = isIsomorphic
-    ? 'extends @shopify/browserslist-config, node 14.17.0'
-    : 'node 14.17.0';
+  const browserslistEnv = isIsomorphic ? 'production' : 'server-only';
 
   const configs = [];
 
@@ -36,7 +34,7 @@ export function buildConfig(
   if (commonjs || esmodules) {
     configs.push({
       input,
-      plugins: buildPlugins({targets, packageJsonPath}),
+      plugins: buildPlugins({browserslistEnv, packageJsonPath}),
       output: buildOutputs({
         commonjs: path.resolve(cwd, 'build/cjs'),
         esmodules: path.resolve(cwd, 'build/esm'),
@@ -47,10 +45,7 @@ export function buildConfig(
   if (esnext) {
     configs.push({
       input,
-      plugins: buildPlugins({
-        targets: ['last 1 chrome versions'],
-        packageJsonPath,
-      }),
+      plugins: buildPlugins({browserslistEnv: 'esnext', packageJsonPath}),
       output: buildOutputs({esnext: path.resolve(cwd, 'build/esnext')}),
     });
   }
@@ -77,8 +72,8 @@ export function buildConfig(
           // Options that may be present on the `babelConfig` object but
           // we want to override
           envName: 'production',
-          // @ts-expect-error targets is a valid babel option but @types/babel__core doesn't know that yet
-          targets: '',
+          // @ts-expect-error browserslistEnv is a valid babel option but @types/babel__core doesn't know that yet
+          browserslistEnv,
         }),
 
         entrypointsPlugin(entriesMapping),
@@ -94,7 +89,7 @@ export function buildConfig(
   return configs;
 }
 
-function buildPlugins({packageJsonPath, targets}) {
+function buildPlugins({packageJsonPath, browserslistEnv}) {
   return [
     externals({deps: true, packagePath: packageJsonPath}),
     nodeResolve({extensions: ['.js', '.jsx', '.ts', '.tsx']}),
@@ -109,8 +104,8 @@ function buildPlugins({packageJsonPath, targets}) {
       // Options that may be present on the `babelConfig` object but
       // we want to override
       envName: 'production',
-      // @ts-expect-error targets is a valid babel option but @types/babel__core doesn't know that yet
-      targets,
+      // @ts-expect-error browserslistEnv is a valid babel option but @types/babel__core doesn't know that yet
+      browserslistEnv,
     }),
   ];
 }
