@@ -39,7 +39,7 @@ tmp
 *.tsbuildinfo
 
 # Sewing-Kit builds and entrypoints
-.loom
+.cache
 packages/*/build
 packages/*/*.esnext
 packages/*/*.mjs

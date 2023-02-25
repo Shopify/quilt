@@ -15,7 +15,7 @@
     "**/node_modules": true,
     "**/.DS_Store": true,
     "packages/*/build": true,
-    ".{dev,shadowenv.d,loom}": true
+    ".{cache,dev,shadowenv.d}": true
   },
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,

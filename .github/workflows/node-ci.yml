@@ -35,15 +35,15 @@ jobs:
           check-latest: true
 
       - uses: actions/cache@v3
-        name: Restore loom cache
+        name: Restore cache
         with:
           path: |
-            .loom
+            .cache
             packages/*/build/ts
             packages/*/build/*.tsbuildinfo
-          key: ${{ runner.os }}-node${{ matrix.node-version }}-loom-v1-${{ github.sha }}
+          key: ${{ runner.os }}-node${{ matrix.node-version }}-cache-v1-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-node${{ matrix.node-version }}-loom-v1-
+            ${{ runner.os }}-node${{ matrix.node-version }}-cache-v1-
 
       - name: 📦 Install dependencies
         run: yarn --frozen-lockfile
