@@ -1,8 +1,23 @@
 {
-  "extends": "@shopify/typescript-configs/library.json",
   "compilerOptions": {
+    // Project and build output
     "composite": true,
     "emitDeclarationOnly": true,
+    "declarationMap": true,
+    "lib": ["dom", "dom.iterable", "scripthost", "es2020"],
+    "target": "es2020",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "jsx": "react",
+    "experimentalDecorators": true,
+
+    // Strictness
+    "skipLibCheck": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true,
     // Strict mode enables these strict*, use* and noImplicit* options.
     // Disable them temporarily while we fix up problematic behaviour from
     // the time before we wanted strict mode
