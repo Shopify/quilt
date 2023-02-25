@@ -14,8 +14,8 @@
     "**/.git": true,
     "**/node_modules": true,
     "**/.DS_Store": true,
-    "packages/*/{.loom,build}": true,
-    ".{dev,shadowenv.d,loom}": true
+    "packages/*/build": true,
+    ".{cache,dev,shadowenv.d}": true
   },
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,

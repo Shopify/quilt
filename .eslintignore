@@ -2,7 +2,7 @@ node_modules
 coverage
 templates
 gems/**/dummy
-.loom
+.cache
 packages/*/build
 **/*.js
 **/*.esnext

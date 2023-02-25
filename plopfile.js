@@ -67,8 +67,8 @@ module.exports = function (plop) {
       },
       {
         type: 'add',
-        path: 'packages/{{name}}/loom.config.ts',
-        templateFile: 'templates/loom.templateconfig.hbs.ts',
+        path: 'packages/{{name}}/rollup.config.mjs',
+        templateFile: 'templates/rollup.templateconfig.hbs.mjs',
       },
       {
         type: 'modify',
@@ -121,13 +121,12 @@ module.exports = function (plop) {
       }
       packageJSON.exports = {'./': './'};
       entrypoints.forEach((entrypoint) => {
-        packageJSON.exports[
-          entrypoint === 'index' ? '.' : `./${entrypoint}`
-        ] = {
-          import: `./${entrypoint}.mjs`,
-          require: `./${entrypoint}.js`,
-          esnext: `./${entrypoint}.esnext`,
-        };
+        packageJSON.exports[entrypoint === 'index' ? '.' : `./${entrypoint}`] =
+          {
+            import: `./${entrypoint}.mjs`,
+            require: `./${entrypoint}.js`,
+            esnext: `./${entrypoint}.esnext`,
+          };
       });
 
       packageJSON.files = entrypoints.reduce(

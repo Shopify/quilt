@@ -39,12 +39,13 @@ tmp
 *.tsbuildinfo
 
 # Sewing-Kit builds and entrypoints
-.loom
+.cache
 packages/*/build
 packages/*/*.esnext
 packages/*/*.mjs
 packages/*/*.js
 !packages/*/.eslintrc.js
+!packages/*/rollup.config.mjs
 
 .package-build-cache
 

@@ -103,7 +103,7 @@ function typesProject(packageName, overrideOptions = {}) {
 }
 
 module.exports = {
-  cacheDirectory: `${root}/.loom/cache/jest`,
+  cacheDirectory: `${root}/.cache/jest`,
   watchPlugins: [
     'jest-watch-typeahead/filename',
     'jest-watch-typeahead/testname',
