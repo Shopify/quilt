@@ -2912,6 +2912,11 @@
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-2.0.0.tgz#f544a148d3ab35801c1f633a7441fd87c2e484bf"
   integrity sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==
 
+"@tsconfig/node-lts-strictest-esm@^18.12.1":
+  version "18.12.1"
+  resolved "https://registry.yarnpkg.com/@tsconfig/node-lts-strictest-esm/-/node-lts-strictest-esm-18.12.1.tgz#6525fec53f46ee6061d3b30f831b5624118a9e64"
+  integrity sha512-LvBLmaC6Q/txTddLc11OeMHF9XjJFzlilkETJuvBlUvHy9pPiMsoH3nxWZM1FMSO53zp4mJP6gzOzxKEq0me7Q==
+
 "@tsd/typescript@^4.9.5":
   version "4.9.5"
   resolved "https://registry.yarnpkg.com/@tsd/typescript/-/typescript-4.9.5.tgz#85daafcf51f4af92bd8caf0e82b655ceaf948f99"

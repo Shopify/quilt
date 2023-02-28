@@ -1,30 +1,35 @@
 {
+  "extends": "@tsconfig/node-lts-strictest-esm/tsconfig.json",
   "compilerOptions": {
     // Project and build output
     "composite": true,
     "emitDeclarationOnly": true,
     "declarationMap": true,
-    "lib": ["dom", "dom.iterable", "scripthost", "es2020"],
-    "target": "es2020",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
+    "lib": ["dom", "dom.iterable", "es2022"],
     "isolatedModules": true,
     "jsx": "react",
     "experimentalDecorators": true,
 
     // Strictness
-    "skipLibCheck": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "strict": true,
-    // Strict mode enables these strict*, use* and noImplicit* options.
+    // Strict mode enables these options.
     // Disable them temporarily while we fix up problematic behaviour from
     // the time before we wanted strict mode
     "strictBindCallApply": false,
     "strictFunctionTypes": false,
     "noImplicitAny": false,
     "useUnknownInCatchVariables": false,
-    "typeRoots": ["../../node_modules/@types"]
+    // These values are are not controled by strict mode, though they are
+    // enabled in the 'strictest' config that we inherit from.
+    // These reach a level of pedanticness we aren't worried about
+    // importsNotUsedAsValues has 50 violations, but they're trivial fixes
+    "importsNotUsedAsValues": "remove",
+    // allowUnreachableCode has 3 violations, should be a quick fix
+    "allowUnreachableCode": true,
+    "noImplicitOverride": false,
+    // noImplicitReturns has 8 violations, should be a quick fix
+    "noImplicitReturns": false,
+    "noPropertyAccessFromIndexSignature": false,
+    "noUncheckedIndexedAccess": false,
+    "exactOptionalPropertyTypes": false
   }
 }
