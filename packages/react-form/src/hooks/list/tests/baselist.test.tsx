@@ -214,6 +214,7 @@ describe('useBaseList', () => {
             if (value.length < 1) {
               return 'Price must be specified';
             }
+            return undefined;
           },
         };
 
@@ -383,6 +384,7 @@ describe('useBaseList', () => {
             if (anyDupes) {
               return 'No duplicates allowed';
             }
+            return undefined;
           },
         };
 

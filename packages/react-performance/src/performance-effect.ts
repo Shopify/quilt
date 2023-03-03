@@ -23,6 +23,8 @@ export function usePerformanceEffect(
     if (cleanup) {
       return cleanup;
     }
+
+    return undefined;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [performance, ...dependencies]);
 }

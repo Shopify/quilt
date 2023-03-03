@@ -53,7 +53,7 @@ export default function UniversalGoogleAnalytics({
           onError(googleAnalytics);
         }
 
-        return null;
+        return;
       }
 
       googleAnalytics('create', account, 'auto', options);

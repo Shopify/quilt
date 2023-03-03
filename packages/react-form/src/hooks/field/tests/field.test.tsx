@@ -442,6 +442,7 @@ describe('useField', () => {
           if (someOtherFieldValue === 'radical' && value === 'pants') {
             return 'no radical pants allowed';
           }
+          return undefined;
         },
       };
 
