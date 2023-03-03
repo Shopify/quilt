@@ -41,7 +41,4 @@ export function getExtensionFromMimeType(mimeType: MimeType) {
     case MimeType.Svg:
       return '.svg';
   }
-
-  const nope: never = mimeType;
-  return nope;
 }

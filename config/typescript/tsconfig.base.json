@@ -22,8 +22,6 @@
     // These reach a level of pedanticness we aren't worried about
     // importsNotUsedAsValues has 50 violations, but they're trivial fixes
     "importsNotUsedAsValues": "remove",
-    // allowUnreachableCode has 3 violations, should be a quick fix
-    "allowUnreachableCode": true,
     "noImplicitOverride": false,
     // noImplicitReturns has 8 violations, should be a quick fix
     "noImplicitReturns": false,

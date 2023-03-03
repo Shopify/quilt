@@ -48,7 +48,6 @@ export default function shopifyGraphQLProxy(proxyOptions: ProxyOptions) {
 
     if (accessToken == null || shop == null) {
       ctx.throw(403, 'Unauthorized');
-      return;
     }
 
     await proxy(shop, {
