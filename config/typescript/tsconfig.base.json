@@ -8,7 +8,6 @@
     "lib": ["dom", "dom.iterable", "es2022"],
     "isolatedModules": true,
     "jsx": "react",
-    "experimentalDecorators": true,
 
     // Strictness
     // Strict mode enables these options.
