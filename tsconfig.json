@@ -62,7 +62,6 @@
     {"path": "./packages/react-server"},
     {"path": "./packages/react-shortcuts"},
     {"path": "./packages/react-testing"},
-    {"path": "./packages/react-tracking-pixel"},
     {"path": "./packages/react-universal-provider"},
     {"path": "./packages/react-web-worker"},
     {"path": "./packages/semaphore"},

@@ -4,7 +4,7 @@
   "license": "MIT",
   "description": "Allows React apps to easily embed tracking pixel iframes",
   "main": "index.js",
-  "types": "./build/ts/index.d.ts",
+  "sideEffects": false,
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -22,29 +22,5 @@
   "engines": {
     "node": "^14.17.0 || >=16.0.0"
   },
-  "dependencies": {
-    "@shopify/react-html": "^13.0.2"
-  },
-  "peerDependencies": {
-    "react": ">=16.8.0 <19.0.0"
-  },
-  "files": [
-    "build/",
-    "!build/*.tsbuildinfo",
-    "!build/ts/**/tests/",
-    "index.js",
-    "index.mjs",
-    "index.esnext"
-  ],
-  "sideEffects": false,
-  "module": "index.mjs",
-  "esnext": "index.esnext",
-  "exports": {
-    ".": {
-      "types": "./build/ts/index.d.ts",
-      "esnext": "./index.esnext",
-      "import": "./index.mjs",
-      "require": "./index.js"
-    }
-  }
+  "files": []
 }
