@@ -1,4 +1,4 @@
-import {memoize} from '@shopify/decorators';
+import {memoize} from '@shopify/function-enhancers';
 
 import {formatDate} from './utilities';
 import {sanitiseDateString} from './sanitise-date-string';
@@ -60,8 +60,7 @@ function getWeekdayValue(weekday: string) {
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
 class DateTimeParts {
-  @memoize(dateTimeCacheKey('year'))
-  static getYear(date: Date, timeZone?: string) {
+  static getYear = memoize((date: Date, timeZone?: string) => {
     if (isNaN(date.valueOf())) {
       throw new Error(
         `Unable to parse date: ${date} for timezone: ${timeZone}`,
@@ -82,10 +81,9 @@ class DateTimeParts {
     }
 
     return year;
-  }
+  }, dateTimeCacheKey('year'));
 
-  @memoize(dateTimeCacheKey('month'))
-  static getMonth(date: Date, timeZone?: string) {
+  static getMonth = memoize((date: Date, timeZone?: string) => {
     const monthString = formatDate(date, 'en', {
       timeZone,
       month: 'numeric',
@@ -100,10 +98,9 @@ class DateTimeParts {
     }
 
     return month;
-  }
+  }, dateTimeCacheKey('month'));
 
-  @memoize(dateTimeCacheKey('day'))
-  static getDay(date: Date, timeZone?: string) {
+  static getDay = memoize((date: Date, timeZone?: string) => {
     const dayString = formatDate(date, 'en', {
       timeZone,
       day: 'numeric',
@@ -118,10 +115,9 @@ class DateTimeParts {
     }
 
     return day;
-  }
+  }, dateTimeCacheKey('day'));
 
-  @memoize(dateTimeCacheKey('weekday'))
-  static getWeekday(date: Date, timeZone?: string) {
+  static getWeekday = memoize((date: Date, timeZone?: string) => {
     const weekdayString = formatDate(date, 'en', {
       timeZone,
       weekday: 'long',
@@ -130,10 +126,9 @@ class DateTimeParts {
     const sanitisedWeekdayString = sanitiseDateString(weekdayString);
 
     return getWeekdayValue(sanitisedWeekdayString);
-  }
+  }, dateTimeCacheKey('weekday'));
 
-  @memoize(dateTimeCacheKey('hour'))
-  static getHour(date: Date, timeZone?: string) {
+  static getHour = memoize((date: Date, timeZone?: string) => {
     const hourString = formatDate(date, 'en', {
       timeZone,
       hour12: false,
@@ -147,10 +142,9 @@ class DateTimeParts {
     }
 
     return hour;
-  }
+  }, dateTimeCacheKey('hour'));
 
-  @memoize(dateTimeCacheKey('minute'))
-  static getMinute(date: Date, timeZone?: string) {
+  static getMinute = memoize((date: Date, timeZone?: string) => {
     const minuteString = formatDate(date, 'en', {
       timeZone,
       minute: 'numeric',
@@ -163,10 +157,9 @@ class DateTimeParts {
     }
 
     return minute;
-  }
+  }, dateTimeCacheKey('minute'));
 
-  @memoize(dateTimeCacheKey('second'))
-  static getSecond(date: Date, timeZone?: string) {
+  static getSecond = memoize((date: Date, timeZone?: string) => {
     const secondString = formatDate(date, 'en', {
       timeZone,
       second: 'numeric',
@@ -179,37 +172,39 @@ class DateTimeParts {
     }
 
     return second;
-  }
+  }, dateTimeCacheKey('second'));
 
-  @memoize(dateTimeCacheKey('timePartsFallback'))
-  private static getTimePartsFallback(date: Date, timeZone?: string) {
-    const timeString = formatDate(date, 'en', {
-      timeZone,
-      hour12: false,
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-    });
+  private static getTimePartsFallback = memoize(
+    (date: Date, timeZone?: string) => {
+      const timeString = formatDate(date, 'en', {
+        timeZone,
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      });
 
-    // In Microsoft Edge, Intl.DateTimeFormat returns invisible characters around the individual numbers
-    const [dirtyHour, dirtyMinute, dirtySecond] = timeString.split(':');
+      // In Microsoft Edge, Intl.DateTimeFormat returns invisible characters around the individual numbers
+      const [dirtyHour, dirtyMinute, dirtySecond] = timeString.split(':');
 
-    const rawHour = new RegExp(TWO_DIGIT_REGEX).exec(dirtyHour);
-    const rawMinute = new RegExp(TWO_DIGIT_REGEX).exec(dirtyMinute);
-    const rawSecond = new RegExp(TWO_DIGIT_REGEX).exec(dirtySecond);
+      const rawHour = new RegExp(TWO_DIGIT_REGEX).exec(dirtyHour);
+      const rawMinute = new RegExp(TWO_DIGIT_REGEX).exec(dirtyMinute);
+      const rawSecond = new RegExp(TWO_DIGIT_REGEX).exec(dirtySecond);
 
-    if (rawHour != null && rawMinute != null && rawSecond != null) {
-      const hour = parseInt(rawHour[1], 10);
-      const minute = parseInt(rawMinute[1], 10);
-      const second = parseInt(rawSecond[1], 10);
+      if (rawHour != null && rawMinute != null && rawSecond != null) {
+        const hour = parseInt(rawHour[1], 10);
+        const minute = parseInt(rawMinute[1], 10);
+        const second = parseInt(rawSecond[1], 10);
 
-      return {
-        hour,
-        minute,
-        second,
-      };
-    }
+        return {
+          hour,
+          minute,
+          second,
+        };
+      }
 
-    throw new Error(`Unable to parse timeString: '${timeString}'`);
-  }
+      throw new Error(`Unable to parse timeString: '${timeString}'`);
+    },
+    dateTimeCacheKey('timePartsFallback'),
+  );
 }

@@ -12,7 +12,6 @@
   ],
   "references": [
     {"path": "../dates"},
-    {"path": "../decorators"},
     {"path": "../function-enhancers"},
     {"path": "../i18n"},
     {"path": "../react-effect"},

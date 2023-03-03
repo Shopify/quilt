@@ -12,7 +12,7 @@ import {
   isLessThanOneWeekAway,
   isLessThanOneYearAway,
 } from '@shopify/dates';
-import {memoize} from '@shopify/decorators';
+import {memoize} from '@shopify/function-enhancers';
 import {languageFromLocale, regionFromLocale} from '@shopify/i18n';
 
 import {
@@ -396,8 +396,8 @@ export class I18n {
     return Boolean(easternNameOrderFormatter);
   }
 
-  @memoize()
-  numberSymbols() {
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  numberSymbols = memoize(() => {
     const formattedNumber = this.formatNumber(123456.7, {
       maximumFractionDigits: 1,
       minimumFractionDigits: 1,
@@ -411,7 +411,7 @@ export class I18n {
       }
     }
     return {thousandSymbol, decimalSymbol};
-  }
+  });
 
   private formatCurrencyAuto(
     amount: number,
