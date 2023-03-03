@@ -32,4 +32,5 @@ export function runValidation<Value, Record extends object>(
   }
 
   updateError(undefined);
+  return undefined;
 }

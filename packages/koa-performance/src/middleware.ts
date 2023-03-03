@@ -210,6 +210,7 @@ export function clientPerformanceMetrics({
       const distributions = metrics.map(({name, value, tags}) => {
         if (development) {
           appLogger.log(`Skipping sending metric in dev ${name}: ${value}`);
+          return undefined;
         } else {
           appLogger.log(`Sending metric ${name}: ${value}`);
           return statsd.distribution(name, value, tags);

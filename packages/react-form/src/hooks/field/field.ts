@@ -134,6 +134,7 @@ export function useField<Value = string>(
       }
 
       dispatch(updateErrorAction(undefined));
+      return undefined;
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [state.value, ...dependencies],

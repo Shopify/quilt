@@ -68,6 +68,8 @@ export function validateList<Input extends object, Fields>(
     if (errors.some((error) => error != null)) {
       return errors;
     }
+
+    return undefined;
   };
 }
 

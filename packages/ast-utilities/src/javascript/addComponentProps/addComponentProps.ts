@@ -32,6 +32,8 @@ export default function addComponentProps(
                   prop.value.name === attr.value.expression.name
                 );
               }
+
+              return false;
             }).length,
           ),
         );

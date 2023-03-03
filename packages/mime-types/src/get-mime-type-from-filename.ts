@@ -44,6 +44,8 @@ export function getMimeTypeFromFilename(filename: string) {
     case 'svg':
       return MimeType.Svg;
   }
+
+  return undefined;
 }
 
 function getFileExtension(filename: string) {
@@ -52,4 +54,6 @@ function getFileExtension(filename: string) {
   if (match) {
     return match[1];
   }
+
+  return undefined;
 }

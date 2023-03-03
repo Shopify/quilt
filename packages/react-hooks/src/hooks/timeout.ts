@@ -21,5 +21,7 @@ export function useTimeout(callback: IntervalCallback, delay: IntervalDelay) {
       const id = setTimeout(tick, delay);
       return () => clearTimeout(id);
     }
+
+    return undefined;
   }, [delay]);
 }
