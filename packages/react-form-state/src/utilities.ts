@@ -1,6 +1,6 @@
 import isEqual from 'fast-deep-equal';
 
-import {FieldDescriptor} from './types';
+import type {FieldDescriptor} from './types';
 
 export {isEqual};
 

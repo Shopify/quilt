@@ -1,4 +1,4 @@
-import {Context} from 'koa';
+import type {Context} from 'koa';
 
 export function getQueuingTime(ctx: Context): number | null {
   const requestStartHeader = ctx.request.get('X-Request-Start');

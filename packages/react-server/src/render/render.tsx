@@ -2,7 +2,7 @@ import {join} from 'path';
 import {existsSync} from 'fs';
 
 import React from 'react';
-import {Context} from 'koa';
+import type {Context} from 'koa';
 import compose from 'koa-compose';
 import {
   Html,
@@ -33,7 +33,7 @@ import {
 
 import {quiltDataMiddleware} from '../quilt-data';
 import {getLogger} from '../logger';
-import {ValueFromContext} from '../types';
+import type {ValueFromContext} from '../types';
 
 import {fallbackErrorMarkup} from './error';
 

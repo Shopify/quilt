@@ -5,7 +5,7 @@ import {
   PseudotranslateOptions,
 } from '@shopify/i18n';
 
-import {
+import type {
   TranslationDictionary,
   ComplexReplacementDictionary,
   PrimitiveReplacementDictionary,

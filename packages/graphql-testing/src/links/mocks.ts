@@ -1,7 +1,7 @@
 import {ApolloLink, Observable, Operation} from '@apollo/client';
 import {ExecutionResult, GraphQLError} from 'graphql';
 
-import {GraphQLMock, MockGraphQLFunction} from '../types';
+import type {GraphQLMock, MockGraphQLFunction} from '../types';
 
 export class MockLink extends ApolloLink {
   constructor(private mock: GraphQLMock) {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {FieldState} from '../../types';
+import type {FieldState} from '../../types';
 
 export interface Props {
   onRender?(): void;

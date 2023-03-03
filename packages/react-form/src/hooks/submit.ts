@@ -1,7 +1,7 @@
 import {useState, useCallback} from 'react';
 import {useLazyRef, useMountedRef} from '@shopify/react-hooks';
 
-import {
+import type {
   FormMapping,
   SubmitHandler,
   SubmitResult,

@@ -1,6 +1,6 @@
 import {basename} from 'path';
 
-import {Asset, AsyncAsset, ConsolidatedManifest, Manifest} from '../types';
+import type {Asset, AsyncAsset, ConsolidatedManifest, Manifest} from '../types';
 
 export function mockAsset(path: string): Asset {
   return {path};

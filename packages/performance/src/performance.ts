@@ -1,7 +1,7 @@
 import {onLCP, onFID, onFCP, onTTFB} from 'web-vitals';
 
 import {InflightNavigation} from './inflight';
-import {Navigation} from './navigation';
+import type {Navigation} from './navigation';
 import {
   now,
   withEntriesOfType,

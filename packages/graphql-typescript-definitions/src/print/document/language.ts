@@ -27,8 +27,8 @@ import {
 
 import {scalarTypeMap} from '../utilities';
 
-import {ObjectStack} from './utilities';
-import {OperationContext} from './context';
+import type {ObjectStack} from './utilities';
+import type {OperationContext} from './context';
 
 export function tsInterfaceBodyForObjectField(
   {fields = []}: PrintableFieldDetails,

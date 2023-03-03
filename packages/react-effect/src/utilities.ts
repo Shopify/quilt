@@ -1,4 +1,4 @@
-import {ComponentType} from 'react';
+import type {ComponentType} from 'react';
 
 export function restrictToServer<T extends ComponentType<any>>(
   Component: T,

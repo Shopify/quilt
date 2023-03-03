@@ -1,5 +1,5 @@
 import {useIdleCallback} from './hooks';
-import {UnsupportedBehavior} from './types';
+import type {UnsupportedBehavior} from './types';
 
 interface Props {
   perform(): void;

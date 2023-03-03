@@ -1,5 +1,5 @@
 import * as t from '@babel/types';
-import {GraphQLObjectType} from 'graphql';
+import type {GraphQLObjectType} from 'graphql';
 import {
   AST,
   Fragment,

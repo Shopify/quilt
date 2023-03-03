@@ -9,13 +9,13 @@ import {
   ObservableQuery,
 } from '@apollo/client';
 import isEqual from 'fast-deep-equal';
-import {DocumentNode} from 'graphql-typed';
+import type {DocumentNode} from 'graphql-typed';
 import {useServerEffect} from '@shopify/react-effect';
-import {IfAllNullableKeys, NoInfer} from '@shopify/useful-types';
+import type {IfAllNullableKeys, NoInfer} from '@shopify/useful-types';
 
-import {AsyncDocumentNode} from '../types';
+import type {AsyncDocumentNode} from '../types';
 
-import {QueryHookOptions, QueryHookResult} from './types';
+import type {QueryHookOptions, QueryHookResult} from './types';
 import useApolloClient from './apollo-client';
 import useGraphQLDocument from './graphql-document';
 

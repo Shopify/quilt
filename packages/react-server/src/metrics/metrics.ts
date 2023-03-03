@@ -1,7 +1,7 @@
-import {Context} from 'koa';
+import type {Context} from 'koa';
 import compose from 'koa-compose';
 
-import {KoaNextFunction} from '../types';
+import type {KoaNextFunction} from '../types';
 
 const MILLIS_PER_SECOND = 1000;
 const NANOS_PER_MILLIS = 1e6;

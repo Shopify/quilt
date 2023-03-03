@@ -1,4 +1,4 @@
-import {Context} from 'koa';
+import type {Context} from 'koa';
 
 export default function ping() {
   return async function pingMiddleware(ctx: Context, next: Function) {

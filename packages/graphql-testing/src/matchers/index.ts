@@ -1,4 +1,4 @@
-import {GraphQLOperation} from 'graphql-typed';
+import type {GraphQLOperation} from 'graphql-typed';
 
 import {toHavePerformedGraphQLOperation} from './operations';
 

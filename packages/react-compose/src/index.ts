@@ -1,9 +1,9 @@
-import React from 'react';
+import type {ComponentType, ComponentClass as ReactComponentClass} from 'react';
 import hoistStatics from 'hoist-non-react-statics';
-import {NonReactStatics} from '@shopify/useful-types';
+import type {NonReactStatics} from '@shopify/useful-types';
 
-export type ReactComponent<P> = React.ComponentType<P>;
-export type ComponentClass = React.ComponentClass<any>;
+export type ReactComponent<P> = ComponentType<P>;
+export type ComponentClass = ReactComponentClass<any>;
 
 export type WrappingFunction = (
   Component: ReactComponent<any>,

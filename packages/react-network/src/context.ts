@@ -1,7 +1,7 @@
 import React from 'react';
 import {createUniversalProvider} from '@shopify/react-universal-provider';
 
-import {NetworkManager} from './manager';
+import type {NetworkManager} from './manager';
 
 export const NetworkContext = React.createContext<NetworkManager | null>(null);
 

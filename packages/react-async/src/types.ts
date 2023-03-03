@@ -1,6 +1,6 @@
-import {ReactElement} from 'react';
-import {Resolver} from '@shopify/async';
-import {IfAllOptionalKeys, NoInfer} from '@shopify/useful-types';
+import type {ReactElement} from 'react';
+import type {Resolver} from '@shopify/async';
+import type {IfAllOptionalKeys, NoInfer} from '@shopify/useful-types';
 
 export enum AssetTiming {
   None = 1,

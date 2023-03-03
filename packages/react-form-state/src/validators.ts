@@ -9,7 +9,7 @@ import {
   isPositiveNumericString,
 } from '@shopify/predicates';
 
-import {StringMapper} from './types';
+import type {StringMapper} from './types';
 import {mapObject} from './utilities';
 
 interface Matcher<Input, Fields = any> {

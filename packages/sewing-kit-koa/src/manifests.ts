@@ -5,7 +5,7 @@ import {matchesUA} from 'browserslist-useragent';
 import appRoot from 'app-root-path';
 import {ungzip} from 'node-gzip';
 
-import {ConsolidatedManifest, Manifest} from './types';
+import type {ConsolidatedManifest, Manifest} from './types';
 
 const DEFAULT_MANIFEST_PATH = 'build/client/assets.json';
 

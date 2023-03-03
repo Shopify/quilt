@@ -1,5 +1,5 @@
 import {BrowserCookieManager} from './BrowserCookieManager';
-import {Cookie} from './types';
+import type {Cookie} from './types';
 
 export function clearCookies() {
   const cookies = new BrowserCookieManager();

@@ -8,7 +8,7 @@ import {
 import {MockLink, InflightLink} from './links';
 import {Operations} from './operations';
 import {operationNameFromFindOptions} from './utilities';
-import {GraphQLMock, MockRequest, FindOptions} from './types';
+import type {GraphQLMock, MockRequest, FindOptions} from './types';
 
 export interface Options {
   cacheOptions?: InMemoryCacheConfig;

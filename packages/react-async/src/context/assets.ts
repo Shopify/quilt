@@ -1,5 +1,5 @@
 import React from 'react';
-import {EffectKind} from '@shopify/react-effect';
+import type {EffectKind} from '@shopify/react-effect';
 
 import {AssetTiming} from '../types';
 

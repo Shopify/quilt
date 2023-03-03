@@ -1,7 +1,7 @@
 import {existsSync, readdirSync} from 'fs';
 import {resolve, join} from 'path';
 
-import {Compiler} from 'webpack';
+import type {Compiler} from 'webpack';
 
 export interface Options {
   basePath: string;

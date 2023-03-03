@@ -1,4 +1,4 @@
-import {I18nDetails, TranslationDictionary, MaybePromise} from './types';
+import type {I18nDetails, TranslationDictionary, MaybePromise} from './types';
 
 export interface ConnectionState {
   loading: boolean;

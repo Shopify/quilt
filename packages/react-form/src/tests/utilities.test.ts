@@ -8,7 +8,7 @@ import {
   fieldsToArray,
   reduceFields,
 } from '../utilities';
-import {Field} from '../types';
+import type {Field} from '../types';
 
 function mockField<T>(params: Partial<Field<T>> | T): Field<T | undefined> {
   const value = typeof params === 'string' ? params : undefined;

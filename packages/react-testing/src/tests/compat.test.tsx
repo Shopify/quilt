@@ -1,5 +1,5 @@
 import {getInternals} from '../compat';
-import {ReactInstance} from '../types';
+import type {ReactInstance} from '../types';
 
 describe('compat', () => {
   it('returns the fiber for react-16 style nodes', () => {

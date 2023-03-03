@@ -1,5 +1,5 @@
 import proxy from 'koa-better-http-proxy';
-import {Context} from 'koa';
+import type {Context} from 'koa';
 
 export const PROXY_BASE_PATH = '/graphql';
 export const GRAPHQL_PATH_PREFIX = '/admin/api';

@@ -1,10 +1,10 @@
 import React from 'react';
 
-import {SubmitHandler} from '../../../../types';
+import type {SubmitHandler} from '../../../../types';
 import {notEmpty} from '../../../../validation';
 import {useDynamicList, useField, useForm} from '../../..';
 
-import {SimpleProduct, Variant} from './types';
+import type {SimpleProduct, Variant} from './types';
 import {TextField} from './TextField';
 
 export function FormWithDynamicVariantList({

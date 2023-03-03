@@ -1,4 +1,4 @@
-import {
+import type {
   ApolloClient,
   MutationOptions as ClientMutationOptions,
   QueryResult,
@@ -6,10 +6,10 @@ import {
   MutationOptions,
   FetchResult,
 } from '@apollo/client';
-import {QueryComponentOptions} from '@apollo/client/react/components';
-import {IfAllNullableKeys} from '@shopify/useful-types';
+import type {QueryComponentOptions} from '@apollo/client/react/components';
+import type {IfAllNullableKeys} from '@shopify/useful-types';
 
-import {VariableOptions} from '../types';
+import type {VariableOptions} from '../types';
 
 export type QueryHookOptions<Data = any, Variables = OperationVariables> = Omit<
   QueryComponentOptions<Data, Variables>,

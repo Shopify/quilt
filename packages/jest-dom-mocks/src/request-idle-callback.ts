@@ -1,4 +1,4 @@
-import {
+import type {
   RequestIdleCallback as IdleCallback,
   WindowWithRequestIdleCallback,
 } from '@shopify/async';

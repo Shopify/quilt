@@ -5,7 +5,7 @@ import {
   RECEIVED_COLOR as receivedColor,
 } from 'jest-matcher-utils';
 
-import {Node} from '../types';
+import type {Node} from '../types';
 
 import {assertIsNode, diffPropsForNode} from './utilities';
 

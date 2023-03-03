@@ -9,7 +9,7 @@ import {
   FieldConfig,
   asChoiceList,
 } from '../field';
-import {FieldState} from '../../../types';
+import type {FieldState} from '../../../types';
 import {FieldAction, reduceField, makeFieldReducer} from '../reducer';
 
 describe('useField', () => {

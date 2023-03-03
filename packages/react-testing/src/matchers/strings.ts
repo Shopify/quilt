@@ -6,7 +6,7 @@ import {
   INVERTED_COLOR as invertedColor,
 } from 'jest-matcher-utils';
 
-import {Node} from '../types';
+import type {Node} from '../types';
 
 import {assertIsNode} from './utilities';
 

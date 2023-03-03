@@ -2,7 +2,7 @@
 import React from 'react';
 
 import {mapObject, set, isEqual, flatMap} from './utilities';
-import {
+import type {
   FieldDescriptors,
   FieldState,
   ValueMapper,

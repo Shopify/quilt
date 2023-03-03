@@ -1,9 +1,9 @@
 /* eslint-disable no-process-env */
-import {Context, Request} from 'koa';
+import type {Context, Request} from 'koa';
 import chalk from 'chalk';
 import {Header} from '@shopify/react-network';
 
-import {KoaNextFunction} from '../types';
+import type {KoaNextFunction} from '../types';
 
 export const LOGGER = Symbol('logger');
 

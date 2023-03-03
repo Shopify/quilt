@@ -1,4 +1,4 @@
-import {LoadCountryResponse} from '@shopify/address-consts';
+import type {LoadCountryResponse} from '@shopify/address-consts';
 
 const data: LoadCountryResponse = {
   data: {

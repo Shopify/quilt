@@ -10,7 +10,7 @@ import {
 
 import {Root} from '../root';
 import {Element} from '../element';
-import {Node} from '../types';
+import type {Node} from '../types';
 
 export function assertIsNode(
   node: unknown,

@@ -1,5 +1,5 @@
-import {Server} from 'http';
-import {AddressInfo} from 'net';
+import type {Server} from 'http';
+import type {AddressInfo} from 'net';
 import {URL} from 'url';
 
 import Koa, {Middleware, Context} from 'koa';

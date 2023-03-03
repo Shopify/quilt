@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useMemo, ChangeEvent} from 'react';
 import isEqual from 'fast-deep-equal';
 
-import {Validates, Field, DirtyStateComparator} from '../../types';
+import type {Validates, Field, DirtyStateComparator} from '../../types';
 import {normalizeValidation, isChangeEvent} from '../../utilities';
 
 import {

@@ -4,7 +4,7 @@ import safeCompare from 'safe-compare';
 import bodyParser from 'koa-bodyparser';
 import mount from 'koa-mount';
 import compose from 'koa-compose';
-import {Context, Middleware} from 'koa';
+import type {Context, Middleware} from 'koa';
 import {StatusCode} from '@shopify/network';
 
 import {WebhookHeader, Topic} from './types';

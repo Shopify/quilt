@@ -1,4 +1,4 @@
-import {CookieSerializeOptions} from 'cookie';
+import type {CookieSerializeOptions} from 'cookie';
 
 export type {CookieSerializeOptions};
 

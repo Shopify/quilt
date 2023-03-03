@@ -7,8 +7,8 @@ import {
   EventType,
 } from '@shopify/performance';
 
-import {NavigationListener} from '../navigation-listener';
-import {LifecycleEventListener} from '../lifecycle-event-listener';
+import type {NavigationListener} from '../navigation-listener';
+import type {LifecycleEventListener} from '../lifecycle-event-listener';
 
 interface TestInterface {
   simulateNavigation(navigation?: Navigation): Navigation;

@@ -5,7 +5,7 @@
 import * as path from 'path';
 
 import {DefinePlugin} from 'webpack';
-import {Page, JSHandle, WebWorker} from 'puppeteer';
+import type {Page, JSHandle, WebWorker} from 'puppeteer';
 
 import {WebWorkerPlugin} from '../webpack-parts';
 

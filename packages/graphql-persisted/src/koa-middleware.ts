@@ -1,4 +1,4 @@
-import {Context} from 'koa';
+import type {Context} from 'koa';
 import compose from 'koa-compose';
 import bodyparser from 'koa-bodyparser';
 import {getAssets} from '@shopify/sewing-kit-koa';

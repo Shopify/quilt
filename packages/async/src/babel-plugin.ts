@@ -1,5 +1,5 @@
-import Types from '@babel/types';
-import {NodePath, Binding} from '@babel/traverse';
+import type Types from '@babel/types';
+import type {NodePath, Binding} from '@babel/traverse';
 
 /* eslint-disable @typescript-eslint/naming-convention */
 const DEFAULT_PACKAGES_TO_PROCESS = {

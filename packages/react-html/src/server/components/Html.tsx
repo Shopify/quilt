@@ -2,7 +2,7 @@ import React from 'react';
 import {renderToString} from 'react-dom/server';
 import {HydrationContext, HydrationManager} from '@shopify/react-hydrate';
 
-import {HtmlManager} from '../../manager';
+import type {HtmlManager} from '../../manager';
 import {HtmlContext} from '../../context';
 import {MANAGED_ATTRIBUTE, removeDuplicate} from '../../utilities';
 

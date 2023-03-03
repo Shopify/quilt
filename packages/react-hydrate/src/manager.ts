@@ -1,4 +1,4 @@
-import {EffectKind} from '@shopify/react-effect';
+import type {EffectKind} from '@shopify/react-effect';
 
 import {HYDRATION_ATTRIBUTE} from './shared';
 

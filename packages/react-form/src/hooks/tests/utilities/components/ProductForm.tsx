@@ -1,10 +1,10 @@
 import React from 'react';
 
-import {SubmitHandler} from '../../../../types';
+import type {SubmitHandler} from '../../../../types';
 import {positiveNumericString, notEmpty} from '../../../../validation';
 import {useList, useField, useForm} from '../../..';
 
-import {SimpleProduct} from './types';
+import type {SimpleProduct} from './types';
 import {TextField} from './TextField';
 
 export function ProductForm({

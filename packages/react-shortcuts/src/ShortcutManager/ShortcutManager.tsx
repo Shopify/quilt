@@ -1,5 +1,6 @@
-import Key, {HeldKey, ModifierKey} from '../keys';
-import {DefaultIgnoredTag} from '../Shortcut';
+import type Key from '../keys';
+import type {HeldKey, ModifierKey} from '../keys';
+import type {DefaultIgnoredTag} from '../Shortcut';
 
 const ON_MATCH_DELAY = 500;
 

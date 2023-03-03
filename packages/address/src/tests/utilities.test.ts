@@ -1,4 +1,4 @@
-import {Address} from '@shopify/address-consts';
+import type {Address} from '@shopify/address-consts';
 import {fixtures} from '@shopify/address-mocks';
 
 import {renderLineTemplate} from '../utilities';

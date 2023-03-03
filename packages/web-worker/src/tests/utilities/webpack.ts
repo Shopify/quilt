@@ -2,7 +2,7 @@ import * as path from 'path';
 
 import webpack from 'webpack';
 
-import {Context} from './context';
+import type {Context} from './context';
 
 export function runWebpack(
   {workspace, server}: Context,

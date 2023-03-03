@@ -1,4 +1,4 @@
-import {FieldDictionary, FieldStates} from '../../types';
+import type {FieldDictionary, FieldStates} from '../../types';
 
 import {
   addFieldItemAction,

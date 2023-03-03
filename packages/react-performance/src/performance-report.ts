@@ -1,5 +1,5 @@
 import {useRef, useCallback} from 'react';
-import {Navigation, LifecycleEvent} from '@shopify/performance';
+import type {Navigation, LifecycleEvent} from '@shopify/performance';
 import {Header, Method} from '@shopify/network';
 
 import {useNavigationListener} from './navigation-listener';

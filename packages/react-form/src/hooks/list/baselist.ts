@@ -1,7 +1,7 @@
 import {useMemo, useEffect} from 'react';
 import isEqual from 'fast-deep-equal';
 
-import {
+import type {
   ValidationDictionary,
   NormalizedValidationDictionary,
   FieldDictionary,

@@ -1,4 +1,4 @@
-import {AsyncComponentType} from '../types';
+import type {AsyncComponentType} from '../types';
 import {usePreload, usePrefetch, useKeepFresh} from '../hooks';
 
 describe('usePreload()', () => {

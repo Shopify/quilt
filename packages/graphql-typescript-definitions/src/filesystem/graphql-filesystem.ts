@@ -1,6 +1,6 @@
 import {EventEmitter} from 'events';
 
-import {GraphQLProjectConfig, GraphQLConfig} from 'graphql-config';
+import type {GraphQLProjectConfig, GraphQLConfig} from 'graphql-config';
 
 export interface GraphQLFilesystem {
   watch(config: GraphQLConfig): Promise<void>;

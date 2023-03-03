@@ -3,7 +3,7 @@ import {renderToStaticMarkup} from 'react-dom/server';
 
 import {EffectContext} from './context';
 import {EffectManager} from './manager';
-import {Pass} from './types';
+import type {Pass} from './types';
 
 export {Effect} from './Effect';
 
