@@ -1171,7 +1171,10 @@ function runWebpack(
             {
               loader: 'babel-loader',
               options: {
+                configFile: false,
+                browserslistConfigFile: false,
                 babelrc: false,
+                targets: {},
                 plugins: [
                   '@babel/plugin-syntax-dynamic-import',
                   [babelPlugin, babelPluginOptions],

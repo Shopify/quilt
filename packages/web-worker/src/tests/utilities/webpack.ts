@@ -15,6 +15,7 @@ export function runWebpack(
     webpack(
       {
         ...extraConfig,
+        target: 'web',
         output: {
           path: workspace.buildPath(),
           publicPath: server.assetUrl().href,
@@ -43,11 +44,10 @@ export function runWebpack(
                   loader: 'babel-loader',
                   options: {
                     configFile: false,
+                    browserslistConfigFile: false,
+                    targets: 'current node',
                     presets: [
-                      [
-                        '@babel/preset-env',
-                        {targets: {node: true}, modules: false, loose: true},
-                      ],
+                      ['@babel/preset-env', {modules: false, loose: true}],
                       '@babel/preset-typescript',
                     ],
                     plugins: [
