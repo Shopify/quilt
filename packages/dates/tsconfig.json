@@ -10,5 +10,8 @@
     "./src/**/*.ts",
     "./src/**/*.tsx"
   ],
-  "references": [{"path": "../decorators"}, {"path": "../jest-dom-mocks"}]
+  "references": [
+    {"path": "../function-enhancers"},
+    {"path": "../jest-dom-mocks"}
+  ]
 }
