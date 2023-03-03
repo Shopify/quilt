@@ -6,7 +6,6 @@
     {"path": "./packages/address-consts"},
     {"path": "./packages/address-mocks"},
     {"path": "./packages/admin-graphql-api-utilities"},
-    {"path": "./packages/ast-utilities"},
     {"path": "./packages/async"},
     {"path": "./packages/browser"},
     {"path": "./packages/csrf-token-fetcher"},
