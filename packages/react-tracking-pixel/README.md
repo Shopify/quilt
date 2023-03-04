@@ -1,3 +1,0 @@
-# `@shopify/react-tracking-pixel`
-
-This package has been deprecated and removed.

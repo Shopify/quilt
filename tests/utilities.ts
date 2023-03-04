@@ -1,11 +1,7 @@
 import {resolve, sep} from 'path';
 
 // For packages that have been emptied pending removal
-export const EXCLUDED_PACKAGES = [
-  'decorators',
-  'ast-utilities',
-  'react-tracking-pixel',
-];
+export const EXCLUDED_PACKAGES = [];
 
 const rootDirectory = `${resolve(__dirname, '..')}${sep}`;
 const regex = new RegExp(rootDirectory, 'g');

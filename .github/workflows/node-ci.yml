@@ -41,9 +41,9 @@ jobs:
             .cache
             packages/*/build/ts
             packages/*/build/*.tsbuildinfo
-          key: ${{ runner.os }}-node${{ matrix.node-version }}-cache-v1-${{ github.sha }}
+          key: ${{ runner.os }}-node${{ matrix.node-version }}-cache-v2-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-node${{ matrix.node-version }}-cache-v1-
+            ${{ runner.os }}-node${{ matrix.node-version }}-cache-v2-
 
       - name: 📦 Install dependencies
         run: yarn --frozen-lockfile
