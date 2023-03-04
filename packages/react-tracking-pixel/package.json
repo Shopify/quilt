@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-tracking-pixel",
-  "version": "5.0.9",
+  "version": "6.0.0",
   "license": "MIT",
   "description": "Allows React apps to easily embed tracking pixel iframes",
   "main": "index.js",
