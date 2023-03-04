@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.0.0
+
+### Major Changes
+
+- [#2584](https://github.com/Shopify/quilt/pull/2584) [`5a5eb26bb`](https://github.com/Shopify/quilt/commit/5a5eb26bb35fc7e085e0ddae8ac2b9244d4343d1) Thanks [@BPScott](https://github.com/BPScott)! - This package has been deprecated and removed.
+
 ## 5.0.9
 
 ### Patch Changes

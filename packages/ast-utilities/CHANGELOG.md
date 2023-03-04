@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.0.0
+
+### Major Changes
+
+- [#2584](https://github.com/Shopify/quilt/pull/2584) [`5a5eb26bb`](https://github.com/Shopify/quilt/commit/5a5eb26bb35fc7e085e0ddae8ac2b9244d4343d1) Thanks [@BPScott](https://github.com/BPScott)! - This package has been deprecated and removed. You should use `@babel/traverse` and/or `remark` directly.
+
+### Patch Changes
+
+- [#2583](https://github.com/Shopify/quilt/pull/2583) [`2aa32e8b8`](https://github.com/Shopify/quilt/commit/2aa32e8b844bda24e9ed1b2747ad9b34491c6261) Thanks [@BPScott](https://github.com/BPScott)! - Add explict `return undefined` to functions that had implicit returns
+
 ## 2.0.1
 
 ### Patch Changes

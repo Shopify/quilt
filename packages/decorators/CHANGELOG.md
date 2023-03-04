@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.0
+
+### Major Changes
+
+- [#2581](https://github.com/Shopify/quilt/pull/2581) [`2781826fa`](https://github.com/Shopify/quilt/commit/2781826fac6a036eeb5da2aba15ce54b21d03ca9) Thanks [@BPScott](https://github.com/BPScott)! - This package has been deprecated and removed. You should use `@shopify/function-enhancers` directly.
+
 ## 3.0.1
 
 ### Patch Changes

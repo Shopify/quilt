@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.0.10
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @shopify/react-html@13.0.3
+
 ## 3.0.9
 
 ### Patch Changes

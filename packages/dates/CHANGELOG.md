@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.2
+
+### Patch Changes
+
+- [#2581](https://github.com/Shopify/quilt/pull/2581) [`2781826fa`](https://github.com/Shopify/quilt/commit/2781826fac6a036eeb5da2aba15ce54b21d03ca9) Thanks [@BPScott](https://github.com/BPScott)! - Replace dependency on `@shopify/decorators` with `@shopify/function-enhancers`
+
 ## 2.0.1
 
 ### Patch Changes

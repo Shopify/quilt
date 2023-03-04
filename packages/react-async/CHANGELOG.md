@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`2aa32e8b8`](https://github.com/Shopify/quilt/commit/2aa32e8b844bda24e9ed1b2747ad9b34491c6261)]:
+  - @shopify/react-hooks@3.0.3
+  - @shopify/react-hydrate@3.0.7
+
 ## 5.1.0
 
 ### Minor Changes
