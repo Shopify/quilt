@@ -13,7 +13,7 @@ These libraries compose together to help you create performant modern JS apps th
 
 ## Usage
 
-The Quilt repo is managed as a monorepo that is composed of 72 npm packages and one Ruby gem.
+The Quilt repo is managed as a monorepo that is composed of 69 npm packages and one Ruby gem.
 Each package/gem has its own `README.md` and documentation describing usage.
 
 ### Package Index
@@ -24,13 +24,11 @@ Each package/gem has its own `README.md` and documentation describing usage.
 | [@shopify/address-consts](packages/address-consts) | <a href="https://badge.fury.io/js/%40shopify%2Faddress-consts"><img src="https://badge.fury.io/js/%40shopify%2Faddress-consts.svg" width="200px" /></a> | Constants and types relating to `@shopify/address` |
 | [@shopify/address-mocks](packages/address-mocks) | <a href="https://badge.fury.io/js/%40shopify%2Faddress-mocks"><img src="https://badge.fury.io/js/%40shopify%2Faddress-mocks.svg" width="200px" /></a> | Address mocks for `@shopify/address` |
 | [@shopify/admin-graphql-api-utilities](packages/admin-graphql-api-utilities) | <a href="https://badge.fury.io/js/%40shopify%2Fadmin-graphql-api-utilities"><img src="https://badge.fury.io/js/%40shopify%2Fadmin-graphql-api-utilities.svg" width="200px" /></a> | A set of utilities to use when consuming Shopify’s admin GraphQL API |
-| [@shopify/ast-utilities](packages/ast-utilities) | <a href="https://badge.fury.io/js/%40shopify%2Fast-utilities"><img src="https://badge.fury.io/js/%40shopify%2Fast-utilities.svg" width="200px" /></a> | Utilities for working with Abstract Syntax Trees (ASTs) |
 | [@shopify/async](packages/async) | <a href="https://badge.fury.io/js/%40shopify%2Fasync"><img src="https://badge.fury.io/js/%40shopify%2Fasync.svg" width="200px" /></a> | Primitives for loading parts of an application asynchronously |
 | [@shopify/browser](packages/browser) | <a href="https://badge.fury.io/js/%40shopify%2Fbrowser"><img src="https://badge.fury.io/js/%40shopify%2Fbrowser.svg" width="200px" /></a> | Utilities for extracting browser information from user-agents |
 | [@shopify/csrf-token-fetcher](packages/csrf-token-fetcher) | <a href="https://badge.fury.io/js/%40shopify%2Fcsrf-token-fetcher"><img src="https://badge.fury.io/js/%40shopify%2Fcsrf-token-fetcher.svg" width="200px" /></a> | JavaScript utility function to fetch the CSRF token required to make requests to a Rails server |
 | [@shopify/css-utilities](packages/css-utilities) | <a href="https://badge.fury.io/js/%40shopify%2Fcss-utilities"><img src="https://badge.fury.io/js/%40shopify%2Fcss-utilities.svg" width="200px" /></a> | A set of CSS styling-related utilities |
 | [@shopify/dates](packages/dates) | <a href="https://badge.fury.io/js/%40shopify%2Fdates"><img src="https://badge.fury.io/js/%40shopify%2Fdates.svg" width="200px" /></a> | Lightweight date operations library |
-| [@shopify/decorators](packages/decorators) | <a href="https://badge.fury.io/js/%40shopify%2Fdecorators"><img src="https://badge.fury.io/js/%40shopify%2Fdecorators.svg" width="200px" /></a> | A set of decorators to aid your JavaScript journey |
 | [@shopify/function-enhancers](packages/function-enhancers) | <a href="https://badge.fury.io/js/%40shopify%2Ffunction-enhancers"><img src="https://badge.fury.io/js/%40shopify%2Ffunction-enhancers.svg" width="200px" /></a> | A set of helpers to enhance functions |
 | [graphql-config-utilities](packages/graphql-config-utilities) | <a href="https://badge.fury.io/js/graphql-config-utilities"><img src="https://badge.fury.io/js/graphql-config-utilities.svg" width="200px" /></a> | Common utilities for graphql-config |
 | [graphql-fixtures](packages/graphql-fixtures) | <a href="https://badge.fury.io/js/graphql-fixtures"><img src="https://badge.fury.io/js/graphql-fixtures.svg" width="200px" /></a> | Utilities for generating fixture objects from GraphQL documents. |
@@ -82,7 +80,6 @@ Each package/gem has its own `README.md` and documentation describing usage.
 | [@shopify/react-server](packages/react-server) | <a href="https://badge.fury.io/js/%40shopify%2Freact-server"><img src="https://badge.fury.io/js/%40shopify%2Freact-server.svg" width="200px" /></a> | Utilities for React server-side rendering |
 | [@shopify/react-shortcuts](packages/react-shortcuts) | <a href="https://badge.fury.io/js/%40shopify%2Freact-shortcuts"><img src="https://badge.fury.io/js/%40shopify%2Freact-shortcuts.svg" width="200px" /></a> | Declaratively and efficiently match shortcut combinations in your React application |
 | [@shopify/react-testing](packages/react-testing) | <a href="https://badge.fury.io/js/%40shopify%2Freact-testing"><img src="https://badge.fury.io/js/%40shopify%2Freact-testing.svg" width="200px" /></a> | A library for testing React components according to our conventions |
-| [@shopify/react-tracking-pixel](packages/react-tracking-pixel) | <a href="https://badge.fury.io/js/%40shopify%2Freact-tracking-pixel"><img src="https://badge.fury.io/js/%40shopify%2Freact-tracking-pixel.svg" width="200px" /></a> | Allows React apps to easily embed tracking pixel iframes |
 | [@shopify/react-universal-provider](packages/react-universal-provider) | <a href="https://badge.fury.io/js/%40shopify%2Freact-universal-provider"><img src="https://badge.fury.io/js/%40shopify%2Freact-universal-provider.svg" width="200px" /></a> | Factory function and utilities to create self-serializing/deserializing providers that work for isomorphic applications |
 | [@shopify/react-web-worker](packages/react-web-worker) | <a href="https://badge.fury.io/js/%40shopify%2Freact-web-worker"><img src="https://badge.fury.io/js/%40shopify%2Freact-web-worker.svg" width="200px" /></a> | A hook for using web workers in React applications |
 | [@shopify/semaphore](packages/semaphore) | <a href="https://badge.fury.io/js/%40shopify%2Fsemaphore"><img src="https://badge.fury.io/js/%40shopify%2Fsemaphore.svg" width="200px" /></a> | Counting semaphore |
