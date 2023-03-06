@@ -217,5 +217,4 @@ export const CurrencyShortFormException = {
   HKD: 'HK$',
 } as const;
 
-export const DIRECTION_CONTROL_CHARACTERS =
-  '\u200E\u200F\u202A-\u202E\u2060-\u2063\u206A-\u206F\uFEFF';
+export const DIRECTION_CONTROL_CHARACTERS = '\u200E\u200F\u202A-\u202E';
