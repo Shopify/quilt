@@ -68,7 +68,8 @@ const NEGATIVE_SIGN = '-';
 const REGEX_DIGITS = /\d/g;
 const REGEX_NON_DIGITS = /\D/g;
 const REGEX_PERIODS = /\./g;
-const NEGATIVE_CHARACTERS = '\\p{Pd}\u2212';
+const NEGATIVE_CHARACTERS =
+  '\u002D\u058A\u05BE\u1400\u1806\u2010-\u2015\u2E17\u2E1A\u2E3A\u2E3B\u2E40\u301C\u3030\u30A0\uFE31\uFE32\uFE58\uFE63\uFF0D';
 
 export class I18n {
   readonly locale: string;
@@ -449,7 +450,7 @@ export class I18n {
     const formattedAmount = this.formatCurrencyNone(amount, options);
     const negativeRegex = new RegExp(
       `[${DIRECTION_CONTROL_CHARACTERS}]*[${NEGATIVE_CHARACTERS}]`,
-      'gu',
+      'g',
     );
     const negativeMatch = negativeRegex.exec(formattedAmount)?.shift() || '';
 
