@@ -91,10 +91,8 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
   }
 
   private handleMouseMove = ({clientX, clientY}: MouseEvent) => {
-    if (!this.timeout) {
-      this.iX = clientX;
-      this.iY = clientY;
-    }
+    this.iX = clientX;
+    this.iY = clientY;
   };
 
   private handlePressStart = ({target}: MouseEvent) => {
@@ -185,14 +183,14 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
 
     this.timeoutUrl = url;
     // If the event is a mouse event, record initial mouse position upon entering the element
-    if (event instanceof MouseEvent) {
-      this.compare(url);
-    } else {
-      this.timeout = setTimeout(() => {
-        this.clearTimeout();
+    this.timeout = setTimeout(() => {
+      this.clearTimeout();
+      if (event instanceof MouseEvent) {
+        this.compare(url);
+      } else {
         this.setState({url});
-      }, INTENTION_DELAY_MS);
-    }
+      }
+    }, INTENTION_DELAY_MS);
   };
 
   private clearTimeout() {
