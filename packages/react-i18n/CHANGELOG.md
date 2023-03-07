@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.7.0
+
+### Minor Changes
+
+- [#2586](https://github.com/Shopify/quilt/pull/2586) [`946be5019`](https://github.com/Shopify/quilt/commit/946be5019e55483602f7f3488314326b7c8f3c7b) Thanks [@kamiro](https://github.com/kamiro)! - Restored React-Native compatability by removing unicode-mode Regex
+
 ## 7.6.1
 
 ### Patch Changes
