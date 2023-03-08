@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.1.4
+
+### Patch Changes
+
+- Updated dependencies [[`bd204450f`](https://github.com/Shopify/quilt/commit/bd204450f847fa4f929ffc70ce9755a9b91c9118)]:
+  - @shopify/react-async@5.2.0
+
 ## 4.1.3
 
 ### Patch Changes
