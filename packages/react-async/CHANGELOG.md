@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.0
+
+### Minor Changes
+
+- [#2545](https://github.com/Shopify/quilt/pull/2545) [`bd204450f`](https://github.com/Shopify/quilt/commit/bd204450f847fa4f929ffc70ce9755a9b91c9118) Thanks [@devisscher](https://github.com/devisscher)! - Add a sensitivity check to the Prefetcher component
+
 ## 5.1.1
 
 ### Patch Changes
