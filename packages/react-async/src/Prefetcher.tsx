@@ -183,7 +183,7 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
     // If the event is a mouse event, record initial mouse position upon entering the element
     this.timeout = setTimeout(() => {
       this.clearTimeout();
-      if (event instanceof MouseEvent) {
+      if ('clientX' in event && 'clientY' in event) {
         this.compare(url);
       } else {
         this.setState({url});

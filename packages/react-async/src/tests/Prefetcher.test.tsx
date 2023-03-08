@@ -53,10 +53,14 @@ describe('<Prefetch />', () => {
         </PrefetchContext.Provider>
       </div>,
     );
-
-    triggerListener(prefetcher, 'mouseover', {
-      target: mockEl,
-    });
+    triggerListener(
+      prefetcher,
+      'mouseover',
+      {
+        target: mockEl,
+      },
+      {clientX: 6, clientY: 3},
+    );
     prefetcher.act(() => {
       triggerListener(
         prefetcher,
@@ -64,7 +68,7 @@ describe('<Prefetch />', () => {
         {
           target: mockEl,
         },
-        {clientX: 5, clientY: 4},
+        {clientX: 5, clientY: 2},
       );
       clock.tick(INTENTION_DELAY_MS + 1);
     });
@@ -72,7 +76,7 @@ describe('<Prefetch />', () => {
     expect(prefetcher).toContainReactComponent(MockComponent);
   });
 
-  it('does not prefetch a component when hovering over and mousemovement is below sensitivity', () => {
+  it('does not prefetch a component when hovering over and mousemovement is above sensitivity', () => {
     const manager = createPrefetchManager([
       {render: () => <MockComponent />, path},
     ]);
@@ -84,6 +88,14 @@ describe('<Prefetch />', () => {
         </PrefetchContext.Provider>
       </div>,
     );
+    triggerListener(
+      prefetcher,
+      'mouseover',
+      {
+        target: mockEl,
+      },
+      {clientX: 6, clientY: 3},
+    );
     prefetcher.act(() => {
       triggerListener(
         prefetcher,
@@ -91,13 +103,9 @@ describe('<Prefetch />', () => {
         {
           target: mockEl,
         },
-        {clientX: 5, clientY: 4},
+        {clientX: 10, clientY: 25},
       );
       clock.tick(INTENTION_DELAY_MS + 1);
-    });
-
-    triggerListener(prefetcher, 'mouseover', {
-      target: mockEl,
     });
 
     expect(prefetcher).not.toContainReactComponent(MockComponent);
