@@ -16,7 +16,7 @@ interface NavigatorWithConnection extends Navigator {
 }
 
 export const INTENTION_DELAY_MS = 150;
-export const SENSITIVITY = 10;
+export const SENSITIVITY = 15;
 
 class ConnectedPrefetcher extends React.PureComponent<Props, State> {
   state: State = {};
@@ -111,12 +111,10 @@ class ConnectedPrefetcher extends React.PureComponent<Props, State> {
 
   private compare = (url: URL | undefined) => {
     const {iX, iY} = this;
-    if (this.timeout) {
-      this.clearTimeout();
-    }
+    this.clearTimeout();
     // Calculate the change of the mouse position
     // If it is smaller than the sensitivity, we can assume that the user is intending on visiting the link
-    if (Math.abs(this.fX - iX) + Math.abs(this.fY - iY) < SENSITIVITY) {
+    if (Math.hypot(this.fX - iX, this.fY - iY) < SENSITIVITY) {
       this.setState({url});
     } else {
       this.fX = iX;
