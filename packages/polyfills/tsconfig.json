@@ -3,7 +3,6 @@
   "compilerOptions": {
     "outDir": "build/ts",
     "rootDir": "src",
-    "baseUrl": "src",
     "isolatedModules": false
   },
   "include": [

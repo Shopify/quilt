@@ -3,7 +3,6 @@
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "build/ts",
-    "baseUrl": "src",
     "rootDir": "src"
   },
   "include": [
