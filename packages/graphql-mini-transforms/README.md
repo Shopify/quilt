@@ -78,6 +78,55 @@ module.exports = {
 
 If this option is set to `true`, you should also use the `jest-simple` transformer for Jest, and the `--export-format simple` flag for `graphql-typescript-definitions`.
 
+### Rollup / Vite
+
+This package provides a plugin for loading `.graphql` files in Rollup.
+
+To use this plugin, add a rule referencing this loader to your Rollup configuration:
+
+```js
+// rollup.config.mjs
+
+import {graphql} from 'graphql-mini-transforms/rollup';
+
+export default {
+  // ...
+  // Other Rollup config
+  // ...
+  plugins: [graphql()],
+};
+```
+
+Like the Webpack loader, you can provide a `simple: true` option to enable the `SimpleDocument` export format:
+
+```js
+// rollup.config.mjs
+
+import {graphql} from 'graphql-mini-transforms/rollup';
+
+export default {
+  // ...
+  // Other Rollup config
+  // ...
+  plugins: [graphql({simple: true})],
+};
+```
+
+For convenience, a [Vite](https://vitejs.dev/)-friendly version of this plugin is also provided:
+
+```js
+// vite.config.mjs
+
+import {graphql} from 'graphql-mini-transforms/vite';
+
+export default {
+  // ...
+  // Other Vite config
+  // ...
+  plugins: [graphql()],
+};
+```
+
 ### Jest
 
 This package also provides a transformer for GraphQL files in Jest. To use the transformer, add a reference to it in your Jest configuration’s `transform` option:
