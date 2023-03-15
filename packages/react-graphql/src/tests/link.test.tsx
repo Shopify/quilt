@@ -3,8 +3,7 @@
  */
 
 import React from 'react';
-import {WatchQueryFetchPolicy} from 'apollo-client';
-import gql from 'graphql-tag';
+import {WatchQueryFetchPolicy, gql} from '@apollo/client';
 import {extract} from '@shopify/react-effect/server';
 import {createGraphQLFactory} from '@shopify/graphql-testing';
 
@@ -60,20 +59,11 @@ describe('ssrLink', () => {
     await extractPromise;
 
     const data = await ssrLink.resolveAll(() => graphQL.client.extract());
-
     expect(data).toMatchObject({
       ROOT_QUERY: {
-        pets: [
-          {
-            generated: true,
-            id: 'ROOT_QUERY.pets.0',
-            type: 'id',
-            typename: 'Cat',
-          },
-        ],
+        __typename: 'Query',
+        pets: [{__typename: 'Cat', name: 'Garfield'}],
       },
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      'ROOT_QUERY.pets.0': {__typename: 'Cat', name: 'Garfield'},
     });
 
     // One call for the first pass, another call after the GraphQL

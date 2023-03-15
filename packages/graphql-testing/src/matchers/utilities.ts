@@ -6,7 +6,7 @@ import {
   printWithType,
   printReceived,
 } from 'jest-matcher-utils';
-import {Operation} from 'apollo-link';
+import {Operation} from '@apollo/client';
 
 import {GraphQL} from '../graphql-controller';
 

@@ -1,9 +1,13 @@
 import React from 'react';
-import gql from 'graphql-tag';
+import {
+  ApolloClient,
+  NetworkStatus,
+  ApolloLink,
+  InMemoryCache,
+  gql,
+  ApolloError,
+} from '@apollo/client';
 import {DocumentNode} from 'graphql-typed';
-import {ApolloClient, ApolloError, NetworkStatus} from 'apollo-client';
-import {ApolloLink} from 'apollo-link';
-import {InMemoryCache} from 'apollo-cache-inmemory';
 import {createGraphQLFactory} from '@shopify/graphql-testing';
 
 import {createAsyncQueryComponent} from '../../async';
@@ -385,7 +389,6 @@ describe('useQuery', () => {
       const {data, loading, error, refetch} = useQuery(peopleQuery, {
         variables: {id},
       });
-
       const errorMarkup = error ? <p>Error</p> : null;
       const networkErrorMarkup =
         error && error.networkError ? <p>NetworkError</p> : null;
