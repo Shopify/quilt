@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.1.3
+
+### Patch Changes
+
+- [#2595](https://github.com/Shopify/quilt/pull/2595) [`93ec0a0e5`](https://github.com/Shopify/quilt/commit/93ec0a0e57a1962a455f15a46977a3c05a02369f) Thanks [@BPScott](https://github.com/BPScott)! - Use `import type` when importing types
+
+- Updated dependencies [[`93ec0a0e5`](https://github.com/Shopify/quilt/commit/93ec0a0e57a1962a455f15a46977a3c05a02369f)]:
+  - graphql-config-utilities@4.1.3
+  - graphql-tool-utilities@3.0.2
+
 ## 3.1.2
 
 ### Patch Changes

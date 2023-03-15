@@ -1,5 +1,14 @@
 # Changelog
 
+## 5.0.12
+
+### Patch Changes
+
+- [#2595](https://github.com/Shopify/quilt/pull/2595) [`93ec0a0e5`](https://github.com/Shopify/quilt/commit/93ec0a0e57a1962a455f15a46977a3c05a02369f) Thanks [@BPScott](https://github.com/BPScott)! - Use `import type` when importing types
+
+- Updated dependencies []:
+  - @shopify/react-import-remote@4.1.4
+
 ## 5.0.11
 
 ### Patch Changes
