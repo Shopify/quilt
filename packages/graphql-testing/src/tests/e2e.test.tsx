@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 import {GraphQLError} from 'graphql';
-import gql from 'graphql-tag';
+import {gql} from '@apollo/client';
 import {DocumentNode} from 'graphql-typed';
 import {mount} from '@shopify/react-testing';
 import {ApolloProvider, useQuery, ApolloError} from '@shopify/react-graphql';
@@ -8,10 +8,6 @@ import {ApolloProvider, useQuery, ApolloError} from '@shopify/react-graphql';
 import {createGraphQLFactory} from '..';
 
 const createGraphQL = createGraphQLFactory();
-const createImmutableGraphQL = createGraphQLFactory({
-  assumeImmutableResults: true,
-  cacheOptions: {freezeResults: true},
-});
 
 const petQuery: DocumentNode<{pet?: {name: string} | null}, {id: string}> = gql`
   query Pet($id: ID!) {
@@ -165,8 +161,8 @@ describe('graphql-testing', () => {
     expect(myComponent).toContainReactText('Loading');
   });
 
-  it('allows assumeImmutableResults and freezeResults to be set', async () => {
-    const graphQL = createImmutableGraphQL({
+  it('enforces immutable caches', async () => {
+    const graphQL = createGraphQL({
       Pet: {
         pet: {__typename: 'Cat', name: 'Garfield'},
       },
@@ -398,6 +394,7 @@ describe('graphql-testing', () => {
     const request = myComponent.find('button').trigger('onClick');
     await graphQL.resolveAll();
     await request;
+    await graphQL.waitForQueryUpdates();
 
     expect(graphQL).toHavePerformedGraphQLOperation(petsQuery, {
       first: 1,
@@ -411,6 +408,7 @@ describe('graphql-testing', () => {
     const request2 = myComponent.find('button').trigger('onClick');
     await graphQL.resolveAll();
     await request2;
+    await graphQL.waitForQueryUpdates();
 
     expect(graphQL).toHavePerformedGraphQLOperation(petsQuery, {
       first: 1,
@@ -488,30 +486,6 @@ describe('graphql-testing', () => {
         },
       });
     }
-
-    it('resolveAll() filters operations based on the given operationName when passed', async () => {
-      const graphQL = createPetPersonGraphQL();
-
-      const petContainer = mount(
-        <ApolloProvider client={graphQL.client}>
-          <MyComponent />
-          <PersonQueryComponent />
-        </ApolloProvider>,
-      );
-
-      await petContainer.act(async () => {
-        await graphQL.resolveAll({operationName: 'Person'});
-      });
-
-      expect(petContainer).toContainReactText('Jon Arbuckle');
-      expect(petContainer).not.toContainReactText('Garfield');
-
-      await petContainer.act(async () => {
-        await graphQL.resolveAll({operationName: 'Pet'});
-      });
-
-      expect(petContainer).toContainReactText('Garfield');
-    });
 
     it('resolveAll() filters operations based on the given query when passed', async () => {
       const graphQL = createPetPersonGraphQL();

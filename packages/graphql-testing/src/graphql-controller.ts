@@ -1,22 +1,18 @@
-import {ApolloLink} from 'apollo-link';
 import {
-  InMemoryCache,
-  IntrospectionFragmentMatcher,
+  ApolloClient,
+  ApolloLink,
   InMemoryCacheConfig,
-} from 'apollo-cache-inmemory';
-import {ApolloClient} from 'apollo-client';
+  InMemoryCache,
+} from '@apollo/client';
 
-import {TestingApolloClient} from './client';
 import {MockLink, InflightLink} from './links';
 import {Operations} from './operations';
 import {operationNameFromFindOptions} from './utilities';
 import {GraphQLMock, MockRequest, FindOptions} from './types';
 
 export interface Options {
-  unionOrIntersectionTypes?: any[];
   cacheOptions?: InMemoryCacheConfig;
   links?: ApolloLink[];
-  assumeImmutableResults?: boolean;
 }
 
 interface ResolveAllFindOptions extends FindOptions {
@@ -37,23 +33,9 @@ export class GraphQL {
 
   constructor(
     mock: GraphQLMock = {},
-    {
-      unionOrIntersectionTypes = [],
-      cacheOptions = {},
-      links = [],
-      assumeImmutableResults = false,
-    }: Options = {},
+    {cacheOptions = {}, links = []}: Options = {},
   ) {
-    const cache = new InMemoryCache({
-      fragmentMatcher: new IntrospectionFragmentMatcher({
-        introspectionQueryResultData: {
-          __schema: {
-            types: unionOrIntersectionTypes,
-          },
-        },
-      }),
-      ...cacheOptions,
-    });
+    const cache = new InMemoryCache(cacheOptions);
 
     this.mockLink = new MockLink(mock);
     const link = ApolloLink.from([
@@ -65,8 +47,7 @@ export class GraphQL {
       this.mockLink,
     ]);
 
-    this.client = new TestingApolloClient({
-      assumeImmutableResults,
+    this.client = new ApolloClient({
       link,
       cache,
     });
@@ -97,19 +78,23 @@ export class GraphQL {
       };
     }
 
-    await this.wrappers.reduce<() => Promise<void>>(
-      (perform, wrapper) => {
-        return () => wrapper(perform);
-      },
-      async () => {
-        const allPendingRequests = Array.from(this.pendingRequests);
-        const matchingRequests = requestFilter
-          ? allPendingRequests.filter(requestFilter)
-          : allPendingRequests;
+    await this.withWrapper(async () => {
+      const allPendingRequests = Array.from(this.pendingRequests);
+      const matchingRequests = requestFilter
+        ? allPendingRequests.filter(requestFilter)
+        : allPendingRequests;
 
-        await Promise.all(matchingRequests.map(({resolve}) => resolve()));
-      },
-    )();
+      await Promise.all(matchingRequests.map(({resolve}) => resolve()));
+    });
+  }
+
+  async waitForQueryUpdates() {
+    // queryManager is an internal implementation detail that is a TS-private
+    // property. We can access it in JS but TS thinks we can't so cast to any
+    // to shut typescript up
+    await this.withWrapper(async () => {
+      await (this.client as any).queryManager.broadcastQueries();
+    });
   }
 
   wrap(wrapper: Wrapper) {
@@ -124,4 +109,15 @@ export class GraphQL {
     this.operations.push(request.operation);
     this.pendingRequests.delete(request);
   };
+
+  private async withWrapper(cb: () => Promise<void>) {
+    await this.wrappers.reduce<() => Promise<void>>(
+      (perform, wrapper) => {
+        return () => wrapper(perform);
+      },
+      async () => {
+        await cb();
+      },
+    )();
+  }
 }
