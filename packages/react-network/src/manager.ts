@@ -1,7 +1,7 @@
-import {IncomingHttpHeaders} from 'http';
+import type {IncomingHttpHeaders} from 'http';
 
 import {StatusCode, CspDirective, Header} from '@shopify/network';
-import {EffectKind} from '@shopify/react-effect';
+import type {EffectKind} from '@shopify/react-effect';
 
 import {ServerCookieManager, Cookie} from './ServerCookieManager';
 

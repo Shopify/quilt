@@ -6,7 +6,7 @@ import {
   FetchResult,
 } from '@apollo/client';
 
-import {MockRequest} from '../types';
+import type {MockRequest} from '../types';
 
 interface Options {
   onCreated(request: MockRequest): void;

@@ -1,4 +1,4 @@
-import {TimeUnit} from './constants';
+import type {TimeUnit} from './constants';
 
 export function getDateDiff(
   resolution: TimeUnit,

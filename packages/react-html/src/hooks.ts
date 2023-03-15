@@ -2,7 +2,7 @@ import {useEffect, useContext} from 'react';
 import {useServerEffect} from '@shopify/react-effect';
 
 import {HtmlContext} from './context';
-import {HtmlManager} from './manager';
+import type {HtmlManager} from './manager';
 
 export function useDomEffect(
   perform: (manager: HtmlManager) => () => void,

@@ -15,8 +15,8 @@ import {
   isObjectType,
   isScalarType,
 } from 'graphql';
-import {GraphQLProjectConfig} from 'graphql-config';
-import {AST, Field, Operation} from 'graphql-tool-utilities';
+import type {GraphQLProjectConfig} from 'graphql-config';
+import type {AST, Field, Operation} from 'graphql-tool-utilities';
 
 export type KeyPath = string;
 

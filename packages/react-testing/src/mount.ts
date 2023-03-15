@@ -1,12 +1,12 @@
-import React from 'react';
-import {IfAllOptionalKeys} from '@shopify/useful-types';
+import type {ReactElement} from 'react';
+import type {IfAllOptionalKeys} from '@shopify/useful-types';
 
 import {Root, Options as RootOptions} from './root';
 import {Element} from './element';
 
 export {Root, Element};
 
-export function mount<Props>(element: React.ReactElement<Props>) {
+export function mount<Props>(element: ReactElement<Props>) {
   return new Root<Props>(element);
 }
 
@@ -52,10 +52,10 @@ export type CustomMountOptions<
   Async extends boolean = false,
 > = {
   render(
-    element: React.ReactElement<any>,
+    element: ReactElement<any>,
     context: Context,
     options: MountOptions,
-  ): React.ReactElement<any>;
+  ): ReactElement<any>;
 } & ContextOption<MountOptions, CreateContext> &
   AfterMountOption<MountOptions, Context, Async> &
   Cleanup<MountOptions, Context>;
@@ -68,8 +68,8 @@ export interface CustomMount<
   <Props>(
     ...args: IfAllOptionalKeys<
       MountOptions,
-      [React.ReactElement<any>, MountOptions?],
-      [React.ReactElement<any>, MountOptions]
+      [ReactElement<any>, MountOptions?],
+      [ReactElement<any>, MountOptions]
     >
   ): CustomMountResult<Props, Context, Async>;
   extend<
@@ -100,7 +100,7 @@ type CustomMountResult<
 
 export class CustomRoot<Props, Context extends object> extends Root<Props> {
   constructor(
-    tree: React.ReactElement<Props>,
+    tree: ReactElement<Props>,
     public readonly context: Context,
     options?: RootOptions,
   ) {
@@ -123,7 +123,7 @@ export function createMount<
   Async
 > {
   function mount<Props>(
-    element: React.ReactElement<Props>,
+    element: ReactElement<Props>,
     options: MountOptions = {} as any,
   ) {
     const context = createContext(options);

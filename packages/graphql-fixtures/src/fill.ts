@@ -11,8 +11,8 @@ import {
   isScalarType,
   GraphQLScalarType,
 } from 'graphql';
-import {DocumentNode, GraphQLOperation} from 'graphql-typed';
-import {IfEmptyObject, IfAllNullableKeys} from '@shopify/useful-types';
+import type {DocumentNode, GraphQLOperation} from 'graphql-typed';
+import type {IfEmptyObject, IfAllNullableKeys} from '@shopify/useful-types';
 import {
   compile,
   Field,

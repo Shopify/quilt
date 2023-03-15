@@ -3,7 +3,7 @@ import {join} from 'path';
 import {readJson} from 'fs-extra';
 import appRoot from 'app-root-path';
 
-import {Manifest} from './types';
+import type {Manifest} from './types';
 import {Manifests} from './manifests';
 
 export type {Asset} from './types';

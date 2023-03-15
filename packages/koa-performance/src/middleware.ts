@@ -1,4 +1,4 @@
-import {Context} from 'koa';
+import type {Context} from 'koa';
 import compose from 'koa-compose';
 import bodyParser from 'koa-bodyparser';
 import {StatusCode, Header} from '@shopify/network';
@@ -12,7 +12,7 @@ import {
 import {StatsDClient, Logger} from '@shopify/statsd';
 
 import {LifecycleMetric, NavigationMetric} from './enums';
-import {BrowserConnection} from './types';
+import type {BrowserConnection} from './types';
 
 interface Tags {
   [key: string]: string | number | boolean;

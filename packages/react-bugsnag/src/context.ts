@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {ErrorLogger} from './types';
+import type {ErrorLogger} from './types';
 
 export const noopErrorLogger: ErrorLogger = {
   notify() {},

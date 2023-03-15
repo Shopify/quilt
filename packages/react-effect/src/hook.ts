@@ -1,7 +1,7 @@
 import {useContext} from 'react';
 
 import {EffectContext} from './context';
-import {EffectKind} from './types';
+import type {EffectKind} from './types';
 
 export function useServerEffect(perform: () => any, kind?: EffectKind) {
   const manager = useContext(EffectContext);

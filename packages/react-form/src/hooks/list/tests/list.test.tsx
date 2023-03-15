@@ -3,7 +3,7 @@ import React from 'react';
 import {mount} from '@shopify/react-testing';
 
 import {useList} from '../list';
-import {FieldListConfig} from '../baselist';
+import type {FieldListConfig} from '../baselist';
 
 import {randomVariants, TextField, Variant} from './utils';
 

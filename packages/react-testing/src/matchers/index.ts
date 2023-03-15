@@ -1,6 +1,6 @@
-import {ComponentType, Context as ReactContext} from 'react';
+import type {ComponentType, Context as ReactContext} from 'react';
 
-import {Node, PropsFor} from '../types';
+import type {Node, PropsFor} from '../types';
 
 import {toHaveReactProps, toHaveReactDataProps} from './props';
 import {

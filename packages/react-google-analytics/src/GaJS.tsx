@@ -1,7 +1,7 @@
 import React from 'react';
 import ImportRemote from '@shopify/react-import-remote';
 
-import {GaJSAnalytics} from './types';
+import type {GaJSAnalytics} from './types';
 import {getRootDomain} from './utilities';
 
 export interface Props {

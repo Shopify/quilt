@@ -1,7 +1,7 @@
 import React from 'react';
 import {mount} from '@shopify/react-testing';
 
-import {HtmlManager} from '../../manager';
+import type {HtmlManager} from '../../manager';
 import {HtmlContext} from '../../context';
 
 export function mountWithManager(

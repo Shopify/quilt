@@ -1,4 +1,4 @@
-import {I18nError} from './errors';
+import type {I18nError} from './errors';
 
 export enum LanguageDirection {
   Rtl,

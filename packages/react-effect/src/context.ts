@@ -1,5 +1,5 @@
 import React from 'react';
 
-import {EffectManager} from './manager';
+import type {EffectManager} from './manager';
 
 export const EffectContext = React.createContext<EffectManager | null>(null);

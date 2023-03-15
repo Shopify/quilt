@@ -1,5 +1,5 @@
 import {useServerEffect} from './hook';
-import {EffectKind} from './types';
+import type {EffectKind} from './types';
 
 interface Props {
   kind?: EffectKind;

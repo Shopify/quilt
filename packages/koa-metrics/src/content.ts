@@ -1,4 +1,4 @@
-import {Context} from 'koa';
+import type {Context} from 'koa';
 
 export function getContentLength(ctx: Context): number | null {
   const responseContentLength: string | undefined =

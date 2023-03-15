@@ -1,7 +1,7 @@
 import React from 'react';
 import {HydrationTracker} from '@shopify/react-hydrate';
 
-import {State} from '../manager';
+import type {State} from '../manager';
 import {useClientDomEffect} from '../hooks';
 import {MANAGED_ATTRIBUTE, removeDuplicate} from '../utilities';
 

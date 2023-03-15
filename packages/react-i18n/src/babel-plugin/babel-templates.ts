@@ -1,5 +1,5 @@
-import {TemplateBuilder} from '@babel/template';
-import Types from '@babel/types';
+import type {TemplateBuilder} from '@babel/template';
+import type Types from '@babel/types';
 
 import {
   TRANSLATION_DIRECTORY_NAME,

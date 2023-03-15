@@ -1,7 +1,7 @@
 import {useCallback, useMemo} from 'react';
 import {useLazyRef} from '@shopify/react-hooks';
 
-import {
+import type {
   FieldBag,
   FormInput,
   FormWithDynamicListsInput,

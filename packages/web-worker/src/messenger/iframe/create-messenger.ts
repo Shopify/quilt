@@ -1,4 +1,4 @@
-import {MessageEndpoint} from '@remote-ui/rpc';
+import type {MessageEndpoint} from '@remote-ui/rpc';
 
 import {IFRAME_RUN_IDENTIFIER} from './constants';
 

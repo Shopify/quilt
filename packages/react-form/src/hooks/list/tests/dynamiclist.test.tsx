@@ -3,7 +3,7 @@ import React from 'react';
 import {mount} from '@shopify/react-testing';
 
 import {useDynamicList} from '../dynamiclist';
-import {FieldListConfig} from '../baselist';
+import type {FieldListConfig} from '../baselist';
 
 import {Variant, randomVariants, clickEvent, TextField} from './utils';
 

@@ -1,4 +1,4 @@
-import {EffectKind, Pass} from './types';
+import type {EffectKind, Pass} from './types';
 
 interface Options {
   include?: symbol[] | boolean;

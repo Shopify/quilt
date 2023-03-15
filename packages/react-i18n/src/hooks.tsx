@@ -2,7 +2,7 @@ import React from 'react';
 import {useLazyRef} from '@shopify/react-hooks';
 
 import {I18n} from './i18n';
-import {I18nManager, RegisterOptions} from './manager';
+import type {I18nManager, RegisterOptions} from './manager';
 import {I18nContext, I18nIdsContext, I18nParentContext} from './context';
 
 type Result = [I18n, React.ComponentType<{children: React.ReactNode}>];

@@ -6,7 +6,7 @@ import {mount} from '@shopify/react-testing';
 import {Input} from '../../tests/components';
 import {lastCallArgs} from '../../tests/utilities';
 import FormState, {arrayUtils} from '../..';
-import {FieldDescriptor, FieldDescriptors} from '../../types';
+import type {FieldDescriptor, FieldDescriptors} from '../../types';
 
 describe('<FormState.List />', () => {
   let consoleErrorSpy: jest.SpyInstance;

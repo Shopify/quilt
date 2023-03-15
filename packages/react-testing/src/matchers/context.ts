@@ -1,4 +1,4 @@
-import {Context} from 'react';
+import type {Context} from 'react';
 import {
   matcherHint,
   printExpected,
@@ -6,7 +6,7 @@ import {
   RECEIVED_COLOR as receivedColor,
 } from 'jest-matcher-utils';
 
-import {Node} from '../types';
+import type {Node} from '../types';
 
 import {assertIsNode, diffs, printType} from './utilities';
 

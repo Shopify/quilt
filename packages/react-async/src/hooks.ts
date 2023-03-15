@@ -1,11 +1,11 @@
 import {useState, useCallback, useContext} from 'react';
-import {Resolver} from '@shopify/async';
+import type {Resolver} from '@shopify/async';
 import {useServerEffect} from '@shopify/react-effect';
 import {useMountedRef} from '@shopify/react-hooks';
-import {IfAllOptionalKeys, NoInfer} from '@shopify/useful-types';
+import type {IfAllOptionalKeys, NoInfer} from '@shopify/useful-types';
 
 import {AsyncAssetContext} from './context/assets';
-import {AssetTiming, AsyncComponentType} from './types';
+import type {AssetTiming, AsyncComponentType} from './types';
 
 export type Preloadable<PreloadOptions extends object> = Pick<
   AsyncComponentType<any, any, PreloadOptions, any, any>,

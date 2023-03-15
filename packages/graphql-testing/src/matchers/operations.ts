@@ -3,10 +3,10 @@ import {
   printExpected,
   EXPECTED_COLOR as expectedColor,
 } from 'jest-matcher-utils';
-import {GraphQLOperation, DocumentNode} from 'graphql-typed';
-import {Operation} from '@apollo/client';
+import type {GraphQLOperation, DocumentNode} from 'graphql-typed';
+import type {Operation} from '@apollo/client';
 
-import {GraphQL} from '../graphql-controller';
+import type {GraphQL} from '../graphql-controller';
 import {
   operationNameFromDocument,
   operationTypeFromDocument,

@@ -1,9 +1,9 @@
-import {OperationVariables} from '@apollo/client';
-import {DocumentNode} from 'graphql-typed';
+import type {OperationVariables} from '@apollo/client';
+import type {DocumentNode} from 'graphql-typed';
 import {useCallback} from 'react';
-import {NoInfer} from '@shopify/useful-types';
+import type {NoInfer} from '@shopify/useful-types';
 
-import {MutationHookOptions, MutationHookResult} from './types';
+import type {MutationHookOptions, MutationHookResult} from './types';
 import useApolloClient from './apollo-client';
 
 export default function useMutation<Data = any, Variables = OperationVariables>(

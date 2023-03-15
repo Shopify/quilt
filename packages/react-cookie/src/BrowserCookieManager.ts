@@ -1,6 +1,6 @@
 import cookie from 'cookie';
 
-import {CookieValue, Cookie} from './types';
+import type {CookieValue, Cookie} from './types';
 
 export {CookieContext} from './context';
 

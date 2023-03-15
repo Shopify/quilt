@@ -1,6 +1,6 @@
 import {stringify} from 'jest-matcher-utils';
 
-import {DebugOptions, Node} from './types';
+import type {DebugOptions, Node} from './types';
 
 export function toReactString<Props extends {} | unknown>(
   node: Node<Props>,

@@ -1,4 +1,4 @@
-import {StatusCode} from '@shopify/network';
+import type {StatusCode} from '@shopify/network';
 
 import {useRedirect} from '../hooks';
 

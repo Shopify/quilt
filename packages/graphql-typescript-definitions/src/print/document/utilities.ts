@@ -1,4 +1,4 @@
-import {
+import type {
   GraphQLCompositeType,
   // We need to bring these in as they are implicitly referenced by
   // GraphQLCompositeType, but TypeScript doesn’t know this when it
@@ -10,7 +10,7 @@ import {
   // @ts-expect-error TS needs this implict reference though we never use it explicitly
   GraphQLUnionType,
 } from 'graphql';
-import {Field} from 'graphql-tool-utilities';
+import type {Field} from 'graphql-tool-utilities';
 
 export class ObjectStack {
   private readonly seenFields = new Set<string>();

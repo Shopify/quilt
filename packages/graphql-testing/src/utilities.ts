@@ -1,6 +1,6 @@
-import {DocumentNode, OperationDefinitionNode} from 'graphql';
+import type {DocumentNode, OperationDefinitionNode} from 'graphql';
 
-import {FindOptions} from './types';
+import type {FindOptions} from './types';
 
 export function operationNameFromFindOptions({query, mutation}: FindOptions) {
   const passedOptions = [query, mutation].filter(Boolean);

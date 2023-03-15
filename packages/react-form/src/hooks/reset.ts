@@ -1,4 +1,4 @@
-import {FieldBag, Field} from '../types';
+import type {FieldBag, Field} from '../types';
 
 import useVisitFields from './visitFields';
 

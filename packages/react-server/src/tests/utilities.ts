@@ -1,10 +1,10 @@
-import {Server} from 'http';
+import type {Server} from 'http';
 
 import fetch from 'cross-fetch';
-import {Context} from 'koa';
+import type {Context} from 'koa';
 import getPort from 'get-port';
 
-import {KoaNextFunction} from '../types';
+import type {KoaNextFunction} from '../types';
 
 export class TestRack {
   private servers: Server[] = [];

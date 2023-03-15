@@ -1,4 +1,9 @@
-import React from 'react';
+import type {
+  ComponentType,
+  ComponentPropsWithoutRef,
+  HTMLAttributes,
+  LegacyRef,
+} from 'react';
 
 type IsNeverType<T> = [T] extends [never] ? true : false;
 type Rest<T extends any[]> = T extends [any, ...infer Rest] ? Rest : never;
@@ -115,18 +120,17 @@ export type TriggerKeypathReturn<
     : any
   : any;
 
-export type PropsFor<T extends string | React.ComponentType<any>> =
-  T extends string
-    ? T extends keyof JSX.IntrinsicElements
-      ? JSX.IntrinsicElements[T]
-      : React.HTMLAttributes<T>
-    : T extends React.ComponentType<any>
-    ? React.ComponentPropsWithoutRef<T>
-    : never;
+export type PropsFor<T extends string | ComponentType<any>> = T extends string
+  ? T extends keyof JSX.IntrinsicElements
+    ? JSX.IntrinsicElements[T]
+    : HTMLAttributes<T>
+  : T extends ComponentType<any>
+  ? ComponentPropsWithoutRef<T>
+  : never;
 
 export type UnknowablePropsFor<
-  T extends string | React.ComponentType<any> | unknown,
-> = T extends string | React.ComponentType<any> ? PropsFor<T> : unknown;
+  T extends string | ComponentType<any> | unknown,
+> = T extends string | ComponentType<any> ? PropsFor<T> : unknown;
 
 export type FunctionKeys<T> = {
   [K in keyof T]-?: NonNullable<T[K]> extends (...args: any[]) => any
@@ -176,14 +180,14 @@ export enum Tag {
 export interface Fiber {
   tag: Tag;
   key: null | string;
-  elementType: React.ComponentType | string | null;
-  type: React.ComponentType | string | null;
+  elementType: ComponentType | string | null;
+  type: ComponentType | string | null;
   stateNode: any;
   return: Fiber | null;
   child: Fiber | null;
   sibling: Fiber | null;
   index: number;
-  ref: React.LegacyRef<unknown>;
+  ref: LegacyRef<unknown>;
   pendingProps: unknown;
   memoizedProps: unknown;
   memoizedState: unknown;
@@ -201,7 +205,7 @@ export type Predicate = (node: Node<unknown>) => boolean;
 
 export interface Node<Props extends {} | unknown> {
   readonly props: Props;
-  readonly type: string | React.ComponentType<any> | null;
+  readonly type: string | ComponentType<any> | null;
   readonly isDOM: boolean;
   readonly instance: any;
   readonly children: Node<unknown>[];
@@ -215,15 +219,15 @@ export interface Node<Props extends {} | unknown> {
   text(): string;
   html(): string;
 
-  is<Type extends React.ComponentType<any> | string>(
+  is<Type extends ComponentType<any> | string>(
     type: Type,
   ): this is Node<PropsFor<Type>>;
 
-  find<Type extends React.ComponentType<any> | string>(
+  find<Type extends ComponentType<any> | string>(
     type: Type,
     props?: Partial<PropsFor<Type>>,
   ): Node<PropsFor<Type>> | null;
-  findAll<Type extends React.ComponentType<any> | string>(
+  findAll<Type extends ComponentType<any> | string>(
     type: Type,
     props?: Partial<PropsFor<Type>>,
   ): Node<PropsFor<Type>>[];

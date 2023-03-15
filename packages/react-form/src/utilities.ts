@@ -1,7 +1,7 @@
-import {ChangeEvent} from 'react';
+import type {ChangeEvent} from 'react';
 import get from 'get-value';
 
-import {
+import type {
   Validates,
   Validator,
   FieldOutput,

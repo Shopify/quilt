@@ -1,5 +1,5 @@
 import {FSWatcher, watch} from 'chokidar';
-import {GraphQLProjectConfig, GraphQLConfig} from 'graphql-config';
+import type {GraphQLProjectConfig, GraphQLConfig} from 'graphql-config';
 import {
   getGraphQLProjectIncludedFilePaths,
   getGraphQLProjects,

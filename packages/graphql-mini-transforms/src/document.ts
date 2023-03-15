@@ -11,7 +11,7 @@ import {
   SelectionNode,
   Location,
 } from 'graphql';
-import {DocumentNode, SimpleDocument} from 'graphql-typed';
+import type {DocumentNode, SimpleDocument} from 'graphql-typed';
 
 const IMPORT_REGEX = /^#import\s+['"]([^'"]*)['"];?[\s\n]*/gm;
 const DEFAULT_NAME = 'Operation';

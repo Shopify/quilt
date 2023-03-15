@@ -1,5 +1,5 @@
 import {useContext, useEffect} from 'react';
-import {Performance} from '@shopify/performance';
+import type {Performance} from '@shopify/performance';
 
 import {PerformanceContext} from './context';
 

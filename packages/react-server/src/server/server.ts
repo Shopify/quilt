@@ -1,5 +1,5 @@
 import 'cross-fetch';
-import {Server} from 'http';
+import type {Server} from 'http';
 
 import Koa, {Context} from 'koa';
 import compose from 'koa-compose';

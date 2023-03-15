@@ -1,6 +1,6 @@
 import {useCallback, useRef} from 'react';
 
-import {FieldBag, Field} from '../types';
+import type {FieldBag, Field} from '../types';
 import {reduceFields} from '../utilities';
 
 interface FieldVisitor {

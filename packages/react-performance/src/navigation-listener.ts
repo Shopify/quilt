@@ -1,4 +1,4 @@
-import {Navigation} from '@shopify/performance';
+import type {Navigation} from '@shopify/performance';
 
 import {usePerformanceEffect} from './performance-effect';
 

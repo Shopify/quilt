@@ -1,10 +1,10 @@
 import {useState, useEffect, useCallback} from 'react';
-import {OperationVariables} from '@apollo/client';
-import {DocumentNode} from 'graphql-typed';
+import type {OperationVariables} from '@apollo/client';
+import type {DocumentNode} from 'graphql-typed';
 import {useMountedRef} from '@shopify/react-hooks';
 import {useAsyncAsset} from '@shopify/react-async';
 
-import {AsyncDocumentNode} from '../types';
+import type {AsyncDocumentNode} from '../types';
 
 export default function useGraphQLDocument<
   Data extends {} = any,

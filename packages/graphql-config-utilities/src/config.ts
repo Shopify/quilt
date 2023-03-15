@@ -2,7 +2,7 @@ import {existsSync} from 'fs';
 import {promisify} from 'util';
 import {resolve} from 'path';
 
-import {GraphQLConfig, GraphQLProjectConfig} from 'graphql-config';
+import type {GraphQLConfig, GraphQLProjectConfig} from 'graphql-config';
 // we need to use an import/require here because it does not force consumers to
 // enable esModuleInterop in tsconfig.json
 import glob from 'glob';

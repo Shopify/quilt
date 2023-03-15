@@ -1,4 +1,4 @@
-import {DocumentNode, GraphQLInputType, GraphQLSchema} from 'graphql';
+import type {DocumentNode, GraphQLInputType, GraphQLSchema} from 'graphql';
 import {
   BooleanCondition,
   CompilerOptions,

@@ -1,5 +1,5 @@
 import React from 'react';
-import {ApolloClient} from '@apollo/client';
+import type {ApolloClient} from '@apollo/client';
 
 import {ApolloContext} from '../ApolloContext';
 

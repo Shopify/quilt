@@ -1,6 +1,6 @@
-import {IfAllNullableKeys, NoInfer} from '@shopify/useful-types';
-import {OperationVariables} from '@apollo/client';
-import {DocumentNode} from 'graphql-typed';
+import type {IfAllNullableKeys, NoInfer} from '@shopify/useful-types';
+import type {OperationVariables} from '@apollo/client';
+import type {DocumentNode} from 'graphql-typed';
 
 import {useQuery, QueryHookResult, QueryHookOptions} from './hooks';
 

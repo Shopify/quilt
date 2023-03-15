@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
 import {terminate} from '@shopify/web-worker';
 import {useLazyRef} from '@shopify/react-hooks';
-import {NoInfer} from '@shopify/useful-types';
+import type {NoInfer} from '@shopify/useful-types';
 
 type WorkerCreator<Options extends any[], ReturnType> = (
   ...args: Options

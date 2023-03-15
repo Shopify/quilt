@@ -1,4 +1,4 @@
-import {Import} from './types';
+import type {Import} from './types';
 
 export interface Resolver<T> {
   readonly id?: string;

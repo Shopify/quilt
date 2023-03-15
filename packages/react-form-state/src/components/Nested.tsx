@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {FieldDescriptor, FieldDescriptors, ValueMapper} from '../types';
+import type {FieldDescriptor, FieldDescriptors, ValueMapper} from '../types';
 import {mapObject} from '../utilities';
 
 interface Props<Fields> {

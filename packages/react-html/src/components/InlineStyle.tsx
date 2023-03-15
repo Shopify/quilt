@@ -1,8 +1,8 @@
-import React from 'react';
+import type {HTMLProps} from 'react';
 
 import {useInlineStyle} from '../hooks';
 
-type Props = React.HTMLProps<HTMLStyleElement>;
+type Props = HTMLProps<HTMLStyleElement>;
 
 export function InlineStyle(props: Props) {
   useInlineStyle(props);

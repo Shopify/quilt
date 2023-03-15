@@ -1,4 +1,4 @@
-import {DynamicListBag} from '../../types';
+import type {DynamicListBag} from '../../types';
 
 export function useDynamicListDirty(lists?: DynamicListBag) {
   return lists

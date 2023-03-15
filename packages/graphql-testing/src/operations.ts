@@ -1,7 +1,7 @@
-import {Operation} from '@apollo/client';
+import type {Operation} from '@apollo/client';
 
 import {operationNameFromFindOptions} from './utilities';
-import {FindOptions} from './types';
+import type {FindOptions} from './types';
 
 export class Operations {
   private operations: Operation[] = [];

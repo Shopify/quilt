@@ -1,5 +1,5 @@
 import {useContext, useState, useCallback} from 'react';
-import {CookieSerializeOptions} from 'cookie';
+import type {CookieSerializeOptions} from 'cookie';
 
 import {CookieContext} from './context';
 

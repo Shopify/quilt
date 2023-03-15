@@ -2,7 +2,8 @@ import React from 'react';
 import {mount} from '@shopify/react-testing';
 import {timer} from '@shopify/jest-dom-mocks';
 
-import Key, {HeldKey, ModifierKey} from '../keys';
+import type Key from '../keys';
+import type {HeldKey, ModifierKey} from '../keys';
 import Shortcut, {DefaultIgnoredTag} from '../Shortcut';
 import ShortcutProvider from '../ShortcutProvider';
 

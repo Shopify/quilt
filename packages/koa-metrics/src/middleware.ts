@@ -1,4 +1,4 @@
-import {Context} from 'koa';
+import type {Context} from 'koa';
 import {StatsDClient, Logger} from '@shopify/statsd';
 
 import {tagsForRequest, tagsForResponse} from './tags';

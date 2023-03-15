@@ -1,4 +1,4 @@
-import {LifecycleEvent} from '@shopify/performance';
+import type {LifecycleEvent} from '@shopify/performance';
 
 import {usePerformanceEffect} from './performance-effect';
 

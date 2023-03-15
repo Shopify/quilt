@@ -1,7 +1,7 @@
 import {ChangeEvent, useMemo} from 'react';
 
 import {mapObject, isChangeEvent} from '../../../utilities';
-import {
+import type {
   FieldDictionary,
   FieldState,
   NormalizedValidationDictionary,

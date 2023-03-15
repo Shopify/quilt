@@ -1,6 +1,6 @@
-import {ChangeEvent} from 'react';
+import type {ChangeEvent} from 'react';
 
-import {DynamicList} from './hooks/list/dynamiclist';
+import type {DynamicList} from './hooks/list/dynamiclist';
 
 export type {DynamicList} from './hooks/list/dynamiclist';
 
