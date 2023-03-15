@@ -13,11 +13,17 @@
       "jest-simple": [
         "./build/ts/jest-simple.d.ts"
       ],
+      "rollup": [
+        "./build/ts/rollup.d.ts"
+      ],
       "webpack": [
         "./build/ts/webpack-loader.d.ts"
       ],
       "webpack-loader": [
         "./build/ts/webpack-loader.d.ts"
+      ],
+      "vite": [
+        "./build/ts/vite.d.ts"
       ]
     }
   },
@@ -51,9 +57,13 @@
     "webpack": "^5.38.0"
   },
   "peerDependencies": {
+    "rollup": "^3.0.0",
     "webpack": "^5.38.0"
   },
   "peerDependenciesMeta": {
+    "rollup": {
+      "optional": true
+    },
     "webpack": {
       "optional": true
     }
@@ -71,9 +81,15 @@
     "jest-simple.js",
     "jest-simple.mjs",
     "jest-simple.esnext",
+    "rollup.js",
+    "rollup.mjs",
+    "rollup.esnext",
     "webpack-loader.js",
     "webpack-loader.mjs",
-    "webpack-loader.esnext"
+    "webpack-loader.esnext",
+    "vite.js",
+    "vite.mjs",
+    "vite.esnext"
   ],
   "module": "index.mjs",
   "esnext": "index.esnext",
@@ -86,6 +102,12 @@
       "types": "./build/ts/jest-simple.d.ts",
       "default": "./jest-simple.js"
     },
+    "./rollup": {
+      "types": "./build/ts/rollup.d.ts",
+      "esnext": "./rollup.esnext",
+      "import": "./rollup.mjs",
+      "require": "./rollup.js"
+    },
     "./webpack-loader": {
       "types": "./build/ts/webpack-loader.d.ts",
       "default": "./webpack-loader.js"
@@ -93,6 +115,12 @@
     "./webpack": {
       "types": "./build/ts/webpack-loader.d.ts",
       "default": "./webpack-loader.js"
+    },
+    "./vite": {
+      "types": "./build/ts/vite.d.ts",
+      "esnext": "./vite.esnext",
+      "import": "./vite.mjs",
+      "require": "./vite.js"
     },
     ".": {
       "types": "./build/ts/index.d.ts",
@@ -104,9 +132,12 @@
   "tags": [
     "graphql",
     "apollo",
-    "webpack",
     "loader",
+    "plugin",
+    "rollup",
+    "webpack",
     "webpack-loader",
+    "vite",
     "jest"
   ]
 }
