@@ -6,6 +6,8 @@ Update Apollo from v2 to v3. Replace dependencies on `apollo-client`, `apollo-ca
 
 Update the return type of `useMutation` to `FetchResult` to align it with what the Apollo client returns. The `data` key that gets returned from calling the function returned by `useMutation` may now be `undefined` in addition to possibly being `null`.
 
+We have tested SSR behaviour in the Shopify Admin (aka `web`) which uses a single render pass. We expect everything to work in SSR environments that use multiple passes of `@shopify/react-html` too, however be aware that multi-pass has not been exhaustively proven in production.
+
 Apollo Change: `ApolloClient.{query,mutate,etc}` now have built-in type inference. We suggest enabling `graphql-typescript-definitions`'s `--export-format=documentWithTypedDocumentNode` option to generate `.graphql.d.ts` files that produce types that Apollo's own client and hooks can take advantage of.
 
 Apollo Change: `useQuery().errors`, `useMutation().errors` and other error arrays are now readonly arrays (i.e. `readonly GraphQLError[]`). Previously they returned mutable arrays (i.e. `GraphQLError[]`).
