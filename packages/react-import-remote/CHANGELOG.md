@@ -1,5 +1,14 @@
 # Changelog
 
+## 4.1.4
+
+### Patch Changes
+
+- Updated dependencies [[`93ec0a0e5`](https://github.com/Shopify/quilt/commit/93ec0a0e57a1962a455f15a46977a3c05a02369f)]:
+  - @shopify/async@4.0.2
+  - @shopify/react-html@13.0.4
+  - @shopify/react-intersection-observer@4.0.3
+
 ## 4.1.3
 
 ### Patch Changes

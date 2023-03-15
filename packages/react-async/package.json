@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-async",
-  "version": "5.2.0",
+  "version": "5.2.1",
   "license": "MIT",
   "description": "Tools for creating powerful, asynchronously-loaded React components",
   "main": "index.js",
@@ -31,12 +31,12 @@
     "node": "^14.17.0 || >=16.0.0"
   },
   "dependencies": {
-    "@shopify/async": "^4.0.1",
-    "@shopify/react-effect": "^5.0.2",
+    "@shopify/async": "^4.0.2",
+    "@shopify/react-effect": "^5.0.3",
     "@shopify/react-hooks": "^3.0.3",
-    "@shopify/react-hydrate": "^3.0.7",
-    "@shopify/react-idle": "^3.1.0",
-    "@shopify/react-intersection-observer": "^4.0.2",
+    "@shopify/react-hydrate": "^3.0.8",
+    "@shopify/react-idle": "^3.1.1",
+    "@shopify/react-intersection-observer": "^4.0.3",
     "@shopify/useful-types": "^5.1.1"
   },
   "peerDependencies": {

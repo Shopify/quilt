@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.3.0
+
+### Minor Changes
+
+- [#2597](https://github.com/Shopify/quilt/pull/2597) [`3fdf54a64`](https://github.com/Shopify/quilt/commit/3fdf54a64f1fd500586e5b3e613f780e49582354) Thanks [@lemonmade](https://github.com/lemonmade)! - Add graphql-mini-transforms Rollup and Vite plugins
+
+### Patch Changes
+
+- [#2595](https://github.com/Shopify/quilt/pull/2595) [`93ec0a0e5`](https://github.com/Shopify/quilt/commit/93ec0a0e57a1962a455f15a46977a3c05a02369f) Thanks [@BPScott](https://github.com/BPScott)! - Use `import type` when importing types
+
 ## 5.2.0
 
 ### Minor Changes
