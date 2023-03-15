@@ -93,12 +93,12 @@
     "koa-mount": "^4.0.0",
     "koa-static": "^5.0.0",
     "rollup-plugin-copy": "^3.4.0",
-    "webpack": "^5.38.0",
+    "webpack": "^5.76.0",
     "webpack-virtual-modules": "^0.4.3"
   },
   "peerDependencies": {
     "@babel/core": "^7.0.0",
-    "webpack": "^5.38.0",
+    "webpack": "^5.76.0",
     "webpack-virtual-modules": "^0.4.3"
   },
   "peerDependenciesMeta": {
