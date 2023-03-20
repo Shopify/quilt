@@ -107,4 +107,42 @@ describe('Manifests read', () => {
     );
     expect(readJson).toHaveBeenCalledWith(join(appRoot.path, manifestPath));
   });
+
+  it('reads two different manifests', async () => {
+    const firstManifestPath = 'path/to/first-manifest';
+    const firstManifests = new Manifests(firstManifestPath);
+    const secondManifestPath = 'path/to/second-manifest';
+    const secondManifests = new Manifests(secondManifestPath);
+
+    await firstManifests.resolve('Chrome 73');
+
+    expect(pathExists).toHaveBeenCalledWith(
+      join(appRoot.path, `${firstManifestPath}.gz`),
+    );
+    expect(readJson).toHaveBeenCalledWith(
+      join(appRoot.path, firstManifestPath),
+    );
+
+    await secondManifests.resolve('Chrome 73');
+
+    expect(pathExists).toHaveBeenCalledWith(
+      join(appRoot.path, `${firstManifestPath}.gz`),
+    );
+    expect(readJson).toHaveBeenCalledWith(
+      join(appRoot.path, firstManifestPath),
+    );
+  });
+
+  it('does not reads twice the same manifest', async () => {
+    const manifestPath = 'path/to/first-manifest';
+    const manifests = new Manifests(manifestPath);
+
+    await manifests.resolve('Chrome 73');
+    await manifests.resolve('Chrome 73');
+
+    expect(readJson).toHaveBeenNthCalledWith(
+      1,
+      join(appRoot.path, manifestPath),
+    );
+  });
 });
