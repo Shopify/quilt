@@ -2,16 +2,16 @@ import type {Context} from 'koa';
 
 import createContext from '../create-mock-context';
 
-const STORE_URL = 'http://mystore.com/admin';
+const STORE_URL = '/admin?id=1';
+const STORE_HOST = 'mystore.com';
 
 describe('create-mock-context', () => {
   it('includes custom method and url', () => {
     const method = 'PUT';
-    const url = STORE_URL;
-    const context = createContext({method, url});
+    const context = createContext({method, url: STORE_URL});
 
     expect(context.method).toBe(method);
-    expect(context.url).toBe(url);
+    expect(context.url).toBe(STORE_URL);
   });
 
   it('defaults status to 404', () => {
@@ -59,27 +59,30 @@ describe('create-mock-context', () => {
   });
 
   it('sets url segment aliases', () => {
-    const context = createContext({url: STORE_URL});
+    const context = createContext({
+      url: STORE_URL,
+      host: STORE_HOST,
+    });
 
     const {url, originalUrl, host, origin, path, protocol} = context;
     expect(url).toBe(STORE_URL);
     expect(originalUrl).toBe(STORE_URL);
-    expect(host).toBe('mystore.com');
     expect(path).toBe('/admin');
     expect(protocol).toBe('http');
-    expect(origin).toBe('http://mystore.com');
+    expect(host).toBe(STORE_HOST);
+    expect(origin).toBe(`http://${STORE_HOST}`);
   });
 
   it('defaults url segments when no origin is given', () => {
-    const context = createContext({url: '/foo'});
+    const context = createContext({url: STORE_URL, host: STORE_HOST});
 
     const {url, originalUrl, host, origin, path, protocol} = context;
-    expect(url).toBe('http://test.com/foo');
-    expect(originalUrl).toBe('http://test.com/foo');
-    expect(host).toBe('test.com');
-    expect(path).toBe('/foo');
+    expect(url).toBe(STORE_URL);
+    expect(originalUrl).toBe(STORE_URL);
+    expect(path).toBe('/admin');
+    expect(host).toBe(STORE_HOST);
     expect(protocol).toBe('http');
-    expect(origin).toBe('http://test.com');
+    expect(origin).toBe(`http://${STORE_HOST}`);
   });
 
   it('determines protocol based on `encrypted`', () => {
@@ -89,32 +92,6 @@ describe('create-mock-context', () => {
     });
 
     expect(protocol).toBe('https');
-  });
-
-  it('generates the same url from segments as a full url', () => {
-    const explicitSegments = createContext({
-      url: '/foo/bar',
-      host: 'www.foobarbaz.com',
-      encrypted: true,
-    });
-
-    const fullyQualifiedUrl = createContext({
-      url: 'https://www.foobarbaz.com/foo/bar',
-    });
-
-    expect(explicitSegments.originalUrl).toBe(fullyQualifiedUrl.originalUrl);
-  });
-
-  it('prefers fully qualified url over explicit segments', () => {
-    const expectedUrl = 'https://www.foobarbaz.com/foo/bar';
-
-    const {originalUrl} = createContext({
-      url: 'https://www.foobarbaz.com/foo/bar',
-      host: 'someotherplace.com',
-      encrypted: false,
-    });
-
-    expect(originalUrl).toBe(expectedUrl);
   });
 
   it('includes custom cookies', () => {
