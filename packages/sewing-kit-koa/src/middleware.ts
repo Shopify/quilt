@@ -22,17 +22,25 @@ export interface Options {
 }
 
 const ASSETS = Symbol('assets');
+const DEFAULT_ASSETS = Symbol('default_assets');
 
-export function getAssets(ctx: Context, key: string | symbol = ASSETS): Assets {
-  return (ctx.state as any)[key];
+export function getAssets(
+  ctx: Context,
+  key: string | symbol = DEFAULT_ASSETS,
+): Assets {
+  return (ctx.state as any)[ASSETS]?.[key];
 }
 
 export function setAssets(
   ctx: Context,
   assets: Assets,
-  key: string | symbol = ASSETS,
+  key: string | symbol = DEFAULT_ASSETS,
 ) {
-  (ctx.state as any)[key] = assets;
+  if ((ctx.state as any)[ASSETS] == null) {
+    (ctx.state as any)[ASSETS] = {};
+  }
+
+  (ctx.state as any)[ASSETS][key] = assets;
 }
 
 export default function middleware({
