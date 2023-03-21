@@ -24,6 +24,16 @@ describe('middleware', () => {
     expect(getAssets(context)).toHaveProperty('assetPrefix', assetPrefix);
   });
 
+  it('adds an instance of Assets with the specified assetPrefix to state with a custom key', async () => {
+    const key = 'foo';
+    const assetPrefix = '/sewing-kit-assets/';
+    const context = createMockContext();
+    await middleware({assetPrefix, key})(context, () => Promise.resolve());
+
+    expect(getAssets(context, key)).toBeInstanceOf(Assets);
+    expect(getAssets(context, key)).toHaveProperty('assetPrefix', assetPrefix);
+  });
+
   it('defaults the asset host to Sewing Kit’s dev server', async () => {
     const context = createMockContext();
     await middleware()(context, () => Promise.resolve());

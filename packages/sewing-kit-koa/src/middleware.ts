@@ -18,22 +18,36 @@ export interface Options {
   serveAssets?: boolean;
   manifestPath?: string;
   caching?: boolean;
+  key?: symbol | string;
 }
 
 const ASSETS = Symbol('assets');
+const DEFAULT_ASSETS = Symbol('default_assets');
 
-export function getAssets(ctx: Context): Assets {
-  return (ctx.state as any)[ASSETS];
+export function getAssets(
+  ctx: Context,
+  key: string | symbol = DEFAULT_ASSETS,
+): Assets {
+  return (ctx.state as any)[ASSETS]?.[key];
 }
 
-export function setAssets(ctx: Context, assets: Assets) {
-  (ctx.state as any)[ASSETS] = assets;
+export function setAssets(
+  ctx: Context,
+  assets: Assets,
+  key: string | symbol = DEFAULT_ASSETS,
+) {
+  if ((ctx.state as any)[ASSETS] == null) {
+    (ctx.state as any)[ASSETS] = {};
+  }
+
+  (ctx.state as any)[ASSETS][key] = assets;
 }
 
 export default function middleware({
   serveAssets = false,
   assetPrefix = defaultAssetPrefix(serveAssets),
   manifestPath,
+  key,
   caching = true,
 }: Options = {}): Middleware {
   async function sewingKitMiddleware(ctx: Context, next: () => Promise<any>) {
@@ -44,7 +58,7 @@ export default function middleware({
       caching,
     });
 
-    setAssets(ctx, assets);
+    setAssets(ctx, assets, key);
 
     await next();
   }
