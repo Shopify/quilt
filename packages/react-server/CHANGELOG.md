@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.1.6
+
+### Patch Changes
+
+- Updated dependencies [[`54f199856`](https://github.com/Shopify/quilt/commit/54f199856dab52d3f0415243b71d4d51d46038cb), [`c6f5d2f3d`](https://github.com/Shopify/quilt/commit/c6f5d2f3d839ddecdb70010dc7c777dd4f5d7e7a), [`40423a88d`](https://github.com/Shopify/quilt/commit/40423a88d022ac26a6549096bb2e42aeab08c42d)]:
+  - @shopify/sewing-kit-koa@9.2.0
+
 ## 4.1.5
 
 ### Patch Changes
