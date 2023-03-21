@@ -77,13 +77,13 @@ function readGzipped(resolvedPath: string) {
     .then((unzippedStr) => JSON.parse(unzippedStr.toString()));
 }
 
-const loadPromise: Map<
+const manifestsMapByPath: Map<
   string,
   Promise<ReturnType<typeof groupManifests>>
 > = new Map();
 function loadConsolidatedManifest(manifestPath: string, caching: boolean) {
-  if (loadPromise.has(manifestPath) && caching) {
-    return loadPromise.get(manifestPath)!;
+  if (manifestsMapByPath.has(manifestPath) && caching) {
+    return manifestsMapByPath.get(manifestPath)!;
   }
 
   const resolvedPath = join(appRoot.path, manifestPath);
@@ -98,13 +98,13 @@ function loadConsolidatedManifest(manifestPath: string, caching: boolean) {
       return groupManifests(manifests.map(backfillIdentity));
     });
 
-  loadPromise.set(manifestPath, promise);
+  manifestsMapByPath.set(manifestPath, promise);
 
   return promise;
 }
 
 export function internalOnlyClearCache() {
-  loadPromise.clear();
+  manifestsMapByPath.clear();
 }
 
 function find(manifests: Manifest[] | undefined, userAgent) {

@@ -36,7 +36,7 @@ export default class Assets {
   assetPrefix: string;
   userAgent?: string;
   private manifests: Manifests;
-  private resolvedManifestEntry: Map<string, Manifest> = new Map();
+  private manifestsMapByPath: Map<string, Manifest> = new Map();
 
   constructor({assetPrefix, userAgent, manifestPath, caching = true}: Options) {
     this.assetPrefix = assetPrefix;
@@ -83,8 +83,8 @@ export default class Assets {
   private async getResolvedManifestEntry(
     locale: string | undefined,
   ): Promise<Manifest> {
-    if (this.resolvedManifestEntry.has(this.manifests.path)) {
-      return this.resolvedManifestEntry.get(this.manifests.path)!;
+    if (this.manifestsMapByPath.has(this.manifests.path)) {
+      return this.manifestsMapByPath.get(this.manifests.path)!;
     }
 
     const {userAgent} = this;
@@ -92,7 +92,7 @@ export default class Assets {
       locale,
     });
 
-    this.resolvedManifestEntry.set(this.manifests.path, manifest);
+    this.manifestsMapByPath.set(this.manifests.path, manifest);
     return manifest;
   }
 
