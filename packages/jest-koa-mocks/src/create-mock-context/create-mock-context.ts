@@ -69,8 +69,6 @@ export default function createContext<
     state,
   };
 
-  const protocolFallback = encrypted ? 'https' : 'http';
-
   const req = httpMocks.createRequest({
     url,
     method,
@@ -88,7 +86,7 @@ export default function createContext<
   req.socket = new stream.Duplex() as any;
   Object.defineProperty(req.socket, 'encrypted', {
     writable: false,
-    value: protocolFallback === 'https',
+    value: encrypted,
   });
 
   const res = httpMocks.createResponse();
