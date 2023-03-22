@@ -42,7 +42,7 @@
     "cookie": "^0.4.0"
   },
   "devDependencies": {
-    "@shopify/jest-koa-mocks": "^5.0.2"
+    "@shopify/jest-koa-mocks": "^5.1.0"
   },
   "peerDependencies": {
     "koa": "^2.5.0",

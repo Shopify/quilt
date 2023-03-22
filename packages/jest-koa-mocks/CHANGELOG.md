@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.1.0
+
+### Minor Changes
+
+- [#2602](https://github.com/Shopify/quilt/pull/2602) [`cd1c5c891`](https://github.com/Shopify/quilt/commit/cd1c5c891a56273d5d313b90b32ff6a3aa21e924) Thanks [@mateus](https://github.com/mateus)! - Using non-fully qualified URLs
+
 ## 5.0.2
 
 ### Patch Changes
