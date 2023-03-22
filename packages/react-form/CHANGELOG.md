@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.5.3
+
+### Patch Changes
+
+- [#2469](https://github.com/Shopify/quilt/pull/2469) [`60872d86f`](https://github.com/Shopify/quilt/commit/60872d86f24d2ecfe2f04e556cc817621510a6c4) Thanks [@alexanderMontague](https://github.com/alexanderMontague)! - `getDirtyValues` detects nested dirty fields
+
 ## 2.5.2
 
 ### Patch Changes
