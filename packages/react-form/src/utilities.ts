@@ -174,15 +174,32 @@ export function getValues<T extends FieldBag>(fieldBag: T) {
 }
 
 export function getDirtyValues<T extends FieldBag>(fieldBag: T) {
-  return Object.entries(fieldBag).reduce(
-    (acc, [fieldName, field]: [string, Field<any>]) => {
+  const reduceFn = (acc, [fieldName, field]) => {
+    if (Array.isArray(field)) {
+      const dirtyArray = field
+        .map((dirtyField) => Object.entries(dirtyField).reduce(reduceFn, {}))
+        .filter((dirtyField) => Object.keys(dirtyField).length);
       return {
         ...acc,
-        ...(field.dirty ? {[fieldName]: field.value} : {}),
+        ...(dirtyArray.length ? {[fieldName]: dirtyArray} : {}),
       };
-    },
-    {},
-  );
+    }
+
+    if (!isField(field)) {
+      const dirtyField = Object.entries(field).reduce(reduceFn, {});
+      return {
+        ...acc,
+        ...(Object.keys(dirtyField).length ? {[fieldName]: dirtyField} : {}),
+      };
+    }
+
+    return {
+      ...acc,
+      ...(field.dirty ? {[fieldName]: field.value} : {}),
+    };
+  };
+
+  return Object.entries(fieldBag).reduce(reduceFn, {});
 }
 
 export function noop() {}
