@@ -1,4 +1,3 @@
-import {URL} from 'url';
 import stream from 'stream';
 
 import httpMocks, {RequestMethod} from 'node-mocks-http';
@@ -52,7 +51,7 @@ export default function createContext<
     session,
     requestBody,
     rawBody = '',
-    url = '',
+    url = '/',
     host = 'test.com',
     encrypted = false,
     throw: throwFn = jest.fn(),
@@ -70,17 +69,14 @@ export default function createContext<
     state,
   };
 
-  const protocolFallback = encrypted ? 'https' : 'http';
-  const urlObject = new URL(url, `${protocolFallback}://${host}`);
-
   const req = httpMocks.createRequest({
-    url: urlObject.toString(),
+    url,
     method,
     statusCode,
     session,
     headers: {
       // Koa determines protocol based on the `Host` header.
-      Host: urlObject.host,
+      Host: host,
       ...headers,
     },
   });
@@ -90,7 +86,7 @@ export default function createContext<
   req.socket = new stream.Duplex() as any;
   Object.defineProperty(req.socket, 'encrypted', {
     writable: false,
-    value: urlObject.protocol === 'https:',
+    value: encrypted,
   });
 
   const res = httpMocks.createResponse();
