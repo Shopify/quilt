@@ -7,6 +7,8 @@ const root = __dirname;
 /** Optional value that can be provided to override the version of React used in tests */
 // eslint-disable-next-line no-process-env
 const REACT_VERSION = process.env.REACT_VERSION ?? '';
+// eslint-disable-next-line no-process-env
+const GRAPHQL_VERSION = process.env.GRAPHQL_VERSION ?? '';
 
 const packageMapping = glob
   .sync('./packages/*/package.json', {cwd: root})
@@ -54,6 +56,7 @@ const moduleNameMapper = {
   ...moduleNameMapperForPackages,
   '^react-dom((/.*)?)$': `react-dom${REACT_VERSION}$1`,
   '^react((/.*)?)$': `react${REACT_VERSION}$1`,
+  '^graphql((/.*)?)$': `graphql${GRAPHQL_VERSION}$1`,
 };
 
 const configOverrides = {
