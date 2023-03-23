@@ -2,14 +2,14 @@ import type {Context} from 'koa';
 import compose from 'koa-compose';
 import bodyParser from 'koa-bodyparser';
 import {StatusCode, Header} from '@shopify/network';
-import {
-  EventType,
-  Navigation,
+import type {
   LifecycleEvent,
   NavigationDefinition,
   NavigationMetadata,
 } from '@shopify/performance';
-import {StatsDClient, Logger} from '@shopify/statsd';
+import {EventType, Navigation} from '@shopify/performance';
+import type {Logger} from '@shopify/statsd';
+import {StatsDClient} from '@shopify/statsd';
 
 import {LifecycleMetric, NavigationMetric} from './enums';
 import type {BrowserConnection} from './types';

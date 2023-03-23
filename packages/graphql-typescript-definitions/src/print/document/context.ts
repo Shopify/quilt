@@ -1,7 +1,8 @@
 import {relative, dirname} from 'path';
 
 import * as t from '@babel/types';
-import {AST, Fragment, isOperation, Operation} from 'graphql-tool-utilities';
+import type {AST, Fragment, Operation} from 'graphql-tool-utilities';
+import {isOperation} from 'graphql-tool-utilities';
 
 import type {EnumFormat, ExportFormat} from '../../types';
 

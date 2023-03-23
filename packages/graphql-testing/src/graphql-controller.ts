@@ -1,9 +1,5 @@
-import {
-  ApolloClient,
-  ApolloLink,
-  InMemoryCacheConfig,
-  InMemoryCache,
-} from '@apollo/client';
+import type {InMemoryCacheConfig} from '@apollo/client';
+import {ApolloClient, ApolloLink, InMemoryCache} from '@apollo/client';
 
 import {MockLink, InflightLink} from './links';
 import {Operations} from './operations';

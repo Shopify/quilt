@@ -1,6 +1,7 @@
 import {Method, Header} from '@shopify/network';
 
-import {WebhookHeader, Topic} from './types';
+import type {Topic} from './types';
+import {WebhookHeader} from './types';
 
 export type ApiVersion =
   | '2020-10'

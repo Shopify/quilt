@@ -1,4 +1,5 @@
-import {CspDirective, CspSandboxAllow} from '@shopify/network';
+import type {CspSandboxAllow} from '@shopify/network';
+import {CspDirective} from '@shopify/network';
 
 import {useCspDirective} from '../hooks';
 

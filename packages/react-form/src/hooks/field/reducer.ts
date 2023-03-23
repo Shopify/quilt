@@ -1,4 +1,5 @@
-import {useReducer, Reducer} from 'react';
+import type {Reducer} from 'react';
+import {useReducer} from 'react';
 
 import type {FieldState, ErrorValue, DirtyStateComparator} from '../../types';
 import {defaultDirtyComparator, shallowArrayComparison} from '../../utilities';

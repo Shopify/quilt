@@ -1,9 +1,10 @@
-import {useReducer, Reducer} from 'react';
+import type {Reducer} from 'react';
+import {useReducer} from 'react';
 
 import type {FieldStates, ErrorValue} from '../../../types';
+import type {FieldAction} from '../../field';
 import {
   reduceField,
-  FieldAction,
   updateErrorAction as updateFieldError,
   initialFieldState,
 } from '../../field';

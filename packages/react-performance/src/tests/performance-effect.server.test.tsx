@@ -5,7 +5,8 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
-import {usePerformanceEffect, PerformanceEffectCallback} from '..';
+import type {PerformanceEffectCallback} from '..';
+import {usePerformanceEffect} from '..';
 
 describe('usePerformanceEffect', () => {
   function TestComponent({callback}: {callback: PerformanceEffectCallback}) {

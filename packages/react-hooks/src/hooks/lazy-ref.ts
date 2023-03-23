@@ -1,4 +1,5 @@
-import {useRef, useState, MutableRefObject} from 'react';
+import type {MutableRefObject} from 'react';
+import {useRef, useState} from 'react';
 
 export function useLazyRef<T>(getValue: () => T): MutableRefObject<T> {
   const [value] = useState<T>(getValue);

@@ -1,6 +1,7 @@
 import {transformAsync} from '@babel/core';
 
-import asyncBabelPlugin, {Options} from '../babel-plugin';
+import type {Options} from '../babel-plugin';
+import asyncBabelPlugin from '../babel-plugin';
 
 const defaultPackage = 'some-async-package';
 const defaultImport = 'createAsyncComponent';

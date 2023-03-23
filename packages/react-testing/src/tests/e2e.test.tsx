@@ -1,15 +1,13 @@
+import type {ReactNode, ComponentType, Ref} from 'react';
 import React, {
   useState,
   useEffect,
   useContext,
   createContext,
-  ReactNode,
   Component,
-  ComponentType,
   memo,
   forwardRef,
   PureComponent,
-  Ref,
 } from 'react';
 import {createPortal} from 'react-dom';
 

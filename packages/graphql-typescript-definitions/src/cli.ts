@@ -5,7 +5,8 @@ import yargs from 'yargs';
 
 import {EnumFormat, ExportFormat} from './types';
 
-import {Builder, SchemaBuild, DocumentBuild} from '.';
+import type {SchemaBuild, DocumentBuild} from '.';
+import {Builder} from '.';
 
 const argv = yargs
   .usage('Usage: $0 [options]')

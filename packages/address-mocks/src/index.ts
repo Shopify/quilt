@@ -1,9 +1,9 @@
-import {
-  GRAPHQL_ENDPOINT,
+import type {
   LoadCountriesResponse,
   LoadCountryResponse,
   ResponseError,
 } from '@shopify/address-consts';
+import {GRAPHQL_ENDPOINT} from '@shopify/address-consts';
 import {fetch} from '@shopify/jest-dom-mocks';
 
 import {fixtures} from './fixtures';

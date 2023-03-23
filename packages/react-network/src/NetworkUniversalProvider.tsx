@@ -2,10 +2,8 @@ import React from 'react';
 import {useLazyRef} from '@shopify/react-hooks';
 
 import {useNetworkManager} from './hooks';
-import {
-  NetworkUniversalProvider as UniversalProvider,
-  NetworkUniversalDetails,
-} from './context';
+import type {NetworkUniversalDetails} from './context';
+import {NetworkUniversalProvider as UniversalProvider} from './context';
 
 interface Props {
   children?: React.ReactNode;

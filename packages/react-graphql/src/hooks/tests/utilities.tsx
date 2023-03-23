@@ -1,5 +1,6 @@
 import React from 'react';
-import {createGraphQLFactory, GraphQL} from '@shopify/graphql-testing';
+import type {GraphQL} from '@shopify/graphql-testing';
+import {createGraphQLFactory} from '@shopify/graphql-testing';
 import {createMount} from '@shopify/react-testing';
 
 import {ApolloProvider} from '../../ApolloProvider';

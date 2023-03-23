@@ -1,15 +1,14 @@
 import {Navigation} from '../navigation';
-import {
+import type {
   NavigationDefinition,
   NavigationMetadata,
-  NavigationResult,
   CustomEvent,
   ScriptDownloadEvent,
-  EventType,
   StyleDownloadEvent,
   LifecycleEvent,
   EventMap,
 } from '../types';
+import {NavigationResult, EventType} from '../types';
 
 describe('Navigation', () => {
   it('has a start time', () => {

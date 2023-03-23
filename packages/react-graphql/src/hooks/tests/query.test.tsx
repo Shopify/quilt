@@ -7,7 +7,7 @@ import {
   gql,
   ApolloError,
 } from '@apollo/client';
-import {DocumentNode} from 'graphql-typed';
+import type {DocumentNode} from 'graphql-typed';
 import {createGraphQLFactory} from '@shopify/graphql-testing';
 
 import {createAsyncQueryComponent} from '../../async';

@@ -1,5 +1,7 @@
-import {ApolloLink, Observable, Operation} from '@apollo/client';
-import {ExecutionResult, GraphQLError} from 'graphql';
+import type {Operation} from '@apollo/client';
+import {ApolloLink, Observable} from '@apollo/client';
+import type {ExecutionResult} from 'graphql';
+import {GraphQLError} from 'graphql';
 
 import type {GraphQLMock, MockGraphQLFunction} from '../types';
 

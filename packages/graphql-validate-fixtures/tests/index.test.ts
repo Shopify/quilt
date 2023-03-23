@@ -4,7 +4,8 @@ import {join} from 'path';
 import * as glob from 'glob';
 
 import {stripFullFilePaths} from '../../../tests/utilities';
-import {evaluateFixtures, Options} from '../src/index';
+import type {Options} from '../src/index';
+import {evaluateFixtures} from '../src/index';
 
 const rootFixtureDirectory = join(__dirname, 'fixtures');
 

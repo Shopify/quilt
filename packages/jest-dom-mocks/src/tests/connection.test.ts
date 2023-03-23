@@ -1,4 +1,5 @@
-import {Connection, NavigatorWithConnection} from '../connection';
+import type {NavigatorWithConnection} from '../connection';
+import {Connection} from '../connection';
 
 describe('Connection', () => {
   describe('mock', () => {

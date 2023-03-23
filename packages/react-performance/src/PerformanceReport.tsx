@@ -1,4 +1,5 @@
-import {usePerformanceReport, ErrorHandler} from './performance-report';
+import type {ErrorHandler} from './performance-report';
+import {usePerformanceReport} from './performance-report';
 
 interface Props {
   url: string;

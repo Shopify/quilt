@@ -2,8 +2,8 @@ import React from 'react';
 import ImportRemote from '@shopify/react-import-remote';
 import {mount} from '@shopify/react-testing';
 
+import type {Props} from '../Universal';
 import Universal, {
-  Props,
   SETUP_SCRIPT,
   UNIVERSAL_GA_SCRIPT,
   UNIVERSAL_GA_DEBUG_SCRIPT,

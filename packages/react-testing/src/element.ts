@@ -1,8 +1,7 @@
 import type {ComponentType} from 'react';
 
 import {nodeName, toReactString} from './toReactString';
-import {
-  Tag,
+import type {
   Node,
   Predicate,
   FunctionKeys,
@@ -15,6 +14,7 @@ import {
   KeyPathFunction,
   ExtractKeypath,
 } from './types';
+import {Tag} from './types';
 
 type Root = import('./root').Root<unknown>;
 

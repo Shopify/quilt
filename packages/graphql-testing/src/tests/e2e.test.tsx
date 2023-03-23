@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import {GraphQLError} from 'graphql';
 import {gql} from '@apollo/client';
-import {DocumentNode} from 'graphql-typed';
+import type {DocumentNode} from 'graphql-typed';
 import {mount} from '@shopify/react-testing';
 import {ApolloProvider, useQuery, ApolloError} from '@shopify/react-graphql';
 

@@ -15,36 +15,33 @@ import {
 import {memoize} from '@shopify/function-enhancers';
 import {languageFromLocale, regionFromLocale} from '@shopify/i18n';
 
-import {
+import type {
   I18nDetails,
   PrimitiveReplacementDictionary,
   ComplexReplacementDictionary,
   TranslationDictionary,
-  LanguageDirection,
 } from './types';
+import {LanguageDirection} from './types';
+import type {Weekday} from './constants';
 import {
   dateStyle,
   DateStyle,
   DEFAULT_WEEK_START_DAY,
   WEEK_START_DAYS,
   RTL_LANGUAGES,
-  Weekday,
   currencyDecimalPlaces,
   DEFAULT_DECIMAL_PLACES,
   DIRECTION_CONTROL_CHARACTERS,
   EASTERN_NAME_ORDER_FORMATTERS,
   CurrencyShortFormException,
 } from './constants';
-import {
-  MissingCurrencyCodeError,
-  MissingCountryError,
-  I18nError,
-} from './errors';
+import type {I18nError} from './errors';
+import {MissingCurrencyCodeError, MissingCountryError} from './errors';
+import type {TranslateOptions as RootTranslateOptions} from './utilities';
 import {
   getCurrencySymbol,
   translate,
   getTranslationTree,
-  TranslateOptions as RootTranslateOptions,
   memoizedNumberFormatter,
   memoizedPluralRules,
   convertFirstSpaceToNonBreakingSpace,

@@ -1,4 +1,5 @@
-import React, {useRef, ReactNode, ComponentProps} from 'react';
+import type {ReactNode, ComponentProps} from 'react';
+import React, {useRef} from 'react';
 import type {Client} from '@bugsnag/js';
 import type {BugsnagErrorBoundary} from '@bugsnag/plugin-react';
 

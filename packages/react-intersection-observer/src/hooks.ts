@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {useState, useRef, useEffect, Ref} from 'react';
+import type {Ref} from 'react';
+import {useState, useRef, useEffect} from 'react';
 
 import {isSupported} from './utilities';
 import {UnsupportedBehavior} from './types';

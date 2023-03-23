@@ -2,7 +2,8 @@ import type {Server} from 'http';
 import type {AddressInfo} from 'net';
 import {URL} from 'url';
 
-import Koa, {Middleware, Context} from 'koa';
+import type {Middleware, Context} from 'koa';
+import Koa from 'koa';
 import serve from 'koa-static';
 import mount from 'koa-mount';
 import getPort from 'get-port';

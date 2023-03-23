@@ -1,6 +1,7 @@
 import {createWorkerMessenger} from '../messenger';
 
-import {createScriptUrl, FileOrModuleResolver} from './utilities';
+import type {FileOrModuleResolver} from './utilities';
+import {createScriptUrl} from './utilities';
 
 export interface PlainWorkerCreator {
   readonly url?: URL;

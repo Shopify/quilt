@@ -5,7 +5,7 @@ import {
   expectNotType,
 } from 'tsd-lite';
 
-import {
+import type {
   ArrayElement,
   DeepPartial,
   IfEmptyObject,

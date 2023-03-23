@@ -2,7 +2,8 @@ import {Header} from '@shopify/network';
 import {fetch as fetchMock} from '@shopify/jest-dom-mocks';
 
 import {DeliveryMethod} from '../register';
-import {registerWebhook, Options, WebhookHeader} from '..';
+import type {Options} from '..';
+import {registerWebhook, WebhookHeader} from '..';
 
 const successResponse = {
   data: {

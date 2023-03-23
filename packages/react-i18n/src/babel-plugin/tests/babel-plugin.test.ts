@@ -1,8 +1,10 @@
 import path from 'path';
 
-import {transformAsync, TransformOptions} from '@babel/core';
+import type {TransformOptions} from '@babel/core';
+import {transformAsync} from '@babel/core';
 
-import i18nBabelPlugin, {Options} from '../index';
+import type {Options} from '../index';
+import i18nBabelPlugin from '../index';
 import {TRANSLATION_DIRECTORY_NAME} from '../shared';
 
 jest.mock('string-hash', () => () => {

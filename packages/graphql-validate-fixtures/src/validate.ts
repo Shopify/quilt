@@ -1,14 +1,16 @@
 import {dirname, basename} from 'path';
 
-import {
+import type {
   GraphQLType,
   GraphQLNonNull,
   GraphQLList,
+  GraphQLLeafType,
+} from 'graphql';
+import {
   GraphQLString,
   GraphQLInt,
   GraphQLFloat,
   GraphQLBoolean,
-  GraphQLLeafType,
   isEnumType,
   isListType,
   isNonNullType,

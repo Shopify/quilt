@@ -1,6 +1,7 @@
 import React from 'react';
 import {useIntersection} from '@shopify/react-intersection-observer';
-import {DeferTiming, RequestIdleCallbackHandle} from '@shopify/async';
+import type {RequestIdleCallbackHandle} from '@shopify/async';
+import {DeferTiming} from '@shopify/async';
 import {useMountedRef} from '@shopify/react-hooks';
 
 import load from './load';

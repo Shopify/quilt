@@ -1,10 +1,12 @@
 import type {Context} from 'koa';
-import {StatsDClient, Logger} from '@shopify/statsd';
+import type {Logger} from '@shopify/statsd';
+import {StatsDClient} from '@shopify/statsd';
 
 import {tagsForRequest, tagsForResponse} from './tags';
 import {getQueuingTime} from './timing';
 import {getContentLength} from './content';
-import {initTimer, Timer} from './timer';
+import type {Timer} from './timer';
+import {initTimer} from './timer';
 
 export enum CustomMetric {
   ContentLength = 'request_content_length',

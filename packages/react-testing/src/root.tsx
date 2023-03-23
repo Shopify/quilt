@@ -7,8 +7,7 @@ import {findCurrentFiberUsingSlowPath} from 'react-reconciler/reflection.js';
 import {TestWrapper} from './TestWrapper';
 import {Element} from './element';
 import {createRoot, getInternals, enqueueTask, isLegacyReact} from './compat';
-import {
-  Tag,
+import type {
   Fiber,
   Node,
   Predicate,
@@ -21,6 +20,7 @@ import {
   KeyPathFunction,
   ExtractKeypath,
 } from './types';
+import {Tag} from './types';
 
 type ResolveRoot = (element: Element<unknown>) => Element<unknown> | null;
 type Render = (

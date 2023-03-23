@@ -27,7 +27,7 @@ module.exports = {
     '@shopify/jsx-no-hardcoded-content': 'off',
     // reports false positives with React's useRef hook
     'require-atomic-updates': 'off',
-    '@typescript-eslint/consistent-type-imports': 'off',
+    '@typescript-eslint/consistent-type-imports': 'error',
     '@typescript-eslint/consistent-type-exports': 'error',
     '@typescript-eslint/no-import-type-side-effects': 'error',
     '@typescript-eslint/no-unnecessary-type-arguments': 'off',

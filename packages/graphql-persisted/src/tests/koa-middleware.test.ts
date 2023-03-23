@@ -3,8 +3,8 @@ import {Header} from '@shopify/network';
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import {setAssets} from '@shopify/sewing-kit-koa';
 
+import type {Cache} from '../koa-middleware';
 import {
-  Cache,
   CacheMissBehavior,
   createPersistedGraphQLMiddleware,
 } from '../koa-middleware';

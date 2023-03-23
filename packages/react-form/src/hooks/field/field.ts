@@ -1,4 +1,5 @@
-import {useCallback, useEffect, useMemo, ChangeEvent} from 'react';
+import type {ChangeEvent} from 'react';
+import {useCallback, useEffect, useMemo} from 'react';
 import isEqual from 'fast-deep-equal';
 
 import type {Validates, Field, DirtyStateComparator} from '../../types';

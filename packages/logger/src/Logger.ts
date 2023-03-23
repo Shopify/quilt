@@ -1,4 +1,5 @@
-import {LogEntry, LogLevel, Value, Formatter} from './types';
+import type {LogEntry, Value, Formatter} from './types';
+import {LogLevel} from './types';
 import {ConsoleFormatter} from './formatters';
 
 export interface LoggerOptions {

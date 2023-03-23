@@ -1,9 +1,12 @@
-import React, {Context, ComponentType, useEffect} from 'react';
-import {createResolver, ResolverOptions} from '@shopify/async';
+import type {Context, ComponentType} from 'react';
+import React, {useEffect} from 'react';
+import type {ResolverOptions} from '@shopify/async';
+import {createResolver} from '@shopify/async';
 import {useIdleCallback} from '@shopify/react-idle';
 
 import {useAsync} from './hooks';
-import {AsyncComponentType, AssetTiming} from './types';
+import type {AsyncComponentType} from './types';
+import {AssetTiming} from './types';
 
 interface Options<Value> extends ResolverOptions<Value> {}
 

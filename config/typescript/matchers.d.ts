@@ -1,4 +1,4 @@
-import {ComponentType, Context as ReactContext} from 'react';
+import type {ComponentType, Context as ReactContext} from 'react';
 import type {} from 'saddle-up/matchers';
 import type {} from 'saddle-up/koa-matchers';
 

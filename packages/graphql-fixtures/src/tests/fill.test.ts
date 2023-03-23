@@ -1,9 +1,11 @@
 // eslint-disable-next-line @shopify/typescript/prefer-build-client-schema
 import {buildSchema} from 'graphql';
-import {parse, DocumentNode} from 'graphql-typed';
+import type {DocumentNode} from 'graphql-typed';
+import {parse} from 'graphql-typed';
 import {faker as originalFaker} from '@faker-js/faker/locale/en';
 
-import {createFiller, list, Options, faker} from '../fill';
+import type {Options} from '../fill';
+import {createFiller, list, faker} from '../fill';
 
 jest.mock('../utilities', () => {
   const utilities = jest.requireActual('../utilities');

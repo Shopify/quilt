@@ -12,7 +12,8 @@ import {
   hasGlobal,
   getResourceTypeFromEntry,
 } from './utilities';
-import {Event, EventType, LifecycleEvent} from './types';
+import type {Event, LifecycleEvent} from './types';
+import {EventType} from './types';
 
 const WATCH_RESOURCE_TYPES = ['script', 'css', 'link'];
 

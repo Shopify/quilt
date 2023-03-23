@@ -1,6 +1,7 @@
 import {useEffect, useRef} from 'react';
 
-import {RequestIdleCallbackHandle, UnsupportedBehavior} from './types';
+import type {RequestIdleCallbackHandle} from './types';
+import {UnsupportedBehavior} from './types';
 
 export function useIdleCallback(
   callback: () => void,

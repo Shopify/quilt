@@ -1,7 +1,8 @@
 import type {ReactElement} from 'react';
 import type {IfAllOptionalKeys} from '@shopify/useful-types';
 
-import {Root, Options as RootOptions} from './root';
+import type {Options as RootOptions} from './root';
+import {Root} from './root';
 import {Element} from './element';
 
 export {Root, Element};

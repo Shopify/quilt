@@ -7,7 +7,8 @@ import compose from 'koa-compose';
 import type {Context, Middleware} from 'koa';
 import {StatusCode} from '@shopify/network';
 
-import {WebhookHeader, Topic} from './types';
+import type {Topic} from './types';
+import {WebhookHeader} from './types';
 
 interface Options {
   secret: string;

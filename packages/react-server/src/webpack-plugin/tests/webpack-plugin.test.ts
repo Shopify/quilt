@@ -3,9 +3,11 @@ import 'setimmediate';
 import path from 'path';
 
 import memfs from 'memfs';
-import webpack, {Compiler, Stats} from 'webpack';
+import type {Compiler, Stats} from 'webpack';
+import webpack from 'webpack';
 
-import {HEADER, Options, Entrypoint} from '../shared';
+import type {Options} from '../shared';
+import {HEADER, Entrypoint} from '../shared';
 
 import {withWorkspace} from './utilities/workspace';
 

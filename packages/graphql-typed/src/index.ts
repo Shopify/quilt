@@ -1,9 +1,9 @@
-import {
-  parse as graphQLParse,
+import type {
   DocumentNode as BaseDocumentNode,
   Source,
   ParseOptions,
 } from 'graphql';
+import {parse as graphQLParse} from 'graphql';
 
 export interface GraphQLOperation<Data = {}, Variables = {}, DeepPartial = {}> {
   // We need something to actually use the types, otherwise TypeScript

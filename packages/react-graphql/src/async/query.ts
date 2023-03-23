@@ -1,5 +1,6 @@
 import type {DocumentNode} from 'graphql-typed';
-import {createResolver, ResolverOptions} from '@shopify/async';
+import type {ResolverOptions} from '@shopify/async';
+import {createResolver} from '@shopify/async';
 import {useAsync, AssetTiming} from '@shopify/react-async';
 
 import {useBackgroundQuery} from '../hooks';

@@ -1,22 +1,22 @@
 import {resolve} from 'path';
 
 import {readFile, readJSON} from 'fs-extra';
-import {Source, parse, concatAST, GraphQLSchema} from 'graphql';
-import {loadConfig, GraphQLProjectConfig} from 'graphql-config';
+import type {GraphQLSchema} from 'graphql';
+import {Source, parse, concatAST} from 'graphql';
+import type {GraphQLProjectConfig} from 'graphql-config';
+import {loadConfig} from 'graphql-config';
 import {
   getGraphQLProjectIncludedFilePaths,
   getGraphQLProjects,
 } from 'graphql-config-utilities';
 import {compile} from 'graphql-tool-utilities';
 
+import type {Fixture, Validation, GraphQLProjectAST} from './validate';
 import {
-  Fixture,
-  Validation,
   validateFixture,
   getOperationForFixture,
   MissingOperationError,
   AmbiguousOperationNameError,
-  GraphQLProjectAST,
 } from './validate';
 
 export interface Options {

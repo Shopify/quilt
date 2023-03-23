@@ -1,17 +1,14 @@
-import React, {
-  useEffect,
-  useRef,
-  useCallback,
-  ReactNode,
-  ComponentType,
-} from 'react';
-import {createResolver, ResolverOptions, DeferTiming} from '@shopify/async';
+import type {ReactNode, ComponentType} from 'react';
+import React, {useEffect, useRef, useCallback} from 'react';
+import type {ResolverOptions} from '@shopify/async';
+import {createResolver, DeferTiming} from '@shopify/async';
 import {IntersectionObserver} from '@shopify/react-intersection-observer';
 import {OnIdle, useIdleCallback} from '@shopify/react-idle';
 import {Hydrator, useHydrationManager} from '@shopify/react-hydrate';
 
 import {useAsync} from './hooks';
-import {AssetTiming, AsyncComponentType} from './types';
+import type {AsyncComponentType} from './types';
+import {AssetTiming} from './types';
 
 interface Options<
   Props extends object,

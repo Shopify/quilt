@@ -1,13 +1,15 @@
 import {useIdleCallback} from '@shopify/react-idle';
 
-import {useQuery, QueryHookOptions} from '../hooks';
+import type {QueryHookOptions} from '../hooks';
+import {useQuery} from '../hooks';
 import type {
   AsyncQueryComponentType,
   QueryProps,
   VariableOptions,
 } from '../types';
 
-import {Options, createAsyncQuery} from './query';
+import type {Options} from './query';
+import {createAsyncQuery} from './query';
 
 export function createAsyncQueryComponent<
   Data extends {},

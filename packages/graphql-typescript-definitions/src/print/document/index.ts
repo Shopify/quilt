@@ -1,16 +1,12 @@
 import * as t from '@babel/types';
 import type {GraphQLObjectType} from 'graphql';
-import {
-  AST,
-  Fragment,
-  isTypedVariable,
-  Operation,
-  OperationType,
-} from 'graphql-tool-utilities';
+import type {AST, Fragment, Operation} from 'graphql-tool-utilities';
+import {isTypedVariable, OperationType} from 'graphql-tool-utilities';
 
 import {ExportFormat} from '../../types';
 
-import {Options, FileContext, OperationContext} from './context';
+import type {Options} from './context';
+import {FileContext, OperationContext} from './context';
 import {ObjectStack} from './utilities';
 import {tsInterfaceBodyForObjectField, variablesInterface} from './language';
 

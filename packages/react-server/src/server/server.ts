@@ -1,11 +1,13 @@
 import 'cross-fetch';
 import type {Server} from 'http';
 
-import Koa, {Context} from 'koa';
+import type {Context} from 'koa';
+import Koa from 'koa';
 import compose from 'koa-compose';
 import mount from 'koa-mount';
 
-import {createRender, RenderFunction, RenderOptions} from '../render';
+import type {RenderFunction, RenderOptions} from '../render';
+import {createRender} from '../render';
 import {requestLogger} from '../logger';
 import {metricsMiddleware as metrics} from '../metrics';
 import {ping} from '../ping';

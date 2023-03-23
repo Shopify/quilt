@@ -1,11 +1,6 @@
 import {faker} from '@faker-js/faker/locale/en';
-import {
-  Navigation,
-  NavigationResult,
-  Performance,
-  LifecycleEvent,
-  EventType,
-} from '@shopify/performance';
+import type {Performance, LifecycleEvent} from '@shopify/performance';
+import {Navigation, NavigationResult, EventType} from '@shopify/performance';
 
 import type {NavigationListener} from '../navigation-listener';
 import type {LifecycleEventListener} from '../lifecycle-event-listener';

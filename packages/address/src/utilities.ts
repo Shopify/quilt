@@ -1,4 +1,5 @@
-import {Address, FieldName, Country, Zone} from '@shopify/address-consts';
+import type {Address, Country, Zone} from '@shopify/address-consts';
+import {FieldName} from '@shopify/address-consts';
 
 export const FIELD_REGEXP = /({\w+})/g;
 /* eslint-disable @typescript-eslint/naming-convention */
