@@ -31,10 +31,7 @@ export function GraphQLUniversalProvider<
   const requestID = useRequestHeader('X-Request-ID');
 
   const [client, ssrLink] = useLazyRef<
-    [
-      import('@apollo/client').ApolloClient<any>,
-      ReturnType<typeof createSsrExtractableLink> | undefined,
-    ]
+    [ApolloClient<any>, ReturnType<typeof createSsrExtractableLink> | undefined]
   >(() => {
     const server = isServer();
 

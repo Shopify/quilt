@@ -16,6 +16,8 @@ import type {
 } from './types';
 import {Tag} from './types';
 
+// dynamic type import to avoid a circular dependency
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 type Root = import('./root').Root<unknown>;
 
 interface Tree<Props> {

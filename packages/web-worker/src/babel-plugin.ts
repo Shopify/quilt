@@ -1,6 +1,15 @@
 import {resolve} from 'path';
 import {runInNewContext} from 'vm';
 
+import type {NodePath, Binding} from '@babel/traverse';
+import type {
+  PluginObj,
+  types as babelTypes,
+  template as babelTemplate,
+} from '@babel/core';
+
+import type {Options as LoaderOptions} from './webpack-parts/loader';
+
 export const DEFAULT_PACKAGES_TO_PROCESS = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   '@shopify/web-worker': [
@@ -34,9 +43,7 @@ export interface Options {
 
 interface State {
   process: Map<string, ProcessableImport[]>;
-  program: import('@babel/traverse').NodePath<
-    import('@babel/core').types.Program
-  >;
+  program: NodePath<babelTypes.Program>;
   opts?: Options;
 }
 
@@ -44,9 +51,9 @@ export default function workerBabelPlugin({
   types: t,
   template,
 }: {
-  types: typeof import('@babel/core').types;
-  template: typeof import('@babel/template').default;
-}): import('@babel/core').PluginObj<State> {
+  types: typeof babelTypes;
+  template: typeof babelTemplate;
+}): PluginObj<State> {
   const noopBinding = template(
     `() => (
       new Proxy(
@@ -61,7 +68,7 @@ export default function workerBabelPlugin({
       )
     );`,
     {sourceType: 'module'},
-  ) as unknown as () => import('@babel/core').types.ArrowFunctionExpression;
+  ) as unknown as () => babelTypes.ArrowFunctionExpression;
 
   return {
     visitor: {
@@ -115,7 +122,7 @@ export default function workerBabelPlugin({
   };
 
   function processBinding(
-    binding: import('@babel/traverse').Binding,
+    binding: Binding,
     importOptions: ProcessableImport,
     state: State,
   ) {
@@ -126,9 +133,7 @@ export default function workerBabelPlugin({
       referencePath.parentPath.isCallExpression(),
     );
 
-    type CallExpressionNodePath = import('@babel/traverse').NodePath<
-      import('@babel/core').types.CallExpression
-    >;
+    type CallExpressionNodePath = NodePath<babelTypes.CallExpression>;
 
     for (const referencePath of callingReferences) {
       const callExpression: CallExpressionNodePath =
@@ -191,14 +196,12 @@ export default function workerBabelPlugin({
   }
 }
 
-type LoaderOptions = import('./webpack-parts/loader').Options;
-
 // Reduced replication of webpack’s logic for parsing import comments:
 // https://github.com/webpack/webpack/blob/5147aed90ec8cd3633b0c45583f02afd16c7888d/lib/JavascriptParser.js#L2799-L2820
 const webpackCommentRegExp = new RegExp(/(^|\W)webpack[A-Z]{1,}[A-Za-z]{1,}:/);
 
 function getLoaderOptions(
-  comments: ReadonlyArray<import('@babel/types').Comment>,
+  comments: ReadonlyArray<babelTypes.Comment>,
 ): LoaderOptions {
   return comments.reduce<LoaderOptions>((options, comment) => {
     const {value} = comment;
