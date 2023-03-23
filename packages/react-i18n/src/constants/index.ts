@@ -185,7 +185,7 @@ export const RTL_LANGUAGES = [
 /* eslint-enable */
 
 export {
-  default as currencyDecimalPlaces,
+  currencyDecimalPlaces,
   DEFAULT_DECIMAL_PLACES,
 } from './currency-decimal-places';
 

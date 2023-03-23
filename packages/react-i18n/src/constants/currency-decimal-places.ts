@@ -1,6 +1,6 @@
 export const DEFAULT_DECIMAL_PLACES = 2;
 // ISO 4217 2021-10-01 http://www.currency-iso.org/en/home/tables/table-a1.html
-export default new Map([
+export const currencyDecimalPlaces = new Map([
   ['AED', 2],
   ['AFN', 2],
   ['ALL', 2],

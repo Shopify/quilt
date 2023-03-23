@@ -126,7 +126,7 @@ export default function useQuery<
     }
 
     let subscription:
-      | ReturnType<typeof queryObservable['subscribe']>
+      | ReturnType<(typeof queryObservable)['subscribe']>
       | undefined;
 
     let previousError;

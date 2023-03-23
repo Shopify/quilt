@@ -28,7 +28,7 @@ export function usePreload<PreloadOptions extends object>(
     [Preloadable<PreloadOptions>, PreloadOptions?],
     [Preloadable<PreloadOptions>, NoInfer<PreloadOptions>]
   >
-): ReturnType<typeof args[0]['usePreload']> {
+): ReturnType<(typeof args)[0]['usePreload']> {
   const [preloadable, options = {}] = args;
   return (preloadable.usePreload as any)(options);
 }
@@ -39,7 +39,7 @@ export function usePrefetch<PrefetchOptions extends object>(
     [Prefetchable<PrefetchOptions>, PrefetchOptions?],
     [Prefetchable<PrefetchOptions>, NoInfer<PrefetchOptions>]
   >
-): ReturnType<typeof args[0]['usePrefetch']> {
+): ReturnType<(typeof args)[0]['usePrefetch']> {
   const [prefetchable, options = {}] = args;
   return (prefetchable.usePrefetch as any)(options);
 }
@@ -50,7 +50,7 @@ export function useKeepFresh<KeepFreshOptions extends object>(
     [KeepFreshable<KeepFreshOptions>, KeepFreshOptions?],
     [KeepFreshable<KeepFreshOptions>, NoInfer<KeepFreshOptions>]
   >
-): ReturnType<typeof args[0]['useKeepFresh']> {
+): ReturnType<(typeof args)[0]['useKeepFresh']> {
   const [keepFreshable, options = {}] = args;
   return (keepFreshable.useKeepFresh as any)(options);
 }

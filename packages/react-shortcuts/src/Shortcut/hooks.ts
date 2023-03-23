@@ -6,7 +6,7 @@ import type {HeldKey} from '../keys';
 
 const DEFAULT_IGNORED_TAGS = ['INPUT', 'SELECT', 'TEXTAREA'] as const;
 
-export type DefaultIgnoredTag = typeof DEFAULT_IGNORED_TAGS[number];
+export type DefaultIgnoredTag = (typeof DEFAULT_IGNORED_TAGS)[number];
 
 export interface Subscription {
   unsubscribe(): void;
