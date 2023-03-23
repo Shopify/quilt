@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.0.12
+
+### Patch Changes
+
+- Updated dependencies [[`ba4da84d5`](https://github.com/Shopify/quilt/commit/ba4da84d5237603433f8097f79421bab6ea48f86)]:
+  - @shopify/react-html@13.0.5
+
 ## 3.0.11
 
 ### Patch Changes

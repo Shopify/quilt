@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.0.4
+
+### Patch Changes
+
+- [#2611](https://github.com/Shopify/quilt/pull/2611) [`5d569d1cf`](https://github.com/Shopify/quilt/commit/5d569d1cf333ccc14fe5cf667abed203c07f527a) Thanks [@BPScott](https://github.com/BPScott)! - Adjust imports of internal types to adhere to TypeScript's verbatimModuleSyntax format. This does not affect externally presented types.
+
+- [#2608](https://github.com/Shopify/quilt/pull/2608) [`ba4da84d5`](https://github.com/Shopify/quilt/commit/ba4da84d5237603433f8097f79421bab6ea48f86) Thanks [@BPScott](https://github.com/BPScott)! - Use `import type` everywhere that we deal with importing types
+
 ## 5.0.3
 
 ### Patch Changes

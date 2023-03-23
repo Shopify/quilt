@@ -27,7 +27,7 @@
     "@shopify/function-enhancers": "^3.0.1"
   },
   "devDependencies": {
-    "@shopify/jest-dom-mocks": "^4.1.1"
+    "@shopify/jest-dom-mocks": "^4.1.2"
   },
   "files": [
     "build/",

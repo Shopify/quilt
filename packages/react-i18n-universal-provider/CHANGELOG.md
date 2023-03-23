@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.0.21
+
+### Patch Changes
+
+- [#2608](https://github.com/Shopify/quilt/pull/2608) [`ba4da84d5`](https://github.com/Shopify/quilt/commit/ba4da84d5237603433f8097f79421bab6ea48f86) Thanks [@BPScott](https://github.com/BPScott)! - Use `import type` everywhere that we deal with importing types
+
+- Updated dependencies [[`ba4da84d5`](https://github.com/Shopify/quilt/commit/ba4da84d5237603433f8097f79421bab6ea48f86)]:
+  - @shopify/react-hooks@3.0.4
+  - @shopify/react-html@13.0.5
+  - @shopify/react-i18n@7.7.2
+
 ## 3.0.20
 
 ### Patch Changes
