@@ -5,7 +5,8 @@ import {mount} from '@shopify/react-testing';
 import {useList} from '../list';
 import type {FieldListConfig} from '../baselist';
 
-import {randomVariants, TextField, Variant} from './utils';
+import type {Variant} from './utils';
+import {randomVariants, TextField} from './utils';
 
 describe('useList', () => {
   function List(config: FieldListConfig<Variant>) {

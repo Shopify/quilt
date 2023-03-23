@@ -1,8 +1,6 @@
 import {createHash} from 'crypto';
 
-import {
-  print,
-  parse,
+import type {
   DocumentNode as UntypedDocumentNode,
   DefinitionNode,
   SelectionSetNode,
@@ -11,6 +9,7 @@ import {
   SelectionNode,
   Location,
 } from 'graphql';
+import {print, parse} from 'graphql';
 import type {DocumentNode, SimpleDocument} from 'graphql-typed';
 
 const IMPORT_REGEX = /^#import\s+['"]([^'"]*)['"];?[\s\n]*/gm;

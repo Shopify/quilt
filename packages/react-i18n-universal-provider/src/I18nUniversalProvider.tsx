@@ -1,7 +1,8 @@
 import React from 'react';
 import {useLazyRef} from '@shopify/react-hooks';
 import {useSerialized, useHtmlAttributes} from '@shopify/react-html';
-import {I18nContext, I18nDetails, I18nManager} from '@shopify/react-i18n';
+import type {I18nDetails} from '@shopify/react-i18n';
+import {I18nContext, I18nManager} from '@shopify/react-i18n';
 
 import {combinedI18nDetails} from './utilities';
 

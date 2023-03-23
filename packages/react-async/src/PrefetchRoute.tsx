@@ -1,6 +1,7 @@
 import React from 'react';
 
-import {PrefetchContext, PrefetchManager} from './context/prefetch';
+import type {PrefetchManager} from './context/prefetch';
+import {PrefetchContext} from './context/prefetch';
 
 interface Props {
   manager: PrefetchManager;

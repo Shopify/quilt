@@ -1,12 +1,11 @@
 import {now} from './utilities';
-import {
+import type {
   Event,
-  NavigationResult,
   NavigationMetadata,
-  EventType,
   ScriptDownloadEvent,
   StyleDownloadEvent,
 } from './types';
+import {NavigationResult, EventType} from './types';
 import {Navigation} from './navigation';
 
 interface NavigationStartOptions {

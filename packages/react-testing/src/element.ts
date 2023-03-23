@@ -1,8 +1,7 @@
 import type {ComponentType} from 'react';
 
 import {nodeName, toReactString} from './toReactString';
-import {
-  Tag,
+import type {
   Node,
   Predicate,
   FunctionKeys,
@@ -15,7 +14,10 @@ import {
   KeyPathFunction,
   ExtractKeypath,
 } from './types';
+import {Tag} from './types';
 
+// dynamic type import to avoid a circular dependency
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 type Root = import('./root').Root<unknown>;
 
 interface Tree<Props> {

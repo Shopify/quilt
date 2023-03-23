@@ -4,7 +4,8 @@ import {timer} from '@shopify/jest-dom-mocks';
 
 import type Key from '../keys';
 import type {HeldKey, ModifierKey} from '../keys';
-import Shortcut, {DefaultIgnoredTag} from '../Shortcut';
+import type {DefaultIgnoredTag} from '../Shortcut';
+import Shortcut from '../Shortcut';
 import ShortcutProvider from '../ShortcutProvider';
 
 import ShortcutWithFocus from './ShortcutWithRef';

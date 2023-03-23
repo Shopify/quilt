@@ -1,6 +1,7 @@
 import type {FieldDictionary} from '../../types';
 
-import {useBaseList, FieldListConfig} from './baselist';
+import type {FieldListConfig} from './baselist';
+import {useBaseList} from './baselist';
 
 /**
  * A custom hook for utilizing useBaseList. useList uses useBaseList. This hook is responsible for returning just the field objects useBaseList provides.

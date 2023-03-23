@@ -1,4 +1,5 @@
-import {PrefetchManager, Registration} from '../context/prefetch';
+import type {Registration} from '../context/prefetch';
+import {PrefetchManager} from '../context/prefetch';
 
 export * from '../testing';
 

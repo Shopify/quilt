@@ -1,7 +1,8 @@
 import type Key from '../keys';
 import type {HeldKey} from '../keys';
 
-import useShortcut, {DefaultIgnoredTag} from './hooks';
+import type {DefaultIgnoredTag} from './hooks';
+import useShortcut from './hooks';
 
 export interface Props {
   ordered: Key[];

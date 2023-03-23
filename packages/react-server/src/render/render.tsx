@@ -4,9 +4,9 @@ import {existsSync} from 'fs';
 import React from 'react';
 import type {Context} from 'koa';
 import compose from 'koa-compose';
+import type {HtmlProps} from '@shopify/react-html/server';
 import {
   Html,
-  HtmlProps,
   HtmlManager,
   HtmlContext,
   stream,

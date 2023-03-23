@@ -1,6 +1,5 @@
-import {
+import type {
   Event,
-  EventType,
   NavigationDefinition,
   NavigationResult,
   NavigationMetadata,
@@ -9,6 +8,7 @@ import {
   StyleDownloadEvent,
   EventMap,
 } from './types';
+import {EventType} from './types';
 import {getUniqueRanges} from './utilities';
 
 const LIFECYCLE_EVENTS: LifecycleEvent['type'][] = [

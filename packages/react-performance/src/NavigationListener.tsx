@@ -1,7 +1,5 @@
-import {
-  useNavigationListener,
-  NavigationListener as NavigationlistenerType,
-} from './navigation-listener';
+import type {NavigationListener as NavigationlistenerType} from './navigation-listener';
+import {useNavigationListener} from './navigation-listener';
 
 export function NavigationListener({
   onNavigation,

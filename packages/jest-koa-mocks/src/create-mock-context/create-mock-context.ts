@@ -1,9 +1,12 @@
 import stream from 'stream';
 
-import httpMocks, {RequestMethod} from 'node-mocks-http';
-import Koa, {Context} from 'koa';
+import type {RequestMethod} from 'node-mocks-http';
+import httpMocks from 'node-mocks-http';
+import type {Context} from 'koa';
+import Koa from 'koa';
 
-import createMockCookies, {MockCookies} from '../create-mock-cookies';
+import type {MockCookies} from '../create-mock-cookies';
+import createMockCookies from '../create-mock-cookies';
 
 export interface Dictionary<T> {
   [key: string]: T;

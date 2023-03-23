@@ -1,8 +1,10 @@
-import {
+import type {
   Country,
   LoadCountriesResponse,
   LoadCountryResponse,
   ResponseError,
+} from '@shopify/address-consts';
+import {
   GRAPHQL_ENDPOINT,
   HEADERS,
   GraphqlOperationName,

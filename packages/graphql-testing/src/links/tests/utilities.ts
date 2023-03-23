@@ -1,12 +1,6 @@
-import {
-  ApolloLink,
-  execute,
-  Operation,
-  Observable,
-  FetchResult,
-  NextLink,
-} from '@apollo/client';
-import {DocumentNode} from 'graphql-typed';
+import type {Operation, FetchResult, NextLink} from '@apollo/client';
+import {ApolloLink, execute, Observable} from '@apollo/client';
+import type {DocumentNode} from 'graphql-typed';
 
 interface ExecuteOnceOutcome {
   operation: Operation;

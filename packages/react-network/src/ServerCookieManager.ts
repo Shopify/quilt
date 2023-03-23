@@ -1,4 +1,5 @@
-import cookie, {CookieSerializeOptions} from 'cookie';
+import type {CookieSerializeOptions} from 'cookie';
+import cookie from 'cookie';
 
 export type CookieValue = {
   value: string;

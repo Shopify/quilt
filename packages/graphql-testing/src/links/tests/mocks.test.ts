@@ -1,7 +1,7 @@
 import {gql} from '@apollo/client';
 import {GraphQLError} from 'graphql';
 
-import {MockGraphQLResponse} from '../../types';
+import type {MockGraphQLResponse} from '../../types';
 import {MockLink} from '../mocks';
 
 import {executeOnce} from './utilities';

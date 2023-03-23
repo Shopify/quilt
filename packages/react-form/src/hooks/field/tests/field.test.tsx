@@ -2,15 +2,11 @@ import React from 'react';
 import {faker} from '@faker-js/faker/locale/en';
 import {mount} from '@shopify/react-testing';
 
-import {
-  asChoiceField,
-  useChoiceField,
-  useField,
-  FieldConfig,
-  asChoiceList,
-} from '../field';
+import type {FieldConfig} from '../field';
+import {asChoiceField, useChoiceField, useField, asChoiceList} from '../field';
 import type {FieldState} from '../../../types';
-import {FieldAction, reduceField, makeFieldReducer} from '../reducer';
+import type {FieldAction} from '../reducer';
+import {reduceField, makeFieldReducer} from '../reducer';
 
 describe('useField', () => {
   function TestField({config}: {config: string | FieldConfig<string>}) {

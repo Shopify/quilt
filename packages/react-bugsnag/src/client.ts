@@ -1,4 +1,5 @@
-import bugsnag, {Config} from '@bugsnag/js';
+import type {Config} from '@bugsnag/js';
+import bugsnag from '@bugsnag/js';
 import BugsnagPluginReact from '@bugsnag/plugin-react';
 
 export type {Client} from '@bugsnag/js';

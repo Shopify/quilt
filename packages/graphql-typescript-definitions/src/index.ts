@@ -1,45 +1,31 @@
 import {EventEmitter} from 'events';
 import {join, resolve} from 'path';
 
-import {
+import type {
   DocumentNode,
   DefinitionNode,
   FragmentDefinitionNode,
   GraphQLSchema,
   OperationDefinitionNode,
-  parse,
-  Source,
-  concatAST,
 } from 'graphql';
+import {parse, Source, concatAST} from 'graphql';
 import chalk from 'chalk';
 import {mkdirp, readFile, writeFile} from 'fs-extra';
-import {
-  loadConfigSync,
-  GraphQLProjectConfig,
-  GraphQLConfig,
-} from 'graphql-config';
+import type {GraphQLProjectConfig, GraphQLConfig} from 'graphql-config';
+import {loadConfigSync} from 'graphql-config';
 import {
   getGraphQLProjectForSchemaPath,
   getGraphQLProjects,
   getGraphQLSchemaPaths,
   resolvePathRelativeToConfig,
 } from 'graphql-config-utilities';
-import {
-  AST,
-  compile,
-  Fragment,
-  isOperation,
-  Operation,
-} from 'graphql-tool-utilities';
+import type {AST, Fragment, Operation} from 'graphql-tool-utilities';
+import {compile, isOperation} from 'graphql-tool-utilities';
 
 import type {GraphQLFilesystem} from './filesystem';
 import {AbstractGraphQLFilesystem} from './filesystem';
-import {
-  printDocument,
-  generateSchemaTypes,
-  PrintDocumentOptions,
-  PrintSchemaOptions,
-} from './print';
+import type {PrintDocumentOptions, PrintSchemaOptions} from './print';
+import {printDocument, generateSchemaTypes} from './print';
 import {EnumFormat, ExportFormat} from './types';
 
 export type {GraphQLFilesystem};

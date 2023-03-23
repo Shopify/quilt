@@ -1,12 +1,14 @@
 import * as path from 'path';
 
+import type {GraphQLSchema} from 'graphql';
 // eslint-disable-next-line @shopify/typescript/prefer-build-client-schema
-import {buildSchema, parse, GraphQLSchema, Source, concatAST} from 'graphql';
+import {buildSchema, parse, Source, concatAST} from 'graphql';
 import {stripIndent} from 'common-tags';
 import {compile} from 'graphql-tool-utilities';
 
 import {ExportFormat} from '../src/types';
-import {printDocument, Options} from '../src/print/document';
+import type {Options} from '../src/print/document';
+import {printDocument} from '../src/print/document';
 
 describe('printDocument()', () => {
   describe('scalars', () => {

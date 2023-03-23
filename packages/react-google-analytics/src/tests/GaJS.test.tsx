@@ -2,12 +2,8 @@ import React from 'react';
 import ImportRemote from '@shopify/react-import-remote';
 import {mount} from '@shopify/react-testing';
 
-import GaJS, {
-  Props,
-  SETUP_SCRIPT,
-  setupWithDebugScript,
-  GA_JS_SCRIPT,
-} from '../GaJS';
+import type {Props} from '../GaJS';
+import GaJS, {SETUP_SCRIPT, setupWithDebugScript, GA_JS_SCRIPT} from '../GaJS';
 
 jest.mock('@shopify/react-import-remote', () => () => null);
 

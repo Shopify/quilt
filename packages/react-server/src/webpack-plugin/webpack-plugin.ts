@@ -1,9 +1,11 @@
 import {join} from 'path';
 
-import {Compiler, WatchIgnorePlugin} from 'webpack';
+import type {Compiler} from 'webpack';
+import {WatchIgnorePlugin} from 'webpack';
 import VirtualModulesPlugin from 'webpack-virtual-modules';
 
-import {HEADER, Options, Entrypoint, noSourceExists} from './shared';
+import type {Options} from './shared';
+import {HEADER, Entrypoint, noSourceExists} from './shared';
 import {errorSSRComponentExists, errorClientSource} from './error';
 
 /**

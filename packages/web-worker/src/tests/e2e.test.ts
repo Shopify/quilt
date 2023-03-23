@@ -9,7 +9,8 @@ import type {Page, JSHandle, WebWorker} from 'puppeteer';
 
 import {WebWorkerPlugin} from '../webpack-parts';
 
-import {withContext, Context, runWebpack as runWebpackBase} from './utilities';
+import type {Context} from './utilities';
+import {withContext, runWebpack as runWebpackBase} from './utilities';
 
 const babelPlugin = path.resolve(__dirname, '../babel-plugin.ts');
 const mainFile = 'src/main.js';

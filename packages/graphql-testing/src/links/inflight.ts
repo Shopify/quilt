@@ -1,10 +1,5 @@
-import {
-  ApolloLink,
-  Observable,
-  Operation,
-  NextLink,
-  FetchResult,
-} from '@apollo/client';
+import type {Operation, NextLink, FetchResult} from '@apollo/client';
+import {ApolloLink, Observable} from '@apollo/client';
 
 import type {MockRequest} from '../types';
 

@@ -1,15 +1,17 @@
 import * as t from '@babel/types';
 import {pascalCase, camelCase, snakeCase} from 'change-case';
-import {
+import type {
   GraphQLSchema,
-  isEnumType,
   GraphQLEnumType,
-  isInputType,
   GraphQLScalarType,
-  isScalarType,
   GraphQLInputObjectType,
-  isNonNullType,
   GraphQLInputType,
+} from 'graphql';
+import {
+  isEnumType,
+  isInputType,
+  isScalarType,
+  isNonNullType,
   isListType,
 } from 'graphql';
 

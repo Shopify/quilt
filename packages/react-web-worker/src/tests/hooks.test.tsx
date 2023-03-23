@@ -1,4 +1,5 @@
-import React, {ReactNode} from 'react';
+import type {ReactNode} from 'react';
+import React from 'react';
 import {mount} from '@shopify/react-testing';
 
 import {useWorker} from '../index';

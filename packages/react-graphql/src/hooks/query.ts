@@ -1,13 +1,13 @@
 /* eslint react-hooks/rules-of-hooks: off */
 
 import {useEffect, useMemo, useState, useRef} from 'react';
-import {
+import type {
   ApolloClient,
   OperationVariables,
-  ApolloError,
   WatchQueryOptions,
   ObservableQuery,
 } from '@apollo/client';
+import {ApolloError} from '@apollo/client';
 import isEqual from 'fast-deep-equal';
 import type {DocumentNode} from 'graphql-typed';
 import {useServerEffect} from '@shopify/react-effect';
@@ -126,7 +126,7 @@ export default function useQuery<
     }
 
     let subscription:
-      | ReturnType<typeof queryObservable['subscribe']>
+      | ReturnType<(typeof queryObservable)['subscribe']>
       | undefined;
 
     let previousError;

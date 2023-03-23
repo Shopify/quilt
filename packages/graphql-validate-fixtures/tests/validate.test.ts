@@ -5,14 +5,11 @@ import {join, resolve} from 'path';
 // eslint-disable-next-line @shopify/typescript/prefer-build-client-schema
 import {buildSchema, parse, concatAST} from 'graphql';
 import {GraphQLProjectConfig, loadConfigSync} from 'graphql-config';
-import {AST, compile} from 'graphql-tool-utilities';
+import type {AST} from 'graphql-tool-utilities';
+import {compile} from 'graphql-tool-utilities';
 
-import {
-  getOperationForFixture,
-  validateFixture,
-  GraphQLProjectAST,
-  Fixture,
-} from '../src/validate';
+import type {GraphQLProjectAST, Fixture} from '../src/validate';
+import {getOperationForFixture, validateFixture} from '../src/validate';
 
 describe('validate', () => {
   describe('validateFixtureAgainstAST()', () => {

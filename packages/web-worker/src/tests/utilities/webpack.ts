@@ -1,12 +1,13 @@
 import * as path from 'path';
 
 import webpack from 'webpack';
+import type {Configuration} from 'webpack';
 
 import type {Context} from './context';
 
 export function runWebpack(
   {workspace, server}: Context,
-  extraConfig: import('webpack').Configuration,
+  extraConfig: Configuration,
 ) {
   return new Promise((resolve, reject) => {
     const srcRoot = path.resolve(__dirname, '../../');

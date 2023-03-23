@@ -1,8 +1,8 @@
-import {
-  StatsD,
+import type {
   ClientOptions as HotShotClientOptions,
   ChildClientOptions as HotShotChildOptions,
 } from 'hot-shots';
+import {StatsD} from 'hot-shots';
 import {snakeCase} from 'change-case';
 
 const UNKNOWN = 'Unknown';

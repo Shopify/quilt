@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Shortcut, {DefaultIgnoredTag} from '../Shortcut';
+import type {DefaultIgnoredTag} from '../Shortcut';
+import Shortcut from '../Shortcut';
 
 interface Props {
   spy: jest.Mock<{}>;

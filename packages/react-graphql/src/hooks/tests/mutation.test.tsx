@@ -1,5 +1,6 @@
 import React from 'react';
-import {gql, ErrorPolicy} from '@apollo/client';
+import type {ErrorPolicy} from '@apollo/client';
+import {gql} from '@apollo/client';
 import {createGraphQLFactory} from '@shopify/graphql-testing';
 import {GraphQLError} from 'graphql';
 

@@ -7,7 +7,8 @@ import {
 } from '@shopify/jest-dom-mocks';
 import {Preconnect} from '@shopify/react-html';
 
-import ImportRemote, {Props} from '../ImportRemote';
+import type {Props} from '../ImportRemote';
+import ImportRemote from '../ImportRemote';
 
 function noop() {}
 

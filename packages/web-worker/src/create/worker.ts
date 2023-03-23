@@ -1,13 +1,14 @@
-import {
-  createEndpoint,
+import type {
   Endpoint,
   MessageEndpoint,
   CreateEndpointOptions,
 } from '@remote-ui/rpc';
+import {createEndpoint} from '@remote-ui/rpc';
 
 import {createWorkerMessenger} from '../messenger';
 
-import {createScriptUrl, FileOrModuleResolver} from './utilities';
+import type {FileOrModuleResolver} from './utilities';
+import {createScriptUrl} from './utilities';
 
 export interface CreateWorkerOptions<T> extends CreateEndpointOptions<T> {
   createMessenger?(url: URL): MessageEndpoint;

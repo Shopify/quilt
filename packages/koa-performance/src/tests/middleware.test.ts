@@ -1,16 +1,15 @@
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import {StatusCode, Method, Header} from '@shopify/network';
-import {
+import type {
   LifecycleEvent,
-  EventType,
-  Navigation,
   NavigationDefinition,
-  NavigationResult,
   NavigationMetadata,
 } from '@shopify/performance';
+import {EventType, Navigation, NavigationResult} from '@shopify/performance';
 import withEnv from '@shopify/with-env';
 
-import {clientPerformanceMetrics, Metrics} from '../middleware';
+import type {Metrics} from '../middleware';
+import {clientPerformanceMetrics} from '../middleware';
 
 jest.mock('@shopify/statsd');
 const StatsDClient = jest.requireMock('@shopify/statsd').StatsDClient;

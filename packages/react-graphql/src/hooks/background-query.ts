@@ -1,13 +1,11 @@
 import {useEffect, useRef, useCallback} from 'react';
 import type {DocumentNode} from 'graphql-typed';
-import type {WatchQueryOptions} from '@apollo/client';
+import type {ApolloClient, WatchQueryOptions} from '@apollo/client';
 
 import useApolloClient from './apollo-client';
 
 type Subscription = ReturnType<
-  ReturnType<
-    import('@apollo/client').ApolloClient<unknown>['watchQuery']
-  >['subscribe']
+  ReturnType<ApolloClient<unknown>['watchQuery']>['subscribe']
 >;
 
 export function useBackgroundQuery(

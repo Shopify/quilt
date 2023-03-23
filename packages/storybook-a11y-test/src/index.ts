@@ -2,7 +2,8 @@
 import os from 'os';
 import fs from 'fs';
 
-import puppeteer, {Browser, PuppeteerLifeCycleEvent} from 'puppeteer';
+import type {Browser, PuppeteerLifeCycleEvent} from 'puppeteer';
+import puppeteer from 'puppeteer';
 import pMap from 'p-map';
 import chalk from 'chalk';
 import Koa from 'koa';

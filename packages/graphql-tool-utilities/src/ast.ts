@@ -1,14 +1,14 @@
 import type {DocumentNode, GraphQLInputType, GraphQLSchema} from 'graphql';
-import {
+import type {
   BooleanCondition,
   CompilerOptions,
-  compileToLegacyIR as compileToIR,
   LegacyCompilerContext,
   LegacyField,
   LegacyFragment,
   LegacyInlineFragment,
   LegacyOperation,
 } from 'apollo-codegen-core/lib/compiler/legacyIR';
+import {compileToLegacyIR as compileToIR} from 'apollo-codegen-core/lib/compiler/legacyIR';
 
 export enum OperationType {
   Query = 'query',

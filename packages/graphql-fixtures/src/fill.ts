@@ -1,24 +1,22 @@
 import {faker} from '@faker-js/faker/locale/en';
-import {
+import type {
   GraphQLSchema,
   GraphQLType,
+  GraphQLObjectType,
+  GraphQLEnumType,
+  GraphQLScalarType,
+} from 'graphql';
+import {
   isNonNullType,
   isEnumType,
   isListType,
   isAbstractType,
-  GraphQLObjectType,
-  GraphQLEnumType,
   isScalarType,
-  GraphQLScalarType,
 } from 'graphql';
 import type {DocumentNode, GraphQLOperation} from 'graphql-typed';
 import type {IfEmptyObject, IfAllNullableKeys} from '@shopify/useful-types';
-import {
-  compile,
-  Field,
-  InlineFragment,
-  Operation,
-} from 'graphql-tool-utilities';
+import type {Field, InlineFragment, Operation} from 'graphql-tool-utilities';
+import {compile} from 'graphql-tool-utilities';
 
 import {randomFromArray, chooseNull} from './utilities';
 

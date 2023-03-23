@@ -3,7 +3,8 @@
  */
 
 import React from 'react';
-import {WatchQueryFetchPolicy, gql} from '@apollo/client';
+import type {WatchQueryFetchPolicy} from '@apollo/client';
+import {gql} from '@apollo/client';
 import {extract} from '@shopify/react-effect/server';
 import {createGraphQLFactory} from '@shopify/graphql-testing';
 

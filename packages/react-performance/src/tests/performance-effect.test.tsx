@@ -1,11 +1,8 @@
 import React from 'react';
 import {mount} from '@shopify/react-testing';
 
-import {
-  usePerformanceEffect,
-  PerformanceEffectCallback,
-  PerformanceContext,
-} from '..';
+import type {PerformanceEffectCallback} from '..';
+import {usePerformanceEffect, PerformanceContext} from '..';
 
 import {mockPerformance} from './utilities';
 

@@ -1,6 +1,9 @@
-import {Workspace, createWorkspace} from './workspace';
-import {AppServer, createServer} from './server';
-import {AppBrowser, createBrowser} from './browser';
+import type {Workspace} from './workspace';
+import {createWorkspace} from './workspace';
+import type {AppServer} from './server';
+import {createServer} from './server';
+import type {AppBrowser} from './browser';
+import {createBrowser} from './browser';
 
 export interface Context {
   readonly workspace: Workspace;

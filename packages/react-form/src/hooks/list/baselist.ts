@@ -10,10 +10,10 @@ import type {
 import {mapObject, normalizeValidation} from '../../utilities';
 import {useDirty} from '../dirty';
 
+import type {ListAction} from './hooks';
 import {
   useHandlers,
   useListReducer,
-  ListAction,
   reinitializeAction,
   resetListAction,
 } from './hooks';

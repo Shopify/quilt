@@ -2,7 +2,8 @@ import chalk from 'chalk';
 import {info, warning, error} from 'log-symbols';
 import prettyMs from 'pretty-ms';
 
-import {LogLevel, FormatEntry, Formatter} from '../types';
+import type {FormatEntry, Formatter} from '../types';
+import {LogLevel} from '../types';
 
 const MAX_LEVEL_LENGTH = [LogLevel.Critical, LogLevel.Info, LogLevel.Warn]
   .map((level) => level.length)

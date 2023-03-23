@@ -1,7 +1,8 @@
 import {dirname} from 'path';
 
 import type {LoaderContext} from 'webpack';
-import {parse, DocumentNode} from 'graphql';
+import type {DocumentNode} from 'graphql';
+import {parse} from 'graphql';
 
 import {cleanDocument, extractImports, toSimpleDocument} from './document';
 
