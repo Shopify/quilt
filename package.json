@@ -61,7 +61,7 @@
     "fs-extra": "^9.1.0",
     "get-port": "^5.0.0",
     "glob": "^7.1.6",
-    "graphql": "^16.6.0",
+    "graphql": "^15.8.0",
     "graphql15": "npm:graphql@^15.8.0",
     "graphql16": "npm:graphql@^16.6.0",
     "intl-pluralrules": "^0.2.1",
