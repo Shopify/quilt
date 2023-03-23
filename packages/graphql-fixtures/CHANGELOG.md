@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.1.2
+
+### Patch Changes
+
+- [#2608](https://github.com/Shopify/quilt/pull/2608) [`ba4da84d5`](https://github.com/Shopify/quilt/commit/ba4da84d5237603433f8097f79421bab6ea48f86) Thanks [@BPScott](https://github.com/BPScott)! - Use `import type` everywhere that we deal with importing types
+
+- Updated dependencies [[`ba4da84d5`](https://github.com/Shopify/quilt/commit/ba4da84d5237603433f8097f79421bab6ea48f86)]:
+  - graphql-tool-utilities@3.0.3
+  - graphql-typed@2.0.2
+  - @shopify/useful-types@5.1.2
+
 ## 3.1.1
 
 ### Patch Changes

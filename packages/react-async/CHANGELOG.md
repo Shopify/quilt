@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.2.2
+
+### Patch Changes
+
+- [#2608](https://github.com/Shopify/quilt/pull/2608) [`ba4da84d5`](https://github.com/Shopify/quilt/commit/ba4da84d5237603433f8097f79421bab6ea48f86) Thanks [@BPScott](https://github.com/BPScott)! - Use `import type` everywhere that we deal with importing types
+
+- Updated dependencies [[`ba4da84d5`](https://github.com/Shopify/quilt/commit/ba4da84d5237603433f8097f79421bab6ea48f86)]:
+  - @shopify/async@4.0.3
+  - @shopify/react-hooks@3.0.4
+  - @shopify/react-idle@3.1.2
+  - @shopify/react-intersection-observer@4.0.4
+  - @shopify/useful-types@5.1.2
+  - @shopify/react-hydrate@3.0.9
+
 ## 5.2.1
 
 ### Patch Changes

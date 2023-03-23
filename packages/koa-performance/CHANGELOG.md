@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.4.6
+
+### Patch Changes
+
+- [#2608](https://github.com/Shopify/quilt/pull/2608) [`ba4da84d5`](https://github.com/Shopify/quilt/commit/ba4da84d5237603433f8097f79421bab6ea48f86) Thanks [@BPScott](https://github.com/BPScott)! - Use `import type` everywhere that we deal with importing types
+
+- Updated dependencies [[`ba4da84d5`](https://github.com/Shopify/quilt/commit/ba4da84d5237603433f8097f79421bab6ea48f86)]:
+  - @shopify/performance@3.2.4
+  - @shopify/statsd@4.2.2
+
 ## 3.4.5
 
 ### Patch Changes

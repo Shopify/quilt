@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.1.5
+
+### Patch Changes
+
+- [#2608](https://github.com/Shopify/quilt/pull/2608) [`ba4da84d5`](https://github.com/Shopify/quilt/commit/ba4da84d5237603433f8097f79421bab6ea48f86) Thanks [@BPScott](https://github.com/BPScott)! - Use `import type` everywhere that we deal with importing types
+
+- Updated dependencies [[`ba4da84d5`](https://github.com/Shopify/quilt/commit/ba4da84d5237603433f8097f79421bab6ea48f86)]:
+  - @shopify/async@4.0.3
+  - @shopify/react-hooks@3.0.4
+  - @shopify/react-html@13.0.5
+  - @shopify/react-intersection-observer@4.0.4
+
 ## 4.1.4
 
 ### Patch Changes
