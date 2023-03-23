@@ -1,5 +1,4 @@
-import type Key from '../keys';
-import type {HeldKey} from '../keys';
+import type {Key, HeldKey} from '../keys';
 
 import type {DefaultIgnoredTag} from './hooks';
 import useShortcut from './hooks';

@@ -6,7 +6,7 @@ export type {Props as ProviderProps} from './ShortcutProvider';
 
 export {default as ShortcutManager} from './ShortcutManager';
 export type {
-  default as Key,
+  Key,
   AlphabetKey,
   NumericKey,
   ModifierKey,
