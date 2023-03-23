@@ -8,7 +8,7 @@ on:
 jobs:
   node-tests:
     runs-on: ubuntu-latest
-    name: 'Test (Node ${{ matrix.node-version }}, React ${{ matrix.react-version }})'
+    name: 'Test (Node ${{ matrix.node-version }}, React ${{ matrix.react-version }}, GraphQL ${{ matrix.graphql-version }})'
     strategy:
       fail-fast: false
       matrix:
@@ -21,6 +21,7 @@ jobs:
         # https://github.com/actions/setup-node
         node-version: ['14', '16']
         react-version: ['17', '18']
+        graphql-version: ['15', '16']
     timeout-minutes: 15
 
     steps:
@@ -60,8 +61,10 @@ jobs:
         run: yarn test "^(?:(?!(address|react-server|web-worker)).)*$"
         env:
           REACT_VERSION: ${{ matrix.react-version }}
+          GRAPHQL_VERSION: ${{ matrix.graphql-version}}
 
       - name: E2E tests
         run: yarn test --runInBand --forceExit "(address|react-server|web-worker)"
         env:
           REACT_VERSION: ${{ matrix.react-version }}
+          GRAPHQL_VERSION: ${{ matrix.graphql-version}}

@@ -48,7 +48,7 @@
   "dependencies": {
     "@jest/transform": ">= 27 <29",
     "fs-extra": "^9.1.0",
-    "graphql": ">=14.5.0 <16.0.0",
+    "graphql": ">=14.5.0 <17.0.0",
     "graphql-typed": "^2.0.2"
   },
   "devDependencies": {
