@@ -1,8 +1,7 @@
 import React from 'react';
 
 import {ShortcutContext} from '../ShortcutProvider';
-import type Key from '../keys';
-import type {HeldKey} from '../keys';
+import type {Key, HeldKey} from '../keys';
 
 const DEFAULT_IGNORED_TAGS = ['INPUT', 'SELECT', 'TEXTAREA'] as const;
 

@@ -5,6 +5,9 @@ module.exports = {
   features: {
     storyStoreV7: true,
   },
+  typescript: {
+    reactDocgen: false,
+  },
   babel: (config) => {
     return {...config, targets: 'last 3 chrome versions'};
   },
