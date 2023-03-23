@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {faker} from '@faker-js/faker/locale/en';
 
 import {Root} from '../root';
@@ -68,6 +68,35 @@ describe('createMount()', () => {
       context,
       options,
     );
+  });
+
+  it('does not throw if the wrapper is unmounted', () => {
+    let toggleTestMount;
+    let tick = 0;
+    function Wrapper({children}) {
+      const [showChildren, setShowChildren] = useState(true);
+      toggleTestMount = () => setShowChildren((show) => !show);
+      // eslint-disable-next-line jest/no-if
+      return showChildren ? children : null;
+    }
+
+    function TestComponent() {
+      tick += 1;
+
+      return <>{tick}</>;
+    }
+
+    const customMount = createMount({
+      render: (element) => <Wrapper>{element}</Wrapper>,
+    });
+
+    const testComponent = customMount(<TestComponent />);
+
+    expect(() => testComponent.act(toggleTestMount)).not.toThrow();
+
+    // this will remount the TestComponent and it should update as expected
+    testComponent.act(toggleTestMount);
+    expect(testComponent.html()).toBe('2');
   });
 
   it('resolves the returned Root instance to the top level node in the original tree', () => {
