@@ -290,6 +290,28 @@ describe('StatsDClient', () => {
       );
     });
 
+    it('increment can be passed a value input so that the metric is incremented by a specific amount', () => {
+      const statsDClient = new StatsDClient({
+        ...defaultOptions,
+        snakeCase: true,
+      });
+
+      const amount = 4;
+
+      statsDClient.increment(stat, tags, {}, amount);
+      const stats = StatsDMock.mock.instances[0];
+      const incrementFn = stats.increment;
+
+      expect(incrementFn).toHaveBeenCalledTimes(1);
+      expect(incrementFn).toHaveBeenCalledWith(
+        stat,
+        amount,
+        undefined,
+        {foo_bar: tagValue},
+        expect.any(Function),
+      );
+    });
+
     it('calls errorHandler on the promise when the client returns an error', () => {
       const errorHandler = jest.fn();
       const statsDClient = new StatsDClient({...defaultOptions, errorHandler});
