@@ -4,18 +4,12 @@
     "@tsconfig/strictest/tsconfig.json"
   ],
   "compilerOptions": {
-    // @tsconfig/strictest currently sets importsNotUsedAsValues:"error", which
-    // in TS 5.0.2 causes a crash when used in combo with verbatimModuleSyntax
-    // importsNotUsedAsValues can be removed once `@tsconfig/strictest` removes
-    // its usage of importsNotUsedAsValues, or typescript is updated to 5.0.3
-    "importsNotUsedAsValues": "remove",
     // Project and build output
     "composite": true,
     "emitDeclarationOnly": true,
     "declarationMap": true,
     "lib": ["dom", "dom.iterable", "es2022"],
     "module": "es2022",
-    "verbatimModuleSyntax": true,
     "jsx": "react",
 
     // Strictness
