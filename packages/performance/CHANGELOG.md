@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.2.5
+
+### Patch Changes
+
+- [#2616](https://github.com/Shopify/quilt/pull/2616) [`f1eafee08`](https://github.com/Shopify/quilt/commit/f1eafee08d4fd00b50431c3d3c9bfa5b3397ac26) Thanks [@ryanwilsonperkin](https://github.com/ryanwilsonperkin)! - Workaround quirk in React Router v6 that causes navigation to end prematurely
+
 ## 3.2.4
 
 ### Patch Changes

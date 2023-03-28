@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.3.0
+
+### Minor Changes
+
+- [#2566](https://github.com/Shopify/quilt/pull/2566) [`e3db8be05`](https://github.com/Shopify/quilt/commit/e3db8be0599474ab132aaa86cf2f492929e8a6a8) Thanks [@RouzbehMajidi](https://github.com/RouzbehMajidi)! - Added support for incrementing metric by specific value
+
 ## 4.2.2
 
 ### Patch Changes
