@@ -7,6 +7,8 @@ export default class Storage {
 
   clear = jest.fn(this.unmockedClearItem);
 
+  key = jest.fn(this.unmockedKey);
+
   private store: {
     [key: string]: string;
   } = Object.create(null);
@@ -45,5 +47,9 @@ export default class Storage {
 
   private unmockedClearItem() {
     this.store = {};
+  }
+
+  private unmockedKey(index: number) {
+    return Object.keys(this.store)[index];
   }
 }
