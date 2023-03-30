@@ -120,6 +120,7 @@ export class Performance {
             metadata: {
               name: entry.name,
               size: entry.encodedBodySize,
+              cached: entry.transferSize === 0 && entry.decodedBodySize > 0,
             },
           },
           {replace: true},
