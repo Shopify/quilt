@@ -1,5 +1,6 @@
 import {useRef, useCallback} from 'react';
 import type {Navigation, LifecycleEvent} from '@shopify/performance';
+import {NavigationResult} from '@shopify/performance';
 import {Header, Method} from '@shopify/network';
 
 import {useNavigationListener} from './navigation-listener';
@@ -9,12 +10,19 @@ export interface ErrorHandler {
   (error: any): void;
 }
 
+export interface UsePerformanceReportOptions {
+  locale?: string;
+  onError?: ErrorHandler;
+  finishedNavigationsOnly?: boolean;
+}
+
 export function usePerformanceReport(
   url: string,
   {
     locale = undefined,
     onError = noop,
-  }: {locale?: string; onError?: ErrorHandler} = {},
+    finishedNavigationsOnly = true,
+  }: UsePerformanceReportOptions = {},
 ) {
   const navigations = useRef<Navigation[]>([]);
   const events = useRef<LifecycleEvent[]>([]);
@@ -61,10 +69,17 @@ export function usePerformanceReport(
 
   const onNavigation = useCallback(
     (navigation: Navigation) => {
+      if (
+        finishedNavigationsOnly &&
+        navigation.result !== NavigationResult.Finished
+      ) {
+        return;
+      }
+
       navigations.current.push(navigation);
       sendReport();
     },
-    [sendReport],
+    [sendReport, finishedNavigationsOnly],
   );
 
   const onLifeCycleEvent = useCallback(
