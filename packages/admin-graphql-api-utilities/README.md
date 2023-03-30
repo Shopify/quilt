@@ -56,7 +56,7 @@ parseGidWithParams('gid://shopify/Customer/12345?sessionId=123&foo=bar');
 //   }
 ```
 
-### `function composeGidFactory(namespace: string): Function`
+### `function composeGidFactory<N extends string>(namespace: N): Function`
 
 Create a new `composeGid` with a given namespace instead of the default `shopify` namespace.
 
@@ -71,7 +71,7 @@ composeGid('Product', '123');
 // → 'gid://CustomApp/Product/123'
 ```
 
-### `function composeGid(key: string, id: number | string, params: Record<string, string> = {}): string`
+### `function composeGid<T extends string>(key: T, id: number | string, params: Record<string, string> = {}): Gid<'shopify', T>`
 
 Given a key and id, compose a Gid string.
 
