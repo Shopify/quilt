@@ -1,4 +1,3 @@
-import {NavigationResult} from '@shopify/performance';
 import type {ErrorHandler} from './performance-report';
 import {usePerformanceReport} from './performance-report';
 
@@ -6,16 +5,16 @@ interface Props {
   url: string;
   onError?: ErrorHandler;
   locale?: string;
-  resultsToReport?: NavigationResult[];
+  finishedNavigationsOnly?: boolean;
 }
 
 export function PerformanceReport({
   url,
   onError,
   locale,
-  resultsToReport,
+  finishedNavigationsOnly,
 }: Props) {
-  usePerformanceReport(url, {onError, locale, resultsToReport});
+  usePerformanceReport(url, {onError, locale, finishedNavigationsOnly});
 
   return null;
 }

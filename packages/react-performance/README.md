@@ -296,13 +296,7 @@ import {usePerformanceReport} from '@shopify/react-performance';
 import {ProductPage} from './ProductPage';
 
 function App() {
-  usePerformanceReport('/performance-report', {
-    resultsToReport: [
-      NavigationResult.Finished,
-      NavigationResult.Cancelled,
-      NavigationResult.TimedOut,
-    ],
-  });
+  usePerformanceReport('/performance-report', {finishedNavigationsOnly: false});
   return <ProductPage />;
 }
 ```

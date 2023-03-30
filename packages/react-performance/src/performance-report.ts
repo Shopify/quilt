@@ -13,7 +13,7 @@ export interface ErrorHandler {
 export interface usePerformanceReportOptions {
   locale?: string;
   onError?: ErrorHandler;
-  resultsToReport?: NavigationResult[];
+  finishedNavigationsOnly?: boolean;
 }
 
 export function usePerformanceReport(
@@ -21,8 +21,7 @@ export function usePerformanceReport(
   {
     locale = undefined,
     onError = noop,
-    // By default, only reports finished navigations to avoid skewing metrics
-    resultsToReport = [NavigationResult.Finished],
+    finishedNavigationsOnly = true,
   }: usePerformanceReportOptions = {},
 ) {
   const navigations = useRef<Navigation[]>([]);
@@ -70,11 +69,17 @@ export function usePerformanceReport(
 
   const onNavigation = useCallback(
     (navigation: Navigation) => {
-      if (!resultsToReport.includes(navigation.result)) return;
+      if (
+        finishedNavigationsOnly &&
+        navigation.result !== NavigationResult.Finished
+      ) {
+        return;
+      }
+
       navigations.current.push(navigation);
       sendReport();
     },
-    [sendReport],
+    [sendReport, finishedNavigationsOnly],
   );
 
   const onLifeCycleEvent = useCallback(
