@@ -1,6 +1,11 @@
 const GID_TYPE_REGEXP = /^gid:\/\/[\w-]+\/([\w-]+)\//;
 const GID_REGEXP = /\/(\w[\w-]*)(?:\?(.*))*$/;
 
+export type Gid<
+  Namespace extends string,
+  Type extends string,
+> = `gid://${Namespace}/${Type}/${number | string}`;
+
 interface ParsedGid {
   id: string;
   params: {[key: string]: string};
@@ -43,21 +48,21 @@ export function parseGidWithParams(gid: string): ParsedGid {
   throw new Error(`Invalid gid: ${gid}`);
 }
 
-export function composeGidFactory(namescape: string) {
-  return function composeGid(
-    key: string,
+export function composeGidFactory<N extends string>(namescape: N) {
+  return function composeGid<T extends string>(
+    key: T,
     id: number | string,
     params: {[key: string]: string} = {},
-  ): string {
+  ): Gid<N, T> {
     const gid = `gid://${namescape}/${key}/${id}`;
     const paramKeys = Object.keys(params);
 
     if (paramKeys.length === 0) {
-      return gid;
+      return gid as Gid<N, T>;
     }
 
     const paramString = new URLSearchParams(params).toString();
-    return `${gid}?${paramString}`;
+    return `${gid}?${paramString}` as Gid<N, T>;
   };
 }
 

@@ -1,5 +1,6 @@
 import {v4} from 'uuid';
 
+import type {Gid} from '..';
 import {
   parseGidType,
   parseGid,
@@ -101,28 +102,30 @@ describe('admin-graphql-api-utilities', () => {
     it('returns the composed Gid using key and number id', () => {
       const id = 123;
       const key = 'Section';
-      expect(composeGid(key, id)).toBe(`gid://shopify/${key}/${id}`);
+      const gid: Gid<'shopify', 'Section'> = composeGid(key, id);
+      expect(gid).toBe(`gid://shopify/${key}/${id}`);
     });
 
     it('returns the composed Gid using key and string id', () => {
       const id = '456';
       const key = 'Section';
-      expect(composeGid(key, id)).toBe(`gid://shopify/${key}/${id}`);
+      const gid: Gid<'shopify', 'Section'> = composeGid(key, id);
+      expect(gid).toBe(`gid://shopify/${key}/${id}`);
     });
 
     it('returns the composed Gid using key and uuid', () => {
       const id = v4();
       const key = 'Section';
-      expect(composeGid(key, id)).toBe(`gid://shopify/${key}/${id}`);
+      const gid: Gid<'shopify', 'Section'> = composeGid(key, id);
+      expect(gid).toBe(`gid://shopify/${key}/${id}`);
     });
 
     it('returns the composed Gid with params', () => {
       const id = 'button';
       const key = 'Section';
       const params = {foo: 'bar', hello: 'world'};
-      expect(composeGid(key, id, params)).toBe(
-        `gid://shopify/${key}/${id}?foo=bar&hello=world`,
-      );
+      const gid: Gid<'shopify', 'Section'> = composeGid(key, id, params);
+      expect(gid).toBe(`gid://shopify/${key}/${id}?foo=bar&hello=world`);
     });
   });
 
@@ -131,14 +134,16 @@ describe('admin-graphql-api-utilities', () => {
       const customComposeGid = composeGidFactory('shopify');
       const id = 123;
       const key = 'Section';
-      expect(customComposeGid(key, id)).toBe(`gid://shopify/${key}/${id}`);
+      const gid: Gid<'shopify', 'Section'> = customComposeGid(key, id);
+      expect(gid).toBe(`gid://shopify/${key}/${id}`);
     });
 
     it('returns a function to compose "custom" gid', () => {
       const customComposeGid = composeGidFactory('custom-app');
       const id = 123;
       const key = 'Section';
-      expect(customComposeGid(key, id)).toBe(`gid://custom-app/${key}/${id}`);
+      const gid: Gid<'custom-app', 'Section'> = customComposeGid(key, id);
+      expect(gid).toBe(`gid://custom-app/${key}/${id}`);
     });
 
     it('returns the composed Gid with params', () => {
@@ -146,9 +151,12 @@ describe('admin-graphql-api-utilities', () => {
       const id = 'button';
       const key = 'Section';
       const params = {foo: 'bar', hello: 'world'};
-      expect(customComposeGid(key, id, params)).toBe(
-        `gid://custom-app/${key}/${id}?foo=bar&hello=world`,
+      const gid: Gid<'custom-app', 'Section'> = customComposeGid(
+        key,
+        id,
+        params,
       );
+      expect(gid).toBe(`gid://custom-app/${key}/${id}?foo=bar&hello=world`);
     });
   });
 
