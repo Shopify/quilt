@@ -284,6 +284,29 @@ function App() {
 }
 ```
 
+##### Including non-Finished Navigations
+
+By default, `usePerformanceReport` will only report on navigations that were "Finished" (ie. a performance mark with Stage.Complete was rendered). If you want to include Navigations that were "Cancelled" or "Timed Out" you can specify those.
+
+```tsx
+// App.tsx
+import React from 'react';
+import {NavigationResult} from '@shopify/performance';
+import {usePerformanceReport} from '@shopify/react-performance';
+import {ProductPage} from './ProductPage';
+
+function App() {
+  usePerformanceReport('/performance-report', {
+    resultsToReport: [
+      NavigationResult.Finished,
+      NavigationResult.Cancelled,
+      NavigationResult.TimedOut,
+    ],
+  });
+  return <ProductPage />;
+}
+```
+
 ### Components
 
 This library also provides the following component implementations of the above hooks:
