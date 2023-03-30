@@ -10,7 +10,7 @@ export interface ErrorHandler {
   (error: any): void;
 }
 
-export interface usePerformanceReportOptions {
+export interface UsePerformanceReportOptions {
   locale?: string;
   onError?: ErrorHandler;
   finishedNavigationsOnly?: boolean;
@@ -22,7 +22,7 @@ export function usePerformanceReport(
     locale = undefined,
     onError = noop,
     finishedNavigationsOnly = true,
-  }: usePerformanceReportOptions = {},
+  }: UsePerformanceReportOptions = {},
 ) {
   const navigations = useRef<Navigation[]>([]);
   const events = useRef<LifecycleEvent[]>([]);
