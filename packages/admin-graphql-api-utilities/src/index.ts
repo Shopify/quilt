@@ -48,13 +48,13 @@ export function parseGidWithParams(gid: string): ParsedGid {
   throw new Error(`Invalid gid: ${gid}`);
 }
 
-export function composeGidFactory<N extends string>(namescape: N) {
+export function composeGidFactory<N extends string>(namespace: N) {
   return function composeGid<T extends string>(
     key: T,
     id: number | string,
     params: {[key: string]: string} = {},
   ): Gid<N, T> {
-    const gid = `gid://${namescape}/${key}/${id}`;
+    const gid = `gid://${namespace}/${key}/${id}`;
     const paramKeys = Object.keys(params);
 
     if (paramKeys.length === 0) {
