@@ -1,5 +1,6 @@
 import {useRef, useCallback} from 'react';
 import type {Navigation, LifecycleEvent} from '@shopify/performance';
+import {NavigationResult} from '@shopify/performance';
 import {Header, Method} from '@shopify/network';
 
 import {useNavigationListener} from './navigation-listener';
@@ -9,12 +10,20 @@ export interface ErrorHandler {
   (error: any): void;
 }
 
+export interface usePerformanceReportOptions {
+  locale?: string;
+  onError?: ErrorHandler;
+  resultsToReport?: NavigationResult[];
+}
+
 export function usePerformanceReport(
   url: string,
   {
     locale = undefined,
     onError = noop,
-  }: {locale?: string; onError?: ErrorHandler} = {},
+    // By default, only reports finished navigations to avoid skewing metrics
+    resultsToReport = [NavigationResult.Finished],
+  }: usePerformanceReportOptions = {},
 ) {
   const navigations = useRef<Navigation[]>([]);
   const events = useRef<LifecycleEvent[]>([]);
@@ -61,6 +70,7 @@ export function usePerformanceReport(
 
   const onNavigation = useCallback(
     (navigation: Navigation) => {
+      if (!resultsToReport.includes(navigation.result)) return;
       navigations.current.push(navigation);
       sendReport();
     },
