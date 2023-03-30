@@ -98,7 +98,7 @@ export function mockNavigation() {
       duration: faker.datatype.number({min: 0, max: 100000}),
       target: faker.internet.url(),
       events: [],
-      result: randomNavigationResult(),
+      result: NavigationResult.Finished,
     },
     {
       index: faker.datatype.number(),
