@@ -84,7 +84,12 @@ export function withNavigation(
   });
 
   history.replaceState = (...args) => {
-    handlePushOrReplace(args[2]);
+    // React Router v6 introduced special behaviour that replaces state on initialization
+    // It does this only when the current idx state is null, and it sets it to 0
+    // We need to account for this to prevent it from being recorded as a navigation
+    if (!(history.state?.idx == null && args[0]?.idx === 0)) {
+      handlePushOrReplace(args[2]);
+    }
     replaceState.call(history, ...args);
   };
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.1.3
+
+### Patch Changes
+
+- [#2612](https://github.com/Shopify/quilt/pull/2612) [`39e910e30`](https://github.com/Shopify/quilt/commit/39e910e30f1cd7803a66afde5c2c8ab894b57e59) Thanks [@melnikov-s](https://github.com/melnikov-s)! - Fixed a null exception if the inner root component is unmounted by the outer wrapper during an act
+
 ## 5.1.2
 
 ### Patch Changes

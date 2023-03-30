@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.4.7
+
+### Patch Changes
+
+- Updated dependencies [[`f1eafee08`](https://github.com/Shopify/quilt/commit/f1eafee08d4fd00b50431c3d3c9bfa5b3397ac26), [`e3db8be05`](https://github.com/Shopify/quilt/commit/e3db8be0599474ab132aaa86cf2f492929e8a6a8)]:
+  - @shopify/performance@3.2.5
+  - @shopify/statsd@4.3.0
+
 ## 3.4.6
 
 ### Patch Changes
