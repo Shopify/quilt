@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.0
+
+### Major Changes
+
+- [#2618](https://github.com/Shopify/quilt/pull/2618) [`0a1b2e16e`](https://github.com/Shopify/quilt/commit/0a1b2e16ed7e1f267d9c28a94f637724c1e67140) Thanks [@CameronGorrie](https://github.com/CameronGorrie)! - cacheEffectiveness uses cache ratio based on cache hit information discerned from transferSize and decodedBodySize properties
+
 ## 3.2.5
 
 ### Patch Changes

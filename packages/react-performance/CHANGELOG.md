@@ -1,5 +1,22 @@
 # Changelog
 
+## 4.0.0
+
+### Major Changes
+
+- [#2621](https://github.com/Shopify/quilt/pull/2621) [`bd47f4d8f`](https://github.com/Shopify/quilt/commit/bd47f4d8f6546724e8a627ecf21580ed8099caca) Thanks [@ryanwilsonperkin](https://github.com/ryanwilsonperkin)! - Default to only sending metrics for "Finished" navigations
+
+  usePerformanceReport and PerformanceReport will now default to only sending
+  navigations in the performance report that have been completed (ie. have
+  rendered a PerformanceMark or usePerformanceMark with Stage.Complete).
+
+  This reduces the likelihood of evaluating your metrics incorrectly.
+
+### Patch Changes
+
+- Updated dependencies [[`0a1b2e16e`](https://github.com/Shopify/quilt/commit/0a1b2e16ed7e1f267d9c28a94f637724c1e67140)]:
+  - @shopify/performance@4.0.0
+
 ## 3.0.13
 
 ### Patch Changes
