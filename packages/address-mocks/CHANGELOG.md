@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.2.0
+
+### Minor Changes
+
+- [#2522](https://github.com/Shopify/quilt/pull/2522) [`f0359c52c`](https://github.com/Shopify/quilt/commit/f0359c52c51c96078ac9e1902411fd1f3df2bc42) Thanks [@cejaekl](https://github.com/cejaekl)! - Add the ability to handle the `includeHiddenZones` variable in `mockCountryRequests()`
+
 ## 3.1.7
 
 ### Patch Changes

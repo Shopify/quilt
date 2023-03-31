@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.1.0
+
+### Minor Changes
+
+- [#2522](https://github.com/Shopify/quilt/pull/2522) [`f0359c52c`](https://github.com/Shopify/quilt/commit/f0359c52c51c96078ac9e1902411fd1f3df2bc42) Thanks [@cejaekl](https://github.com/cejaekl)! - Add the ability to specify an options object as the second argument when calling `loadCountry`, `AddressFormatter.getCountry()` and `AddressFormatter.getCountries()`. The options object may contain a single option `includeHiddenZones` to enable loading hidden zones.
+
 ## 4.0.8
 
 ### Patch Changes
