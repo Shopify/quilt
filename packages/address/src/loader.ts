@@ -12,8 +12,11 @@ import {
 
 import query from './graphqlQuery';
 
-export const loadCountries: (locale: string) => Promise<Country[]> =
-  memoizeAsync(async (locale: string) => {
+export const loadCountries: (
+  locale: string,
+  options?: {includeHiddenZones?: boolean},
+) => Promise<Country[]> = memoizeAsync(
+  async (locale: string, {includeHiddenZones = false} = {}) => {
     const response = await fetch(GRAPHQL_ENDPOINT, {
       method: 'POST',
       headers: HEADERS,
@@ -22,6 +25,7 @@ export const loadCountries: (locale: string) => Promise<Country[]> =
         operationName: GraphqlOperationName.Countries,
         variables: {
           locale: locale.replace(/-/, '_').toUpperCase(),
+          includeHiddenZones,
         },
       }),
     });
@@ -34,13 +38,19 @@ export const loadCountries: (locale: string) => Promise<Country[]> =
     }
 
     return countries.data.countries;
-  });
+  },
+);
 
 export const loadCountry: (
   locale: string,
   countryCode: string,
+  options?: {includeHiddenZones?: boolean},
 ) => Promise<Country> = memoizeAsync(
-  async (locale: string, countryCode: string): Promise<Country> => {
+  async (
+    locale: string,
+    countryCode: string,
+    {includeHiddenZones = false} = {},
+  ): Promise<Country> => {
     const response = await fetch(GRAPHQL_ENDPOINT, {
       method: 'POST',
       headers: HEADERS,
@@ -50,6 +60,7 @@ export const loadCountry: (
         variables: {
           countryCode,
           locale: locale.replace(/-/, '_').toUpperCase(),
+          includeHiddenZones,
         },
       }),
     });

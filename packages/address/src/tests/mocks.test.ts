@@ -15,6 +15,18 @@ describe('mockCountryRequests', () => {
     expect(japan.code).toBe('JP');
   });
 
+  it('includes hidden zones when asked to', async () => {
+    const india = await loadCountry('fr', 'IN', {includeHiddenZones: true});
+    const mapped = india.zones.map((x) => x.code);
+    expect(mapped).toContain('DH');
+  });
+
+  it('excludes hidden zones by default', async () => {
+    const india = await loadCountry('en', 'IN');
+    const mapped = india.zones.map((x) => x.code);
+    expect(mapped).not.toContain('DH');
+  });
+
   it('fetches a expected canada locale', async () => {
     const canada = await loadCountry('fr', 'CA');
     expect(canada.code).toBe('CA');
