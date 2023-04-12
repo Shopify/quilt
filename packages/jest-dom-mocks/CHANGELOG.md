@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.2.0
+
+### Minor Changes
+
+- [#2619](https://github.com/Shopify/quilt/pull/2619) [`d1b6a3c02`](https://github.com/Shopify/quilt/commit/d1b6a3c0264abfc232166638df8a88164d6db8a3) Thanks [@bryanparadis](https://github.com/bryanparadis)! - Add `keys` function to Storage mock
+
 ## 4.1.2
 
 ### Patch Changes
