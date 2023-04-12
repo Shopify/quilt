@@ -227,6 +227,8 @@ The storage mocks are a bit different than the other mocks, because they serve p
 - `setItem`
 - `removeItem`
 - `clear`
+- `length`
+- `key`
 
 Each of these are wrapped in a jest spy, which is automatically restored at the end of the test run.
 
