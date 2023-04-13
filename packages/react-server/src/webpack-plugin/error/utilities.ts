@@ -11,11 +11,11 @@ export function errorClientSource() {
   return `
     ${HEADER}
     import React from 'react';
-    import ReactDOM from 'react-dom';
+    import ReactDOM from 'react-dom/client';
     import {showPage} from '@shopify/react-html';
     import Error from 'error';
     const appContainer = document.getElementById('app');
-    ReactDOM.hydrate(React.createElement(Error), appContainer);
+    ReactDOM.hydrateRoot(appContainer, React.createElement(Error));
     showPage();
   `;
 }
