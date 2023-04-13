@@ -131,10 +131,11 @@ function clientSource() {
     import App from 'index';
 
     const appContainer = document.getElementById('app');
+    const AppRoot = createRoot(appContainer)
     const data = getSerialized('quilt-data');
     const url = new URL(window.location.href);
 
-    ReactDOM.hydrate(React.createElement(App, {data, url}), appContainer);
+    ReactDOM.hydrateRoot(appContainer, React.createElement(App, {data, url}));
     showPage();
   `;
 }
