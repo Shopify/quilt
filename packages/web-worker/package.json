@@ -29,6 +29,10 @@
       "types": "./build/ts/webpack-parts/index.d.ts",
       "default": "./webpack.js"
     },
+    "./webpack-loader.js": {
+      "types": "./build/ts/webpack-parts/loader.d.ts",
+      "default": "./build/cjs/webpack-parts/loader.js"
+    },
     "./worker": {
       "types": "./build/ts/worker.d.ts",
       "esnext": "./worker.esnext",
