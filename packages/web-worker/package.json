@@ -15,6 +15,9 @@
       "webpack": [
         "./build/ts/webpack-parts/index.d.ts"
       ],
+      "webpack-loader.js": [
+        "./build/ts/webpack-parts/loader.d.ts"
+      ],
       "worker": [
         "./build/ts/worker.d.ts"
       ]
