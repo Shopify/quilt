@@ -15,7 +15,7 @@
       "webpack": [
         "./build/ts/webpack-parts/index.d.ts"
       ],
-      "webpack-loader.js": [
+      "webpack-loader": [
         "./build/ts/webpack-parts/loader.d.ts"
       ],
       "worker": [
@@ -32,9 +32,9 @@
       "types": "./build/ts/webpack-parts/index.d.ts",
       "default": "./webpack.js"
     },
-    "./webpack-loader.js": {
+    "./webpack-loader": {
       "types": "./build/ts/webpack-parts/loader.d.ts",
-      "default": "./build/cjs/webpack-parts/loader.js"
+      "default": "./webpack-loader.js"
     },
     "./worker": {
       "types": "./build/ts/worker.d.ts",
