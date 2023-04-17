@@ -14,7 +14,7 @@
     "**/.git": true,
     "**/node_modules": true,
     "**/.DS_Store": true,
-    "packages/*/build": false,
+    "packages/*/build": true,
     ".{cache,dev,shadowenv.d}": true
   },
   "files.insertFinalNewline": true,
