@@ -37,56 +37,32 @@ export interface ResolveDetails {
   parentFields: FieldDetails[];
 }
 
-export interface Resolver<
-  T = any,
-  Data = {},
-  Variables = {},
-  DeepPartial = {},
-> {
-  (
-    request: GraphQLRequest<Data, Variables, DeepPartial>,
-    details: ResolveDetails,
-  ): T;
+export interface Resolver<Request, T = any> {
+  (request: Request, details: ResolveDetails): T;
 }
 
-export type Thunk<T, Data, Variables, DeepPartial> =
-  | T
-  | Resolver<T, Data, Variables, DeepPartial>;
+export type Thunk<Request, T> = T | Resolver<Request, T>;
 
-export type DeepThunk<T, Data, Variables, DeepPartial> =
+export type DeepThunk<Request, T> =
   | (T extends object
       ? {
           [P in keyof T]: Thunk<
+            Request,
             | (T[P] extends (infer U)[]
-                ? Thunk<
-                    DeepThunk<U, Data, Variables, DeepPartial>,
-                    Data,
-                    Variables,
-                    DeepPartial
-                  >[]
+                ? Thunk<Request, DeepThunk<Request, U>>[]
                 :
                     | (T[P] extends ReadonlyArray<infer U>
-                        ? ReadonlyArray<
-                            Thunk<
-                              DeepThunk<U, Data, Variables, DeepPartial>,
-                              Data,
-                              Variables,
-                              DeepPartial
-                            >
-                          >
+                        ? ReadonlyArray<Thunk<Request, DeepThunk<Request, U>>>
                         :
                             | (T[P] extends infer U
-                                ? DeepThunk<U, Data, Variables, DeepPartial>
+                                ? DeepThunk<Request, U>
                                 : T[P])
                             | null
                             | undefined)
                     | null
                     | undefined)
             | null
-            | undefined,
-            Data,
-            Variables,
-            DeepPartial
+            | undefined
           >;
         }
       : T)
@@ -96,32 +72,48 @@ export type DeepThunk<T, Data, Variables, DeepPartial> =
 // variables that are undefined to an empty object, so that it matches the shape
 // of `GraphQLOperation`, because that has a default value of `{}` on the
 // variables generic type.
-export type GraphQLFillerData<Operation extends GraphQLOperation> =
-  Operation extends GraphQLOperation<
-    infer Data,
-    infer Variables,
-    infer PartialData
-  >
-    ? Thunk<
-        DeepThunk<
-          PartialData,
-          Data,
-          undefined extends Variables ? {} : Variables,
-          PartialData
-        >,
-        Data,
-        undefined extends Variables ? {} : Variables,
+export type GraphQLFillerData<
+  Operation extends GraphQLOperation,
+  Request = undefined,
+> = Operation extends GraphQLOperation<
+  infer Data,
+  infer Variables,
+  infer PartialData
+>
+  ? Thunk<
+      undefined extends Request
+        ? GraphQLRequest<
+            Data,
+            undefined extends Variables ? {} : Variables,
+            PartialData
+          >
+        : Request,
+      DeepThunk<
+        undefined extends Request
+          ? GraphQLRequest<
+              Data,
+              undefined extends Variables ? {} : Variables,
+              PartialData
+            >
+          : Request,
         PartialData
       >
-    : never;
+    >
+  : never;
 
-export interface Options {
-  resolvers?: {[key: string]: Resolver};
+export interface Options<
+  Request extends GraphQLRequest<any, any, any> | null = GraphQLRequest<
+    any,
+    any,
+    any
+  > | null,
+> {
+  resolvers?: {[key: string]: Resolver<Request>};
 }
 
-interface Context {
+interface Context<Request extends GraphQLRequest<any, any, any> | null> {
   schema: GraphQLSchema;
-  resolvers: Map<string, Resolver>;
+  resolvers: Map<string, Resolver<Request>>;
 }
 
 export type GraphQLRequest<Data, Variables, PartialData> = {
@@ -141,12 +133,11 @@ const defaultResolvers = {
   ID: () => faker.datatype.uuid(),
 };
 
-/**
- * @deprecated You should use `createFillers` instead.
- **/
 export function createFiller(
   schema: GraphQLSchema,
-  {resolvers: customResolvers = {}}: Options = {},
+  {
+    resolvers: customResolvers = {},
+  }: Options<GraphQLRequest<any, any, any>> = {},
 ) {
   const documentToOperation = new Map<string, Operation>();
   const resolvers = new Map(
@@ -165,8 +156,20 @@ export function createFiller(
   >(
     _document: GraphQLOperation<Data, Variables, PartialData>,
     data?: GraphQLFillerData<GraphQLOperation<Data, Variables, PartialData>>,
-  ): (request: GraphQLRequest<Data, Variables, PartialData>) => Data {
-    return (request: GraphQLRequest<Data, Variables, PartialData>) => {
+  ): (
+    request: GraphQLRequest<
+      Data,
+      undefined extends Variables ? {} : Variables,
+      PartialData
+    >,
+  ) => Data {
+    return (
+      request: GraphQLRequest<
+        Data,
+        undefined extends Variables ? {} : Variables,
+        PartialData
+      >,
+    ) => {
       const {operationName, query} = request;
 
       const operation =
@@ -192,7 +195,10 @@ export function createFiller(
   };
 }
 
-export function createFillers(schema: GraphQLSchema, options: Options = {}) {
+export function createFillers(
+  schema: GraphQLSchema,
+  options: Options<GraphQLRequest<any, any, any> | null> = {},
+) {
   const {resolvers: customResolvers = {}} = options;
   const resolvers = new Map(
     Object.entries({
@@ -226,7 +232,7 @@ export function createFillers(schema: GraphQLSchema, options: Options = {}) {
         data,
         // Since we are filling a fragment outside of a query or mutation, there
         // is no concept of a request in this context.
-        null as any,
+        null,
         context,
       ) as Data;
     },
@@ -250,13 +256,13 @@ function normalizeDocument(document: DocumentNode<any, any, any>) {
   };
 }
 
-function fillObject(
+function fillObject<Request extends GraphQLRequest<any, any, any> | null>(
   type: GraphQLObjectType,
   parent: GraphQLObjectType,
   parentFields: FieldDetails[],
-  partial: Thunk<{[key: string]: any} | null, any, any, any> | undefined | null,
-  request: GraphQLRequest<any, any, any>,
-  context: Context,
+  partial: Thunk<Request, {[key: string]: any} | null> | undefined | null,
+  request: Request,
+  context: Context<Request>,
 ) {
   const normalizedParentFields = [...parentFields];
   // We know there will always be at least one here, because the field for the object
@@ -321,15 +327,15 @@ function fillObject(
   }, {});
 }
 
-function isResolver<T>(
-  value: Thunk<T, any, any, any>,
-): value is Resolver<T, any, any, any> {
+function isResolver<Request, T>(
+  value: Thunk<Request, T>,
+): value is Resolver<Request, T> {
   return typeof value === 'function';
 }
 
-function unwrapThunk<T>(
-  value: Thunk<T, any, any, any>,
-  request: GraphQLRequest<any, any, any>,
+function unwrapThunk<Request, T>(
+  value: Thunk<Request, T>,
+  request: Request,
   details: ResolveDetails,
 ): T {
   const {type} = details;
@@ -346,8 +352,8 @@ function keyPathElement(responseName: string, fieldIndex: number | undefined) {
 // we need to set a seedOffset when filling fields that are indexed leafs in the
 // graph, for indexed objects in the graph their key path will use the parent
 // field index instead.
-function withRandom<T>(
-  request: GraphQLRequest<any, any, any> | null,
+function withRandom<Request, T>(
+  request: Request,
   keypath: FieldDetails[],
   func: () => T,
   seedOffset = 0,
@@ -367,10 +373,10 @@ function withRandom<T>(
   return func();
 }
 
-function createValue<T>(
-  partialValue: Thunk<any, any, any, any>,
-  value: Thunk<T, any, any, any>,
-  request: GraphQLRequest<any, any, any>,
+function createValue<Request, T>(
+  partialValue: Thunk<Request, any>,
+  value: Thunk<Request, T>,
+  request: Request,
   details: ResolveDetails,
 ) {
   return withRandom(
@@ -389,10 +395,12 @@ function createValue<T>(
   );
 }
 
-function fillForPrimitiveType(
+function fillForPrimitiveType<
+  Request extends GraphQLRequest<any, any, any> | null,
+>(
   type: GraphQLScalarType | GraphQLEnumType,
-  {resolvers}: Context,
-): Resolver {
+  {resolvers}: Context<Request>,
+): Resolver<Request> {
   const resolver = resolvers.get(type.name);
 
   if (resolver) {
@@ -404,14 +412,14 @@ function fillForPrimitiveType(
   }
 }
 
-function fillType<Data, Variables, DeepPartial>(
+function fillType<Request extends GraphQLRequest<any, any, any> | null>(
   type: GraphQLType,
   field: Field & FieldMetadata,
-  partial: Thunk<any, Data, Variables, DeepPartial>,
+  partial: Thunk<Request, any>,
   parent: GraphQLObjectType,
   parentFields: FieldDetails[],
-  request: GraphQLRequest<any, any, any>,
-  context: Context,
+  request: Request,
+  context: Context<Request>,
 ): any {
   const unwrappedType = isNonNullType(type) ? type.ofType : type;
 
@@ -420,7 +428,7 @@ function fillType<Data, Variables, DeepPartial>(
   } else if (isEnumType(unwrappedType) || isScalarType(unwrappedType)) {
     return createValue(
       partial,
-      fillForPrimitiveType(unwrappedType, context),
+      fillForPrimitiveType<Request>(unwrappedType, context),
       request,
       {
         type,
@@ -452,7 +460,7 @@ function fillType<Data, Variables, DeepPartial>(
   } else if (isAbstractType(unwrappedType)) {
     const possibleTypes = context.schema.getPossibleTypes(unwrappedType);
 
-    const resolverObject = unwrapThunk<{[key: string]: any}>(
+    const resolverObject = unwrapThunk<Request, {[key: string]: any}>(
       context.resolvers.get(unwrappedType.name) || {},
       request,
       {
@@ -571,14 +579,12 @@ function seedFromKey(key: string) {
   );
 }
 
-export function list<T = {}, Data = {}, Variables = {}, DeepPartial = {}>(
+export function list<Request, T = {}>(
   size: number | [number, number],
-  partial?: Thunk<T, Data, Variables, DeepPartial>,
-): Thunk<T, Data, Variables, DeepPartial>[] {
+  partial?: Thunk<Request, T>,
+): Thunk<Request, T>[] {
   const randomSize = ([min, max]: number[]) =>
     Math.round(Math.random() * (max - min) + min);
   const finalSize = typeof size === 'number' ? size : randomSize(size);
-  return Array<Thunk<T, Data, Variables, DeepPartial>>(finalSize).fill(
-    partial as Thunk<T, Data, Variables, DeepPartial>,
-  );
+  return Array<Thunk<Request, T>>(finalSize).fill(partial as Thunk<Request, T>);
 }
