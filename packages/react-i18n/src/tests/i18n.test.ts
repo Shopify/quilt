@@ -6,7 +6,10 @@ import {I18n} from '../i18n';
 import {LanguageDirection} from '../types';
 import {DateStyle, Weekday} from '../constants';
 import {MissingTranslationError} from '../errors';
-import {convertFirstSpaceToNonBreakingSpace} from '../utilities';
+import {
+  convertFirstSpaceToNonBreakingSpace,
+  tryAbbreviateName,
+} from '../utilities';
 
 jest.mock('../utilities', () => ({
   ...jest.requireActual('../utilities'),
@@ -2436,6 +2439,24 @@ describe('I18n', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'zh-TW'});
 
       expect(i18n.formatName('first', 'last', {full: true})).toBe('lastfirst');
+    });
+  });
+
+  describe('#abbreviateName()', () => {
+    it('returns formatName if no abbreviation found', () => {
+      // no abbreviation as has space in last name
+      const name = {firstName: 'Michael', lastName: 'van Finkle'};
+      const i18n = new I18n(defaultTranslations, {locale: 'en'});
+      expect(i18n.abbreviateName(name)).toBe(
+        i18n.formatName(name.firstName, name.lastName),
+      );
+    });
+
+    it('returns abbreviated name if abbreviation found', () => {
+      const name = {firstName: 'Michael', lastName: 'Garfinkle'};
+      const i18n = new I18n(defaultTranslations, {locale: 'en'});
+      expect(i18n.abbreviateName(name)).toBeDefined();
+      expect(i18n.abbreviateName(name)).toBe(tryAbbreviateName(name));
     });
   });
 

@@ -31,9 +31,9 @@ import {
   RTL_LANGUAGES,
   currencyDecimalPlaces,
   DEFAULT_DECIMAL_PLACES,
-  DIRECTION_CONTROL_CHARACTERS,
   EASTERN_NAME_ORDER_FORMATTERS,
   CurrencyShortFormException,
+  UnicodeCharacterSet,
 } from './constants';
 import type {I18nError} from './errors';
 import {MissingCurrencyCodeError, MissingCountryError} from './errors';
@@ -45,12 +45,15 @@ import {
   memoizedNumberFormatter,
   memoizedPluralRules,
   convertFirstSpaceToNonBreakingSpace,
+  tryAbbreviateName,
+  identifyScripts,
 } from './utilities';
 
 export interface NumberFormatOptions extends Intl.NumberFormatOptions {
   as?: 'number' | 'currency' | 'percent';
   precision?: number;
 }
+
 export interface CurrencyFormatOptions extends NumberFormatOptions {
   form?: 'auto' | 'short' | 'explicit' | 'none';
 }
@@ -65,8 +68,6 @@ const NEGATIVE_SIGN = '-';
 const REGEX_DIGITS = /\d/g;
 const REGEX_NON_DIGITS = /\D/g;
 const REGEX_PERIODS = /\./g;
-const NEGATIVE_CHARACTERS =
-  '\u002D\u058A\u05BE\u1806\u2010-\u2015\u2212\u2796\u2E3A\u2E3B\uFE58\uFE63\uFF0D';
 
 export class I18n {
   readonly locale: string;
@@ -387,6 +388,26 @@ export class I18n {
     return firstName;
   }
 
+  // Note: A similar Ruby implementation of this function also exists at https://github.com/Shopify/shopify-i18n/blob/main/lib/shopify-i18n/name_formatter.rb.
+  abbreviateName({
+    firstName,
+    lastName,
+    idealMaxLength = 3,
+  }: {
+    firstName?: string;
+    lastName?: string;
+    idealMaxLength?: number;
+  }) {
+    return (
+      tryAbbreviateName({firstName, lastName, idealMaxLength}) ??
+      this.formatName(firstName, lastName)
+    );
+  }
+
+  identifyScript(text: string) {
+    return identifyScripts(text);
+  }
+
   hasEasternNameOrderFormatter() {
     const easternNameOrderFormatter =
       EASTERN_NAME_ORDER_FORMATTERS.get(this.locale) ||
@@ -446,7 +467,7 @@ export class I18n {
   ): string {
     const formattedAmount = this.formatCurrencyNone(amount, options);
     const negativeRegex = new RegExp(
-      `[${DIRECTION_CONTROL_CHARACTERS}]*[${NEGATIVE_CHARACTERS}]`,
+      `${UnicodeCharacterSet.DirectionControl}*${UnicodeCharacterSet.Negative}`,
       'g',
     );
     const negativeMatch = negativeRegex.exec(formattedAmount)?.shift() || '';
@@ -748,7 +769,7 @@ export class I18n {
     const decimalValue = this.decimalValue(input, lastIndexOfDecimal);
 
     const negativeRegex = new RegExp(
-      `^[${DIRECTION_CONTROL_CHARACTERS}\\s]*[${NEGATIVE_CHARACTERS}]`,
+      `^(${UnicodeCharacterSet.DirectionControl}|\\s)*${UnicodeCharacterSet.Negative}`,
       'u',
     );
     const negativeSign = input.match(negativeRegex) ? NEGATIVE_SIGN : '';
