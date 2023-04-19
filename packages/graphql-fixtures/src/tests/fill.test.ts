@@ -5,7 +5,7 @@ import {parse} from 'graphql-typed';
 import {faker as originalFaker} from '@faker-js/faker/locale/en';
 
 import type {Options} from '../fill';
-import {createFiller, list, faker} from '../fill';
+import {createFillers, list, faker} from '../fill';
 
 jest.mock('../utilities', () => {
   const utilities = jest.requireActual('../utilities');
@@ -17,166 +17,323 @@ jest.mock('../utilities', () => {
 
 const chooseNull: jest.Mock = jest.requireMock('../utilities').chooseNull;
 
-describe('createFiller()', () => {
+describe('createFillers()', () => {
   beforeEach(() => {
     chooseNull.mockReset();
   });
 
-  it('fills string fields', () => {
-    const fill = createFillerForSchema(`
-      type Query {
-        name: String!
-      }
-    `);
+  describe('fillOperation', () => {
+    it('fills string fields', () => {
+      const {fillOperation} = createFillerForSchema(`
+        type Query {
+          name: String!
+        }
+      `);
 
-    const document = createDocument(`
-      query Details {
-        name
-      }
-    `);
+      const document = createDocument(`
+        query Details {
+          name
+        }
+      `);
 
-    expect(fill(document)).toStrictEqual({
-      name: expect.any(String),
+      expect(fillOperation(document)).toStrictEqual({
+        name: expect.any(String),
+      });
+    });
+
+    it('fills integer fields', () => {
+      const {fillOperation} = createFillerForSchema(`
+        type Query {
+          age: Int!
+        }
+      `);
+
+      const document = createDocument<{age: number}>(`
+        query Details {
+          age
+        }
+      `);
+
+      const {age} = fillOperation(document);
+      expect(age).toStrictEqual(expect.any(Number));
+      expect(Math.round(age)).toBe(age);
+    });
+
+    it('fills float fields', () => {
+      const {fillOperation} = createFillerForSchema(`
+        type Query {
+          age: Float!
+        }
+      `);
+
+      const document = createDocument<{age: number}>(`
+        query Details {
+          age
+        }
+      `);
+
+      const {age} = fillOperation(document);
+      expect(age).toStrictEqual(expect.any(Number));
+      expect(Math.round(age)).not.toBe(age);
+    });
+
+    it('fills boolean fields', () => {
+      const {fillOperation} = createFillerForSchema(`
+        type Query {
+          happy: Boolean!
+        }
+      `);
+
+      const document = createDocument(`
+        query Details {
+          happy
+        }
+      `);
+
+      expect(fillOperation(document)).toStrictEqual({
+        happy: expect.any(Boolean),
+      });
+    });
+
+    it('fills ID fields', () => {
+      const {fillOperation} = createFillerForSchema(`
+        type Query {
+          id: ID!
+        }
+      `);
+
+      const document = createDocument(`
+        query Details {
+          id
+        }
+      `);
+
+      expect(fillOperation(document)).toStrictEqual({
+        id: expect.any(String),
+      });
+    });
+
+    it('fills enum fields', () => {
+      const {fillOperation} = createFillerForSchema(`
+        enum PetPreference {
+          DOG
+          CAT
+        }
+
+        type Query {
+          petPreference: PetPreference!
+        }
+      `);
+
+      const document = createDocument(`
+        query Details {
+          petPreference
+        }
+      `);
+
+      expect(fillOperation(document)).toStrictEqual({
+        petPreference: expect.stringMatching(/^(DOG|CAT)$/),
+      });
+    });
+
+    it('fills custom scalar fields', () => {
+      const {fillOperation} = createFillerForSchema(`
+        scalar Date
+
+        type Query {
+          birthday: Date!
+        }
+      `);
+
+      const document = createDocument(`
+        query Details {
+          birthday
+        }
+      `);
+
+      expect(fillOperation(document)).toStrictEqual({
+        birthday: expect.any(String),
+      });
+    });
+
+    it('uses null sometimes for nullable fields', () => {
+      chooseNull.mockReturnValue(true);
+
+      const {fillOperation} = createFillerForSchema(`
+        type Query {
+          name: String
+        }
+      `);
+
+      const document = createDocument(`
+        query Details {
+          name
+        }
+      `);
+
+      expect(fillOperation(document)).toStrictEqual({
+        name: null,
+      });
     });
   });
 
-  it('fills integer fields', () => {
-    const fill = createFillerForSchema(`
-      type Query {
-        age: Int!
-      }
-    `);
+  describe('fillFragment', () => {
+    it('fills string fields', () => {
+      const {fillFragment} = createFillerForSchema(`
+        type Person {
+          name: String!
+        }
+      `);
 
-    const document = createDocument<{age: number}>(`
-      query Details {
-        age
-      }
-    `);
+      const fragment = createDocument(`
+        fragment PersonFragment on Person {
+          name
+        }
+      `);
 
-    const {age} = fill(document);
-    expect(age).toStrictEqual(expect.any(Number));
-    expect(Math.round(age)).toBe(age);
-  });
-
-  it('fills float fields', () => {
-    const fill = createFillerForSchema(`
-      type Query {
-        age: Float!
-      }
-    `);
-
-    const document = createDocument<{age: number}>(`
-      query Details {
-        age
-      }
-    `);
-
-    const {age} = fill(document);
-    expect(age).toStrictEqual(expect.any(Number));
-    expect(Math.round(age)).not.toBe(age);
-  });
-
-  it('fills boolean fields', () => {
-    const fill = createFillerForSchema(`
-      type Query {
-        happy: Boolean!
-      }
-    `);
-
-    const document = createDocument(`
-      query Details {
-        happy
-      }
-    `);
-
-    expect(fill(document)).toStrictEqual({
-      happy: expect.any(Boolean),
+      expect(fillFragment(fragment)).toStrictEqual({
+        name: expect.any(String),
+      });
     });
-  });
 
-  it('fills ID fields', () => {
-    const fill = createFillerForSchema(`
-      type Query {
-        id: ID!
-      }
-    `);
+    it('fills integer fields', () => {
+      const {fillFragment} = createFillerForSchema(`
+        type Person {
+          age: Int!
+        }
+      `);
 
-    const document = createDocument(`
-      query Details {
-        id
-      }
-    `);
+      const fragment = createDocument<{age: number}>(`
+        fragment PersonFragment on Person {
+          age
+        }
+      `);
 
-    expect(fill(document)).toStrictEqual({
-      id: expect.any(String),
+      const {age} = fillFragment(fragment);
+      expect(age).toStrictEqual(expect.any(Number));
+      expect(Math.round(age)).toBe(age);
     });
-  });
 
-  it('fills enum fields', () => {
-    const fill = createFillerForSchema(`
-      enum PetPreference {
-        DOG
-        CAT
-      }
+    it('fills float fields', () => {
+      const {fillFragment} = createFillerForSchema(`
+        type Person {
+          age: Float!
+        }
+      `);
 
-      type Query {
-        petPreference: PetPreference!
-      }
-    `);
+      const fragment = createDocument<{age: number}>(`
+        fragment PersonFragment on Person {
+          age
+        }
+      `);
 
-    const document = createDocument(`
-      query Details {
-        petPreference
-      }
-    `);
-
-    expect(fill(document)).toStrictEqual({
-      petPreference: expect.stringMatching(/^(DOG|CAT)$/),
+      const {age} = fillFragment(fragment);
+      expect(age).toStrictEqual(expect.any(Number));
+      expect(Math.round(age)).not.toBe(age);
     });
-  });
 
-  it('fills custom scalar fields', () => {
-    const fill = createFillerForSchema(`
-      scalar Date
+    it('fills boolean fields', () => {
+      const {fillFragment} = createFillerForSchema(`
+        type Person {
+          happy: Boolean!
+        }
+      `);
 
-      type Query {
-        birthday: Date!
-      }
-    `);
+      const fragment = createDocument(`
+        fragment PersonFragment on Person {
+          happy
+        }
+      `);
 
-    const document = createDocument(`
-      query Details {
-        birthday
-      }
-    `);
-
-    expect(fill(document)).toStrictEqual({
-      birthday: expect.any(String),
+      expect(fillFragment(fragment)).toStrictEqual({
+        happy: expect.any(Boolean),
+      });
     });
-  });
 
-  it('uses null sometimes for nullable fields', () => {
-    chooseNull.mockReturnValue(true);
+    it('fills ID fields', () => {
+      const {fillFragment} = createFillerForSchema(`
+        type Person {
+          id: ID!
+        }
+      `);
 
-    const fill = createFillerForSchema(`
-      type Query {
-        name: String
-      }
-    `);
+      const fragment = createDocument(`
+        fragment PersonFragment on Person {
+          id
+        }
+      `);
 
-    const document = createDocument(`
-      query Details {
-        name
-      }
-    `);
+      expect(fillFragment(fragment)).toStrictEqual({
+        id: expect.any(String),
+      });
+    });
 
-    expect(fill(document)).toStrictEqual({
-      name: null,
+    it('fills enum fields', () => {
+      const {fillFragment} = createFillerForSchema(`
+        enum PetPreference {
+          DOG
+          CAT
+        }
+
+        type Person {
+          petPreference: PetPreference!
+        }
+      `);
+
+      const fragment = createDocument(`
+        fragment PersonFragment on Person {
+          petPreference
+        }
+      `);
+
+      expect(fillFragment(fragment)).toStrictEqual({
+        petPreference: expect.stringMatching(/^(DOG|CAT)$/),
+      });
+    });
+
+    it('fills custom scalar fields', () => {
+      const {fillFragment} = createFillerForSchema(`
+        scalar Date
+
+        type Person {
+          birthday: Date!
+        }
+      `);
+
+      const fragment = createDocument(`
+        fragment PersonFragment on Person {
+          birthday
+        }
+      `);
+
+      expect(fillFragment(fragment)).toStrictEqual({
+        birthday: expect.any(String),
+      });
+    });
+
+    it('uses null sometimes for nullable fields', () => {
+      chooseNull.mockReturnValue(true);
+
+      const {fillFragment} = createFillerForSchema(`
+        type Person {
+          name: String
+        }
+      `);
+
+      const document = createDocument(`
+        fragment PersonFragment on Person {
+          name
+        }
+      `);
+
+      expect(fillFragment(document)).toStrictEqual({
+        name: null,
+      });
     });
   });
 
   describe('randomness', () => {
-    const fill = createFillerForSchema(`
+    const {fillOperation, fillFragment} = createFillerForSchema(`
       scalar Date
 
       enum PetPreference {
@@ -205,7 +362,17 @@ describe('createFiller()', () => {
         }
       `);
 
-      expect(fill(document)).toStrictEqual(fill(document));
+      expect(fillOperation(document)).toStrictEqual(fillOperation(document));
+    });
+
+    it('uses different values for same fragment', () => {
+      const fragment = createDocument(`
+        fragment PersonFragment on Person {
+          name
+        }
+      `);
+
+      expect(fillFragment(fragment)).not.toStrictEqual(fillFragment(fragment));
     });
 
     it('uses different values for different keypaths', () => {
@@ -221,7 +388,27 @@ describe('createFiller()', () => {
         }
       `);
 
-      expect(fill(selfDocument).self).not.toStrictEqual(fill(meDocument).me);
+      expect(fillOperation(selfDocument).self).not.toStrictEqual(
+        fillOperation(meDocument).me,
+      );
+    });
+
+    it('uses different values for different fragment', () => {
+      const fragment = createDocument(`
+        fragment PersonFragment on Person {
+          name
+        }
+      `);
+
+      const otherFragment = createDocument(`
+        fragment OtherPersonFragment on Person {
+          name
+        }
+      `);
+
+      expect(fillFragment(fragment)).not.toStrictEqual(
+        fillFragment(otherFragment),
+      );
     });
 
     it('uses different values for a list of keypaths', () => {
@@ -233,7 +420,7 @@ describe('createFiller()', () => {
       }
       `);
 
-      const data = fill(document, {self: {parents: () => [{}, {}]}});
+      const data = fillOperation(document, {self: {parents: () => [{}, {}]}});
 
       expect(data.self.parents[0].name).not.toStrictEqual(
         data.self.parents[1].name,
@@ -242,290 +429,581 @@ describe('createFiller()', () => {
   });
 
   describe('objects', () => {
-    it('fills nested objects', () => {
-      const fill = createFillerForSchema(`
-        type Person {
-          name: String!
-          mother: Person!
-        }
+    describe('fillOperation', () => {
+      it('fills nested objects', () => {
+        const {fillOperation} = createFillerForSchema(`
+          type Person {
+            name: String!
+            mother: Person!
+          }
 
-        type Query {
-          self: Person!
-        }
-      `);
+          type Query {
+            self: Person!
+          }
+        `);
 
-      const document = createDocument(`
-        query Details {
-          self {
-            name
-            mother {
+        const document = createDocument(`
+          query Details {
+            self {
               name
+              mother {
+                name
+              }
             }
           }
-        }
-      `);
+        `);
 
-      expect(fill(document)).toStrictEqual({
-        self: {
-          name: expect.any(String),
-          mother: {
-            name: expect.any(String),
-          },
-        },
-      });
-    });
-
-    it('uses a partial value', () => {
-      const name = 'Chris';
-
-      const fill = createFillerForSchema(`
-        type Query {
-          age: Int!
-          name: String!
-        }
-      `);
-
-      const document = createDocument<any, {name?: string | null}>(`
-        query Details {
-          age
-          name
-        }
-      `);
-
-      expect(fill(document, {name})).toStrictEqual({
-        age: expect.any(Number),
-        name,
-      });
-    });
-
-    it('uses a function partial value', () => {
-      const name = 'Chris';
-
-      const fill = createFillerForSchema(`
-        type Query {
-          age: Int!
-          name: String!
-        }
-      `);
-
-      const document = createDocument<any, {name?: string | null}>(`
-        query Details {
-          age
-          name
-        }
-      `);
-
-      expect(fill(document, {name: () => name})).toStrictEqual({
-        age: expect.any(Number),
-        name,
-      });
-    });
-
-    it('uses a partial value for nested fields', () => {
-      const motherName = faker.name.firstName();
-      const fill = createFillerForSchema(`
-        type Person {
-          name: String!
-          mother: Person!
-        }
-
-        type Query {
-          self: Person!
-        }
-      `);
-
-      const document = createDocument<
-        any,
-        {
-          self?: {
-            name?: string | null;
-            mother?: {name?: string | null} | null;
-          } | null;
-        }
-      >(`
-        query Details {
-          self {
-            name
-            mother {
-              name
-            }
-          }
-        }
-      `);
-
-      expect(
-        fill(document, {self: {mother: {name: motherName}}}),
-      ).toStrictEqual({
-        self: {
-          name: expect.any(String),
-          mother: {
-            name: motherName,
-          },
-        },
-      });
-    });
-
-    it('uses a function partial value for nested fields', () => {
-      const motherName = faker.name.firstName();
-      const fill = createFillerForSchema(`
-        type Person {
-          name: String!
-          mother: Person!
-        }
-
-        type Query {
-          self: Person!
-        }
-      `);
-
-      const document = createDocument<
-        any,
-        {
-          self?: {
-            name?: string | null;
-            mother?: {name?: string | null} | null;
-          } | null;
-        }
-      >(`
-        query Details {
-          self {
-            name
-            mother {
-              name
-            }
-          }
-        }
-      `);
-
-      expect(
-        fill(document, {
-          self: () => ({
-            mother: {name: () => motherName},
-          }),
-        }),
-      ).toStrictEqual({
-        self: {
-          name: expect.any(String),
-          mother: {
-            name: motherName,
-          },
-        },
-      });
-    });
-
-    it('fills an object that can be null with the object even if empty', () => {
-      chooseNull.mockReturnValue(true);
-      const fill = createFillerForSchema(`
-        type Person {
-          name: String!
-          mother: Person!
-          sister: Person
-        }
-
-        type Query {
-          self: Person!
-        }
-      `);
-
-      const document = createDocument(`
-        query Details {
-          self {
-            name
-            sister {
-              name
-            }
-          }
-        }
-      `);
-
-      expect(
-        fill(document, {
+        expect(fillOperation(document)).toStrictEqual({
           self: {
-            sister: {},
-          },
-        }),
-      ).toStrictEqual({
-        self: {
-          name: expect.any(String),
-          sister: {
             name: expect.any(String),
+            mother: {
+              name: expect.any(String),
+            },
           },
-        },
+        });
+      });
+
+      it('uses a partial value', () => {
+        const name = 'Chris';
+
+        const {fillOperation} = createFillerForSchema(`
+          type Query {
+            age: Int!
+            name: String!
+          }
+        `);
+
+        const document = createDocument<any, {name?: string | null}>(`
+          query Details {
+            age
+            name
+          }
+        `);
+
+        expect(fillOperation(document, {name})).toStrictEqual({
+          age: expect.any(Number),
+          name,
+        });
+      });
+
+      it('uses a function partial value', () => {
+        const name = 'Chris';
+
+        const {fillOperation} = createFillerForSchema(`
+          type Query {
+            age: Int!
+            name: String!
+          }
+        `);
+
+        const document = createDocument<any, {name?: string | null}>(`
+          query Details {
+            age
+            name
+          }
+        `);
+
+        expect(fillOperation(document, {name: () => name})).toStrictEqual({
+          age: expect.any(Number),
+          name,
+        });
+      });
+
+      it('uses a partial value for nested fields', () => {
+        const motherName = faker.name.firstName();
+        const {fillOperation} = createFillerForSchema(`
+          type Person {
+            name: String!
+            mother: Person!
+          }
+
+          type Query {
+            self: Person!
+          }
+        `);
+
+        const document = createDocument<
+          any,
+          {
+            self?: {
+              name?: string | null;
+              mother?: {name?: string | null} | null;
+            } | null;
+          }
+        >(`
+          query Details {
+            self {
+              name
+              mother {
+                name
+              }
+            }
+          }
+        `);
+
+        expect(
+          fillOperation(document, {self: {mother: {name: motherName}}}),
+        ).toStrictEqual({
+          self: {
+            name: expect.any(String),
+            mother: {
+              name: motherName,
+            },
+          },
+        });
+      });
+
+      it('uses a function partial value for nested fields', () => {
+        const motherName = faker.name.firstName();
+        const {fillOperation} = createFillerForSchema(`
+          type Person {
+            name: String!
+            mother: Person!
+          }
+
+          type Query {
+            self: Person!
+          }
+        `);
+
+        const document = createDocument<
+          any,
+          {
+            self?: {
+              name?: string | null;
+              mother?: {name?: string | null} | null;
+            } | null;
+          }
+        >(`
+          query Details {
+            self {
+              name
+              mother {
+                name
+              }
+            }
+          }
+        `);
+
+        expect(
+          fillOperation(document, {
+            self: () => ({
+              mother: {name: () => motherName},
+            }),
+          }),
+        ).toStrictEqual({
+          self: {
+            name: expect.any(String),
+            mother: {
+              name: motherName,
+            },
+          },
+        });
+      });
+
+      it('fills an object that can be null with the object even if empty', () => {
+        chooseNull.mockReturnValue(true);
+        const {fillOperation} = createFillerForSchema(`
+          type Person {
+            name: String!
+            mother: Person!
+            sister: Person
+          }
+
+          type Query {
+            self: Person!
+          }
+        `);
+
+        const document = createDocument(`
+          query Details {
+            self {
+              name
+              sister {
+                name
+              }
+            }
+          }
+        `);
+
+        expect(
+          fillOperation(document, {
+            self: {
+              sister: {},
+            },
+          }),
+        ).toStrictEqual({
+          self: {
+            name: expect.any(String),
+            sister: {
+              name: expect.any(String),
+            },
+          },
+        });
+      });
+
+      it('always uses null when explicitly set', () => {
+        chooseNull.mockReturnValue(false);
+
+        const {fillOperation} = createFillerForSchema(`
+          type Sister {
+            age: Int!
+          }
+
+          type Person {
+            name: String!
+            mother: Person!
+            sister: Sister
+          }
+
+          type Query {
+            self: Person!
+          }
+        `);
+
+        const document = createDocument(`
+          query Details {
+            self {
+              sister {
+                age
+              }
+            }
+          }
+        `);
+
+        expect(fillOperation(document, {self: {sister: null}})).toStrictEqual({
+          self: {sister: null},
+        });
+      });
+
+      it('always uses null when explicitly set in a resolver', () => {
+        chooseNull.mockReturnValue(false);
+
+        const {fillOperation} = createFillerForSchema(
+          `
+          type Sister {
+            age: Int!
+          }
+
+          type Person {
+            name: String!
+            mother: Person!
+            sister: Sister
+          }
+
+          type Query {
+            self: Person!
+          }
+        `,
+          {
+            resolvers: {
+              Sister: () => null,
+            },
+          },
+        );
+
+        const document = createDocument(`
+          query Details {
+            self {
+              sister {
+                age
+              }
+            }
+          }
+        `);
+
+        expect(fillOperation(document, {self: {sister: null}})).toStrictEqual({
+          self: {sister: null},
+        });
       });
     });
 
-    it('always uses null when explicitly set', () => {
-      chooseNull.mockReturnValue(false);
+    describe('fillFragment', () => {
+      it('fills nested objects', () => {
+        const {fillFragment} = createFillerForSchema(`
+          type Person {
+            name: String!
+            mother: Person!
+          }
 
-      const fill = createFillerForSchema(`
-        type Sister {
-          age: Int!
-        }
+          type Query {
+            self: Person!
+          }
+        `);
 
-        type Person {
-          name: String!
-          mother: Person!
-          sister: Sister
-        }
-
-        type Query {
-          self: Person!
-        }
-      `);
-
-      const document = createDocument(`
-        query Details {
-          self {
-            sister {
-              age
+        const fragment = createDocument(`
+          fragment Details on Query {
+            self {
+              name
+              mother {
+                name
+              }
             }
           }
-        }
-      `);
+        `);
 
-      expect(fill(document, {self: {sister: null}})).toStrictEqual({
-        self: {sister: null},
-      });
-    });
-
-    it('always uses null when explicitly set in a resolver', () => {
-      chooseNull.mockReturnValue(false);
-
-      const fill = createFillerForSchema(
-        `
-        type Sister {
-          age: Int!
-        }
-
-        type Person {
-          name: String!
-          mother: Person!
-          sister: Sister
-        }
-
-        type Query {
-          self: Person!
-        }
-      `,
-        {
-          resolvers: {
-            Sister: () => null,
+        expect(fillFragment(fragment)).toStrictEqual({
+          self: {
+            name: expect.any(String),
+            mother: {
+              name: expect.any(String),
+            },
           },
-        },
-      );
+        });
+      });
 
-      const document = createDocument(`
-        query Details {
-          self {
-            sister {
-              age
+      it('uses a partial value', () => {
+        const name = 'Chris';
+
+        const {fillFragment} = createFillerForSchema(`
+          type Query {
+            age: Int!
+            name: String!
+          }
+        `);
+
+        const fragment = createDocument<any, {name?: string | null}>(`
+          fragment Details on Query {
+            age
+            name
+          }
+        `);
+
+        expect(fillFragment(fragment, {name})).toStrictEqual({
+          age: expect.any(Number),
+          name,
+        });
+      });
+
+      it('uses a function partial value', () => {
+        const name = 'Chris';
+
+        const {fillFragment} = createFillerForSchema(`
+          type Query {
+            age: Int!
+            name: String!
+          }
+        `);
+
+        const fragment = createDocument<any, {name?: string | null}>(`
+          fragment Details on Query {
+            age
+            name
+          }
+        `);
+
+        expect(fillFragment(fragment, {name: () => name})).toStrictEqual({
+          age: expect.any(Number),
+          name,
+        });
+      });
+
+      it('uses a partial value for nested fields', () => {
+        const motherName = faker.name.firstName();
+        const {fillFragment} = createFillerForSchema(`
+          type Person {
+            name: String!
+            mother: Person!
+          }
+
+          type Query {
+            self: Person!
+          }
+        `);
+
+        const fragment = createDocument<
+          any,
+          {
+            self?: {
+              name?: string | null;
+              mother?: {name?: string | null} | null;
+            } | null;
+          }
+        >(`
+          fragment Details on Query {
+            self {
+              name
+              mother {
+                name
+              }
             }
           }
-        }
-      `);
+        `);
 
-      expect(fill(document, {self: {sister: null}})).toStrictEqual({
-        self: {sister: null},
+        expect(
+          fillFragment(fragment, {self: {mother: {name: motherName}}}),
+        ).toStrictEqual({
+          self: {
+            name: expect.any(String),
+            mother: {
+              name: motherName,
+            },
+          },
+        });
+      });
+
+      it('uses a function partial value for nested fields', () => {
+        const motherName = faker.name.firstName();
+        const {fillFragment} = createFillerForSchema(`
+          type Person {
+            name: String!
+            mother: Person!
+          }
+
+          type Query {
+            self: Person!
+          }
+        `);
+
+        const fragment = createDocument<
+          any,
+          {
+            self?: {
+              name?: string | null;
+              mother?: {name?: string | null} | null;
+            } | null;
+          }
+        >(`
+          fragment Details on Query {
+            self {
+              name
+              mother {
+                name
+              }
+            }
+          }
+        `);
+
+        expect(
+          fillFragment(fragment, {
+            self: () => ({
+              mother: {name: () => motherName},
+            }),
+          }),
+        ).toStrictEqual({
+          self: {
+            name: expect.any(String),
+            mother: {
+              name: motherName,
+            },
+          },
+        });
+      });
+
+      it('fills an object that can be null with the object even if empty', () => {
+        chooseNull.mockReturnValue(true);
+        const {fillFragment} = createFillerForSchema(`
+          type Person {
+            name: String!
+            mother: Person!
+            sister: Person
+          }
+
+          type Query {
+            self: Person!
+          }
+        `);
+
+        const fragment = createDocument(`
+          fragment Details on Query {
+            self {
+              name
+              sister {
+                name
+              }
+            }
+          }
+        `);
+
+        expect(
+          fillFragment(fragment, {
+            self: {
+              sister: {},
+            },
+          }),
+        ).toStrictEqual({
+          self: {
+            name: expect.any(String),
+            sister: {
+              name: expect.any(String),
+            },
+          },
+        });
+      });
+
+      it('always uses null when explicitly set', () => {
+        chooseNull.mockReturnValue(false);
+
+        const {fillFragment} = createFillerForSchema(`
+          type Sister {
+            age: Int!
+          }
+
+          type Person {
+            name: String!
+            mother: Person!
+            sister: Sister
+          }
+
+          type Query {
+            self: Person!
+          }
+        `);
+
+        const fragment = createDocument(`
+          fragment Details on Query {
+            self {
+              sister {
+                age
+              }
+            }
+          }
+        `);
+
+        expect(fillFragment(fragment, {self: {sister: null}})).toStrictEqual({
+          self: {sister: null},
+        });
+      });
+
+      it('always uses null when explicitly set in a resolver', () => {
+        chooseNull.mockReturnValue(false);
+
+        const {fillFragment} = createFillerForSchema(
+          `
+          type Sister {
+            age: Int!
+          }
+
+          type Person {
+            name: String!
+            mother: Person!
+            sister: Sister
+          }
+
+          type Query {
+            self: Person!
+          }
+        `,
+          {
+            resolvers: {
+              Sister: () => null,
+            },
+          },
+        );
+
+        const fragment = createDocument(`
+          fragment Details on Query {
+            self {
+              sister {
+                age
+              }
+            }
+          }
+        `);
+
+        expect(fillFragment(fragment, {self: {sister: null}})).toStrictEqual({
+          self: {sister: null},
+        });
       });
     });
 
@@ -545,25 +1023,51 @@ describe('createFiller()', () => {
         );
       }
 
-      it('fills with the actual typename of a parent object field', () => {
-        const fill = createFillerForBasicObjectSchema();
+      describe('fillOperation', () => {
+        it('fills with the actual typename of a parent object field', () => {
+          const {fillOperation} = createFillerForBasicObjectSchema();
 
-        const document = createDocument(`
-          query Details {
-            __typename
-            self {
+          const document = createDocument(`
+            query Details {
               __typename
-              type: __typename
+              self {
+                __typename
+                type: __typename
+              }
             }
-          }
-        `);
+          `);
 
-        expect(fill(document)).toStrictEqual({
-          __typename: 'Query',
-          self: {
-            __typename: 'Person',
-            type: 'Person',
-          },
+          expect(fillOperation(document)).toStrictEqual({
+            __typename: 'Query',
+            self: {
+              __typename: 'Person',
+              type: 'Person',
+            },
+          });
+        });
+      });
+
+      describe('fillFragment', () => {
+        it('fills with the actual typename of a parent object field', () => {
+          const {fillFragment} = createFillerForBasicObjectSchema();
+
+          const fragment = createDocument(`
+            fragment Details on Query {
+              __typename
+              self {
+                __typename
+                type: __typename
+              }
+            }
+          `);
+
+          expect(fillFragment(fragment)).toStrictEqual({
+            __typename: 'Query',
+            self: {
+              __typename: 'Person',
+              type: 'Person',
+            },
+          });
         });
       });
     });
@@ -597,213 +1101,429 @@ describe('createFiller()', () => {
       }
 
       function createFillerForInterfaceSchema(options?: Options) {
-        const filler = createFiller(createInterfaceSchema(), options);
-        return (document: DocumentNode, data?: any) =>
-          filler(
-            document,
-            data,
-          )({
-            query: document,
-          });
+        const {fillOperation, fillFragment} = createFillers(
+          createInterfaceSchema(),
+          options,
+        );
+        return {
+          fillFragment,
+          fillOperation(document: DocumentNode, data?: any) {
+            return fillOperation(
+              document,
+              data,
+            )({
+              query: document,
+            });
+          },
+        };
       }
 
-      it('picks a random implementing type', () => {
-        const fill = createFillerForInterfaceSchema();
-        const document = createDocument(`
-          query Details {
-            named {
-              __typename
-              name
-              ...on Person {
-                occupation
-              }
-              ...on Cat {
-                livesLeft
+      describe('fillOperation', () => {
+        it('picks a random implementing type', () => {
+          const {fillOperation} = createFillerForInterfaceSchema();
+          const document = createDocument(`
+            query Details {
+              named {
+                __typename
+                name
+                ...on Person {
+                  occupation
+                }
+                ...on Cat {
+                  livesLeft
+                }
               }
             }
-          }
-        `);
+          `);
 
-        expect(fill(document)).toBeOneOf([
-          {
+          expect(fillOperation(document)).toBeOneOf([
+            {
+              named: {
+                __typename: 'Person',
+                name: expect.any(String),
+                occupation: expect.any(String),
+              },
+            },
+            {
+              named: {
+                __typename: 'Cat',
+                name: expect.any(String),
+                livesLeft: expect.any(Number),
+              },
+            },
+            {
+              named: {
+                __typename: 'Dog',
+                name: expect.any(String),
+              },
+            },
+          ]);
+        });
+
+        it('always picks the same implementing type', () => {
+          const {fillOperation} = createFillerForInterfaceSchema();
+          const document = createDocument(`
+            query Details {
+              named {
+                __typename
+              }
+            }
+          `);
+
+          expect(fillOperation(document)).toStrictEqual(
+            fillOperation(document),
+          );
+        });
+
+        it('picks an implementing type based on a static typename provided', () => {
+          const {fillOperation} = createFillerForInterfaceSchema();
+          const document = createDocument(`
+            query Details {
+              named {
+                ...on Person {
+                  occupation
+                }
+              }
+            }
+          `);
+
+          expect(
+            fillOperation(document, {named: {__typename: 'Person'}}),
+          ).toStrictEqual({
             named: {
-              __typename: 'Person',
-              name: expect.any(String),
               occupation: expect.any(String),
             },
-          },
-          {
+          });
+        });
+
+        it('picks an implementing type based on a function-provided typename provided', () => {
+          const {fillOperation} = createFillerForInterfaceSchema();
+          const document = createDocument(`
+            query Details {
+              named {
+                ...on Person {
+                  occupation
+                }
+              }
+            }
+          `);
+
+          expect(
+            fillOperation(document, {named: {__typename: () => 'Person'}}),
+          ).toStrictEqual({
             named: {
-              __typename: 'Cat',
-              name: expect.any(String),
-              livesLeft: expect.any(Number),
+              occupation: expect.any(String),
             },
-          },
-          {
+          });
+        });
+
+        it('picks an implementing type based on a function-provided object with typename provided', () => {
+          const {fillOperation} = createFillerForInterfaceSchema();
+          const document = createDocument(`
+            query Details {
+              named {
+                ...on Person {
+                  occupation
+                }
+              }
+            }
+          `);
+
+          expect(
+            fillOperation(document, {
+              named: () => ({__typename: () => 'Person'}),
+            }),
+          ).toStrictEqual({
             named: {
-              __typename: 'Dog',
-              name: expect.any(String),
+              occupation: expect.any(String),
             },
-          },
-        ]);
-      });
+          });
+        });
 
-      it('always picks the same implementing type', () => {
-        const fill = createFillerForInterfaceSchema();
-        const document = createDocument(`
-          query Details {
-            named {
-              __typename
-            }
-          }
-        `);
-
-        expect(fill(document)).toStrictEqual(fill(document));
-      });
-
-      it('picks an implementing type based on a static typename provided', () => {
-        const fill = createFillerForInterfaceSchema();
-        const document = createDocument(`
-          query Details {
-            named {
-              ...on Person {
-                occupation
+        it('uses a resolver value for the selected type', () => {
+          const person = {occupation: 'Carpenter'};
+          const {fillOperation} = createFillerForInterfaceSchema({
+            resolvers: {
+              Person: () => person,
+            },
+          });
+          const document = createDocument(`
+            query Details {
+              named {
+                __typename
+                ...on Person {
+                  occupation
+                }
               }
             }
-          }
-        `);
+          `);
 
-        expect(fill(document, {named: {__typename: 'Person'}})).toStrictEqual({
-          named: {
-            occupation: expect.any(String),
-          },
+          expect(
+            fillOperation(document, {named: {__typename: 'Person'}}),
+          ).toStrictEqual({
+            named: {
+              __typename: 'Person',
+              ...person,
+            },
+          });
         });
-      });
 
-      it('picks an implementing type based on a function-provided typename provided', () => {
-        const fill = createFillerForInterfaceSchema();
-        const document = createDocument(`
-          query Details {
-            named {
-              ...on Person {
-                occupation
+        it('calls a resolver with the request and field details', () => {
+          const spy = jest.fn(() => ({}));
+          const schema = createInterfaceSchema();
+          const {fillOperation} = createFillers(schema, {
+            resolvers: {
+              Person: spy,
+            },
+          });
+
+          const document = createDocument(`
+            query Details {
+              namedPerson: named {
+                __typename
+                ...on Person {
+                  occupation
+                }
               }
             }
-          }
-        `);
+          `);
 
-        expect(
-          fill(document, {named: {__typename: () => 'Person'}}),
-        ).toStrictEqual({
-          named: {
-            occupation: expect.any(String),
-          },
+          const request = {
+            query: document,
+          };
+
+          fillOperation(document, {namedPerson: {__typename: 'Person'}})(
+            request,
+          );
+
+          expect(spy).toHaveBeenCalledWith(request, {
+            type: schema.getType('Person'),
+            parent: schema.getQueryType(),
+            field: expect.objectContaining({
+              fieldName: 'named',
+              responseName: 'namedPerson',
+            }),
+            parentFields: [],
+          });
         });
-      });
 
-      it('picks an implementing type based on a function-provided object with typename provided', () => {
-        const fill = createFillerForInterfaceSchema();
-        const document = createDocument(`
-          query Details {
-            named {
-              ...on Person {
-                occupation
+        it('throws an error when a provided typename is not an implementing type', () => {
+          const {fillOperation} = createFillerForInterfaceSchema();
+          const document = createDocument(`
+            query Details {
+              named {
+                __typename
               }
             }
-          }
-        `);
+          `);
 
-        expect(
-          fill(document, {named: () => ({__typename: () => 'Person'})}),
-        ).toStrictEqual({
-          named: {
-            occupation: expect.any(String),
-          },
+          expect(() =>
+            fillOperation(document, {named: {__typename: 'Mule'}}),
+          ).toThrow(/No type found/);
         });
       });
 
-      it('uses a resolver value for the selected type', () => {
-        const person = {occupation: 'Carpenter'};
-        const fill = createFillerForInterfaceSchema({
-          resolvers: {
-            Person: () => person,
-          },
-        });
-        const document = createDocument(`
-          query Details {
-            named {
-              __typename
-              ...on Person {
-                occupation
+      describe('fillFragment', () => {
+        it('picks a random implementing type', () => {
+          const {fillFragment} = createFillerForInterfaceSchema();
+          const fragment = createDocument(`
+            fragment Details on Query {
+              named {
+                __typename
+                name
+                ...on Person {
+                  occupation
+                }
+                ...on Cat {
+                  livesLeft
+                }
               }
             }
-          }
-        `);
+          `);
 
-        expect(fill(document, {named: {__typename: 'Person'}})).toStrictEqual({
-          named: {
-            __typename: 'Person',
-            ...person,
-          },
+          expect(fillFragment(fragment)).toBeOneOf([
+            {
+              named: {
+                __typename: 'Person',
+                name: expect.any(String),
+                occupation: expect.any(String),
+              },
+            },
+            {
+              named: {
+                __typename: 'Cat',
+                name: expect.any(String),
+                livesLeft: expect.any(Number),
+              },
+            },
+            {
+              named: {
+                __typename: 'Dog',
+                name: expect.any(String),
+              },
+            },
+          ]);
         });
-      });
 
-      it('calls a resolver with the request and field details', () => {
-        const spy = jest.fn(() => ({}));
-        const schema = createInterfaceSchema();
-        const fill = createFiller(schema, {
-          resolvers: {
-            Person: spy,
-          },
-        });
-
-        const document = createDocument(`
-          query Details {
-            namedPerson: named {
-              __typename
-              ...on Person {
-                occupation
+        it('always picks the same implementing type', () => {
+          const {fillFragment} = createFillerForInterfaceSchema();
+          const fragment = createDocument(`
+            fragment Details on Query {
+              named {
+                __typename
               }
             }
-          }
-        `);
+          `);
 
-        const request = {
-          query: document,
-        };
-
-        fill(document, {namedPerson: {__typename: 'Person'}})(request);
-
-        expect(spy).toHaveBeenCalledWith(request, {
-          type: schema.getType('Person'),
-          parent: schema.getQueryType(),
-          field: expect.objectContaining({
-            fieldName: 'named',
-            responseName: 'namedPerson',
-          }),
-          parentFields: [],
+          expect(fillFragment(fragment)).toStrictEqual(fillFragment(fragment));
         });
-      });
 
-      it('throws an error when a provided typename is not an implementing type', () => {
-        const fill = createFillerForInterfaceSchema();
-        const document = createDocument(`
-          query Details {
-            named {
-              __typename
+        it('picks an implementing type based on a static typename provided', () => {
+          const {fillFragment} = createFillerForInterfaceSchema();
+          const fragment = createDocument(`
+            fragment Details on Query{
+              named {
+                ...on Person {
+                  occupation
+                }
+              }
             }
-          }
-        `);
+          `);
 
-        expect(() => fill(document, {named: {__typename: 'Mule'}})).toThrow(
-          /No type found/,
-        );
+          expect(
+            fillFragment(fragment, {named: {__typename: 'Person'}}),
+          ).toStrictEqual({
+            named: {
+              occupation: expect.any(String),
+            },
+          });
+        });
+
+        it('picks an implementing type based on a function-provided typename provided', () => {
+          const {fillFragment} = createFillerForInterfaceSchema();
+          const fragment = createDocument(`
+            fragment Details on Query {
+              named {
+                ...on Person {
+                  occupation
+                }
+              }
+            }
+          `);
+
+          expect(
+            fillFragment(fragment, {named: {__typename: () => 'Person'}}),
+          ).toStrictEqual({
+            named: {
+              occupation: expect.any(String),
+            },
+          });
+        });
+
+        it('picks an implementing type based on a function-provided object with typename provided', () => {
+          const {fillFragment} = createFillerForInterfaceSchema();
+          const fragment = createDocument(`
+            fragment Details on Query {
+              named {
+                ...on Person {
+                  occupation
+                }
+              }
+            }
+          `);
+
+          expect(
+            fillFragment(fragment, {
+              named: () => ({__typename: () => 'Person'}),
+            }),
+          ).toStrictEqual({
+            named: {
+              occupation: expect.any(String),
+            },
+          });
+        });
+
+        it('uses a resolver value for the selected type', () => {
+          const person = {occupation: 'Carpenter'};
+          const {fillFragment} = createFillerForInterfaceSchema({
+            resolvers: {
+              Person: () => person,
+            },
+          });
+          const fragment = createDocument(`
+            fragment Details on Query {
+              named {
+                __typename
+                ...on Person {
+                  occupation
+                }
+              }
+            }
+          `);
+
+          expect(
+            fillFragment(fragment, {named: {__typename: 'Person'}}),
+          ).toStrictEqual({
+            named: {
+              __typename: 'Person',
+              ...person,
+            },
+          });
+        });
+
+        it('calls a resolver with the request and field details', () => {
+          const spy = jest.fn(() => ({}));
+          const schema = createInterfaceSchema();
+          const {fillFragment} = createFillers(schema, {
+            resolvers: {
+              Person: spy,
+            },
+          });
+
+          const fragment = createDocument(`
+          fragment Details on Query {
+              namedPerson: named {
+                __typename
+                ...on Person {
+                  occupation
+                }
+              }
+            }
+          `);
+
+          fillFragment(fragment, {namedPerson: {__typename: 'Person'}});
+
+          expect(spy).toHaveBeenCalledWith(null, {
+            type: schema.getType('Person'),
+            parent: schema.getQueryType(),
+            field: expect.objectContaining({
+              fieldName: 'named',
+              responseName: 'namedPerson',
+            }),
+            parentFields: [],
+          });
+        });
+
+        it('throws an error when a provided typename is not an implementing type', () => {
+          const {fillFragment} = createFillerForInterfaceSchema();
+          const fragment = createDocument(`
+          fragment Details on Query {
+              named {
+                __typename
+              }
+            }
+          `);
+
+          expect(() =>
+            fillFragment(fragment, {named: {__typename: 'Mule'}}),
+          ).toThrow(/No type found/);
+        });
       });
     });
 
     describe('unions', () => {
       function createFillerForUnionSchema(options?: Options) {
-        const fill = createFiller(
+        const {fillOperation, fillFragment} = createFillers(
           buildSchema(`
             type Person {
               name: String!
@@ -829,116 +1549,125 @@ describe('createFiller()', () => {
           options,
         );
 
-        return (document: DocumentNode, data?: any) =>
-          fill(document, data)({query: document});
+        return {
+          fillFragment,
+          fillOperation(document: DocumentNode, data?: any) {
+            return fillOperation(document, data)({query: document});
+          },
+        };
       }
 
-      it('picks a random member type', () => {
-        const fill = createFillerForUnionSchema();
-        const document = createDocument(`
-          query Details {
-            named {
-              __typename
-              ...on Person {
-                occupation
-              }
-              ...on Cat {
-                livesLeft
+      describe('fillOperation', () => {
+        it('picks a random member type', () => {
+          const {fillOperation} = createFillerForUnionSchema();
+          const document = createDocument(`
+            query Details {
+              named {
+                __typename
+                ...on Person {
+                  occupation
+                }
+                ...on Cat {
+                  livesLeft
+                }
               }
             }
-          }
-        `);
+          `);
 
-        expect(fill(document)).toBeOneOf([
-          {
+          expect(fillOperation(document)).toBeOneOf([
+            {
+              named: {
+                __typename: 'Person',
+                occupation: expect.any(String),
+              },
+            },
+            {
+              named: {
+                __typename: 'Cat',
+                livesLeft: expect.any(Number),
+              },
+            },
+            {
+              named: {
+                __typename: 'Dog',
+              },
+            },
+          ]);
+        });
+
+        it('picks a member type based on a static typename provided', () => {
+          const {fillOperation} = createFillerForUnionSchema();
+          const document = createDocument(`
+            query Details {
+              named {
+                ...on Person {
+                  occupation
+                }
+              }
+            }
+          `);
+
+          expect(
+            fillOperation(document, {named: {__typename: 'Person'}}),
+          ).toStrictEqual({
             named: {
-              __typename: 'Person',
               occupation: expect.any(String),
             },
-          },
-          {
+          });
+        });
+
+        it('picks a member type based on a function-provided typename provided', () => {
+          const {fillOperation} = createFillerForUnionSchema();
+          const document = createDocument(`
+            query Details {
+              named {
+                ...on Person {
+                  occupation
+                }
+              }
+            }
+          `);
+
+          expect(
+            fillOperation(document, {named: {__typename: () => 'Person'}}),
+          ).toStrictEqual({
             named: {
-              __typename: 'Cat',
-              livesLeft: expect.any(Number),
+              occupation: expect.any(String),
             },
-          },
-          {
+          });
+        });
+
+        it('picks a member type based on a function-provided object with typename provided', () => {
+          const {fillOperation} = createFillerForUnionSchema();
+          const document = createDocument(`
+            query Details {
+              named {
+                ...on Person {
+                  occupation
+                }
+              }
+            }
+          `);
+
+          expect(
+            fillOperation(document, {
+              named: () => ({__typename: () => 'Person'}),
+            }),
+          ).toStrictEqual({
             named: {
-              __typename: 'Dog',
+              occupation: expect.any(String),
             },
-          },
-        ]);
-      });
-
-      it('picks a member type based on a static typename provided', () => {
-        const fill = createFillerForUnionSchema();
-        const document = createDocument(`
-          query Details {
-            named {
-              ...on Person {
-                occupation
-              }
-            }
-          }
-        `);
-
-        expect(fill(document, {named: {__typename: 'Person'}})).toStrictEqual({
-          named: {
-            occupation: expect.any(String),
-          },
+          });
         });
-      });
 
-      it('picks a member type based on a function-provided typename provided', () => {
-        const fill = createFillerForUnionSchema();
-        const document = createDocument(`
-          query Details {
-            named {
-              ...on Person {
-                occupation
-              }
-            }
-          }
-        `);
-
-        expect(
-          fill(document, {named: {__typename: () => 'Person'}}),
-        ).toStrictEqual({
-          named: {
-            occupation: expect.any(String),
-          },
-        });
-      });
-
-      it('picks a member type based on a function-provided object with typename provided', () => {
-        const fill = createFillerForUnionSchema();
-        const document = createDocument(`
-          query Details {
-            named {
-              ...on Person {
-                occupation
-              }
-            }
-          }
-        `);
-
-        expect(
-          fill(document, {named: () => ({__typename: () => 'Person'})}),
-        ).toStrictEqual({
-          named: {
-            occupation: expect.any(String),
-          },
-        });
-      });
-
-      it('uses a resolver value for the selected type', () => {
-        const person = {occupation: 'Carpenter'};
-        const fill = createFillerForUnionSchema({
-          resolvers: {
-            Person: () => person,
-          },
-        });
-        const document = createDocument(`
+        it('uses a resolver value for the selected type', () => {
+          const person = {occupation: 'Carpenter'};
+          const {fillOperation} = createFillerForUnionSchema({
+            resolvers: {
+              Person: () => person,
+            },
+          });
+          const document = createDocument(`
           query Details {
             named {
               __typename
@@ -949,152 +1678,305 @@ describe('createFiller()', () => {
           }
         `);
 
-        expect(fill(document, {named: {__typename: 'Person'}})).toStrictEqual({
-          named: {
-            __typename: 'Person',
-            ...person,
-          },
+          expect(
+            fillOperation(document, {named: {__typename: 'Person'}}),
+          ).toStrictEqual({
+            named: {
+              __typename: 'Person',
+              ...person,
+            },
+          });
+        });
+
+        it('throws an error when a provided typename is not an implementing type', () => {
+          const {fillOperation} = createFillerForUnionSchema();
+          const document = createDocument(`
+            query Details {
+              named {
+                __typename
+              }
+            }
+          `);
+
+          expect(() =>
+            fillOperation(document, {named: {__typename: 'Mule'}}),
+          ).toThrow(/No type found/);
         });
       });
 
-      it('throws an error when a provided typename is not an implementing type', () => {
-        const fill = createFillerForUnionSchema();
-        const document = createDocument(`
-          query Details {
-            named {
-              __typename
+      describe('fillFragment', () => {
+        it('picks a random member type', () => {
+          const {fillFragment} = createFillerForUnionSchema();
+          const fragment = createDocument(`
+            fragment Details on Query {
+              named {
+                __typename
+                ...on Person {
+                  occupation
+                }
+                ...on Cat {
+                  livesLeft
+                }
+              }
             }
-          }
-        `);
+          `);
 
-        expect(() => fill(document, {named: {__typename: 'Mule'}})).toThrow(
-          /No type found/,
-        );
+          expect(fillFragment(fragment)).toBeOneOf([
+            {
+              named: {
+                __typename: 'Person',
+                occupation: expect.any(String),
+              },
+            },
+            {
+              named: {
+                __typename: 'Cat',
+                livesLeft: expect.any(Number),
+              },
+            },
+            {
+              named: {
+                __typename: 'Dog',
+              },
+            },
+          ]);
+        });
+
+        it('picks a member type based on a static typename provided', () => {
+          const {fillFragment} = createFillerForUnionSchema();
+          const fragment = createDocument(`
+            fragment Details on Query{
+              named {
+                ...on Person {
+                  occupation
+                }
+              }
+            }
+          `);
+
+          expect(
+            fillFragment(fragment, {named: {__typename: 'Person'}}),
+          ).toStrictEqual({
+            named: {
+              occupation: expect.any(String),
+            },
+          });
+        });
+
+        it('picks a member type based on a function-provided typename provided', () => {
+          const {fillFragment} = createFillerForUnionSchema();
+          const fragment = createDocument(`
+            fragment Details on Query {
+              named {
+                ...on Person {
+                  occupation
+                }
+              }
+            }
+          `);
+
+          expect(
+            fillFragment(fragment, {named: {__typename: () => 'Person'}}),
+          ).toStrictEqual({
+            named: {
+              occupation: expect.any(String),
+            },
+          });
+        });
+
+        it('picks a member type based on a function-provided object with typename provided', () => {
+          const {fillFragment} = createFillerForUnionSchema();
+          const fragment = createDocument(`
+            fragment Details on Query {
+              named {
+                ...on Person {
+                  occupation
+                }
+              }
+            }
+          `);
+
+          expect(
+            fillFragment(fragment, {
+              named: () => ({__typename: () => 'Person'}),
+            }),
+          ).toStrictEqual({
+            named: {
+              occupation: expect.any(String),
+            },
+          });
+        });
+
+        it('uses a resolver value for the selected type', () => {
+          const person = {occupation: 'Carpenter'};
+          const {fillFragment} = createFillerForUnionSchema({
+            resolvers: {
+              Person: () => person,
+            },
+          });
+          const fragment = createDocument(`
+            fragment Details on Query {
+              named {
+                __typename
+                ...on Person {
+                  occupation
+                }
+              }
+            }
+          `);
+
+          expect(
+            fillFragment(fragment, {named: {__typename: 'Person'}}),
+          ).toStrictEqual({
+            named: {
+              __typename: 'Person',
+              ...person,
+            },
+          });
+        });
+
+        it('throws an error when a provided typename is not an implementing type', () => {
+          const {fillFragment} = createFillerForUnionSchema();
+          const fragment = createDocument(`
+            fragment Details on Query {
+              named {
+                __typename
+              }
+            }
+          `);
+
+          expect(() =>
+            fillFragment(fragment, {named: {__typename: 'Mule'}}),
+          ).toThrow(/No type found/);
+        });
       });
     });
 
     describe('resolvers', () => {
-      it('uses a resolver for a primitive type', () => {
-        const aString = 'Hello world';
-        const fill = createFillerForSchema(
-          `
-            type Query {
-              name: String!
-            }
-          `,
-          {
-            resolvers: {
-              String: () => aString,
+      describe('fillOperation', () => {
+        it('uses a resolver for a primitive type', () => {
+          const aString = 'Hello world';
+          const {fillOperation} = createFillerForSchema(
+            `
+              type Query {
+                name: String!
+              }
+            `,
+            {
+              resolvers: {
+                String: () => aString,
+              },
             },
-          },
-        );
+          );
 
-        const document = createDocument(`
-          query Details {
-            name
-          }
-        `);
+          const document = createDocument(`
+            query Details {
+              name
+            }
+          `);
 
-        expect(fill(document)).toStrictEqual({
-          name: aString,
+          expect(fillOperation(document)).toStrictEqual({
+            name: aString,
+          });
         });
-      });
 
-      it('uses a resolver for an object type', () => {
-        const name = faker.name.firstName();
-        const fill = createFillerForSchema(
-          `
+        it('uses a resolver for an object type', () => {
+          const name = faker.name.firstName();
+          const {fillOperation} = createFillerForSchema(
+            `
+              type Person {
+                name: String!
+              }
+
+              type Query {
+                self: Person!
+              }
+            `,
+            {
+              resolvers: {
+                Person: () => ({
+                  name,
+                }),
+              },
+            },
+          );
+
+          const document = createDocument(`
+            query Details {
+              self { name }
+            }
+          `);
+
+          expect(fillOperation(document)).toStrictEqual({
+            self: {name},
+          });
+        });
+
+        it('calls the resolver with the request and its type, parent object type, field, and parent field details', () => {
+          const personResolver = jest.fn(() => ({
+            name: faker.name.firstName(),
+          }));
+          const intResolver = jest.fn(() => 1);
+
+          const schema = buildSchema(`
             type Person {
               name: String!
             }
 
+            type Dog {
+              id: ID!
+              legs: Int!
+            }
+
             type Query {
+              pet: Dog!
               self: Person!
             }
-          `,
-          {
+          `);
+
+          const {fillOperation} = createFillers(schema, {
             resolvers: {
-              Person: () => ({
-                name,
-              }),
+              Int: intResolver,
+              Person: personResolver,
             },
-          },
-        );
+          });
 
-        const document = createDocument(`
-          query Details {
-            self { name }
-          }
-        `);
+          const document = createDocument(`
+            query Details {
+              pet { legs }
+              me: self { name }
+            }
+          `);
 
-        expect(fill(document)).toStrictEqual({
-          self: {name},
-        });
-      });
+          const request = {query: document};
 
-      it('calls the resolver with the request and its type, parent object type, field, and parent field details', () => {
-        const personResolver = jest.fn(() => ({name: faker.name.firstName()}));
-        const intResolver = jest.fn(() => 1);
+          fillOperation(document)(request);
 
-        const schema = buildSchema(`
-          type Person {
-            name: String!
-          }
+          expect(personResolver).toHaveBeenCalledWith(request, {
+            type: schema.getType('Person'),
+            field: expect.objectContaining({
+              fieldName: 'self',
+              responseName: 'me',
+            }),
+            parent: schema.getQueryType(),
+            parentFields: [],
+          });
 
-          type Dog {
-            id: ID!
-            legs: Int!
-          }
-
-          type Query {
-            pet: Dog!
-            self: Person!
-          }
-        `);
-
-        const fill = createFiller(schema, {
-          resolvers: {
-            Int: intResolver,
-            Person: personResolver,
-          },
+          expect(intResolver).toHaveBeenCalledWith(request, {
+            type: schema.getType('Int'),
+            field: expect.objectContaining({
+              fieldName: 'legs',
+              responseName: 'legs',
+            }),
+            parent: schema.getType('Dog'),
+            parentFields: [expect.objectContaining({fieldName: 'pet'})],
+          });
         });
 
-        const document = createDocument(`
-          query Details {
-            pet { legs }
-            me: self { name }
-          }
-        `);
-
-        const request = {query: document};
-
-        fill(document)(request);
-
-        expect(personResolver).toHaveBeenCalledWith(request, {
-          type: schema.getType('Person'),
-          field: expect.objectContaining({
-            fieldName: 'self',
-            responseName: 'me',
-          }),
-          parent: schema.getQueryType(),
-          parentFields: [],
-        });
-
-        expect(intResolver).toHaveBeenCalledWith(request, {
-          type: schema.getType('Int'),
-          field: expect.objectContaining({
-            fieldName: 'legs',
-            responseName: 'legs',
-          }),
-          parent: schema.getType('Dog'),
-          parentFields: [expect.objectContaining({fieldName: 'pet'})],
-        });
-      });
-
-      it('uses partial values over resolver fields', () => {
-        const name = faker.name.firstName();
-        const fill = createFillerForSchema(
-          `
+        it('uses partial values over resolver fields', () => {
+          const name = faker.name.firstName();
+          const {fillOperation} = createFillerForSchema(
+            `
             type Person {
               age: Int!
               name: String!
@@ -1104,32 +1986,222 @@ describe('createFiller()', () => {
               self: Person!
             }
           `,
-          {
-            resolvers: {
-              Person: () => ({
-                age: faker.datatype.number({precision: 1}),
-                name: faker.name.firstName(),
-              }),
+            {
+              resolvers: {
+                Person: () => ({
+                  age: faker.datatype.number({precision: 1}),
+                  name: faker.name.firstName(),
+                }),
+              },
             },
-          },
-        );
+          );
 
-        const document = createDocument(`
+          const document = createDocument(`
           query Details {
             self { age, name }
           }
         `);
 
-        expect(fill(document, {self: {name}})).toStrictEqual({
-          self: {name, age: expect.any(Number)},
+          expect(fillOperation(document, {self: {name}})).toStrictEqual({
+            self: {name, age: expect.any(Number)},
+          });
+        });
+
+        it('uses falsy values over resolver fields', () => {
+          const {fillOperation} = createFillerForSchema(
+            `
+              type Person {
+                active: Boolean!
+                name: String!
+              }
+
+              type Query {
+                self: Person!
+              }
+            `,
+            {
+              resolvers: {
+                Person: () => ({
+                  active: true,
+                  name: faker.name.firstName(),
+                }),
+              },
+            },
+          );
+
+          const document = createDocument(`
+            query Details {
+              self { active, name }
+            }
+          `);
+
+          expect(
+            fillOperation(document, {self: {active: false}}),
+          ).toStrictEqual({
+            self: {name: expect.any(String), active: false},
+          });
+        });
+
+        it('uses function values over resolver fields', () => {
+          const {fillOperation} = createFillerForSchema(
+            `
+              type Person {
+                active: Boolean!
+                name: String!
+              }
+
+              type Query {
+                self: Person!
+              }
+            `,
+            {
+              resolvers: {
+                Person: () => ({
+                  active: true,
+                  name: faker.name.firstName(),
+                }),
+              },
+            },
+          );
+
+          const document = createDocument(`
+            query Details {
+              self { active, name }
+            }
+          `);
+
+          expect(
+            fillOperation(document, {self: () => ({active: false})}),
+          ).toStrictEqual({
+            self: {name: expect.any(String), active: false},
+          });
         });
       });
 
-      it('uses falsy values over resolver fields', () => {
-        const fill = createFillerForSchema(
-          `
+      describe('fillFragment', () => {
+        it('uses a resolver for a primitive type', () => {
+          const aString = 'Hello world';
+          const {fillFragment} = createFillerForSchema(
+            `
+              type Query {
+                name: String!
+              }
+            `,
+            {
+              resolvers: {
+                String: () => aString,
+              },
+            },
+          );
+
+          const fragment = createDocument(`
+            fragment Details on Query {
+              name
+            }
+          `);
+
+          expect(fillFragment(fragment)).toStrictEqual({
+            name: aString,
+          });
+        });
+
+        it('uses a resolver for an object type', () => {
+          const name = faker.name.firstName();
+          const {fillFragment} = createFillerForSchema(
+            `
+              type Person {
+                name: String!
+              }
+
+              type Query {
+                self: Person!
+              }
+            `,
+            {
+              resolvers: {
+                Person: () => ({
+                  name,
+                }),
+              },
+            },
+          );
+
+          const fragment = createDocument(`
+            fragment Details on Query {
+              self { name }
+            }
+          `);
+
+          expect(fillFragment(fragment)).toStrictEqual({
+            self: {name},
+          });
+        });
+
+        it('calls the resolver with the request and its type, parent object type, field, and parent field details', () => {
+          const personResolver = jest.fn(() => ({
+            name: faker.name.firstName(),
+          }));
+          const intResolver = jest.fn(() => 1);
+
+          const schema = buildSchema(`
             type Person {
-              active: Boolean!
+              name: String!
+            }
+
+            type Dog {
+              id: ID!
+              legs: Int!
+            }
+
+            type Query {
+              pet: Dog!
+              self: Person!
+            }
+          `);
+
+          const {fillFragment} = createFillers(schema, {
+            resolvers: {
+              Int: intResolver,
+              Person: personResolver,
+            },
+          });
+
+          const fragment = createDocument(`
+            fragment Details on Query {
+              pet { legs }
+              me: self { name }
+            }
+          `);
+
+          fillFragment(fragment);
+
+          expect(personResolver).toHaveBeenCalledWith(null, {
+            type: schema.getType('Person'),
+            field: expect.objectContaining({
+              fieldName: 'self',
+              responseName: 'me',
+            }),
+            parent: schema.getQueryType(),
+            parentFields: [],
+          });
+
+          expect(intResolver).toHaveBeenCalledWith(null, {
+            type: schema.getType('Int'),
+            field: expect.objectContaining({
+              fieldName: 'legs',
+              responseName: 'legs',
+            }),
+            parent: schema.getType('Dog'),
+            parentFields: [expect.objectContaining({fieldName: 'pet'})],
+          });
+        });
+
+        it('uses partial values over resolver fields', () => {
+          const name = faker.name.firstName();
+          const {fillFragment} = createFillerForSchema(
+            `
+            type Person {
+              age: Int!
               name: String!
             }
 
@@ -1137,193 +2209,388 @@ describe('createFiller()', () => {
               self: Person!
             }
           `,
-          {
-            resolvers: {
-              Person: () => ({
-                active: true,
-                name: faker.name.firstName(),
-              }),
+            {
+              resolvers: {
+                Person: () => ({
+                  age: faker.datatype.number({precision: 1}),
+                  name: faker.name.firstName(),
+                }),
+              },
             },
-          },
-        );
+          );
 
-        const document = createDocument(`
-          query Details {
-            self { active, name }
-          }
-        `);
+          const fragment = createDocument(`
+            fragment Details on Query{
+              self { age, name }
+            }
+          `);
 
-        expect(fill(document, {self: {active: false}})).toStrictEqual({
-          self: {name: expect.any(String), active: false},
+          expect(fillFragment(fragment, {self: {name}})).toStrictEqual({
+            self: {name, age: expect.any(Number)},
+          });
         });
-      });
 
-      it('uses function values over resolver fields', () => {
-        const fill = createFillerForSchema(
-          `
-            type Person {
-              active: Boolean!
-              name: String!
-            }
+        it('uses falsy values over resolver fields', () => {
+          const {fillFragment} = createFillerForSchema(
+            `
+              type Person {
+                active: Boolean!
+                name: String!
+              }
 
-            type Query {
-              self: Person!
-            }
-          `,
-          {
-            resolvers: {
-              Person: () => ({
-                active: true,
-                name: faker.name.firstName(),
-              }),
+              type Query {
+                self: Person!
+              }
+            `,
+            {
+              resolvers: {
+                Person: () => ({
+                  active: true,
+                  name: faker.name.firstName(),
+                }),
+              },
             },
-          },
-        );
+          );
 
-        const document = createDocument(`
-          query Details {
-            self { active, name }
-          }
-        `);
+          const fragment = createDocument(`
+            fragment Details on Query {
+              self { active, name }
+            }
+          `);
 
-        expect(fill(document, {self: () => ({active: false})})).toStrictEqual({
-          self: {name: expect.any(String), active: false},
+          expect(fillFragment(fragment, {self: {active: false}})).toStrictEqual(
+            {
+              self: {name: expect.any(String), active: false},
+            },
+          );
+        });
+
+        it('uses function values over resolver fields', () => {
+          const {fillFragment} = createFillerForSchema(
+            `
+              type Person {
+                active: Boolean!
+                name: String!
+              }
+
+              type Query {
+                self: Person!
+              }
+            `,
+            {
+              resolvers: {
+                Person: () => ({
+                  active: true,
+                  name: faker.name.firstName(),
+                }),
+              },
+            },
+          );
+
+          const fragment = createDocument(`
+            fragment Details on Query {
+              self { active, name }
+            }
+          `);
+
+          expect(
+            fillFragment(fragment, {self: () => ({active: false})}),
+          ).toStrictEqual({
+            self: {name: expect.any(String), active: false},
+          });
         });
       });
     });
   });
 
   describe('lists', () => {
-    it('fills a list as empty by default', () => {
-      const fill = createFillerForSchema(`
-        type Query {
-          initials: [String!]!
-        }
-      `);
-
-      const document = createDocument(`
-        query Details {
-          initials
-        }
-      `);
-
-      expect(fill(document)).toStrictEqual({initials: []});
-    });
-
-    it('fills a non-empty list', () => {
-      const fill = createFillerForSchema(`
-        type Query {
-          initials: [String!]!
-        }
-      `);
-
-      const document = createDocument<{initials: string[]}>(`
-        query Details {
-          initials
-        }
-      `);
-
-      expect(fill(document, {initials: list(3)})).toStrictEqual({
-        initials: [expect.any(String), expect.any(String), expect.any(String)],
-      });
-    });
-
-    it('fills a list with a random size and respect the min range value', () => {
-      jest.spyOn(Math, 'random').mockReturnValue(0);
-      const fill = createFillerForSchema(`
-        type Query {
-          initials: [String!]!
-        }
-      `);
-
-      const document = createDocument<{initials: string[]}>(`
-        query Details {
-          initials
-        }
-      `);
-
-      expect(fill(document, {initials: list([1, 3])})).toStrictEqual({
-        initials: [expect.any(String)],
-      });
-    });
-
-    it('fills a list with a random size and respect the max range value', () => {
-      jest.spyOn(Math, 'random').mockReturnValue(1);
-      const fill = createFillerForSchema(`
-        type Query {
-          initials: [String!]!
-        }
-      `);
-
-      const document = createDocument<{initials: string[]}>(`
-        query Details {
-          initials
-        }
-      `);
-
-      expect(fill(document, {initials: list([1, 3])})).toStrictEqual({
-        initials: [expect.any(String), expect.any(String), expect.any(String)],
-      });
-    });
-
-    it('fills nested lists', () => {
-      const fill = createFillerForSchema(`
-        type Query {
-          initialList: [[String!]!]!
-        }
-      `);
-
-      const document = createDocument<
-        {
-          initialList: string[][];
-        },
-        {initialList?: string[][] | null}
-      >(`
-        query Details {
-          initialList
-        }
-      `);
-
-      expect(
-        fill(document, {
-          initialList: list(2, () => list<string>(2)),
-        }),
-      ).toStrictEqual({
-        initialList: [
-          [expect.any(String), expect.any(String)],
-          [expect.any(String), expect.any(String)],
-        ],
-      });
-    });
-
-    it('fills objects nested in lists', () => {
-      const fill = createFillerForSchema(`
-        type Person {
-          name: String!
-        }
-
-        type Query {
-          people: [Person!]!
-        }
-      `);
-
-      const document = createDocument<
-        {people: {name: string}[]},
-        {people?: {name?: string | null}[] | null}
-      >(`
-        query Details {
-          people {
-            name
+    describe('fillOperation', () => {
+      it('fills a list as empty by default', () => {
+        const {fillOperation} = createFillerForSchema(`
+          type Query {
+            initials: [String!]!
           }
-        }
-      `);
+        `);
 
-      expect(
-        fill(document, {
-          people: [{}, {name: 'Chris'}],
-        }),
-      ).toStrictEqual({
-        people: [{name: expect.any(String)}, {name: 'Chris'}],
+        const document = createDocument(`
+          query Details {
+            initials
+          }
+        `);
+
+        expect(fillOperation(document)).toStrictEqual({initials: []});
+      });
+
+      it('fills a non-empty list', () => {
+        const {fillOperation} = createFillerForSchema(`
+          type Query {
+            initials: [String!]!
+          }
+        `);
+
+        const document = createDocument<{initials: string[]}>(`
+          query Details {
+            initials
+          }
+        `);
+
+        expect(fillOperation(document, {initials: list(3)})).toStrictEqual({
+          initials: [
+            expect.any(String),
+            expect.any(String),
+            expect.any(String),
+          ],
+        });
+      });
+
+      it('fills a list with a random size and respect the min range value', () => {
+        jest.spyOn(Math, 'random').mockReturnValue(0);
+        const {fillOperation} = createFillerForSchema(`
+          type Query {
+            initials: [String!]!
+          }
+        `);
+
+        const document = createDocument<{initials: string[]}>(`
+          query Details {
+            initials
+          }
+        `);
+
+        expect(fillOperation(document, {initials: list([1, 3])})).toStrictEqual(
+          {
+            initials: [expect.any(String)],
+          },
+        );
+      });
+
+      it('fills a list with a random size and respect the max range value', () => {
+        jest.spyOn(Math, 'random').mockReturnValue(1);
+        const {fillOperation} = createFillerForSchema(`
+          type Query {
+            initials: [String!]!
+          }
+        `);
+
+        const document = createDocument<{initials: string[]}>(`
+          query Details {
+            initials
+          }
+        `);
+
+        expect(fillOperation(document, {initials: list([1, 3])})).toStrictEqual(
+          {
+            initials: [
+              expect.any(String),
+              expect.any(String),
+              expect.any(String),
+            ],
+          },
+        );
+      });
+
+      it('fills nested lists', () => {
+        const {fillOperation} = createFillerForSchema(`
+          type Query {
+            initialList: [[String!]!]!
+          }
+        `);
+
+        const document = createDocument<
+          {
+            initialList: string[][];
+          },
+          {initialList?: string[][] | null}
+        >(`
+          query Details {
+            initialList
+          }
+        `);
+
+        expect(
+          fillOperation(document, {
+            initialList: list(2, () => list<string>(2)),
+          }),
+        ).toStrictEqual({
+          initialList: [
+            [expect.any(String), expect.any(String)],
+            [expect.any(String), expect.any(String)],
+          ],
+        });
+      });
+
+      it('fills objects nested in lists', () => {
+        const {fillOperation} = createFillerForSchema(`
+          type Person {
+            name: String!
+          }
+
+          type Query {
+            people: [Person!]!
+          }
+        `);
+
+        const document = createDocument<
+          {people: {name: string}[]},
+          {people?: {name?: string | null}[] | null}
+        >(`
+          query Details {
+            people {
+              name
+            }
+          }
+        `);
+
+        expect(
+          fillOperation(document, {
+            people: [{}, {name: 'Chris'}],
+          }),
+        ).toStrictEqual({
+          people: [{name: expect.any(String)}, {name: 'Chris'}],
+        });
+      });
+    });
+
+    describe('fillFragment', () => {
+      it('fills a list as empty by default', () => {
+        const {fillFragment} = createFillerForSchema(`
+          type Query {
+            initials: [String!]!
+          }
+        `);
+
+        const fragment = createDocument(`
+          fragment Details on Query {
+            initials
+          }
+        `);
+
+        expect(fillFragment(fragment)).toStrictEqual({initials: []});
+      });
+
+      it('fills a non-empty list', () => {
+        const {fillFragment} = createFillerForSchema(`
+          type Query {
+            initials: [String!]!
+          }
+        `);
+
+        const fragment = createDocument<{initials: string[]}>(`
+          fragment Details on Query {
+            initials
+          }
+        `);
+
+        expect(fillFragment(fragment, {initials: list(3)})).toStrictEqual({
+          initials: [
+            expect.any(String),
+            expect.any(String),
+            expect.any(String),
+          ],
+        });
+      });
+
+      it('fills a list with a random size and respect the min range value', () => {
+        jest.spyOn(Math, 'random').mockReturnValue(0);
+        const {fillFragment} = createFillerForSchema(`
+          type Query {
+            initials: [String!]!
+          }
+        `);
+
+        const fragment = createDocument<{initials: string[]}>(`
+          fragment Details on Query {
+            initials
+          }
+        `);
+
+        expect(fillFragment(fragment, {initials: list([1, 3])})).toStrictEqual({
+          initials: [expect.any(String)],
+        });
+      });
+
+      it('fills a list with a random size and respect the max range value', () => {
+        jest.spyOn(Math, 'random').mockReturnValue(1);
+        const {fillFragment} = createFillerForSchema(`
+          type Query {
+            initials: [String!]!
+          }
+        `);
+
+        const fragment = createDocument<{initials: string[]}>(`
+          fragment Details on Query {
+            initials
+          }
+        `);
+
+        expect(fillFragment(fragment, {initials: list([1, 3])})).toStrictEqual({
+          initials: [
+            expect.any(String),
+            expect.any(String),
+            expect.any(String),
+          ],
+        });
+      });
+
+      it('fills nested lists', () => {
+        const {fillFragment} = createFillerForSchema(`
+          type Query {
+            initialList: [[String!]!]!
+          }
+        `);
+
+        const fragment = createDocument<
+          {
+            initialList: string[][];
+          },
+          {initialList?: string[][] | null}
+        >(`
+          fragment Details on Query {
+            initialList
+          }
+        `);
+
+        expect(
+          fillFragment(fragment, {
+            initialList: list(2, () => list<string>(2)),
+          }),
+        ).toStrictEqual({
+          initialList: [
+            [expect.any(String), expect.any(String)],
+            [expect.any(String), expect.any(String)],
+          ],
+        });
+      });
+
+      it('fills objects nested in lists', () => {
+        const {fillFragment} = createFillerForSchema(`
+          type Person {
+            name: String!
+          }
+
+          type Query {
+            people: [Person!]!
+          }
+        `);
+
+        const fragment = createDocument<
+          {people: {name: string}[]},
+          {people?: {name?: string | null}[] | null}
+        >(`
+          fragment Details on Query {
+            people {
+              name
+            }
+          }
+        `);
+
+        expect(
+          fillFragment(fragment, {
+            people: [{}, {name: 'Chris'}],
+          }),
+        ).toStrictEqual({
+          people: [{name: expect.any(String)}, {name: 'Chris'}],
+        });
       });
     });
   });
@@ -1336,17 +2603,24 @@ describe('faker', () => {
 });
 
 function createFillerForSchema(schema: string, options?: Options) {
-  const filler = createFiller(buildSchema(schema), options);
-  return <Data, PartialData>(
-    document: DocumentNode<Data, {}, PartialData>,
-    data?: any,
-  ) =>
-    filler<Data, {}, PartialData>(
-      document,
-      data,
-    )({
-      query: document,
-    });
+  const {fillOperation, fillFragment} = createFillers(
+    buildSchema(schema),
+    options,
+  );
+  return {
+    fillFragment,
+    fillOperation<Data extends {}, PartialData extends {}>(
+      document: DocumentNode<Data, {}, PartialData>,
+      data?: any,
+    ) {
+      return fillOperation<Data, {}, PartialData>(
+        document,
+        data,
+      )({
+        query: document,
+      });
+    },
+  };
 }
 
 function createDocument<Data = {}, PartialData = {}>(source: string) {

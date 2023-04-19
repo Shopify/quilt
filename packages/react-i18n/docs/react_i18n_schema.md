@@ -377,7 +377,7 @@ en:
 
 ## Interpolation
 
-While neither schema defines an interpolation syntax, the most common syntax used in Rails I18n is `%{}`, while in React I18n, the most common syntax is `{}`.
+While neither schema defines an interpolation syntax, the most common syntax used in Rails I18n is `%{}`, while in React I18n, the most common syntax is either `{}` or `{{}}`.
 
 **Rails I18n:**
 
@@ -388,8 +388,18 @@ en:
 
 **React I18n**
 
+Using [`DEFAULT_FORMAT`](https://github.com/Shopify/quilt/blob/a0f7288b71cd72f17c2bc4717ea30e79a6fc0c42/packages/react-i18n/src/utilities/interpolate.ts#L5):
+
 ```json
 {
   "hello": "My name is {name}"
+}
+```
+
+Using [`MUSTACHE_FORMAT`](hhttps://github.com/Shopify/quilt/blob/a0f7288b71cd72f17c2bc4717ea30e79a6fc0c42/packages/react-i18n/src/utilities/interpolate.ts#L11) (as used in [Apps](https://shopify.dev/docs/apps/checkout/best-practices/localizing-ui-extensions) and [Themes](https://shopify.dev/docs/themes/architecture/locales/storefront-locale-files)):
+
+```json
+{
+  "hello": "My name is {{name}}"
 }
 ```
