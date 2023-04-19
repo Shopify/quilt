@@ -2,4 +2,4 @@
 '@shopify/web-worker': patch
 ---
 
-Export @shopify/web-worker/webpack-loader.js
+Expose `@shopify/web-worker/webpack-loader` export
