@@ -1,4 +1,4 @@
-import {DIRECTION_CONTROL_CHARACTERS} from '../constants';
+import {UnicodeCharacterSet} from '../constants';
 
 import {memoizedNumberFormatter} from './translate';
 
@@ -7,7 +7,10 @@ export function getCurrencySymbol(
   options: Intl.NumberFormatOptions,
 ) {
   const currencyStringRaw = formatCurrency(0, locale, options);
-  const controlChars = new RegExp(`[${DIRECTION_CONTROL_CHARACTERS}]*`, 'gu');
+  const controlChars = new RegExp(
+    `${UnicodeCharacterSet.DirectionControl}*`,
+    'gu',
+  );
   const currencyString = currencyStringRaw.replace(controlChars, '');
   const matchResult = /\p{Nd}\p{Po}*\p{Nd}*/gu.exec(currencyString);
   if (!matchResult) {

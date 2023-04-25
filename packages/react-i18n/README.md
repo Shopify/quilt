@@ -146,9 +146,15 @@ The provided `i18n` object exposes many useful methods for internationalizing yo
 - `formatName()`: formats a name (first name and/or last name) according to the locale. e,g
   - `formatName('John', 'Smith')` will return `John` in Germany and `Smith様` in Japan
   - `formatName('John', 'Smith', {full: true})` will return `John Smith` in Germany and `SmithJohn` in Japan
+- `abbreviateName()`: takes a name (first and last name) and returns a language appropriate abbreviated name, or will return `formatName` if it
+  is unable to find a suitable abbreviation. For example, "John Smith" would be abbreviated to "JS", whereas "Ren
+  Tanaka" (Japanese "健 田中") would be abbreviated with the last name "田中". You may also pass an optional `idealMaxLength` parameter, which gives the maximum allowable abbreviation length when
+  trying to abbreviate a name in the Korean language (default 3 characters). In Korean, if the first name is longer than
+  this length, the method will instead return the first character of the first name.
 - `ordinal()`: formats a number as an ordinal according to the locale, e.g. `1st`, `2nd`, `3rd`, `4th`
 - `hasEasternNameOrderFormatter()`: returns true when an eastern name order formatter corresponding to the locale/language exists.
 - `numberSymbols()`: returns an object specifying the current locale's decimal and thousand symbols. Example: For the `es-ES` locale the output would be `{ decimalSymbol: ',', thousandSymbol: '.' }`
+- `identifyScripts()`: This method provides the ability to identify the scripts used in a block of text. For example: `identifyScript('The quick brown fox jumps') => ['Latin']` and `identifyScript('日本語がわかります。') => ['Han', 'Hiragana']`
 
 Most notably, you will frequently use `i18n`’s `translate()` method. This method looks up a key in translation files that you supply based on the provided locale. This method is discussed in detail in the next section.
 
