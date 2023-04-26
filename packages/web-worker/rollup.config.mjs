@@ -12,12 +12,14 @@ const config = buildConfig(import.meta.url, {
     './src/index.ts',
     './src/babel-plugin.ts',
     './src/webpack-parts/index.ts',
+    './src/webpack-parts/loader.ts',
     './src/worker.ts',
   ],
   entrypoints: {
     index: './src/index.ts',
     babel: './src/babel-plugin.ts',
     webpack: './src/webpack-parts/index.ts',
+    'webpack-loader': './src/webpack-parts/loader.ts',
     worker: './src/worker.ts',
   },
 });
