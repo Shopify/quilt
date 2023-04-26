@@ -83,5 +83,8 @@
     "rollup-plugin-node-externals": "^2.2.0",
     "typescript": "~5.0.2",
     "yalc": "^1.0.0-pre.50"
+  },
+  "resolutions": {
+    "@apollo/federation": "0.38.1"
   }
 }
