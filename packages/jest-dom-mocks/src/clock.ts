@@ -1,8 +1,8 @@
-import lolex from 'lolex';
+import FakeTimers from '@sinonjs/fake-timers';
 
 export default class Clock {
   private isUsingMockClock = false;
-  private mockClock?: lolex.Clock;
+  private mockClock?: ReturnType<typeof FakeTimers.install>;
 
   mock(now: number | Date = Date.now()) {
     if (this.isUsingMockClock) {
@@ -12,7 +12,7 @@ export default class Clock {
     }
 
     this.isUsingMockClock = true;
-    this.mockClock = lolex.install({now});
+    this.mockClock = FakeTimers.install({now});
   }
 
   restore() {
