@@ -21,11 +21,17 @@ describe('can test a story', () => {
 
   beforeAll(() => {
     return new Promise((resolve, reject) => {
+      // node 18 and webpack 4 do not play nice together.
+      // this can be removed once we update storybook to v7, and thus
+      // remove the dependency on webpack 4
+      const env = process.version.startsWith('v18.')
+        ? // eslint-disable-next-line no-process-env
+          {...process.env, NODE_OPTIONS: '--openssl-legacy-provider'}
+        : undefined;
+
       exec(
         `yarn run build-storybook`,
-        {
-          cwd: path.resolve(__dirname, '../'),
-        },
+        {cwd: path.resolve(__dirname, '../'), env},
         (error) => {
           if (error) {
             reject(new Error(`Unable to build storybook. ${error}`));
