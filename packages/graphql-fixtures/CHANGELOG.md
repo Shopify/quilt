@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.0
+
+### Major Changes
+
+- [#2100](https://github.com/Shopify/quilt/pull/2100) [`27932c219`](https://github.com/Shopify/quilt/commit/27932c219203f31d2a9073f670e6bb0b59bfae6d) Thanks [@alexandcote](https://github.com/alexandcote)! - Add a new function `createFillers`. The function return an object containing `fillOperation` and `fillFragment`. It's now possible to fill a fragment without a query. You can replace `createFiller` by `createFillers` if you need to be able to fill fragments. `Thunk`, `DeepThunk`, `Resolver`, `Options`, `Context` and `GraphQLFillerData` generic type changed.
+
 ## 3.1.2
 
 ### Patch Changes
