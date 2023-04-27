@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.0.4
+
+### Patch Changes
+
+- [#2630](https://github.com/Shopify/quilt/pull/2630) [`739988dc8`](https://github.com/Shopify/quilt/commit/739988dc8c3d76c9219ab54e27d993bd177a2d16) Thanks [@vsumner](https://github.com/vsumner)! - Expose `@shopify/web-worker/webpack-loader` export
+
 ## 6.0.3
 
 ### Patch Changes

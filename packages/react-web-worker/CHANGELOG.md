@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.0.12
+
+### Patch Changes
+
+- Updated dependencies [[`a3b5c3fc0`](https://github.com/Shopify/quilt/commit/a3b5c3fc0a07e46a64da2eec3669f9469735f412), [`739988dc8`](https://github.com/Shopify/quilt/commit/739988dc8c3d76c9219ab54e27d993bd177a2d16)]:
+  - @shopify/react-hooks@3.0.5
+  - @shopify/web-worker@6.0.4
+
 ## 5.0.11
 
 ### Patch Changes

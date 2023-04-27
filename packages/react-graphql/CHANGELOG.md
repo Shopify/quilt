@@ -1,5 +1,13 @@
 # Changelog
 
+## 10.0.2
+
+### Patch Changes
+
+- Updated dependencies [[`a3b5c3fc0`](https://github.com/Shopify/quilt/commit/a3b5c3fc0a07e46a64da2eec3669f9469735f412)]:
+  - @shopify/react-hooks@3.0.5
+  - @shopify/react-async@5.2.3
+
 ## 10.0.1
 
 ### Patch Changes
