@@ -46,14 +46,14 @@
     "node": "^14.17.0 || >=16.0.0"
   },
   "dependencies": {
-    "@jest/transform": ">= 27 <29",
     "fs-extra": "^9.1.0",
-    "graphql": ">=14.5.0 <16.0.0",
-    "graphql-typed": "^2.0.2"
+    "graphql": ">=14.5.0 <16.0.0"
   },
   "devDependencies": {
+    "@jest/transform": ">= 27 <=29",
     "@types/common-tags": "^1.8.0",
     "common-tags": "^1.8.0",
+    "graphql-typed": "^2.0.2",
     "webpack": "^5.38.0"
   },
   "peerDependencies": {
