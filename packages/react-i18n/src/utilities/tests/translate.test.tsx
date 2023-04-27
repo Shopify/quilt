@@ -6,6 +6,8 @@ import {
   translate,
 } from '../translate';
 
+const isModernNode = process.version.startsWith('v18.');
+
 describe('memoizedNumberFormatter()', () => {
   it.each`
     locale                             | expectedValue | expectedLocale
@@ -18,7 +20,7 @@ describe('memoizedNumberFormatter()', () => {
     ${'fa-IR-u-nu-arabext-x-ab-cdefg'} | ${'1.23'}     | ${'fa-IR-u-nu-latn'}
     ${'fa-IR-x-ab-cdefg-u-nu-arabext'} | ${'1.23'}     | ${'fa-IR-u-nu-latn'}
   `(
-    'returns formatted number according to the locale provided with the latin numbering system',
+    'returns formatted number in the $locale locale with the latin numbering system',
     ({locale, expectedValue, expectedLocale}) => {
       const amount = 1.23;
       const numberFormatter = memoizedNumberFormatter(locale, {
@@ -31,18 +33,19 @@ describe('memoizedNumberFormatter()', () => {
     },
   );
 
+  /* eslint-disable jest/no-if */
   it.each`
-    locale                             | expectedValue     | expectedLocale
-    ${'en-US'}                         | ${'$1.23'}        | ${'en-US-u-nu-latn'}
-    ${'fr-CA'}                         | ${'1,23 $ US'}    | ${'fr-CA-u-nu-latn'}
-    ${'zh-Hans-hk'}                    | ${'US$1.23'}      | ${'zh-Hans-HK-u-nu-latn'}
-    ${'ar-EG'}                         | ${'US$ 1.23'}     | ${'ar-EG-u-nu-latn'}
-    ${'ar-EG-u-nu-arab'}               | ${'US$ 1.23'}     | ${'ar-EG-u-nu-latn'}
-    ${'fa-IR'}                         | ${'\u200E$ 1.23'} | ${'fa-IR-u-nu-latn'}
-    ${'fa-IR-u-nu-arabext-x-ab-cdefg'} | ${'\u200E$ 1.23'} | ${'fa-IR-u-nu-latn'}
-    ${'fa-IR-x-ab-cdefg-u-nu-arabext'} | ${'\u200E$ 1.23'} | ${'fa-IR-u-nu-latn'}
+    locale                             | expectedValue                                   | expectedLocale
+    ${'en-US'}                         | ${'$1.23'}                                      | ${'en-US-u-nu-latn'}
+    ${'fr-CA'}                         | ${'1,23 $ US'}                                  | ${'fr-CA-u-nu-latn'}
+    ${'zh-Hans-hk'}                    | ${'US$1.23'}                                    | ${'zh-Hans-HK-u-nu-latn'}
+    ${'ar-EG'}                         | ${isModernNode ? '\u200F1.23 US$' : 'US$ 1.23'} | ${'ar-EG-u-nu-latn'}
+    ${'ar-EG-u-nu-arab'}               | ${isModernNode ? '\u200F1.23 US$' : 'US$ 1.23'} | ${'ar-EG-u-nu-latn'}
+    ${'fa-IR'}                         | ${'\u200E$ 1.23'}                               | ${'fa-IR-u-nu-latn'}
+    ${'fa-IR-u-nu-arabext-x-ab-cdefg'} | ${'\u200E$ 1.23'}                               | ${'fa-IR-u-nu-latn'}
+    ${'fa-IR-x-ab-cdefg-u-nu-arabext'} | ${'\u200E$ 1.23'}                               | ${'fa-IR-u-nu-latn'}
   `(
-    'returns formatted currency according to the locale provided with the latin numbering system',
+    'returns formatted currency in the $locale locale with the latin numbering system',
     ({locale, expectedValue, expectedLocale}) => {
       const amount = 1.23;
       const numberFormatter = memoizedNumberFormatter(locale, {
@@ -55,6 +58,7 @@ describe('memoizedNumberFormatter()', () => {
       );
     },
   );
+  /* eslint-enable jest/no-if */
 
   describe('when Intl.Locale throws an error', () => {
     beforeEach(() => {
@@ -78,7 +82,7 @@ describe('memoizedNumberFormatter()', () => {
       ${'fa-IR-u-nu-arabext-x-ab-cdefg'} | ${'1.23'}     | ${'fa-IR-u-nu-latn'}
       ${'fa-IR-x-ab-cdefg-u-nu-arabext'} | ${'1.23'}     | ${'fa-IR-u-nu-latn'}
     `(
-      'returns formatted number according to the locale provided, falling back to appending the latin numbering system',
+      'returns formatted number in the $locale locale, falling back to appending the latin numbering system',
       ({locale, expectedValue, expectedLocale}) => {
         const amount = 1.23;
         const numberFormatter = memoizedNumberFormatter(locale, {
@@ -91,18 +95,19 @@ describe('memoizedNumberFormatter()', () => {
       },
     );
 
+    /* eslint-disable jest/no-if */
     it.each`
-      locale                             | expectedValue     | expectedLocale
-      ${'en-US'}                         | ${'$1.23'}        | ${'en-US-u-nu-latn'}
-      ${'fr-CA'}                         | ${'1,23 $ US'}    | ${'fr-CA-u-nu-latn'}
-      ${'zh-Hans-hk'}                    | ${'US$1.23'}      | ${'zh-Hans-HK-u-nu-latn'}
-      ${'ar-EG'}                         | ${'US$ 1.23'}     | ${'ar-EG-u-nu-latn'}
-      ${'ar-EG-u-nu-arab'}               | ${'US$ 1.23'}     | ${'ar-EG-u-nu-latn'}
-      ${'fa-IR'}                         | ${'\u200E$ 1.23'} | ${'fa-IR-u-nu-latn'}
-      ${'fa-IR-u-nu-arabext-x-ab-cdefg'} | ${'\u200E$ 1.23'} | ${'fa-IR-u-nu-latn'}
-      ${'fa-IR-x-ab-cdefg-u-nu-arabext'} | ${'\u200E$ 1.23'} | ${'fa-IR-u-nu-latn'}
+      locale                             | expectedValue                                   | expectedLocale
+      ${'en-US'}                         | ${'$1.23'}                                      | ${'en-US-u-nu-latn'}
+      ${'fr-CA'}                         | ${'1,23 $ US'}                                  | ${'fr-CA-u-nu-latn'}
+      ${'zh-Hans-hk'}                    | ${'US$1.23'}                                    | ${'zh-Hans-HK-u-nu-latn'}
+      ${'ar-EG'}                         | ${isModernNode ? '\u200F1.23 US$' : 'US$ 1.23'} | ${'ar-EG-u-nu-latn'}
+      ${'ar-EG-u-nu-arab'}               | ${isModernNode ? '\u200F1.23 US$' : 'US$ 1.23'} | ${'ar-EG-u-nu-latn'}
+      ${'fa-IR'}                         | ${'\u200E$ 1.23'}                               | ${'fa-IR-u-nu-latn'}
+      ${'fa-IR-u-nu-arabext-x-ab-cdefg'} | ${'\u200E$ 1.23'}                               | ${'fa-IR-u-nu-latn'}
+      ${'fa-IR-x-ab-cdefg-u-nu-arabext'} | ${'\u200E$ 1.23'}                               | ${'fa-IR-u-nu-latn'}
     `(
-      'returns formatted currency according to the locale provided, falling back to appending the latin numbering system',
+      'returns formatted currency in the $locale locale, falling back to appending the latin numbering system',
       ({locale, expectedValue, expectedLocale}) => {
         const amount = 1.23;
         const numberFormatter = memoizedNumberFormatter(locale, {
@@ -115,6 +120,7 @@ describe('memoizedNumberFormatter()', () => {
         );
       },
     );
+    /* eslint-enable jest/no-if */
   });
 });
 
@@ -289,8 +295,5 @@ describe('translate()', () => {
 });
 
 function sanitizeSpaces(input) {
-  return input
-    .replace('\xa0', ' ')
-    .replace('\u202f', ' ')
-    .replace('\u00A0', ' ');
+  return input.replace(/[\u00a0\u202f]/g, ' ');
 }
