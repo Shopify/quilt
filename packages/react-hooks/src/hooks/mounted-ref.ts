@@ -6,6 +6,8 @@ export function useMountedRef() {
   const mounted = useRef(true);
 
   useIsomorphicLayoutEffect(() => {
+    mounted.current = true;
+
     return () => {
       mounted.current = false;
     };
