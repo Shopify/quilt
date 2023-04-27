@@ -9,13 +9,13 @@ import type {
 } from '../../../types';
 import {runValidation} from '../utils';
 
-import type {ListState, ListAction} from './index';
+import type {ListState, ListAction} from './reducer';
 import {
   updateAction,
   updateErrorAction,
   newDefaultAction,
   resetAction,
-} from './index';
+} from './reducer';
 
 export function useHandlers<Item extends object>(
   state: ListState<Item>,
