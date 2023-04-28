@@ -4,18 +4,17 @@
 
 import React from 'react';
 import {renderToString, renderToStaticMarkup} from 'react-dom/server';
-import {clock} from '@shopify/jest-dom-mocks';
 
 import {Effect} from '../Effect';
 import {extract} from '../server';
 
 describe('extract()', () => {
   beforeEach(() => {
-    clock.mock();
+    jest.useFakeTimers();
   });
 
   afterEach(() => {
-    clock.restore();
+    jest.useRealTimers();
   });
 
   it('calls effects', async () => {
@@ -25,6 +24,7 @@ describe('extract()', () => {
   });
 
   it('waits for effects to resolve', async () => {
+    jest.useRealTimers();
     const {promise, resolve, resolved} = createResolvablePromise();
     const spy = jest.fn(() => (resolved() ? promise : undefined));
     const extractSpy = jest.fn();
@@ -147,14 +147,14 @@ describe('extract()', () => {
             return resolved()
               ? undefined
               : resolve().then(() => {
-                  clock.tick(resolveDuration);
+                  jest.advanceTimersByTime(resolveDuration);
                 });
           }}
         />,
         {
           betweenEachPass: spy,
           renderFunction: (element: React.ReactElement<any>) => {
-            clock.tick(renderDuration);
+            jest.advanceTimersByTime(renderDuration);
             return renderToString(element);
           },
         },
@@ -203,14 +203,14 @@ describe('extract()', () => {
             return resolved()
               ? undefined
               : resolve().then(() => {
-                  clock.tick(resolveDuration);
+                  jest.advanceTimersByTime(resolveDuration);
                 });
           }}
         />,
         {
           afterEachPass: spy,
           renderFunction: (element: React.ReactElement<any>) => {
-            clock.tick(renderDuration);
+            jest.advanceTimersByTime(renderDuration);
             return renderToString(element);
           },
         },
