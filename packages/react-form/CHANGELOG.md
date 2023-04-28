@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.5.5
+
+### Patch Changes
+
+- [#2640](https://github.com/Shopify/quilt/pull/2640) [`a70ba5c64`](https://github.com/Shopify/quilt/commit/a70ba5c644f630f045cf1b5541d2e18b54e385db) Thanks [@BPScott](https://github.com/BPScott)! - Fix cyclical import build warning
+
+- Updated dependencies [[`a3b5c3fc0`](https://github.com/Shopify/quilt/commit/a3b5c3fc0a07e46a64da2eec3669f9469735f412)]:
+  - @shopify/react-hooks@3.0.5
+
 ## 2.5.4
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # Changelog
 
+## 7.8.0
+
+### Minor Changes
+
+- [#2635](https://github.com/Shopify/quilt/pull/2635) [`983d257a2`](https://github.com/Shopify/quilt/commit/983d257a209fdb1676099b709be8c3519d1c7c2a) Thanks [@mikegarfinkle](https://github.com/mikegarfinkle)! - Added abbreviateName and identifyScripts methods
+
+### Patch Changes
+
+- Updated dependencies [[`a3b5c3fc0`](https://github.com/Shopify/quilt/commit/a3b5c3fc0a07e46a64da2eec3669f9469735f412)]:
+  - @shopify/react-hooks@3.0.5
+
 ## 7.7.2
 
 ### Patch Changes
