@@ -3,7 +3,7 @@ import {useCallback, useEffect, useMemo} from 'react';
 import isEqual from 'fast-deep-equal';
 
 import type {Validates, Field, DirtyStateComparator} from '../../types';
-import {normalizeValidation, isChangeEvent} from '../../utilities';
+import {normalizeValidation, isChangeEvent, isNumericString} from '../../utilities';
 
 import {
   updateAction,
@@ -138,7 +138,9 @@ export function useField<Value = string>(
       return undefined;
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [state.value, ...dependencies],
+    [state.value, ...dependencies].map(value =>
+      isNumericString(value) ? Number(value) : value),
+
   );
 
   const onChange = useCallback(
