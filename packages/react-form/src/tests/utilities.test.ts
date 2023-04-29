@@ -7,6 +7,7 @@ import {
   validateAll,
   fieldsToArray,
   reduceFields,
+  isNumericString
 } from '../utilities';
 import type {Field} from '../types';
 
@@ -234,5 +235,28 @@ describe('reduceFields()', () => {
     expect(fieldsArray).toContain(username);
     expect(fieldsArray).toContain(firstName);
     expect(fieldsArray).toContain(work);
+  });
+});
+
+describe('isNumericString()', () => {
+  it('returns true for numeric strings', () => {
+    expect(isNumericString('123')).toBe(true);
+    expect(isNumericString('3.14')).toBe(true);
+    expect(isNumericString('0.0001')).toBe(true);
+    expect(isNumericString('-50')).toBe(true);
+  });
+
+  it('returns false for non-numeric strings', () => {
+    expect(isNumericString('abc')).toBe(false);
+    expect(isNumericString('12a')).toBe(false);
+    expect(isNumericString('')).toBe(false);
+  });
+
+  it('returns false for non-string values', () => {
+    expect(isNumericString(123)).toBe(false);
+    expect(isNumericString(3.14)).toBe(false);
+    expect(isNumericString(true)).toBe(false);
+    expect(isNumericString(undefined)).toBe(false);
+    expect(isNumericString(null)).toBe(false);
   });
 });
