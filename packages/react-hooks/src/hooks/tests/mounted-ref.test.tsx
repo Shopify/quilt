@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {StrictMode, useState, useCallback} from 'react';
 import {mount} from '@shopify/react-testing';
 
 import {useMountedRef} from '../mounted-ref';
@@ -15,6 +15,33 @@ describe('useMountedRef()', () => {
 
     mount(<MockComponent />);
     expect(spy).toHaveBeenCalledWith(true);
+  });
+
+  it('returns a ref with current value as true when the component is mounted in StrictMode', () => {
+    function MockComponent() {
+      const [count, setCount] = useState(1);
+      const triggerRerender = useCallback(() => setCount((cnt) => cnt + 1), []);
+      const result = useMountedRef().current ? 'isMounted' : 'notMounted';
+
+      return (
+        <>
+          Render {count} | {result}
+          <button type="button" onClick={triggerRerender} />
+        </>
+      );
+    }
+
+    const component = mount(
+      <StrictMode>
+        <MockComponent />
+      </StrictMode>,
+    );
+
+    expect(component).toContainReactText('Render 1 | isMounted');
+    // Update state to trigger a rerender
+    component.find('button')!.trigger('onClick');
+    // Component continues to be mounted after the rerender
+    expect(component).toContainReactText('Render 2 | isMounted');
   });
 
   it('returns a ref with current value as false when the component is un-mounted', async () => {

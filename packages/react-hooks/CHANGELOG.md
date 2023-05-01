@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.5
+
+### Patch Changes
+
+- [#2637](https://github.com/Shopify/quilt/pull/2637) [`a3b5c3fc0`](https://github.com/Shopify/quilt/commit/a3b5c3fc0a07e46a64da2eec3669f9469735f412) Thanks [@QuintonC](https://github.com/QuintonC)! - Addressed a bug with useMountedRef for React 18 Strict Mode in development where mounted.current would be false after the effect runs for the first time.
+
 ## 3.0.4
 
 ### Patch Changes
