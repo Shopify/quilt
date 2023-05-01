@@ -87,6 +87,40 @@ composeGid('Customer', '67890', {foo: 'bar'});
 // → 'gid://shopify/Customer/67890?foo=bar'
 ```
 
+### `function isGidFactory<N extends string>(namespace: N): Function`
+
+Create a new `isGid` with a given namespace instead of the default `shopify` namespace.
+
+#### Example Usage
+
+```typescript
+import {isGidFactory} from '@shopify/admin-graphql-api-utilities';
+
+const isGid = isGidFactory('CustomApp');
+
+isGid('gid://CustomApp/Product/123');
+// → true
+
+isGid('gid://CustomApp/Product/123', 'Customer');
+// → false
+```
+
+### `function isGid<T extends string>(gid: string, key?: T,): boolean`
+
+Check if a given string is a valid Gid.
+
+#### Example Usage
+
+```typescript
+import {isGid} from '@shopify/admin-graphql-api-utilities';
+
+isGid('gid://shopify/Customer/12345');
+// → true
+
+isGid('gid://shopify/Customer/12345', 'Customer');
+// → false
+```
+
 ### `function nodesFromEdges(edges)`
 
 Given an array of edges, return the nodes.

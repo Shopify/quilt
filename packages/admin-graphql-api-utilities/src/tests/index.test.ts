@@ -1,6 +1,6 @@
 import {v4} from 'uuid';
 
-import type {Gid} from '..';
+import type {Gid, ShopifyGid} from '..';
 import {
   parseGidType,
   parseGid,
@@ -9,6 +9,8 @@ import {
   composeGid,
   nodesFromEdges,
   keyFromEdges,
+  isGid,
+  isGidFactory,
 } from '..';
 
 describe('admin-graphql-api-utilities', () => {
@@ -102,21 +104,21 @@ describe('admin-graphql-api-utilities', () => {
     it('returns the composed Gid using key and number id', () => {
       const id = 123;
       const key = 'Section';
-      const gid: Gid<'shopify', 'Section'> = composeGid(key, id);
+      const gid: ShopifyGid<'Section'> = composeGid(key, id);
       expect(gid).toBe(`gid://shopify/${key}/${id}`);
     });
 
     it('returns the composed Gid using key and string id', () => {
       const id = '456';
       const key = 'Section';
-      const gid: Gid<'shopify', 'Section'> = composeGid(key, id);
+      const gid: ShopifyGid<'Section'> = composeGid(key, id);
       expect(gid).toBe(`gid://shopify/${key}/${id}`);
     });
 
     it('returns the composed Gid using key and uuid', () => {
       const id = v4();
       const key = 'Section';
-      const gid: Gid<'shopify', 'Section'> = composeGid(key, id);
+      const gid: ShopifyGid<'Section'> = composeGid(key, id);
       expect(gid).toBe(`gid://shopify/${key}/${id}`);
     });
 
@@ -124,7 +126,7 @@ describe('admin-graphql-api-utilities', () => {
       const id = 'button';
       const key = 'Section';
       const params = {foo: 'bar', hello: 'world'};
-      const gid: Gid<'shopify', 'Section'> = composeGid(key, id, params);
+      const gid: ShopifyGid<'Section'> = composeGid(key, id, params);
       expect(gid).toBe(`gid://shopify/${key}/${id}?foo=bar&hello=world`);
     });
   });
@@ -134,7 +136,7 @@ describe('admin-graphql-api-utilities', () => {
       const customComposeGid = composeGidFactory('shopify');
       const id = 123;
       const key = 'Section';
-      const gid: Gid<'shopify', 'Section'> = customComposeGid(key, id);
+      const gid: ShopifyGid<'Section'> = customComposeGid(key, id);
       expect(gid).toBe(`gid://shopify/${key}/${id}`);
     });
 
@@ -157,6 +159,30 @@ describe('admin-graphql-api-utilities', () => {
         params,
       );
       expect(gid).toBe(`gid://custom-app/${key}/${id}?foo=bar&hello=world`);
+    });
+  });
+
+  describe('isGid()', () => {
+    it('returns true for valid GIDs', () => {
+      expect(isGid('gid://shopify/Section/123')).toBe(true);
+      expect(isGid('gid://shopify/Section/123?foo=bar')).toBe(true);
+      expect(isGid('gid://shopify/Section/123?foo=bar&baz=0')).toBe(true);
+      expect(isGid('gid://shopify/Section/123?foo-a=bar_baz')).toBe(true);
+    });
+
+    it('returns false for invalid GIDs', () => {
+      expect(isGid('gid://shopify/Section/')).toBe(false);
+      expect(isGid('gid:/shopify/Section/123')).toBe(false);
+      expect(isGid('//shopify/Section/123')).toBe(false);
+      expect(isGid('gid://shopify/Section/123 456')).toBe(false);
+    });
+  });
+
+  describe('isGidFactory()', () => {
+    it('returns a function to check for custom GIDs', () => {
+      const customIsGid = isGidFactory('custom-app');
+      expect(customIsGid('gid://custom-app/Section/123')).toBe(true);
+      expect(customIsGid('gid://shopify/Section/123')).toBe(false);
     });
   });
 

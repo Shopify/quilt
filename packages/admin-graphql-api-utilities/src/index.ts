@@ -6,6 +6,8 @@ export type Gid<
   Type extends string,
 > = `gid://${Namespace}/${Type}/${number | string}`;
 
+export type ShopifyGid<T extends string> = Gid<'shopify', T>;
+
 interface ParsedGid {
   id: string;
   params: {[key: string]: string};
@@ -31,7 +33,7 @@ export function parseGid(gid: string): string {
 }
 
 export function parseGidWithParams(gid: string): ParsedGid {
-  // appends forward slash to help identify invalid id
+  // prepends forward slash to help identify invalid id
   const id = `/${gid}`;
   const matches = GID_REGEXP.exec(id);
   if (matches && matches[1] !== undefined) {
@@ -67,6 +69,31 @@ export function composeGidFactory<N extends string>(namespace: N) {
 }
 
 export const composeGid = composeGidFactory('shopify');
+
+export function isGidFactory<N extends string>(namespace: N) {
+  return function isGid<T extends string = unknown>(
+    gid: string,
+    key?: T,
+  ): gid is Gid<N, T> {
+    if (!gid.startsWith(`gid://${namespace}/`)) {
+      return false;
+    }
+
+    try {
+      if (key !== undefined && parseGidType(gid) !== key) {
+        return false;
+      }
+    } catch {
+      return false;
+    }
+
+    // prepends forward slash to help identify invalid id
+    const id = `/${gid}`;
+    return GID_REGEXP.test(id);
+  };
+}
+
+export const isGid = isGidFactory('shopify');
 
 interface Edge<T> {
   node: T;
