@@ -7,7 +7,7 @@ Replace `lolex` with using Jest's built-in clock mocking, available since Jest 2
 As of Jest 26, the functionality of the Clock and Timer mocks are built into Jest. We recommend replacing usage of these mocks with calling jest directly:
 
 - Replace `clock.mock()` and `timer.mock()` with `jest.useFakeTimers()`
-- Replace `clock.restore()` and `clock.restore()` with `jest.useRealTimers()`
+- Replace `clock.restore()` and `timer.restore()` with `jest.useRealTimers()`
 - Replace `clock.tick(time)` with `jest.advanceTimersByTime(time)`
 - Replace `clock.setTime(time)` with `jest.setSystemTime(time)`
 - Replace `timer.runAllTimers()` with `jest.runAllTimers()`
