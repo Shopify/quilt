@@ -31,6 +31,8 @@ const getCurrencySymbolMock: jest.Mock =
   require('../utilities').getCurrencySymbol;
 /* eslint-enable @typescript-eslint/no-var-requires */
 
+const isModernNode = process.version.startsWith('v18');
+
 describe('I18n', () => {
   const defaultDetails = {locale: 'en-ca'};
   const defaultTranslations = [{hello: 'Hello, {name}!'}];
@@ -879,6 +881,7 @@ describe('I18n', () => {
   });
 
   describe('#formatCurrency() form:auto', () => {
+    /* eslint-disable jest/no-if */
     it.each`
       locale     | currency | expected
       ${'cs-CZ'} | ${'CZK'} | ${'1 234,56 Kč CZK'}
@@ -898,8 +901,8 @@ describe('I18n', () => {
       ${'fr-FR'} | ${'OMR'} | ${'1 234,560 OMR'}
       ${'fr-FR'} | ${'USD'} | ${'1 234,56 $ USD'}
       ${'fr-FR'} | ${'CAD'} | ${'1 234,56 $'}
-      ${'ar-EG'} | ${'CAD'} | ${'$ 1,234.56'}
-      ${'ar-EG'} | ${'USD'} | ${'$ 1,234.56 USD'}
+      ${'ar-EG'} | ${'CAD'} | ${isModernNode ? '1,234.56 $' : '$ 1,234.56'}
+      ${'ar-EG'} | ${'USD'} | ${isModernNode ? '1,234.56 $ USD' : '$ 1,234.56 USD'}
       ${'he-IL'} | ${'USD'} | ${'1,234.56 $ USD'}
     `(
       'formats 1234.56 of $currency in $locale to expected $expected',
@@ -914,9 +917,11 @@ describe('I18n', () => {
         expect(sanitizeSpaces(result)).toBe(expected);
       },
     );
+    /* eslint-enable jest/no-if */
   });
 
   describe('#formatCurrency() form:explicit', () => {
+    /* eslint-disable jest/no-if */
     it.each`
       locale     | currency | expected
       ${'cs-CZ'} | ${'CZK'} | ${'1 234,56 Kč CZK'}
@@ -933,7 +938,7 @@ describe('I18n', () => {
       ${'fr-FR'} | ${'JPY'} | ${'1 235 ¥ JPY'}
       ${'fr-FR'} | ${'OMR'} | ${'1 234,560 OMR'}
       ${'fr-FR'} | ${'USD'} | ${'1 234,56 $ USD'}
-      ${'ar-EG'} | ${'USD'} | ${'$ 1,234.56 USD'}
+      ${'ar-EG'} | ${'USD'} | ${isModernNode ? '1,234.56 $ USD' : '$ 1,234.56 USD'}
       ${'he-IL'} | ${'USD'} | ${'1,234.56 $ USD'}
     `(
       'formats 1234.56 of $currency in $locale to expected $expected',
@@ -948,9 +953,11 @@ describe('I18n', () => {
         expect(sanitizeSpaces(result)).toBe(expected);
       },
     );
+    /* eslint-enable jest/no-if */
   });
 
   describe('#formatCurrency() form:explicit with negative amount', () => {
+    /* eslint-disable jest/no-if */
     it.each`
       locale     | currency | expected
       ${'cs-CZ'} | ${'CZK'} | ${'-1 234,56 Kč CZK'}
@@ -967,7 +974,7 @@ describe('I18n', () => {
       ${'fr-FR'} | ${'JPY'} | ${'-1 235 ¥ JPY'}
       ${'fr-FR'} | ${'OMR'} | ${'-1 234,560 OMR'}
       ${'fr-FR'} | ${'USD'} | ${'-1 234,56 $ USD'}
-      ${'ar-EG'} | ${'USD'} | ${'\u200E-$ 1,234.56 USD'}
+      ${'ar-EG'} | ${'USD'} | ${isModernNode ? '\u200E-1,234.56 $ USD' : '\u200E-$ 1,234.56 USD'}
       ${'he-IL'} | ${'USD'} | ${'\u200E-1,234.56 $ USD'}
     `(
       'formats -1234.56 of $currency in $locale to expected $expected',
@@ -982,6 +989,7 @@ describe('I18n', () => {
         expect(sanitizeSpaces(result)).toBe(expected);
       },
     );
+    /* eslint-enable jest/no-if */
   });
 
   describe('#formatCurrency() form:none', () => {
@@ -1049,6 +1057,7 @@ describe('I18n', () => {
   });
 
   describe('#formatCurrency() form:short', () => {
+    /* eslint-disable jest/no-if */
     it.each`
       locale     | currency | expected
       ${'cs-CZ'} | ${'CZK'} | ${'1 234,56 Kč'}
@@ -1069,7 +1078,7 @@ describe('I18n', () => {
       ${'sv-SE'} | ${'USD'} | ${'1 234,56 $'}
       ${'en-US'} | ${'SGD'} | ${'$1,234.56'}
       ${'fr-FR'} | ${'SGD'} | ${'1 234,56 $'}
-      ${'ar-EG'} | ${'USD'} | ${'$ 1,234.56'}
+      ${'ar-EG'} | ${'USD'} | ${isModernNode ? '1,234.56 $' : '$ 1,234.56'}
     `(
       'formats 1234.56 of $currency in $locale to expected $expected',
       ({locale, currency, expected}) => {
@@ -1080,9 +1089,11 @@ describe('I18n', () => {
         expect(sanitizeSpaces(result)).toBe(expected);
       },
     );
+    /* eslint-enable jest/no-if */
   });
 
   describe('#formatCurrency() form:short with negative amount', () => {
+    /* eslint-disable jest/no-if */
     it.each`
       locale     | currency | expected
       ${'cs-CZ'} | ${'CZK'} | ${'-1 234,56 Kč'}
@@ -1101,7 +1112,7 @@ describe('I18n', () => {
       ${'sv-SE'} | ${'USD'} | ${'\u22121 234,56 $'}
       ${'en-US'} | ${'SGD'} | ${'-$1,234.56'}
       ${'fr-FR'} | ${'SGD'} | ${'-1 234,56 $'}
-      ${'ar-EG'} | ${'USD'} | ${'\u200E-$ 1,234.56'}
+      ${'ar-EG'} | ${'USD'} | ${isModernNode ? '\u200E-1,234.56 $' : '\u200E-$ 1,234.56'}
       ${'he-IL'} | ${'USD'} | ${'\u200E-1,234.56 $'}
     `(
       'formats -1234.56 of $currency in $locale to expected $expected',
@@ -1113,6 +1124,7 @@ describe('I18n', () => {
         expect(sanitizeSpaces(result)).toBe(expected);
       },
     );
+    /* eslint-enable jest/no-if */
   });
 
   describe('#unformatCurrency()', () => {
@@ -2188,7 +2200,13 @@ describe('I18n', () => {
         ['Europe/Amsterdam', 'en-CA', 'CA', 'Jun 12, 2022', '6:34 p.m.'],
         ['Europe/Amsterdam', 'es', 'ES', '12 jun 2022', '18:34'],
         ['Europe/Amsterdam', 'fr', 'FR', '12 juin 2022', '18:34'],
-        ['Europe/Amsterdam', 'nl-NL', 'NL', '12 jun. 2022', '18:34'],
+        [
+          'Europe/Amsterdam',
+          'nl-NL',
+          'NL',
+          isModernNode ? '12 jun 2022' : '12 jun. 2022',
+          '18:34',
+        ],
         ['Europe/London', 'en-GB', 'GB', '12 Jun 2022', '17:34'],
       ];
 
@@ -2516,8 +2534,5 @@ describe('I18n', () => {
 });
 
 function sanitizeSpaces(input) {
-  return input
-    .replace('\xa0', ' ')
-    .replace('\u202f', ' ')
-    .replace('\u00A0', ' ');
+  return input.replace(/[\u00a0\u202f]/g, ' ');
 }
