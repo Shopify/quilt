@@ -7,6 +7,7 @@ describe('Clock', () => {
       clock.mock();
 
       expect(clock.isMocked()).toBe(true);
+      clock.restore();
     });
 
     it('throws if it is already mocked', () => {
@@ -19,6 +20,7 @@ describe('Clock', () => {
       }).toThrow(
         'The clock is already mocked, but you tried to mock it again.',
       );
+      clock.restore();
     });
   });
 

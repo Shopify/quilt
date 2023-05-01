@@ -89,10 +89,10 @@ The following standard mocks are available:
 
 - `animationFrame`
 - `requestIdleCallback`
-- `clock`
+- `clock` (Deprecated, use `jest.useFakeTimers()` instead)
 - `location`
 - `matchMedia`
-- `timer`
+- `timer` (Deprecated, use `jest.useFakeTimers()` instead)
 - `promise`
 - `intersectionObserver`
 - `dimension`
@@ -156,15 +156,15 @@ Cancels the idle callback specified by the passed argument. This value should be
 
 #### `Clock.mock(now: number | Date): void`
 
-In addition to the usual `.mock()` functionality (with no arguments), the `Clock` object can be `mock`ed by passing in a `number` or `Date` object to use as the current system time.
+In addition to the usual `.mock()` functionality (with no arguments), the `Clock` object can be `mock`ed by passing in a `number` or `Date` object to use as the current system time. Deprecated - use `jest.useFakeTimers({now})` instead.
 
 #### `Clock.tick(time: number): void`
 
-Ticks the mocked `Clock` ahead by `time` milliseconds.
+Ticks the mocked `Clock` ahead by `time` milliseconds. Deprecated - use `jest.advanceTimersByTime()` instead.
 
 #### `Clock.setTime(time: number): void`
 
-Sets the system time to the given `time`.
+Sets the system time to the given `time`. Deprecated - use `jest.setSystemTime()` instead.
 
 #### `MatchMedia.mock(media?: MediaMatching): void`
 
@@ -197,11 +197,11 @@ You can also call `setMedia` with no arguments to restore the default implementa
 
 #### `Timer.runAllTimers(): void`
 
-Runs all system timers to completion.
+Runs all system timers to completion. Deprecated - use `jest.runAllTimers()` instead.
 
 #### `Timer.runTimersToTime(time: number): void`
 
-Runs all system timers to the given `time`.
+Runs all system timers to the given `time`. Deprecated - use `jest.advanceTimersByTime()` instead.
 
 #### `Promise.runPending(): void`
 
