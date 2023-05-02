@@ -13,7 +13,12 @@ import type {VariableOptions} from '../types';
 
 export type QueryHookOptions<Data = any, Variables = OperationVariables> = Omit<
   QueryComponentOptions<Data, Variables>,
-  'query' | 'partialRefetch' | 'children' | 'variables'
+  | 'query'
+  | 'partialRefetch'
+  | 'children'
+  | 'variables'
+  | 'onCompleted'
+  | 'onError'
 > &
   VariableOptions<Variables> & {
     skip?: boolean;
