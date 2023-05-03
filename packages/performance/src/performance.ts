@@ -1,15 +1,15 @@
-import {onLCP, onFID, onFCP, onTTFB} from 'web-vitals';
+import {onCLS, onFCP, onFID, onLCP, onTTFB} from 'web-vitals';
 
 import {InflightNavigation} from './inflight';
 import type {Navigation} from './navigation';
 import {
+  hasGlobal,
   now,
+  referenceTime,
+  supportsPerformanceObserver,
   withEntriesOfType,
   withNavigation,
   withTiming,
-  supportsPerformanceObserver,
-  referenceTime,
-  hasGlobal,
   getResourceTypeFromEntry,
 } from './utilities';
 import type {Event, LifecycleEvent} from './types';
@@ -171,6 +171,14 @@ export class Performance {
         type: EventType.FirstInputDelay,
         start: now() - metric.value,
         duration: metric.value,
+      });
+    });
+
+    onCLS((metric) => {
+      this.lifecycleEvent({
+        type: EventType.CumulativeLayoutShift,
+        start: metric.value,
+        duration: 0,
       });
     });
 

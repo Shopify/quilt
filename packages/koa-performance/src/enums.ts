@@ -5,6 +5,7 @@ export enum LifecycleMetric {
   TimeToFirstPaint = 'time_to_first_paint',
   DomContentLoaded = 'dom_content_loaded',
   FirstInputDelay = 'first_input_delay',
+  CumulativeLayoutShift = 'cumulative_layout_shift',
   Load = 'dom_load',
 }
 

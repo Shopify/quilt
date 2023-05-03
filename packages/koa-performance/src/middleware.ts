@@ -121,10 +121,14 @@ export function clientPerformanceMetrics({
             tags,
           });
         }
-        const value =
+        let value =
           event.type === EventType.FirstInputDelay
             ? event.duration
             : event.start;
+
+        // For CLS we multiply the value by 100 to avoid statsd issues with real numbers.
+        value =
+          event.type === EventType.CumulativeLayoutShift ? value * 100 : value;
 
         metrics.push({
           name: eventMetricName(event),
@@ -261,6 +265,7 @@ const EVENT_METRIC_MAPPING = {
   [EventType.TimeToFirstPaint]: LifecycleMetric.TimeToFirstPaint,
   [EventType.DomContentLoaded]: LifecycleMetric.DomContentLoaded,
   [EventType.FirstInputDelay]: LifecycleMetric.FirstInputDelay,
+  [EventType.CumulativeLayoutShift]: LifecycleMetric.CumulativeLayoutShift,
   [EventType.Load]: LifecycleMetric.Load,
 };
 
