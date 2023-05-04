@@ -71,7 +71,7 @@ export function composeGidFactory<N extends string>(namespace: N) {
 export const composeGid = composeGidFactory('shopify');
 
 export function isGidFactory<N extends string>(namespace: N) {
-  return function isGid<T extends string = unknown>(
+  return function isGid<T extends string = string>(
     gid: string,
     key?: T,
   ): gid is Gid<N, T> {
