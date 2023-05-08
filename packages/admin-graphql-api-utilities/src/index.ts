@@ -1,5 +1,14 @@
-const GID_TYPE_REGEXP = /^gid:\/\/[\w-]+\/([\w-]+)\//;
-const GID_REGEXP = /\/(\w[\w-]*)(?:\?(.*))*$/;
+/**
+ * Matches a GID and captures the following groups:
+ * 1. The namespace
+ * 2. The type
+ * 3. The ID
+ * 4. The query string (if any)
+ *
+ * @see https://regex101.com/r/5j5AXK
+ */
+const GID_REGEX =
+  /^gid:\/\/([a-zA-Z][a-zA-Z0-9-]*)\/([a-zA-Z][\w-]*)\/(\w[\w-]*)(\?.*)?$/;
 
 export type Gid<
   Namespace extends string,
@@ -13,41 +22,50 @@ interface ParsedGid {
   params: {[key: string]: string};
 }
 
-export function parseGidType(gid: string): string {
-  const matches = GID_TYPE_REGEXP.exec(gid);
+export interface GidObject {
+  namespace: string;
+  type: string;
+  id: string;
+  queryString?: string;
+}
 
-  if (matches && matches[1] !== undefined) {
-    return matches[1];
+/**
+ * Attempts to parse a string into a GID object.
+ *
+ * @throws {Error} If the string is not a valid GID.
+ */
+export function parseGidObject(gid: string): GidObject {
+  const matches = GID_REGEX.exec(gid);
+
+  if (matches) {
+    return {
+      namespace: matches[1],
+      type: matches[2],
+      id: matches[3],
+      queryString: matches[4],
+    };
   }
+
   throw new Error(`Invalid gid: ${gid}`);
+}
+
+export function parseGidType(gid: string): string {
+  return parseGidObject(gid).type;
 }
 
 export function parseGid(gid: string): string {
-  // prepends forward slash to help identify invalid id
-  const id = `/${gid}`;
-  const matches = GID_REGEXP.exec(id);
-  if (matches && matches[1] !== undefined) {
-    return matches[1];
-  }
-  throw new Error(`Invalid gid: ${gid}`);
+  return parseGidObject(gid).id;
 }
 
 export function parseGidWithParams(gid: string): ParsedGid {
-  // prepends forward slash to help identify invalid id
-  const id = `/${gid}`;
-  const matches = GID_REGEXP.exec(id);
-  if (matches && matches[1] !== undefined) {
-    const params =
-      matches[2] === undefined
+  const obj = parseGidObject(gid);
+  return {
+    id: obj.id,
+    params:
+      obj.queryString === undefined
         ? {}
-        : fromEntries(new URLSearchParams(matches[2]).entries());
-
-    return {
-      id: matches[1],
-      params,
-    };
-  }
-  throw new Error(`Invalid gid: ${gid}`);
+        : fromEntries(new URLSearchParams(obj.queryString).entries()),
+  };
 }
 
 export function composeGidFactory<N extends string>(namespace: N) {
@@ -73,23 +91,18 @@ export const composeGid = composeGidFactory('shopify');
 export function isGidFactory<N extends string>(namespace: N) {
   return function isGid<T extends string = string>(
     gid: string,
-    key?: T,
+    type?: T,
   ): gid is Gid<N, T> {
-    if (!gid.startsWith(`gid://${namespace}/`)) {
-      return false;
-    }
-
     try {
-      if (key !== undefined && parseGidType(gid) !== key) {
-        return false;
-      }
+      const obj = parseGidObject(gid);
+      return (
+        obj.namespace === namespace &&
+        (type === undefined || obj.type === type) &&
+        obj.id.length > 0
+      );
     } catch {
       return false;
     }
-
-    // prepends forward slash to help identify invalid id
-    const id = `/${gid}`;
-    return GID_REGEXP.test(id);
   };
 }
 
