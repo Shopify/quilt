@@ -34,7 +34,7 @@ On startup this tool performs the following actions:
 
 ### Configuration
 
-This tool reads schema information from a [`.graphqlconfig`](https://github.com/Shopify/graphql-tools-web/tree/main/packages/graphql-tool-utilities#configuration) file in the project root.
+This tool reads schema information from a [`graphql-config` config file](https://the-guild.dev/graphql/config/docs/user/usage) in the project root.
 
 ### CLI
 

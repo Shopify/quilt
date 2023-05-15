@@ -86,7 +86,7 @@ On startup this tool performs the following actions:
 
 ### Configuration
 
-This tool reads schema information from a [`.graphqlconfig`](https://github.com/Shopify/graphql-tools-web/tree/main/packages/graphql-tool-utilities#configuration) file in the project root.
+This tool reads schema information from a [`graphql-config` config file](https://the-guild.dev/graphql/config/docs/user/usage) in the project root.
 
 #### Examples
 
@@ -94,8 +94,8 @@ A project configuration with a `schemaTypesPath` override
 
 ```json
 {
-  "schemaPath": "build/schema.json",
-  "includes": ["app/**/*.graphql"],
+  "schema": "build/schema.json",
+  "include": ["app/**/*.graphql"],
   "extensions": {
     "schemaTypesPath": "app/bar/types/graphql"
   }
