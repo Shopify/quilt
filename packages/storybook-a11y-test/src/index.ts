@@ -204,6 +204,7 @@ export class A11yTestRunner {
 
         const results = await new AxePuppeteer(page)
           .include('#root')
+          .include('#storybook-root')
           .configure(config)
           .options(options)
           .analyze();
