@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.0.5
+
+### Patch Changes
+
+- [#2654](https://github.com/Shopify/quilt/pull/2654) [`e470978cf`](https://github.com/Shopify/quilt/commit/e470978cfa2b4e147dde7a97fa57ad305c3daa1b) Thanks [@BPScott](https://github.com/BPScott)! - Widen peerDependency range for webpack-virtual-modules, to allow for v0.5.x
+
 ## 6.0.4
 
 ### Patch Changes
