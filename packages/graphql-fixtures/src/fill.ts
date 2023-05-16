@@ -1,4 +1,4 @@
-import {faker} from '@faker-js/faker/locale/en';
+import {faker} from '@faker-js/faker';
 import type {
   GraphQLSchema,
   GraphQLType,
@@ -126,11 +126,11 @@ export type GraphQLRequest<Data, Variables, PartialData> = {
 >;
 
 const defaultResolvers = {
-  String: () => faker.random.word(),
-  Int: () => faker.datatype.number({precision: 1}),
-  Float: () => faker.datatype.number({precision: 0.01}),
+  String: () => faker.word.sample(),
+  Int: () => faker.number.int(),
+  Float: () => faker.number.float({precision: 0.01}),
   Boolean: () => faker.datatype.boolean(),
-  ID: () => faker.datatype.uuid(),
+  ID: () => faker.string.uuid(),
 };
 
 export function createFiller(
@@ -408,7 +408,7 @@ function fillForPrimitiveType<
   } else if (isEnumType(type)) {
     return () => randomEnumValue(type);
   } else {
-    return () => faker.random.word();
+    return () => faker.word.sample();
   }
 }
 
