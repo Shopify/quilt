@@ -25,7 +25,7 @@ describe('<PerformanceReport />', () => {
 
   it('sends a report to the given url when a navigation event occurs', () => {
     const performance = mockPerformance();
-    const url = faker.internet.url();
+    const url = faker.internet.url({appendSlash: true});
 
     mount(
       <PerformanceContext.Provider value={performance}>
@@ -38,7 +38,7 @@ describe('<PerformanceReport />', () => {
 
     const [fetchedUrl, request] = fetch.lastCall()!;
     const {body, method, headers} = request!;
-    expect(fetchedUrl).toBe(`${url}/`);
+    expect(fetchedUrl).toBe(url);
     expect(method).toBe(Method.Post);
     expect(headers).toHaveProperty(Header.ContentType, 'application/json');
     expect(JSON.parse(body!.toString())).toMatchObject({
@@ -53,7 +53,7 @@ describe('<PerformanceReport />', () => {
 
   it('sends a report to the given url when a lifeCycleEvent event occurs', () => {
     const performance = mockPerformance();
-    const url = faker.internet.url();
+    const url = faker.internet.url({appendSlash: true});
 
     mount(
       <PerformanceContext.Provider value={performance}>
@@ -66,7 +66,7 @@ describe('<PerformanceReport />', () => {
 
     const [fetchedUrl, request] = fetch.lastCall()!;
     const {body, method, headers} = request!;
-    expect(fetchedUrl).toBe(`${url}/`);
+    expect(fetchedUrl).toBe(url);
     expect(method).toBe(Method.Post);
     expect(headers).toHaveProperty(Header.ContentType, 'application/json');
     expect(JSON.parse(body!.toString())).toMatchObject({
@@ -181,7 +181,7 @@ describe('<PerformanceReport />', () => {
 
   it('supports opt-in to cancelled navigations', () => {
     const performance = mockPerformance();
-    const url = faker.internet.url();
+    const url = faker.internet.url({appendSlash: true});
 
     mount(
       <PerformanceContext.Provider value={performance}>
@@ -209,7 +209,7 @@ describe('<PerformanceReport />', () => {
 
     const [fetchedUrl, request] = fetch.lastCall()!;
     const {body, method, headers} = request!;
-    expect(fetchedUrl).toBe(`${url}/`);
+    expect(fetchedUrl).toBe(url);
     expect(method).toBe(Method.Post);
     expect(headers).toHaveProperty(Header.ContentType, 'application/json');
     expect(JSON.parse(body!.toString())).toMatchObject({
