@@ -127,7 +127,11 @@ export type GraphQLRequest<Data, Variables, PartialData> = {
 
 const defaultResolvers = {
   String: () => faker.word.sample(),
-  Int: () => faker.number.int(),
+  Int: () =>
+    faker.number.int({
+      // GraphQL spec's max
+      max: 2147483647,
+    }),
   Float: () => faker.number.float({precision: 0.01}),
   Boolean: () => faker.datatype.boolean(),
   ID: () => faker.string.uuid(),
