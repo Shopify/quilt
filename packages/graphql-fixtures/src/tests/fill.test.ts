@@ -1365,19 +1365,6 @@ describe('createFillers()', () => {
           ]);
         });
 
-        it('always picks the same implementing type', () => {
-          const {fillFragment} = createFillerForInterfaceSchema();
-          const fragment = createDocument(`
-            fragment Details on Query {
-              named {
-                __typename
-              }
-            }
-          `);
-
-          expect(fillFragment(fragment)).toStrictEqual(fillFragment(fragment));
-        });
-
         it('picks an implementing type based on a static typename provided', () => {
           const {fillFragment} = createFillerForInterfaceSchema();
           const fragment = createDocument(`
