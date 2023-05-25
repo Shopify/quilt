@@ -1,0 +1,38 @@
+{
+  "name": "Chris",
+  "metadata": {
+    "affiliations":[
+      {
+        "name": "Davis",
+        "__typename": "Person"
+      },
+      {
+        "name": "Hank",
+        "__typename": "Person",
+        "provider": {
+          "name": "Blue Cross Blue Shield",
+          "__typename": "MedicalProvider"
+        },
+        "address": {
+          "city": "Chicago",
+          "__typename": "City"
+        }
+      },
+      {
+        "name": "Stephanie",
+        "__typename": "Person",
+        "address": {
+          "state": "Illinois",
+          "__typename": "State"
+        }
+      },
+      {
+        "name": "Shopify",
+        "stockTicker": "SHOP",
+        "__typename": "Company"
+      }
+    ],
+    "__typename": "MetaData"
+  },
+  "__typename": "Query"
+}

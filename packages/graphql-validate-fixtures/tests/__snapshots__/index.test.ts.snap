@@ -17,6 +17,32 @@ exports[`evaluateFixtures() handles ambiguous operation names in multi-project f
 ]
 `;
 
+exports[`evaluateFixtures() handles fixtures and typescript-defined queries without errors 1`] = `
+[
+  {
+    "fixturePath": "packages/graphql-validate-fixtures/tests/fixtures/typescript-all-clear/fixtures/another-another-fixture.json",
+    "operationName": "Another",
+    "operationPath": "packages/graphql-validate-fixtures/tests/fixtures/typescript-all-clear/queries/Another.ts",
+    "operationType": "query",
+    "validationErrors": [],
+  },
+  {
+    "fixturePath": "packages/graphql-validate-fixtures/tests/fixtures/typescript-all-clear/fixtures/another-fixture.json",
+    "operationName": "Another",
+    "operationPath": "packages/graphql-validate-fixtures/tests/fixtures/typescript-all-clear/queries/Another.ts",
+    "operationType": "query",
+    "validationErrors": [],
+  },
+  {
+    "fixturePath": "packages/graphql-validate-fixtures/tests/fixtures/typescript-all-clear/fixtures/MyQuery/fixture.json",
+    "operationName": "My",
+    "operationPath": "packages/graphql-validate-fixtures/tests/fixtures/typescript-all-clear/queries/Query.ts",
+    "operationType": "query",
+    "validationErrors": [],
+  },
+]
+`;
+
 exports[`evaluateFixtures() handles fixtures that are invalid json 1`] = `
 [
   {

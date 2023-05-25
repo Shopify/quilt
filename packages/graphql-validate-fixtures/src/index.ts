@@ -1,8 +1,8 @@
 import {resolve} from 'path';
 
-import {readFile, readJSON} from 'fs-extra';
+import {readJSON} from 'fs-extra';
 import type {GraphQLSchema} from 'graphql';
-import {Source, parse, concatAST} from 'graphql';
+import {concatAST, parse, Source} from 'graphql';
 import type {GraphQLProjectConfig} from 'graphql-config';
 import {loadConfig} from 'graphql-config';
 import {
@@ -10,6 +10,7 @@ import {
   getGraphQLProjects,
 } from 'graphql-config-utilities';
 import {compile} from 'graphql-tool-utilities';
+import {loadFilesSync} from '@graphql-tools/load-files';
 
 import type {Fixture, Validation, GraphQLProjectAST} from './validate';
 import {
@@ -55,12 +56,28 @@ async function getOperationsForProject(
     projectConfig,
   );
 
-  const operationSources = await Promise.all(
-    operationPaths.map(loadOperationSource),
-  );
+  const sanitizedSources = operationPaths.map((filePath: string) => {
+    const file = loadFilesSync(filePath);
+
+    if (!file || file.length === 0) {
+      throw new Error(`Error loading '${filePath}'}`);
+    }
+
+    if (file[0].__esModule) {
+      for (const key of Object.keys(file[0])) {
+        if (Object.keys(file[0][key]).includes('kind')) {
+          return new Source(file[0][key].loc.source.body, filePath);
+        }
+      }
+    } else if (Object.keys(file[0]).includes('kind')) {
+      return new Source(file[0].loc.source.body, filePath);
+    }
+
+    return new Source(file[0], filePath);
+  });
 
   const document = concatAST(
-    operationSources.map((source: Source) => {
+    sanitizedSources.map((source: Source) => {
       try {
         return parse(source);
       } catch (error) {
@@ -88,15 +105,9 @@ async function getOperationsForProject(
   }
 
   return {
-    ast: compile(schema, document),
+    ast: compile(schema, document, {addTypename: true}),
     config: projectConfig,
   };
-}
-
-async function loadOperationSource(filePath: string) {
-  const body = await readFile(filePath, 'utf8');
-
-  return new Source(body, filePath);
 }
 
 function runForEachFixture<T extends Partial<Evaluation>>(
@@ -107,9 +118,15 @@ function runForEachFixture<T extends Partial<Evaluation>>(
     fixturePaths.map(async (fixturePath) => {
       try {
         const fixture = await readJSON(fixturePath);
+
+        let fixtureContent = fixture;
+        if (fixture.data) {
+          fixtureContent = fixture.data;
+        }
+
         return {
           fixturePath,
-          ...(runner({path: fixturePath, content: fixture}) as any),
+          ...(runner({path: fixturePath, content: fixtureContent}) as any),
         };
       } catch (error) {
         return {

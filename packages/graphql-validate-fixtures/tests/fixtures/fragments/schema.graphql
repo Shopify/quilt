@@ -1,0 +1,39 @@
+type Query {
+  name: String!
+  metadata: MetaData
+}
+
+type MetaData {
+  affiliations: [Affiliate!]!
+}
+
+type Person {
+  name: String!
+  provider: MedicalProvider
+  address: Address!
+}
+
+type Company {
+  name: String!
+  stockTicker: String!
+}
+
+type MedicalProvider {
+  name: String!
+}
+
+type City {
+  city: String!
+}
+
+type State {
+  state: String!
+}
+
+union Address = City | State
+
+union Affiliate = Person | Company
+
+schema {
+  query: Query
+}
