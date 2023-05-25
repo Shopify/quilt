@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.3
+
+### Patch Changes
+
+- [#2650](https://github.com/Shopify/quilt/pull/2650) [`1fcf187ed`](https://github.com/Shopify/quilt/commit/1fcf187ed0762c4b98536505e5b1c8ec3efca57f) Thanks [@Germanika](https://github.com/Germanika)! - Add #storybook-root selector to support Storybook v7
+
 ## 1.1.2
 
 ### Patch Changes

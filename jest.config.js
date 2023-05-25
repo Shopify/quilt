@@ -113,9 +113,9 @@ module.exports = {
     project('root', {rootDir: 'tests'}),
 
     // Everything else is the `packages/*` folders
-    ...packageMapping.map(({name}) => project(name, configOverrides[name])),
-
-    // tsd type assertions using jest-runner-tsd
-    typesProject('useful-types'),
+    ...packageMapping.flatMap(({name}) => [
+      project(name, configOverrides[name]),
+      typesProject(name, configOverrides[name]),
+    ]),
   ],
 };

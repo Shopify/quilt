@@ -1,6 +1,6 @@
 {
   "name": "@shopify/web-worker",
-  "version": "6.0.4",
+  "version": "6.0.5",
   "license": "MIT",
   "description": "Tools for making web workers fun to use",
   "main": "index.js",
@@ -106,7 +106,7 @@
   "peerDependencies": {
     "@babel/core": "^7.0.0",
     "webpack": "^5.38.0",
-    "webpack-virtual-modules": "^0.4.3"
+    "webpack-virtual-modules": "^0.4.3 || ^0.5.0"
   },
   "peerDependenciesMeta": {
     "@babel/core": {
