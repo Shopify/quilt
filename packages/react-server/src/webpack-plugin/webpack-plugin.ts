@@ -125,7 +125,7 @@ function clientSource() {
   return `
     ${HEADER}
     import React from 'react';
-    import ReactDOM from 'react-dom';
+    import ReactDOM from 'react-dom/client';
     import {showPage, getSerialized} from '@shopify/react-html';
 
     import App from 'index';
@@ -134,7 +134,7 @@ function clientSource() {
     const data = getSerialized('quilt-data');
     const url = new URL(window.location.href);
 
-    ReactDOM.hydrate(React.createElement(App, {data, url}), appContainer);
+    ReactDOM.hydrateRoot(appContainer, React.createElement(App, {data, url}));
     showPage();
   `;
 }
