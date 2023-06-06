@@ -6,15 +6,10 @@
 
 - [#2659](https://github.com/Shopify/quilt/pull/2659) [`c67ce27c1`](https://github.com/Shopify/quilt/commit/c67ce27c13ac13b0a5ac760bf1614b123b35556b) Thanks [@patrickracicot](https://github.com/patrickracicot)! - Updates React.hydrate -> React.hydrateRoot
 
-  ## Breaking Change Summary
+  Marking this as breaking change as it will require consumers to upgrade to React 18.
 
   Hydrating has been updated to support React.hydrateRoot. Apps that do not yet support React 18 will need to update to React 18 before updating to this version.
-
   React 18 supports concurrent rendering, which requires a new API for hydrating the server-rendered HTML. This PR updates the `react-server` package to use the new API.
-
-  ## How to 🎩
-
-  - https://react.dev/blog/2022/03/08/react-18-upgrade-guide
 
 ## 4.1.8
 
