@@ -76,7 +76,7 @@ Loads and returns data about a given country in the current locale. Country and 
 
 Loads and returns data for all countries in the current locale. Countries are sorted based on the locale. Zones are also ordered based on the locale.
 
-#### `async .getProvinceName(countryCode: string, provinceCode: string): Promise<Country[]>`
+#### `async .getProvinceName(countryCode: string, provinceCode: string): Promise<string>`
 
 Returns the names of the provinces for the specified country in the current locale.
 
