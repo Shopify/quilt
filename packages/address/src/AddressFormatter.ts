@@ -44,6 +44,19 @@ export default class AddressFormatter {
     return countries;
   }
 
+  async getProvinceName(
+    countryCode: string,
+    provinceCode: string,
+  ): Promise<string> {
+    const country = await this.getCountry(countryCode);
+    const countryZone = country.zones.find(
+      (item) => item.code === provinceCode,
+    );
+    if (!countryZone?.name) return '';
+
+    return countryZone.name;
+  }
+
   /* Returns the address ordered in an array based based on the country code
    * Eg.:
    *   [
