@@ -78,7 +78,7 @@ Loads and returns data for all countries in the current locale. Countries are so
 
 #### `async .getProvinceName(countryCode: string, provinceCode: string): Promise<string>`
 
-Returns the names of the provinces for the specified country in the current locale.
+This returns the names of the provinces or regions for the specified country, displayed in the language that is currently set.
 
 #### `async .getOrderedFields(countryCode): Promise<FieldName[][]>`
 
