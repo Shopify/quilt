@@ -193,6 +193,16 @@ describe('AddressFormatter', () => {
 
       expect(provinceName).toBe('Hokkaidō');
     });
+
+    it('returns an empty string if provinceCode does not match any zone', async () => {
+      const addressFormatter = new AddressFormatter('ja');
+      const provinceName = await addressFormatter.getProvinceName(
+        'JP',
+        'INVALID_CODE',
+      );
+
+      expect(provinceName).toBe('');
+    });
   });
 
   describe('format()', () => {
