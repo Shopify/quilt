@@ -1,5 +1,5 @@
 ---
-'@shopify/address': major
+'@shopify/address': minor
 ---
 
 Add async function to get province name
