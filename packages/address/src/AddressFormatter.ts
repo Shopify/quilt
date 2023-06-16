@@ -44,7 +44,7 @@ export default class AddressFormatter {
     return countries;
   }
 
-  async getProvinceName(
+  async getZoneName(
     countryCode: string,
     provinceCode: string,
   ): Promise<string> {
