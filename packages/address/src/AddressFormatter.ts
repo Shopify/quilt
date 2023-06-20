@@ -46,11 +46,11 @@ export default class AddressFormatter {
 
   async getZoneName(
     countryCode: string,
-    provinceCode: string,
+    zoneCode: string,
   ): Promise<string> {
     const country = await this.getCountry(countryCode);
     const countryZone = country.zones.find(
-      (item) => item.code === provinceCode,
+      (item) => item.code === zoneCode,
     );
     if (!countryZone?.name) return '';
 
