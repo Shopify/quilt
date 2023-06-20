@@ -50,6 +50,7 @@ export type FieldStates<Record extends object> = {
 
 export interface Field<Value> {
   value: Value;
+  validates: Validates<Value>;
   error: ErrorValue;
   allErrors?: ErrorValue[];
   defaultValue: Value;

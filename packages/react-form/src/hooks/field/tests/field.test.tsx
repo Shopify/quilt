@@ -52,6 +52,19 @@ describe('useField', () => {
     });
   });
 
+  it('returns validates', () => {
+    function TestField() {
+      const validates = () => undefined;
+      const field = useField({value: '', validates});
+
+      expect(field.validates).toBe(validates);
+
+      return null;
+    }
+
+    mount(<TestField />);
+  });
+
   it('uses the dirty state comparator from the config', () => {
     const dirtyStateComparator = jest.fn();
 

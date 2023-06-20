@@ -181,6 +181,7 @@ export function useField<Value = string>(
   const field = useMemo(() => {
     return {
       ...state,
+      validates,
       onBlur,
       onChange,
       newDefaultValue,
@@ -190,6 +191,7 @@ export function useField<Value = string>(
     };
   }, [
     state,
+    validates,
     onBlur,
     onChange,
     newDefaultValue,
