@@ -195,7 +195,7 @@ describe('AddressFormatter', () => {
         'INVALID_CODE',
       );
 
-      expect(provinceName).toBe('');
+      expect(provinceName).toBeUndefined();
     });
   });
 
