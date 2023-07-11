@@ -173,6 +173,32 @@ describe('AddressFormatter', () => {
     });
   });
 
+  describe('getZoneName()', () => {
+    it('returns a provinceName', async () => {
+      const addressFormatter = new AddressFormatter('ja');
+      const provinceName = await addressFormatter.getZoneName('JP', 'JP-01');
+
+      expect(provinceName).toBe('北海道');
+    });
+
+    it('returns provinceName in en if locale is not available', async () => {
+      const addressFormatter = new AddressFormatter('af');
+      const provinceName = await addressFormatter.getZoneName('JP', 'JP-01');
+
+      expect(provinceName).toBe('Hokkaidō');
+    });
+
+    it('returns an empty string if zoneCode does not match any zone', async () => {
+      const addressFormatter = new AddressFormatter('ja');
+      const provinceName = await addressFormatter.getZoneName(
+        'JP',
+        'INVALID_CODE',
+      );
+
+      expect(provinceName).toBeUndefined();
+    });
+  });
+
   describe('format()', () => {
     it('returns an array of parts of the address', async () => {
       const addressFormatter = new AddressFormatter('ja');
