@@ -11,4 +11,5 @@ export type {TranslateOptions} from './translate';
 export {convertFirstSpaceToNonBreakingSpace} from './string';
 export {DEFAULT_FORMAT, ERB_FORMAT, MUSTACHE_FORMAT} from './interpolate';
 export {tryAbbreviateName} from './tryAbbreviateName';
+export {tryAbbreviateBusinessName} from './tryAbbreviateBusinessName';
 export {identifyScripts} from './identifyScripts';

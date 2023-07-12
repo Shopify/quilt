@@ -10,6 +10,7 @@ import {
   convertFirstSpaceToNonBreakingSpace,
   tryAbbreviateName,
 } from '../utilities';
+import {tryAbbreviateBusinessName} from '../utilities/tryAbbreviateBusinessName';
 
 jest.mock('../utilities', () => ({
   ...jest.requireActual('../utilities'),
@@ -2457,6 +2458,24 @@ describe('I18n', () => {
       const i18n = new I18n(defaultTranslations, {locale: 'en'});
       expect(i18n.abbreviateName(name)).toBeDefined();
       expect(i18n.abbreviateName(name)).toBe(tryAbbreviateName(name));
+    });
+  });
+
+  describe('#abbreviateBusinessName()', () => {
+    it('returns input name if no abbreviation found', () => {
+      // no abbreviation as has space in last name
+      const input = {name: '😀😃😄'};
+      const i18n = new I18n(defaultTranslations, {locale: 'en'});
+      expect(i18n.abbreviateBusinessName(input)).toBe(input.name);
+    });
+
+    it('returns abbreviated name if abbreviation found', () => {
+      const input = {name: 'shop-123'};
+      const i18n = new I18n(defaultTranslations, {locale: 'en'});
+      expect(i18n.abbreviateBusinessName(input)).toBeDefined();
+      expect(i18n.abbreviateBusinessName(input)).toBe(
+        tryAbbreviateBusinessName(input),
+      );
     });
   });
 

@@ -1,6 +1,7 @@
 import {UnicodeCharacterSet} from '../constants';
 
 import {identifyScripts} from './identifyScripts';
+import {getGraphemes} from './getGraphemes';
 
 // Note: A similar Ruby implementation of this function also exists at https://github.com/Shopify/shopify-i18n/blob/main/lib/shopify-i18n/name_formatter.rb.
 export function tryAbbreviateName({
@@ -56,20 +57,4 @@ export function tryAbbreviateName({
     default:
       return undefined;
   }
-}
-
-type Locale = 'th' | 'ko';
-
-function getGraphemes({text, locale}: {text?: string; locale: Locale}) {
-  // returns undefined when Intl.Segmenter does not exist in our JS environment (such as in Firefox)
-  if (!text || !Intl.Segmenter) {
-    return undefined;
-  }
-
-  const segmenter = new Intl.Segmenter(locale, {
-    granularity: 'grapheme',
-  });
-  return Array.from(segmenter.segment(text)).map(
-    (grapheme) => grapheme.segment,
-  );
 }

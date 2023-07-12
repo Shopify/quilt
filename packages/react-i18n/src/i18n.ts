@@ -46,6 +46,7 @@ import {
   memoizedPluralRules,
   convertFirstSpaceToNonBreakingSpace,
   tryAbbreviateName,
+  tryAbbreviateBusinessName,
   identifyScripts,
 } from './utilities';
 
@@ -402,6 +403,17 @@ export class I18n {
       tryAbbreviateName({firstName, lastName, idealMaxLength}) ??
       this.formatName(firstName, lastName)
     );
+  }
+
+  // Note: A similar Ruby implementation of this function also exists at https://github.com/Shopify/shopify-i18n/blob/main/lib/shopify-i18n/business_name_formatter.rb.
+  abbreviateBusinessName({
+    name,
+    idealMaxLength = 3,
+  }: {
+    name?: string;
+    idealMaxLength?: number;
+  }) {
+    return tryAbbreviateBusinessName({name, idealMaxLength}) ?? name;
   }
 
   identifyScript(text: string) {
