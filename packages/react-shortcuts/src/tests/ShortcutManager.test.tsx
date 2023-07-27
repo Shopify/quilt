@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import {mount} from '@shopify/react-testing';
 import {timer} from '@shopify/jest-dom-mocks';
 
 import type {Key, HeldKey, ModifierKey} from '../keys';
 import type {DefaultIgnoredTag} from '../Shortcut';
 import Shortcut from '../Shortcut';
-import ShortcutProvider from '../ShortcutProvider';
+import ShortcutProvider, {ShortcutContext} from '../ShortcutProvider';
 
 import ShortcutWithFocus from './ShortcutWithRef';
 
@@ -16,6 +16,60 @@ describe('ShortcutManager', () => {
 
   afterEach(() => {
     timer.restore();
+  });
+
+  it('manually trigger shortcut', () => {
+    const fooSpy = jest.fn();
+
+    const MyComponent = () => {
+      const shortcutManager = useContext(ShortcutContext);
+      useEffect(() => {
+        shortcutManager?.triggerShortcut({ordered: ['k'], held: [['Control']]});
+      }, [shortcutManager]);
+
+      return null;
+    };
+
+    mount(
+      <ShortcutProvider>
+        <Shortcut
+          key="foo"
+          ordered={['k']}
+          held={[['Control']]}
+          onMatch={fooSpy}
+        />
+        <MyComponent />
+      </ShortcutProvider>,
+    );
+
+    expect(fooSpy).toHaveBeenCalled();
+  });
+
+  it('does not manually trigger shortcut when shortcut is not found', () => {
+    const fooSpy = jest.fn();
+
+    const MyComponent = () => {
+      const shortcutManager = useContext(ShortcutContext);
+      useEffect(() => {
+        shortcutManager?.triggerShortcut({ordered: ['k']});
+      }, [shortcutManager]);
+
+      return null;
+    };
+
+    mount(
+      <ShortcutProvider>
+        <Shortcut
+          key="foo"
+          ordered={['k']}
+          held={[['Control']]}
+          onMatch={fooSpy}
+        />
+        <MyComponent />
+      </ShortcutProvider>,
+    );
+
+    expect(fooSpy).not.toHaveBeenCalled();
   });
 
   it('calls the matching shortcut immediately if there are no other similar shortcuts', () => {
