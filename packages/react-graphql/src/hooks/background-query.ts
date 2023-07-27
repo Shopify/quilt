@@ -11,8 +11,9 @@ type Subscription = ReturnType<
 export function useBackgroundQuery(
   load: () => Promise<DocumentNode | null | Error>,
   options?: Omit<WatchQueryOptions, 'query'>,
+  overrideClient?: ApolloClient<any>,
 ) {
-  const client = useApolloClient();
+  const client = useApolloClient(overrideClient);
   const lastClient = useRef(client);
   const lastOptions = useRef(options);
   const serializedOptions = JSON.stringify(options);

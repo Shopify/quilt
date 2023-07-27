@@ -168,6 +168,40 @@ describe('createAsyncQueryComponent()', () => {
       );
     });
 
+    it('performs the query with override Apollo client if provided', async () => {
+      const overrideClient = createMockApolloClient();
+      const overrrideWatchQuerySpy = jest.spyOn(overrideClient, 'watchQuery');
+
+      const resolvable = createResolvablePromise(query);
+      const AsyncQuery = createAsyncQueryComponent<{}, {name: string}, {}>({
+        load: () => resolvable.promise,
+        client: overrideClient,
+      });
+
+      const client = createMockApolloClient();
+      const watchQuerySpy = jest.spyOn(client, 'watchQuery');
+      watchQuerySpy.mockImplementation(() => ({subscribe() {}} as any));
+
+      const variables = {name: faker.name.firstName()};
+      const asyncQuery = mount(<AsyncQuery.Prefetch variables={variables} />, {
+        client,
+      });
+
+      await asyncQuery.act(async () => {
+        requestIdleCallback.runIdleCallbacks();
+        await resolvable.resolve();
+      });
+
+      expect(watchQuerySpy).not.toHaveBeenCalled();
+      expect(overrrideWatchQuerySpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          query,
+          variables,
+          fetchPolicy: 'network-only',
+        }),
+      );
+    });
+
     it('marks the assets as being used on the next page', async () => {
       const id = faker.datatype.uuid();
       const AsyncQuery = createAsyncQueryComponent({
@@ -219,6 +253,41 @@ describe('createAsyncQueryComponent()', () => {
       });
 
       expect(watchQuerySpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          query,
+          variables,
+          pollInterval: expect.any(Number),
+          fetchPolicy: 'network-only',
+        }),
+      );
+    });
+
+    it('performs a polling query with override Apollo client if provided', async () => {
+      const overrideClient = createMockApolloClient();
+      const overrrideWatchQuerySpy = jest.spyOn(overrideClient, 'watchQuery');
+
+      const resolvable = createResolvablePromise(query);
+      const AsyncQuery = createAsyncQueryComponent<{}, {name: string}, {}>({
+        load: () => resolvable.promise,
+        client: overrideClient,
+      });
+
+      const client = createMockApolloClient();
+      const watchQuerySpy = jest.spyOn(client, 'watchQuery');
+      watchQuerySpy.mockImplementation(() => ({subscribe() {}} as any));
+
+      const variables = {name: faker.name.firstName()};
+      const asyncQuery = mount(<AsyncQuery.KeepFresh variables={variables} />, {
+        client,
+      });
+
+      await asyncQuery.act(async () => {
+        requestIdleCallback.runIdleCallbacks();
+        await resolvable.resolve();
+      });
+
+      expect(watchQuerySpy).not.toHaveBeenCalled();
+      expect(overrrideWatchQuerySpy).toHaveBeenCalledWith(
         expect.objectContaining({
           query,
           variables,

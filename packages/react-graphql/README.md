@@ -227,6 +227,20 @@ const {data, loading} = useQuery(myQuery);
 const prefetch = usePrefetch(myQuery);
 ```
 
+By default, `createAsyncQuery` will use the Apollo client provided by the Apollo context. If you need to use a different client, you can pass it as an option to `createAsyncQuery`.
+
+```tsx
+import {usePrefetch} from '@shopify/react-async';
+import {createAsyncQuery, useQuery} from '@shopify/react-graphql';
+
+const myApolloClient = useMyApolloClient();
+
+const myQuery = createAsyncQuery({
+  load: () => import('./graphql/MyQuery.graphql'),
+  client: myApolloClient,
+});
+```
+
 #### `createAsyncQueryComponent()`
 
 This function uses `createAsyncQuery` with the provided arguments to create an async query, and returns a React component that will run the query when mounted. Like `createAsyncQuery`, the resulting component is strongly type checked, and is fully compatible with the `usePreload`-style hooks from `@shopify/react-async`.
@@ -295,6 +309,8 @@ const MyQuery = createAsyncQueryComponent({
 // when called
 const prefetch = usePrefetch(MyQuery);
 ```
+
+Just like `createAsyncQuery`, `createAsyncQueryComponent` will use the Apollo client provided by the Apollo context by default. If you need to use a different client, you can pass it as an option to `createAsyncQueryComponent`.
 
 ### Components
 
