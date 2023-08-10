@@ -38,6 +38,7 @@ describe('no new packages', () => {
       'koa-shopify-webhooks',
       'logger',
       'mime-types',
+      'name',
       'network',
       'performance',
       'polyfills',
