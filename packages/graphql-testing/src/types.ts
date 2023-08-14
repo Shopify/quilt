@@ -10,9 +10,12 @@ export type MockGraphQLResponse = Error | object;
 export type MockGraphQLFunction = (
   request: GraphQLRequest,
 ) => MockGraphQLResponse;
-export type GraphQLMock =
-  | {[key: string]: MockGraphQLResponse | MockGraphQLFunction}
-  | MockGraphQLFunction;
+
+export type MockGraphQLObject = {
+  [key: string]: MockGraphQLResponse | MockGraphQLFunction;
+};
+
+export type GraphQLMock = MockGraphQLObject | MockGraphQLFunction;
 
 export interface MockRequest {
   operation: Operation;

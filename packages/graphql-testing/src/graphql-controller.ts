@@ -4,7 +4,7 @@ import {ApolloClient, ApolloLink, InMemoryCache} from '@apollo/client';
 import {MockLink, InflightLink} from './links';
 import {Operations} from './operations';
 import {operationNameFromFindOptions} from './utilities';
-import type {GraphQLMock, MockRequest, FindOptions} from './types';
+import type {GraphQLMock, MockGraphQLObject, MockRequest, FindOptions} from './types';
 
 export interface Options {
   cacheOptions?: InMemoryCacheConfig;
@@ -54,6 +54,13 @@ export class GraphQL {
       return;
     }
     this.mockLink.updateMock(mock);
+  }
+
+  updateWithMerge(mock: MockGraphQLObject) {
+    if (!this.mockLink) {
+      return;
+    }
+    this.mockLink.updateMockWithMerge(mock);
   }
 
   async resolveAll(options: ResolveAllFindOptions = {}) {
