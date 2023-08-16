@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.2.0
+
+### Minor Changes
+
+- [#2662](https://github.com/Shopify/quilt/pull/2662) [`614b93b69`](https://github.com/Shopify/quilt/commit/614b93b6964c8b9340de4b546a898dd6b435ab7e) Thanks [@pop-web](https://github.com/pop-web)! - Add async function to get province name
+
 ## 4.1.0
 
 ### Minor Changes
