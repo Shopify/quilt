@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.1.0
+
+### Minor Changes
+
+- [#2674](https://github.com/Shopify/quilt/pull/2674) [`11c3b1dfe`](https://github.com/Shopify/quilt/commit/11c3b1dfe5dfbc2ced7b76cba42d5b1a218ce090) Thanks [@alexandcote](https://github.com/alexandcote)! - Allow consumer to trigger shortcut
+
 ## 5.0.4
 
 ### Patch Changes
