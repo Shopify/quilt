@@ -1,6 +1,6 @@
 {
   "name": "@shopify/name",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "Name-related utilities",
   "main": "index.js",
