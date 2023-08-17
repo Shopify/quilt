@@ -31,6 +31,7 @@
     {"path": "./packages/koa-shopify-webhooks"},
     {"path": "./packages/logger"},
     {"path": "./packages/mime-types"},
+    {"path": "./packages/name"},
     {"path": "./packages/network"},
     {"path": "./packages/performance"},
     {"path": "./packages/polyfills"},
