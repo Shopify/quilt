@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "@shopify/dates": "^2.0.3",
+    "@shopify/name": "^1.0.0",
     "@shopify/function-enhancers": "^3.0.1",
     "@shopify/i18n": "^2.0.1",
     "@shopify/react-effect": "^5.0.3",

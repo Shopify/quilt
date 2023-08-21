@@ -151,6 +151,7 @@ The provided `i18n` object exposes many useful methods for internationalizing yo
   Tanaka" (Japanese "健 田中") would be abbreviated with the last name "田中". You may also pass an optional `idealMaxLength` parameter, which gives the maximum allowable abbreviation length when
   trying to abbreviate a name in the Korean language (default 3 characters). In Korean, if the first name is longer than
   this length, the method will instead return the first character of the first name.
+- `abbreviateBusinessName()`: Takes a business name and returns a language appropriate abbreviated name, or will return the input name if it is unable to find a suitable abbreviation. For example, "Shopify" would be abbreviated to "Sho", whereas the japanese business name "任天堂" would be abbreviated "任天堂". You may also pass an optional `idealMaxLength` parameter, which gives the maximum allowable abbreviation length when trying to abbreviate a name.
 - `ordinal()`: formats a number as an ordinal according to the locale, e.g. `1st`, `2nd`, `3rd`, `4th`
 - `hasEasternNameOrderFormatter()`: returns true when an eastern name order formatter corresponding to the locale/language exists.
 - `numberSymbols()`: returns an object specifying the current locale's decimal and thousand symbols. Example: For the `es-ES` locale the output would be `{ decimalSymbol: ',', thousandSymbol: '.' }`

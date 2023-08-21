@@ -189,29 +189,6 @@ export {
   DEFAULT_DECIMAL_PLACES,
 } from './currency-decimal-places';
 
-export const EASTERN_NAME_ORDER_FORMATTERS = new Map([
-  [
-    'ko',
-    (firstName: string, lastName: string, full: boolean) =>
-      full ? `${lastName}${firstName}` : lastName,
-  ],
-  [
-    'ja',
-    (firstName: string, lastName: string, full: boolean) =>
-      full ? `${lastName}${firstName}` : `${lastName}様`,
-  ],
-  [
-    'zh-CN',
-    (firstName: string, lastName: string, full: boolean) =>
-      full ? `${lastName}${firstName}` : lastName,
-  ],
-  [
-    'zh-TW',
-    (firstName: string, lastName: string, full: boolean) =>
-      full ? `${lastName}${firstName}` : lastName,
-  ],
-]);
-
 export const CurrencyShortFormException = {
   BRL: 'R$',
   HKD: 'HK$',
