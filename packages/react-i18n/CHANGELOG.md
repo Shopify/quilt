@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.9.0
+
+### Minor Changes
+
+- [#2682](https://github.com/Shopify/quilt/pull/2682) [`fc90edd83`](https://github.com/Shopify/quilt/commit/fc90edd83103d4adfc45bf7ba75882438e4d0792) Thanks [@mikegarfinkle](https://github.com/mikegarfinkle)! - Added `abbreviateBusinessName` method. Also delegated all name related functions to the @shopify/name repo.
+
 ## 7.8.0
 
 ### Minor Changes
