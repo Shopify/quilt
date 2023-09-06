@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "glob": "^7.1.6",
-    "graphql-config": "^4.3.0"
+    "graphql-config": "^5.0.2"
   },
   "files": [
     "build/",
