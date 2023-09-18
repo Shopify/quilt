@@ -254,6 +254,11 @@ export function createAsyncComponent<
     writable: false,
   });
 
+  Reflect.defineProperty(FinalComponent, 'renderLoading', {
+    value: renderLoading,
+    writable: false,
+  });
+
   return FinalComponent;
 }
 
