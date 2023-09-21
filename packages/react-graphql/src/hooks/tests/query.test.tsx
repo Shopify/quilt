@@ -6,7 +6,7 @@ import {
   InMemoryCache,
   gql,
   ApolloError,
-} from '@apollo/client';
+} from '@apollo/client/core';
 import type {DocumentNode} from 'graphql-typed';
 import {createGraphQLFactory} from '@shopify/graphql-testing';
 

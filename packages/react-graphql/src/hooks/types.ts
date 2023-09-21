@@ -1,11 +1,11 @@
 import type {
   ApolloClient,
   MutationOptions as ClientMutationOptions,
-  QueryResult,
   OperationVariables,
   MutationOptions,
   FetchResult,
-} from '@apollo/client';
+} from '@apollo/client/core';
+import type {QueryResult} from '@apollo/client/react';
 import type {QueryComponentOptions} from '@apollo/client/react/components';
 import type {IfAllNullableKeys} from '@shopify/useful-types';
 

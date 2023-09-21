@@ -7,13 +7,13 @@ import type {
   GraphQLDeepPartial,
 } from 'graphql-typed';
 import type {
-  QueryResult,
   ErrorPolicy,
   OperationVariables,
   ApolloError,
   ApolloClient,
   WatchQueryFetchPolicy,
-} from '@apollo/client';
+} from '@apollo/client/core';
+import type {QueryResult} from '@apollo/client/react';
 import type {IfEmptyObject, IfAllNullableKeys} from '@shopify/useful-types';
 import type {AsyncComponentType, AsyncHookTarget} from '@shopify/react-async';
 

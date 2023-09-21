@@ -1,5 +1,5 @@
 import React from 'react';
-import {gql} from '@apollo/client';
+import {gql} from '@apollo/client/core';
 import {createGraphQLFactory} from '@shopify/graphql-testing';
 
 import {Query} from '../Query';

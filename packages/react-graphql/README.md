@@ -28,7 +28,7 @@ Before using the hooks and other utilities provided by this package, you must wr
 import React from 'react';
 import {render} from 'react-dom';
 
-import {ApolloClient} from '@apollo/client';
+import {ApolloClient} from '@apollo/client/core';
 import {ApolloProvider} from '@shopify/react-graphql';
 
 const client = new ApolloClient();
@@ -164,7 +164,7 @@ Read [ApolloClient class](https://www.apollographql.com/docs/react/api/apollo-cl
 
 ```tsx
 import React from 'react';
-import {gql} from '@apollo/client';
+import {gql} from '@apollo/client/core';
 import {useApolloClient} from '@shopify/react-graphql';
 import {Button} from '@shopify/polaris';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import type {ApolloClient} from '@apollo/client';
+import type {ApolloClient} from '@apollo/client/core';
 import type {DocumentNode} from 'graphql-typed';
 
 export interface ApolloContextValue<CacheShape = any> {

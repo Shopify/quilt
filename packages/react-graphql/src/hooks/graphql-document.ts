@@ -1,5 +1,5 @@
 import {useState, useEffect, useCallback} from 'react';
-import type {OperationVariables} from '@apollo/client';
+import type {OperationVariables} from '@apollo/client/core';
 import type {DocumentNode} from 'graphql-typed';
 import {useMountedRef} from '@shopify/react-hooks';
 import {useAsyncAsset} from '@shopify/react-async';

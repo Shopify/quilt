@@ -1,6 +1,6 @@
 import {useEffect, useRef, useCallback} from 'react';
 import type {DocumentNode} from 'graphql-typed';
-import type {ApolloClient, WatchQueryOptions} from '@apollo/client';
+import type {ApolloClient, WatchQueryOptions} from '@apollo/client/core';
 
 import useApolloClient from './apollo-client';
 
