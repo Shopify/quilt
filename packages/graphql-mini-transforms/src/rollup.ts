@@ -33,9 +33,12 @@ export function graphql({simple = false}: {simple?: boolean} = {}): Plugin {
 
       const exported = simple ? toSimpleDocument(document) : document;
 
-      return `export default JSON.parse(${JSON.stringify(
-        JSON.stringify(exported),
-      )})`;
+      return {
+        code: `export default JSON.parse(${JSON.stringify(
+          JSON.stringify(exported),
+        )})`,
+        map: {mappings: ''},
+      };
     },
   };
 }
