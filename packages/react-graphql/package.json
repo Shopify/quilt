@@ -25,11 +25,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.5.8",
-    "@shopify/async": "^4.0.3",
-    "@shopify/react-async": "^5.2.3",
     "@shopify/react-effect": "^5.0.3",
-    "@shopify/react-hooks": "^3.0.5",
-    "@shopify/react-idle": "^3.1.2",
     "@shopify/useful-types": "^5.1.2",
     "graphql-typed": "^2.0.2",
     "fast-deep-equal": "^3.1.3"

@@ -13,11 +13,8 @@ import type {DocumentNode} from 'graphql-typed';
 import {useServerEffect} from '@shopify/react-effect';
 import type {IfAllNullableKeys, NoInfer} from '@shopify/useful-types';
 
-import type {AsyncDocumentNode} from '../types';
-
 import type {QueryHookOptions, QueryHookResult} from './types';
 import useApolloClient from './apollo-client';
-import useGraphQLDocument from './graphql-document';
 
 const {
   prototype: {hasOwnProperty},
@@ -28,9 +25,7 @@ export default function useQuery<
   Variables extends OperationVariables = OperationVariables,
   DeepPartial extends {} = {},
 >(
-  queryOrAsyncQuery:
-    | DocumentNode<Data, Variables, DeepPartial>
-    | AsyncDocumentNode<Data, Variables, DeepPartial>,
+  query: DocumentNode<Data, Variables, DeepPartial>,
   ...optionsPart: IfAllNullableKeys<
     Variables,
     [QueryHookOptions<Data, NoInfer<Variables>>?],
@@ -60,8 +55,6 @@ export default function useQuery<
       return createDefaultResult(client, variables, undefined, true);
     }
   }
-
-  const query = useGraphQLDocument(queryOrAsyncQuery);
 
   const normalizedFetchPolicy =
     typeof window === 'undefined' &&
