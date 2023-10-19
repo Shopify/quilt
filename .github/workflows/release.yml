@@ -23,8 +23,10 @@ jobs:
           node-version: 18.x
           cache: 'yarn'
 
-      - name: Install dependencies
-        run: yarn --frozen-lockfile
+      - name: 📦 Install dependencies
+        run: |
+          npm install -g node-gyp
+          yarn --frozen-lockfile
 
       - name: Create release Pull Request or publish to NPM
         id: changesets
