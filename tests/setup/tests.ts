@@ -1,8 +1,8 @@
 import {toBeObject, toBeOneOf} from 'jest-extended';
 
 import '../matchers';
-import '../../packages/react-testing/src/matchers';
-import '../../packages/graphql-testing/src/matchers';
+import '../../packages/react-testing/src/matchers/all';
+import '../../packages/graphql-testing/src/matchers/all';
 
 import {destroyAll} from '../../packages/react-testing/src/destroy';
 

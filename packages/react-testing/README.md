@@ -77,10 +77,10 @@ describe('<ClickCounter />', () => {
 
 ### Matchers
 
-This library ships with a few useful custom matchers for Jest. To include these matchers, import `@shopify/react-testing/matchers` in any file that is included as part of the `setupFilesAfterEnv` option passed to Jest.
+This library ships with a few useful custom matchers for Jest. To include these matchers, import `@shopify/react-testing/matchers-all` in any file that is included as part of the `setupFilesAfterEnv` option passed to Jest.
 
 ```tsx
-import '@shopify/react-testing/matchers';
+import '@shopify/react-testing/matchers-all';
 import {destroyAll} from '@shopify/react-testing';
 
 afterEach(() => {
@@ -89,6 +89,8 @@ afterEach(() => {
 ```
 
 This will allow you to use matchers such as [`toContainReactText`](#toContainReactText) or [`toContainReactComponent`](#toContainReactComponent) on your tree.
+
+If you would like to import matchers without extending expect, then you can do so via `@shopify/react-testing/matchers`.
 
 ```tsx
 import React from 'react';

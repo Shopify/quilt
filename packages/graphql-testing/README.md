@@ -178,7 +178,9 @@ const graphQL = createGraphQL({
 
 ### Matchers
 
-This library provides a [Jest matcher](https://jestjs.io/docs/en/using-matchers). To use this matcher, you’ll need to include `@shopify/graphql-testing/matchers` in your Jest setup file. The following matcher will then be available:
+This library provides a [Jest matcher](https://jestjs.io/docs/en/using-matchers). To use this matcher, you’ll need to include `@shopify/graphql-testing/matchers-all` in your Jest setup file. The following matcher will then be available:
+
+If you would like to import matchers without extending expect, then you can do so via `@shopify/react-testing/matchers`.
 
 #### `toHavePerformedGraphQLOperation(operation: GraphQLOperation, variables?: object)`
 

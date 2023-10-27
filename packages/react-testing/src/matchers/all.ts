@@ -6,7 +6,7 @@ import {
 import {toProvideReactContext} from './context';
 import {toContainReactText, toContainReactHtml} from './strings';
 
-export {
+expect.extend({
   toHaveReactProps,
   toHaveReactDataProps,
   toContainReactComponent,
@@ -14,4 +14,4 @@ export {
   toContainReactText,
   toContainReactHtml,
   toProvideReactContext,
-};
+});

@@ -8,7 +8,10 @@
   "typesVersions": {
     "*": {
       "matchers": [
-        "./build/ts/matchers/index.d.ts"
+        "./build/ts/matchers/types.d.ts"
+      ],
+      "matchers-all": [
+        "./build/ts/matchers/types.d.ts"
       ]
     }
   },
@@ -44,7 +47,10 @@
     "index.esnext",
     "matchers.js",
     "matchers.mjs",
-    "matchers.esnext"
+    "matchers.esnext",
+    "matchers-all.js",
+    "matchers-all.mjs",
+    "matchers-all.esnext"
   ],
   "peerDependencies": {
     "react": ">=16.8.0 <19.0.0",
@@ -54,10 +60,16 @@
   "esnext": "index.esnext",
   "exports": {
     "./matchers": {
-      "types": "./build/ts/matchers/index.d.ts",
+      "types": "./build/ts/matchers/types.d.ts",
       "esnext": "./matchers.esnext",
       "import": "./matchers.mjs",
       "require": "./matchers.js"
+    },
+    "./matchers-all": {
+      "types": "./build/ts/matchers/types.d.ts",
+      "esnext": "./matchers-all.esnext",
+      "import": "./matchers-all.mjs",
+      "require": "./matchers-all.js"
     },
     ".": {
       "types": "./build/ts/index.d.ts",
