@@ -7,9 +7,13 @@ import type {
   FetchResult,
 } from '@apollo/client';
 import type {QueryComponentOptions} from '@apollo/client/react/components';
-import type {IfAllNullableKeys} from '@shopify/useful-types';
+import type {IfEmptyObject, IfAllNullableKeys} from '@shopify/useful-types';
 
-import type {VariableOptions} from '../types';
+type VariableOptions<Variables> = IfEmptyObject<
+  Variables,
+  {variables?: never},
+  IfAllNullableKeys<Variables, {variables?: Variables}, {variables: Variables}>
+>;
 
 export type QueryHookOptions<Data = any, Variables = OperationVariables> = Omit<
   QueryComponentOptions<Data, Variables>,
