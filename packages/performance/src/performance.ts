@@ -62,27 +62,43 @@ export class Performance {
       this.supportsTimingEntries &&
       (!this.supportsDetailedTime || !this.supportsNavigationEntries)
     ) {
-      withTiming(({domContentLoadedEventStart, loadEventStart}) => {
-        // window.performance.timing uses full timestamps, while
-        // the ones coming from observing navigation entries are
-        // time from performance.timeOrigin. We just normalize these
-        // ones to be relative to "start" since things listening for
-        // events expect them to be relative to when the navigation
-        // began.
-        this.lifecycleEvent({
-          type: EventType.DomContentLoaded,
-          start: domContentLoadedEventStart - this.timeOrigin,
-          duration: 0,
-        });
+      withTiming(
+        ({responseEnd, domContentLoadedEventStart, loadEventStart}) => {
+          // window.performance.timing uses full timestamps, while
+          // the ones coming from observing navigation entries are
+          // time from performance.timeOrigin. We just normalize these
+          // ones to be relative to "start" since things listening for
+          // events expect them to be relative to when the navigation
+          // began.
+          this.lifecycleEvent({
+            type: EventType.TimeToLastByte,
+            start: responseEnd - this.timeOrigin,
+            duration: 0,
+          });
 
-        this.lifecycleEvent({
-          type: EventType.Load,
-          start: loadEventStart - this.timeOrigin,
-          duration: 0,
-        });
-      });
+          this.lifecycleEvent({
+            type: EventType.DomContentLoaded,
+            start: domContentLoadedEventStart - this.timeOrigin,
+            duration: 0,
+          });
+
+          this.lifecycleEvent({
+            type: EventType.Load,
+            start: loadEventStart - this.timeOrigin,
+            duration: 0,
+          });
+        },
+      );
     } else {
       withEntriesOfType('navigation', (entry) => {
+        if (entry.responseEnd > 0) {
+          this.lifecycleEvent({
+            type: EventType.TimeToLastByte,
+            start: entry.responseEnd,
+            duration: 0,
+          });
+        }
+
         if (entry.domContentLoadedEventStart > 0) {
           this.lifecycleEvent({
             type: EventType.DomContentLoaded,

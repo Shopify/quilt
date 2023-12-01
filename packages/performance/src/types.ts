@@ -1,5 +1,6 @@
 export enum EventType {
   TimeToFirstByte = 'ttfb',
+  TimeToLastByte = 'ttlb',
   TimeToFirstPaint = 'ttfp',
   TimeToFirstContentfulPaint = 'ttfcp',
   TimeToLargestContentfulPaint = 'ttlcp',
@@ -23,6 +24,13 @@ interface BasicEvent {
 
 export interface TimeToFirstByteEvent extends BasicEvent {
   type: EventType.TimeToFirstByte;
+  metadata?: {
+    [key: string]: any;
+  };
+}
+
+export interface TimeToLastByteEvent extends BasicEvent {
+  type: EventType.TimeToLastByte;
   metadata?: {
     [key: string]: any;
   };
@@ -89,6 +97,7 @@ export interface CustomEvent extends BasicEvent {
 
 export type LifecycleEvent =
   | TimeToFirstByteEvent
+  | TimeToLastByteEvent
   | TimeToFirstPaintEvent
   | TimeToFirstContentfulPaintEvent
   | TimeToLargestContentfulPaintEvent
@@ -107,6 +116,7 @@ export type Event =
 
 export interface EventMap {
   [EventType.TimeToFirstByte]: TimeToFirstByteEvent;
+  [EventType.TimeToLastByte]: TimeToLastByteEvent;
   [EventType.TimeToFirstPaint]: TimeToFirstPaintEvent;
   [EventType.TimeToFirstContentfulPaint]: TimeToFirstContentfulPaintEvent;
   [EventType.TimeToLargestContentfulPaint]: TimeToLargestContentfulPaintEvent;
