@@ -22,6 +22,10 @@ describe('createFillers()', () => {
     chooseNull.mockReset();
   });
 
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   describe('fillOperation', () => {
     it('fills string fields', () => {
       const {fillOperation} = createFillerForSchema(`
@@ -348,9 +352,27 @@ describe('createFillers()', () => {
         parents: [Person!]!
       }
 
+      enum CountryCode {
+        CA
+        US
+        GB
+      }
+
+      enum CurrencyCode {
+        CAD
+        USD
+        GBP
+      }
+
+      type LocalizationCollection {
+        countryCodes: [CountryCode!]!
+        currencyCodes: [CurrencyCode!]!
+      }
+
       type Query {
         self: Person!
         sibling: Person
+        localizations: [LocalizationCollection!]!
       }
     `);
 
@@ -425,6 +447,30 @@ describe('createFillers()', () => {
       expect(data.self.parents[0].name).not.toStrictEqual(
         data.self.parents[1].name,
       );
+    });
+
+    it('does not excessively seed the faker instance for prefilled data', () => {
+      const spy = jest.spyOn(faker, 'seed');
+
+      const document = createDocument<{
+        self: {parents: {name: string}[]};
+      }>(`
+      query SeedCheck {
+        localizations {
+          countryCodes
+          currencyCodes
+        }
+      }
+      `);
+
+      const data = fillOperation(document, {
+        localizations: Array.from({length: 20}).map(() => ({
+          countryCodes: Array.from({length: 250}).map(() => 'CA'),
+          currencyCodes: Array.from({length: 150}).map(() => 'CAD'),
+        })),
+      });
+
+      expect(spy.mock.calls.length).toBeLessThan(100);
     });
   });
 
