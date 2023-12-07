@@ -24,10 +24,11 @@
     "node": "^14.17.0 || >=16.0.0"
   },
   "dependencies": {
-    "@faker-js/faker": "^7.6.0",
+    "@faker-js/faker": "^8.3.1",
     "@shopify/useful-types": "^5.1.2",
     "graphql": ">=14.5.0 <16.0.0",
-    "graphql-tool-utilities": "^3.0.3"
+    "graphql-tool-utilities": "^3.0.3",
+    "v8-profiler-next": "^1.9.0"
   },
   "peerDependencies": {
     "graphql-typed": "^2.0.2"

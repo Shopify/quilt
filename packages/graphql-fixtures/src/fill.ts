@@ -1,4 +1,4 @@
-import {faker} from '@faker-js/faker/locale/en';
+import {Faker, en} from '@faker-js/faker';
 import type {
   GraphQLSchema,
   GraphQLType,
@@ -19,8 +19,15 @@ import type {Field, Operation, InlineFragment} from 'graphql-tool-utilities';
 import {compile} from 'graphql-tool-utilities';
 
 import {randomFromArray, chooseNull} from './utilities';
-
+import {generateCacheableMersenne32Randomizer} from './cachedTwister';
 // Re-export faker so that the exact version can be used by consumers
+// export {faker};
+
+const faker = new Faker({
+  locale: en,
+  randomizer: generateCacheableMersenne32Randomizer(),
+});
+
 export {faker};
 export interface FieldMetadata {
   fieldIndex?: number;
@@ -126,11 +133,11 @@ export type GraphQLRequest<Data, Variables, PartialData> = {
 >;
 
 const defaultResolvers = {
-  String: () => faker.random.word(),
-  Int: () => faker.datatype.number({precision: 1}),
-  Float: () => faker.datatype.number({precision: 0.01}),
+  String: () => faker.lorem.word(),
+  Int: () => faker.number.int({precision: 1}),
+  Float: () => faker.number.float({precision: 0.01}),
   Boolean: () => faker.datatype.boolean(),
-  ID: () => faker.datatype.uuid(),
+  ID: () => faker.string.uuid(),
 };
 
 export function createFiller(
@@ -358,6 +365,7 @@ function withRandom<Request, T>(
   func: () => T,
   seedOffset = 0,
 ) {
+  // console.log(faker._randomizer);
   // The request null when we are filling a fragment using fillFragment.
   // In this case, we want random values for every fillFragment call.
   if (request != null) {
@@ -379,6 +387,10 @@ function createValue<Request, T>(
   request: Request,
   details: ResolveDetails,
 ) {
+  if (typeof partialValue === 'string') {
+    return partialValue;
+  }
+  // console.log({partialValue, value});
   return withRandom(
     request,
     details.parentFields,
@@ -408,7 +420,7 @@ function fillForPrimitiveType<
   } else if (isEnumType(type)) {
     return () => randomEnumValue(type);
   } else {
-    return () => faker.random.word();
+    return () => faker.lorem.word();
   }
 }
 

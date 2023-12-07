@@ -5,7 +5,5 @@ export function chooseNull() {
 }
 
 export function randomFromArray<T>(array: T[] | ReadonlyArray<T>) {
-  return array[
-    faker.datatype.number({min: 0, max: array.length - 1, precision: 1})
-  ];
+  return array[faker.number.int({min: 0, max: array.length - 1, precision: 1})];
 }
