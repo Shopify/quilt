@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.1
+
+### Patch Changes
+
+- [#2701](https://github.com/Shopify/quilt/pull/2701) [`43ec02dd2`](https://github.com/Shopify/quilt/commit/43ec02dd2ff6a21f6d3adb96220d3991dda0c92c) Thanks [@Flufd](https://github.com/Flufd)! - Removes calls to set faker seed if it's not needed
+
 ## 4.0.0
 
 ### Major Changes
