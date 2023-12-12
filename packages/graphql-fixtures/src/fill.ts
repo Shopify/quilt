@@ -379,6 +379,16 @@ function createValue<Request, T>(
   request: Request,
   details: ResolveDetails,
 ) {
+  // If the partial fill value is a primitive type,
+  // we can just return it directly and avoid reseeding the faker instance
+  if (
+    typeof partialValue === 'string' ||
+    typeof partialValue === 'boolean' ||
+    typeof partialValue === 'number'
+  ) {
+    return partialValue;
+  }
+
   return withRandom(
     request,
     details.parentFields,
