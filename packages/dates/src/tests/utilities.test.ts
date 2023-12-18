@@ -36,6 +36,25 @@ describe('formatDate()', () => {
 
     expect(formatDate(date, locale, options)).toBe(expected);
   });
+
+  it('formats with the GMT timezone', () => {
+    const date = new Date('2018-01-01T12:34:56-00:00');
+    const locale = 'en';
+    const timeZone = 'GMT';
+    const options: Intl.DateTimeFormatOptions = {
+      timeZone,
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+    };
+
+    const expected = '1/1/2018, 12:34:56 PM';
+
+    expect(formatDate(date, locale, options)).toBe(expected);
+  });
 });
 
 describe('dateTimeFormatCacheKey()', () => {

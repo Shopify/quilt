@@ -56,6 +56,13 @@ export function formatDate(
       ...options,
       timeZone: 'UTC',
     }).format(adjustedDate);
+    // GMT is not supported so we convert it to UTC-0
+  } else if (options.timeZone != null && options.timeZone === 'GMT') {
+    const adjustedDate = new Date(date.valueOf());
+    return memoizedGetDateTimeFormat(locales, {
+      ...options,
+      timeZone: 'UTC',
+    }).format(adjustedDate);
   }
 
   return memoizedGetDateTimeFormat(locales, options).format(date);
