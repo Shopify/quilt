@@ -53,10 +53,14 @@ export class Performance {
     lifecycleEvent: new Set<EventMap['lifecycleEvent']>(),
   };
 
-  constructor() {
+  constructor(private withCustomNavigation?: (perf: Performance) => void) {
     this.start({timeStamp: 0});
 
-    withNavigation(this.start.bind(this));
+    if (this.withCustomNavigation) {
+      this.withCustomNavigation(this);
+    } else {
+      withNavigation(this.start.bind(this));
+    }
 
     if (
       this.supportsTimingEntries &&
