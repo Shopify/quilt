@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.2.0
+
+### Minor Changes
+
+- [#2705](https://github.com/Shopify/quilt/pull/2705) [`1d96be587`](https://github.com/Shopify/quilt/commit/1d96be587caff31e30895056294542b9742fbe7c) Thanks [@melnikov-s](https://github.com/melnikov-s)! - Support for custom navigation timing
+
 ## 4.1.0
 
 ### Minor Changes
