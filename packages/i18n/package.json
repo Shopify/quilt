@@ -33,6 +33,9 @@
   ],
   "module": "index.mjs",
   "esnext": "index.esnext",
+  "dependencies": {
+    "@shopify/function-enhancers": "^3.0.1"
+  },
   "exports": {
     ".": {
       "types": "./build/ts/index.d.ts",
