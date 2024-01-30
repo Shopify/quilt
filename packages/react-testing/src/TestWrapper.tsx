@@ -25,7 +25,7 @@ export class TestWrapper<ChildProps> extends React.Component<
   render() {
     const {props} = this.state;
     const {children, render} = this.props;
-    const rootElement = props ? React.cloneElement(children, props) : children;
+    const rootElement = React.cloneElement(children, props);
 
     return render(
       <TestInnerWrapper ref={this.setRef}>{rootElement}</TestInnerWrapper>,
