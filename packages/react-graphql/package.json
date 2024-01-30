@@ -24,7 +24,6 @@
     "node": "^14.17.0 || >=16.0.0"
   },
   "dependencies": {
-    "@apollo/client": "^3.5.8",
     "@shopify/async": "^4.0.3",
     "@shopify/react-async": "^5.3.0",
     "@shopify/react-effect": "^5.0.3",
@@ -46,6 +45,7 @@
     "index.esnext"
   ],
   "peerDependencies": {
+    "@apollo/client": ">=3.5.8 || <4.0.0",
     "react": ">=16.8.0 <19.0.0"
   },
   "module": "index.mjs",

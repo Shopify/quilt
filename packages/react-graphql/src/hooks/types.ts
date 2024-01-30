@@ -11,7 +11,10 @@ import type {IfAllNullableKeys} from '@shopify/useful-types';
 
 import type {VariableOptions} from '../types';
 
-export type QueryHookOptions<Data = any, Variables = OperationVariables> = Omit<
+export type QueryHookOptions<
+  Data = any,
+  Variables extends OperationVariables = OperationVariables,
+> = Omit<
   QueryComponentOptions<Data, Variables>,
   'query' | 'partialRefetch' | 'children' | 'variables'
 > &
@@ -19,7 +22,7 @@ export type QueryHookOptions<Data = any, Variables = OperationVariables> = Omit<
     skip?: boolean;
   };
 
-export interface QueryHookResult<Data, Variables>
+export interface QueryHookResult<Data, Variables extends OperationVariables>
   extends Omit<
     QueryResult<Data, Variables>,
     'networkStatus' | 'variables' | 'reobserve' | 'observable'

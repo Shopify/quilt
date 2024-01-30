@@ -254,7 +254,7 @@ export default function useQuery<
   return currentResult;
 }
 
-function createDefaultResult<Variables>(
+function createDefaultResult<Variables extends OperationVariables>(
   client: ApolloClient<unknown>,
   variables: Variables,
   queryObservable?: ObservableQuery,
