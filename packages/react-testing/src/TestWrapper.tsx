@@ -1,4 +1,5 @@
 import React from 'react';
+import {isPortal} from 'react-is';
 
 interface State<ChildProps> {
   props?: Partial<ChildProps>;
@@ -25,7 +26,9 @@ export class TestWrapper<ChildProps> extends React.Component<
   render() {
     const {props} = this.state;
     const {children, render} = this.props;
-    const rootElement = React.cloneElement(children, props);
+    const rootElement = isPortal(children)
+      ? children
+      : React.cloneElement(children, props);
 
     return render(
       <TestInnerWrapper ref={this.setRef}>{rootElement}</TestInnerWrapper>,
