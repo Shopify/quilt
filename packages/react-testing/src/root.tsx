@@ -247,14 +247,10 @@ export class Root<Props> implements Node<Props> {
   getByText(matcher: string | RegExp) {
     return this.withRoot((root) =>
       root.findWhere((element) => {
-        const innerText = Array.from(element.domNode?.childNodes ?? [])
-          // TODO: make this more explicit. nodeType uses "magic numbers", 3 happens to be textnode
+        const innerText = Array.from(element.domNodes[0]?.childNodes ?? [])
           .filter((child) => child.nodeType === 3 && Boolean(child.textContent))
           .map((child) => child.textContent)
           .join(' ');
-
-        // no inner text was found, maybe not even worth having an early return case for this.
-        if (innerText.trim() === '') return false;
 
         if (typeof matcher === 'string') {
           return innerText.includes(matcher);
@@ -311,11 +307,6 @@ export class Root<Props> implements Node<Props> {
   //   );
   // }
   //
-  // click() {
-  //   this.act(() => {
-  //     this.domNode!.click();
-  //   });
-  // }
 
   trigger<K extends FunctionKeys<Props>>(
     prop: K,

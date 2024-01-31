@@ -250,6 +250,12 @@ export class Element<Props> implements Node<Props> {
     });
   }
 
+  click() {
+    this.root.act(() => {
+      this.domNode!.click();
+    });
+  }
+
   debug(options?: DebugOptions) {
     return toReactString(this, options);
   }
