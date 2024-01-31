@@ -244,6 +244,79 @@ export class Root<Props> implements Node<Props> {
     return this.withRoot((root) => root.findAllWhere<Type>(predicate));
   }
 
+  getByText(matcher: string | RegExp) {
+    return this.withRoot((root) =>
+      root.findWhere((element) => {
+        const innerText = Array.from(element.domNode?.childNodes ?? [])
+          // TODO: make this more explicit. nodeType uses "magic numbers", 3 happens to be textnode
+          .filter((child) => child.nodeType === 3 && Boolean(child.textContent))
+          .map((child) => child.textContent)
+          .join(' ');
+
+        // no inner text was found, maybe not even worth having an early return case for this.
+        if (innerText.trim() === '') return false;
+
+        if (typeof matcher === 'string') {
+          return innerText.includes(matcher);
+        } else {
+          return Boolean(innerText.match(matcher));
+        }
+      }),
+    );
+  }
+
+  // getByLabelText(matcher: string | RegExp) {
+  //   return this.withRoot((root) =>
+  //     root.findWhere((element) => {
+  //       /**
+  //        * EXAMPLE CASES:
+  //        * ```html
+  //        * // for/htmlFor relationship between label and form element id
+  //        * <label for="username-input">Username</label>
+  //        * <input id="username-input" />
+  //        *
+  //        * // The aria-labelledby attribute with form elements
+  //        * <label id="username-label">Username</label>
+  //        * <input aria-labelledby="username-label" />
+  //        *
+  //        * // Wrapper labels
+  //        * <label>Username <input /></label>
+  //        *
+  //        * // Wrapper labels where the label text is in another child element
+  //        * <label>
+  //        *  <span>Username</span>
+  //        *  <input />
+  //        * </label>
+  //        *
+  //        * // aria-label attributes
+  //        * // Take care because this is not a label that users can see on the page,
+  //        * // so the purpose of your input must be obvious to visual users.
+  //        * <input aria-label="Username" />
+  //        * ```
+  //        */
+  //
+  //       if (!element.domNode) return false;
+  //
+  //       function matchAriaLabel(element: HTMLElement) {
+  //         if (typeof matcher === 'string') {
+  //           return element.ariaLabel === matcher;
+  //         } else {
+  //           return Boolean(element.ariaLabel?.match(matcher));
+  //         }
+  //       }
+  //
+  //       // search for aria-label={matcher}
+  //       return matchAriaLabel(element.domNode);
+  //     }),
+  //   );
+  // }
+  //
+  // click() {
+  //   this.act(() => {
+  //     this.domNode!.click();
+  //   });
+  // }
+
   trigger<K extends FunctionKeys<Props>>(
     prop: K,
     ...args: DeepPartialArguments<Props[K]>
