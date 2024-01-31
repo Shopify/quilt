@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.1.4
+
+### Patch Changes
+
+- [#2709](https://github.com/Shopify/quilt/pull/2709) [`a1ed06dc9`](https://github.com/Shopify/quilt/commit/a1ed06dc9f11379b685e48afabd3d621ff88e63c) Thanks [@developit](https://github.com/developit)! - Fix forceUpdate via cloneElement to re-render TestWrapper React tree
+
 ## 5.1.3
 
 ### Patch Changes
