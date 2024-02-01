@@ -34,6 +34,7 @@ declare global {
       toContainReactText(text: string): void;
       toContainReactHtml(text: string): void;
       toBeInDocument(): void;
+      toHaveFocus(): void;
     }
   }
 }
@@ -53,7 +54,27 @@ function toBeInDocument(
   }
   const pass = document.body.contains(element);
   return {
-    message: () => `expected element not to be in the document`,
+    message: () => `expected element to be in the document`,
+    pass,
+  };
+}
+
+function toHaveFocus(
+  this: jest.MatcherUtils,
+  received: HTMLElement | Node<unknown> | null,
+) {
+  const element =
+    received instanceof HTMLElement ? received : received?.domNode;
+  if (!element) {
+    return {
+      message: () =>
+        `expected HTMLElement or Node to be in document, but received null`,
+      pass: false,
+    };
+  }
+  const pass = document.activeElement === element;
+  return {
+    message: () => `expected element to have focus`,
     pass,
   };
 }
@@ -67,4 +88,5 @@ expect.extend({
   toContainReactHtml,
   toProvideReactContext,
   toBeInDocument,
+  toHaveFocus,
 });

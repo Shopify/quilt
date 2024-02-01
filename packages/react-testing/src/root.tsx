@@ -244,6 +244,33 @@ export class Root<Props> implements Node<Props> {
     return this.withRoot((root) => root.findAllWhere<Type>(predicate));
   }
 
+  queryByText(matcher: string | RegExp) {
+    const matches = this.queryAllByText(matcher);
+
+    if (matches.length > 1) {
+      throw new Error(
+        `found more than one match for ${matcher}. Did you mean to call \`getAllByText\`?`,
+      );
+    } else if (matches.length === 0) {
+      return null;
+    }
+    return matches[0];
+  }
+
+  queryAllByText(matcher: string | RegExp): HTMLElement[] {
+    const ownerDocument = this.root?.domNodes[0].ownerDocument ?? undefined;
+
+    if (!ownerDocument) {
+      throw new Error(`expected an element to be mounted in getByText`);
+    }
+
+    const elements = [
+      ...Array.from(ownerDocument.querySelectorAll<HTMLElement>('*')),
+    ].filter((element) => fuzzyMatch(getNodeText(element), matcher));
+
+    return elements;
+  }
+
   getByText(matcher: string | RegExp) {
     const matches = this.getAllByText(matcher);
 
@@ -258,16 +285,7 @@ export class Root<Props> implements Node<Props> {
   }
 
   getAllByText(matcher: string | RegExp): HTMLElement[] {
-    const element = this.root?.domNode ?? undefined;
-
-    if (!element) {
-      throw new Error(`expected an element to be mounted in getByText`);
-    }
-
-    const elements = [
-      element,
-      ...Array.from(element.querySelectorAll<HTMLElement>('*')),
-    ].filter((element) => fuzzyMatch(getNodeText(element), matcher));
+    const elements = this.queryAllByText(matcher);
 
     if (elements.length === 0) {
       throw new Error(`Unable to find any elements with the text: ${matcher}`);
@@ -289,7 +307,7 @@ export class Root<Props> implements Node<Props> {
   }
 
   getAllByLabelText(matcher: string | RegExp): HTMLElement[] {
-    const root = this.root?.domNode?.ownerDocument ?? undefined;
+    const root = this.root?.domNodes[0]?.ownerDocument ?? undefined;
 
     if (!root) {
       throw new Error(`expected an element to be mounted in getByLabelText`);

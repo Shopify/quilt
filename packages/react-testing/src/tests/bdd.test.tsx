@@ -11,6 +11,13 @@ describe('getByText', () => {
     expect(root.getByText(/hello/)).toBeInDocument();
   });
 
+  it('finds a text node in React', () => {
+    const Text = () => <div>hello</div>;
+    const root = mount(<Text />);
+    expect(root.getByText('hello')).toBeInDocument();
+    expect(root.getByText(/hello/)).toBeInDocument();
+  });
+
   it('finds a deeply nested text node', () => {
     const root = mount(
       <div>
