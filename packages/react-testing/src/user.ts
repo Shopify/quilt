@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-namespace */
 import {act} from 'react-dom/test-utils';
 
 const user = {
@@ -60,13 +61,31 @@ const user = {
       element.blur();
     });
   },
+  keyboard,
 };
-// const button = root.getByText(/click me/i);
-// user.clicks(button);
-// user.inputs(input, true);
-// user.inputs(input, 'hello');
-// user.focuses(button);
-// user.hovers(button);
-// user.selects(select, 'option1');
+
+function keyboard(option: KeyboardEventInit) {
+  if (!document.activeElement) {
+    throw new Error('no focused element');
+  }
+  if (option.key === 'Enter') {
+    user.click(document.activeElement as HTMLElement);
+  } else {
+    act(() => {
+      document.activeElement?.dispatchEvent(
+        new KeyboardEvent('keydown', option),
+      );
+      document.activeElement?.dispatchEvent(
+        new KeyboardEvent('keypress', option),
+      );
+      document.activeElement?.dispatchEvent(new KeyboardEvent('keyup', option));
+    });
+  }
+}
+namespace keyboard {
+  export function press(key: string): void {
+    user.keyboard({key});
+  }
+}
 
 export default user;

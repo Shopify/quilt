@@ -98,6 +98,20 @@ describe('focus', () => {
     expect(onFocus).toHaveBeenCalledTimes(1);
   });
 
+  it('buttons can be focused', () => {
+    const root = mount(<button>text</button>);
+    user.focus(root.getByText('text'));
+    expect(root.getByText('text')).toHaveFocus();
+  });
+
+  it('triggers focused button click using enter key', () => {
+    const onClick = jest.fn();
+    const root = mount(<button onClick={onClick}>click me</button>);
+    user.focus(root.getByText('click me'));
+    user.keyboard.press('Enter');
+    expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
   it('removes focus when an element is blurred', () => {
     const onBlur = jest.fn();
     const root = mount(<input aria-label="text" onBlur={onBlur} />);
