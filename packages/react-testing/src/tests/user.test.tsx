@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable @shopify/jsx-prefer-fragment-wrappers */
 /* eslint-disable react/button-has-type */
 import React from 'react';
@@ -111,5 +112,56 @@ describe('focus', () => {
     user.focus(root.getByLabelText('text'));
     user.blur(root.getByLabelText('text'));
     expect(onBlur).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('inputs', () => {
+  it('changes the value of an input', () => {
+    const root = mount(<input aria-label="text" />);
+    user.inputs(root.getByLabelText('text'), 'hello');
+    expect(root.getByLabelText('text')).toHaveValue('hello');
+  });
+
+  it('changes the value of a checkbox', () => {
+    const root = mount(<input type="checkbox" aria-label="checkbox" />);
+    user.inputs(root.getByLabelText('checkbox'), true);
+    expect(root.getByLabelText('checkbox')).toHaveValue(true);
+  });
+
+  it('changes the value of a textarea', () => {
+    const root = mount(<textarea aria-label="text" />);
+    user.inputs(root.getByLabelText('text'), 'hello');
+    expect(root.getByLabelText('text')).toHaveValue('hello');
+  });
+
+  it('changes the value of a radio input', () => {
+    const root = mount(
+      <div>
+        <label>
+          first
+          <input type="radio" name="radio" value="1" />
+        </label>
+        <label>
+          second
+          <input type="radio" name="radio" value="2" />
+        </label>
+      </div>,
+    );
+    user.inputs(root.getByLabelText('first'), true);
+    expect(root.getByLabelText('first')).toHaveValue(true);
+    expect(root.getByLabelText('second')).toHaveValue(false);
+  });
+});
+
+describe('selects', () => {
+  it('selects an element in a select input based on text', () => {
+    const root = mount(
+      <select aria-label="select">
+        <option value="1">one</option>
+        <option value="2">two</option>
+      </select>,
+    );
+    user.selects(root.getByLabelText('select'), root.getByText('two'));
+    expect(root.getByLabelText('select')).toHaveValue('2');
   });
 });

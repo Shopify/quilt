@@ -319,7 +319,7 @@ export class Root<Props> implements Node<Props> {
     elements = Array.from(root.querySelectorAll<HTMLElement>('*'))
       .filter((element) => {
         if (
-          element instanceof HTMLInputElement &&
+          checkIfElementIsAnInput(element) &&
           fuzzyMatch(element.getAttribute('aria-label'), matcher)
         ) {
           return true;
@@ -328,7 +328,11 @@ export class Root<Props> implements Node<Props> {
         const labelElement = root.getElementById(
           element.getAttribute('aria-labelledby') ?? '',
         );
-        if (labelElement && fuzzyMatch(getNodeText(labelElement), matcher))
+        if (
+          labelElement &&
+          checkIfElementIsAnInput(labelElement) &&
+          fuzzyMatch(getNodeText(labelElement), matcher)
+        )
           return true;
 
         if (fuzzyMatch(getNodeText(element), matcher)) return true;
@@ -336,7 +340,7 @@ export class Root<Props> implements Node<Props> {
         return false;
       })
       .map((element) => {
-        if (element instanceof HTMLInputElement) {
+        if (checkIfElementIsAnInput(element)) {
           return element;
         }
 
@@ -552,4 +556,12 @@ function getNodeText(node: HTMLElement): string {
     .filter((child) => child.nodeType === 3 && Boolean(child.textContent))
     .map((child) => child.textContent)
     .join('');
+}
+
+function checkIfElementIsAnInput(element: HTMLElement) {
+  return (
+    element instanceof HTMLInputElement ||
+    element instanceof HTMLTextAreaElement ||
+    element instanceof HTMLSelectElement
+  );
 }

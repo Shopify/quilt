@@ -18,7 +18,38 @@ const user = {
       element.dispatchEvent(new MouseEvent('mouseout', {bubbles: true}));
     });
   },
-  change(element: HTMLElement) {},
+  inputs(element: HTMLElement, value: string | boolean) {
+    if (
+      !(element instanceof HTMLInputElement) &&
+      !(element instanceof HTMLTextAreaElement)
+    ) {
+      throw new Error(
+        'inputs can only be called on input or textarea elements',
+      );
+    }
+    act(() => {
+      if (typeof value === 'string') {
+        (element as HTMLInputElement).value = value;
+      } else {
+        (element as HTMLInputElement).checked = value;
+      }
+      element.dispatchEvent(new Event('input', {bubbles: true}));
+    });
+  },
+  selects(element: HTMLElement, option: HTMLElement) {
+    if (
+      !(element instanceof HTMLSelectElement) ||
+      !(option instanceof HTMLOptionElement)
+    ) {
+      throw new Error(
+        'selects can only be called on select and option elements',
+      );
+    }
+    act(() => {
+      element.value = option.value;
+      element.dispatchEvent(new Event('change', {bubbles: true}));
+    });
+  },
   focus(element: HTMLElement) {
     act(() => {
       element.focus();
@@ -35,7 +66,6 @@ const user = {
 // user.inputs(input, true);
 // user.inputs(input, 'hello');
 // user.focuses(button);
-
 // user.hovers(button);
 // user.selects(select, 'option1');
 

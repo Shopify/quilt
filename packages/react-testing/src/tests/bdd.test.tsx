@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable @shopify/jsx-prefer-fragment-wrappers */
 import React from 'react';
@@ -132,6 +133,41 @@ describe('getByLabelText', () => {
       <label>
         <span>hello</span>
         <input />
+      </label>,
+    );
+    expect(root.getByLabelText('hello')).toBeInDocument();
+  });
+
+  it('finds a textarea by aria-label', () => {
+    const root = mount(<textarea aria-label="hello" />);
+    expect(root.getByLabelText('hello')).toBeInDocument();
+  });
+
+  it('finds an textarea by aria-labelledby', () => {
+    const root = mount(
+      <div>
+        <label id="label">hello</label>
+        <textarea aria-labelledby="label" />
+      </div>,
+    );
+    expect(root.getByLabelText('hello')).toBeInDocument();
+  });
+
+  it('finds a textarea by label text', () => {
+    const root = mount(
+      <div>
+        <label htmlFor="textarea">hello</label>
+        <textarea id="textarea" />
+      </div>,
+    );
+    expect(root.getByLabelText('hello')).toBeInDocument();
+  });
+
+  it('finds a textarea nested in a label', () => {
+    const root = mount(
+      <label>
+        hello
+        <textarea />
       </label>,
     );
     expect(root.getByLabelText('hello')).toBeInDocument();

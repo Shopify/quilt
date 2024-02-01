@@ -35,6 +35,8 @@ declare global {
       toContainReactHtml(text: string): void;
       toBeInDocument(): void;
       toHaveFocus(): void;
+      toBeDisabled(): void;
+      toHaveValue(value: string | boolean): void;
     }
   }
 }
@@ -79,6 +81,66 @@ function toHaveFocus(
   };
 }
 
+function toHaveValue(
+  this: jest.MatcherUtils,
+  received: HTMLElement,
+  value: string | boolean,
+) {
+  let pass = false;
+  if (received instanceof HTMLInputElement) {
+    switch (received.type) {
+      case 'text':
+        pass = received.value === value;
+        break;
+      case 'checkbox':
+        pass = received.checked === value;
+        break;
+      case 'radio':
+        pass = received.checked === value;
+        break;
+      default:
+        throw new Error(`toHaveValue does not support ${received.type}`);
+    }
+  } else if (
+    received instanceof HTMLSelectElement ||
+    received instanceof HTMLTextAreaElement
+  ) {
+    pass = received.value === value;
+  }
+  return {
+    message: () => `expected input to have value "${value}"`,
+    pass,
+  };
+}
+
+function toBeDisabled(this: jest.MatcherUtils, received: HTMLElement) {
+  const pass = toHaveAttribute.bind(this)(received, 'disabled').pass;
+  return {
+    message: () => `expected element to be disabled`,
+    pass,
+  };
+}
+
+function toHaveAttribute(
+  this: jest.MatcherUtils,
+  received: HTMLElement,
+  attr: string,
+  value?: string,
+) {
+  const pass = received.hasAttribute(attr);
+  if (value) {
+    return {
+      message: () =>
+        `expected element to have attribute "${attr}" with value "${value}"`,
+      pass: pass && received.getAttribute(attr) === value,
+    };
+  }
+  return {
+    message: () => `expected element to have attribute "${attr}"`,
+    pass,
+  };
+}
+
 expect.extend({
   toHaveReactProps,
   toHaveReactDataProps,
@@ -89,4 +151,6 @@ expect.extend({
   toProvideReactContext,
   toBeInDocument,
   toHaveFocus,
+  toHaveValue,
+  toBeDisabled,
 });
