@@ -245,68 +245,95 @@ export class Root<Props> implements Node<Props> {
   }
 
   getByText(matcher: string | RegExp) {
-    return this.withRoot((root) =>
-      root.findWhere((element) => {
-        const innerText = Array.from(element.domNodes[0]?.childNodes ?? [])
-          .filter((child) => child.nodeType === 3 && Boolean(child.textContent))
-          .map((child) => child.textContent)
-          .join(' ');
+    const matches = this.getAllByText(matcher);
 
-        if (typeof matcher === 'string') {
-          return innerText.includes(matcher);
-        } else {
-          return Boolean(innerText.match(matcher));
-        }
-      }),
-    );
+    if (matches.length > 1) {
+      throw new Error(
+        `found more than one match for ${matcher}. Did you mean to call \`getAllByText\`?`,
+      );
+    } else if (matches.length === 0) {
+      throw new Error(`Unable to find any elements with the text: ${matcher}`);
+    }
+    return matches[0];
   }
 
-  // getByLabelText(matcher: string | RegExp) {
-  //   return this.withRoot((root) =>
-  //     root.findWhere((element) => {
-  //       /**
-  //        * EXAMPLE CASES:
-  //        * ```html
-  //        * // for/htmlFor relationship between label and form element id
-  //        * <label for="username-input">Username</label>
-  //        * <input id="username-input" />
-  //        *
-  //        * // The aria-labelledby attribute with form elements
-  //        * <label id="username-label">Username</label>
-  //        * <input aria-labelledby="username-label" />
-  //        *
-  //        * // Wrapper labels
-  //        * <label>Username <input /></label>
-  //        *
-  //        * // Wrapper labels where the label text is in another child element
-  //        * <label>
-  //        *  <span>Username</span>
-  //        *  <input />
-  //        * </label>
-  //        *
-  //        * // aria-label attributes
-  //        * // Take care because this is not a label that users can see on the page,
-  //        * // so the purpose of your input must be obvious to visual users.
-  //        * <input aria-label="Username" />
-  //        * ```
-  //        */
-  //
-  //       if (!element.domNode) return false;
-  //
-  //       function matchAriaLabel(element: HTMLElement) {
-  //         if (typeof matcher === 'string') {
-  //           return element.ariaLabel === matcher;
-  //         } else {
-  //           return Boolean(element.ariaLabel?.match(matcher));
-  //         }
-  //       }
-  //
-  //       // search for aria-label={matcher}
-  //       return matchAriaLabel(element.domNode);
-  //     }),
-  //   );
-  // }
-  //
+  getAllByText(matcher: string | RegExp): HTMLElement[] {
+    const element = this.root?.domNode ?? undefined;
+
+    if (!element) {
+      throw new Error(`expected an element to be mounted in getByText`);
+    }
+
+    const elements = [
+      element,
+      ...Array.from(element.querySelectorAll<HTMLElement>('*')),
+    ].filter((element) => fuzzyMatch(getNodeText(element), matcher));
+
+    if (elements.length === 0) {
+      throw new Error(`Unable to find any elements with the text: ${matcher}`);
+    }
+    return elements;
+  }
+
+  getByLabelText(matcher: string | RegExp) {
+    const matches = this.getAllByLabelText(matcher);
+
+    if (matches.length > 1) {
+      throw new Error(
+        `found more than one match for ${matcher}. Did you mean to call \`getAllByLabelText\`?`,
+      );
+    } else if (matches.length === 0) {
+      throw new Error(`Unable to find any elements with the label: ${matcher}`);
+    }
+    return matches[0];
+  }
+
+  getAllByLabelText(matcher: string | RegExp): HTMLElement[] {
+    const root = this.root?.domNode?.ownerDocument ?? undefined;
+
+    if (!root) {
+      throw new Error(`expected an element to be mounted in getByLabelText`);
+    }
+
+    let elements: HTMLElement[] = [];
+
+    // if aria-label is matcher, return the element control
+    elements = Array.from(root.querySelectorAll<HTMLElement>('*'))
+      .filter((element) => {
+        if (
+          element instanceof HTMLInputElement &&
+          fuzzyMatch(element.getAttribute('aria-label'), matcher)
+        ) {
+          return true;
+        }
+
+        const labelElement = root.getElementById(
+          element.getAttribute('aria-labelledby') ?? '',
+        );
+        if (labelElement && fuzzyMatch(getNodeText(labelElement), matcher))
+          return true;
+
+        if (fuzzyMatch(getNodeText(element), matcher)) return true;
+
+        return false;
+      })
+      .map((element) => {
+        if (element instanceof HTMLInputElement) {
+          return element;
+        }
+
+        if (element instanceof HTMLLabelElement) {
+          return element.control!;
+        }
+        return element.closest('label')?.control!;
+      })
+      .filter(Boolean) as HTMLElement[];
+
+    if (elements.length === 0) {
+      throw new Error(`Unable to find any elements with the label: ${matcher}`);
+    }
+    return elements;
+  }
 
   trigger<K extends FunctionKeys<Props>>(
     prop: K,
@@ -482,3 +509,29 @@ function isPromise<T>(value: T | Promise<T>): value is Promise<T> {
 }
 
 function noop() {}
+
+function fuzzyMatch(
+  nodeText: string | null,
+  matcher: string | RegExp,
+): boolean {
+  if (nodeText === '' || nodeText === null) return false;
+
+  if (typeof matcher === 'string') {
+    return nodeText.includes(matcher);
+  } else {
+    return matcher.test(nodeText);
+  }
+}
+
+function getNodeText(node: HTMLElement): string {
+  if (
+    node.matches('input[type=submit], input[type=button], input[type=reset]')
+  ) {
+    return (node as HTMLInputElement).value;
+  }
+
+  return Array.from(node.childNodes)
+    .filter((child) => child.nodeType === 3 && Boolean(child.textContent))
+    .map((child) => child.textContent)
+    .join('');
+}

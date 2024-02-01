@@ -33,8 +33,29 @@ declare global {
       ): void;
       toContainReactText(text: string): void;
       toContainReactHtml(text: string): void;
+      toBeInDocument(): void;
     }
   }
+}
+
+function toBeInDocument(
+  this: jest.MatcherUtils,
+  received: HTMLElement | Node<unknown> | null,
+) {
+  const element =
+    received instanceof HTMLElement ? received : received?.domNode;
+  if (!element) {
+    return {
+      message: () =>
+        `expected HTMLElement or Node to be in the document, but received null`,
+      pass: false,
+    };
+  }
+  const pass = document.body.contains(element);
+  return {
+    message: () => `expected element not to be in the document`,
+    pass,
+  };
 }
 
 expect.extend({
@@ -45,4 +66,5 @@ expect.extend({
   toContainReactText,
   toContainReactHtml,
   toProvideReactContext,
+  toBeInDocument,
 });
