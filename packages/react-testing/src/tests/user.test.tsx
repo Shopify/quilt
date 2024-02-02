@@ -5,23 +5,24 @@ import React from 'react';
 
 import {mount} from '../mount';
 import user from '../user';
+import {getByLabelText, getByText, queryByText} from '../queries';
 
 describe('click', () => {
   it('clicks on a button', () => {
     const onClick = jest.fn();
-    const root = mount(<button onClick={onClick}>click me</button>);
-    user.click(root.getByText('click me'));
+    mount(<button onClick={onClick}>click me</button>);
+    user.click(getByText('click me'));
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
   it('doesn’t click on a disabled button', () => {
     const onClick = jest.fn();
-    const root = mount(
+    mount(
       <button disabled onClick={onClick}>
         click me
       </button>,
     );
-    user.click(root.getByText('click me'));
+    user.click(getByText('click me'));
     expect(onClick).not.toHaveBeenCalled();
   });
 
@@ -35,17 +36,17 @@ describe('click', () => {
         </>
       );
     };
-    const root = mount(<Counter />);
-    user.click(root.getByText('click me'));
-    expect(root.getByText('clicked')).toBeInDocument();
+    mount(<Counter />);
+    user.click(getByText('click me'));
+    expect(getByText('clicked')).toBeInDocument();
   });
 });
 
 describe('hover', () => {
   it('hovering over an element calls onMouseEnter', () => {
     const onMouseEnter = jest.fn();
-    const root = mount(<div onMouseEnter={onMouseEnter}>hover me</div>);
-    user.hover(root.getByText('hover me'));
+    mount(<div onMouseEnter={onMouseEnter}>hover me</div>);
+    user.hover(getByText('hover me'));
     expect(onMouseEnter).toHaveBeenCalledTimes(1);
   });
 
@@ -69,87 +70,87 @@ describe('hover', () => {
         </div>
       );
     };
-    const root = mount(<Wrapper />);
-    user.hover(root.getByText('Please hover me'));
-    expect(root.getByText('tooltip')).toBeInDocument();
-    user.unhover(root.getByText('Please hover me'));
-    expect(root.queryByText('tooltip')).not.toBeInDocument();
+    mount(<Wrapper />);
+    user.hover(getByText('Please hover me'));
+    expect(getByText('tooltip')).toBeInDocument();
+    user.unhover(getByText('Please hover me'));
+    expect(queryByText('tooltip')).not.toBeInDocument();
   });
 });
 
 describe('focus', () => {
   it('focuses on an input', () => {
-    const root = mount(<input aria-label="text" />);
-    user.focus(root.getByLabelText('text'));
-    expect(root.getByLabelText('text')).toHaveFocus();
+    mount(<input aria-label="text" />);
+    user.focus(getByLabelText('text'));
+    expect(getByLabelText('text')).toHaveFocus();
   });
 
   it('focuses on a React component input', () => {
     const Input = () => <input aria-label="text" />;
-    const root = mount(<Input />);
-    user.focus(root.getByLabelText('text'));
-    expect(root.getByLabelText('text')).toHaveFocus();
+    mount(<Input />);
+    user.focus(getByLabelText('text'));
+    expect(getByLabelText('text')).toHaveFocus();
   });
 
   it('calls onfocus event when focusing an element', () => {
     const onFocus = jest.fn();
-    const root = mount(<input aria-label="text" onFocus={onFocus} />);
-    user.focus(root.getByLabelText('text'));
+    mount(<input aria-label="text" onFocus={onFocus} />);
+    user.focus(getByLabelText('text'));
     expect(onFocus).toHaveBeenCalledTimes(1);
   });
 
   it('buttons can be focused', () => {
-    const root = mount(<button>text</button>);
-    user.focus(root.getByText('text'));
-    expect(root.getByText('text')).toHaveFocus();
+    mount(<button>text</button>);
+    user.focus(getByText('text'));
+    expect(getByText('text')).toHaveFocus();
   });
 
   it('triggers focused button click using enter key', () => {
     const onClick = jest.fn();
-    const root = mount(<button onClick={onClick}>click me</button>);
-    user.focus(root.getByText('click me'));
+    mount(<button onClick={onClick}>click me</button>);
+    user.focus(getByText('click me'));
     user.keyboard.press('Enter');
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
   it('removes focus when an element is blurred', () => {
     const onBlur = jest.fn();
-    const root = mount(<input aria-label="text" onBlur={onBlur} />);
-    user.focus(root.getByLabelText('text'));
-    user.blur(root.getByLabelText('text'));
-    expect(root.getByLabelText('text')).not.toHaveFocus();
+    mount(<input aria-label="text" onBlur={onBlur} />);
+    user.focus(getByLabelText('text'));
+    user.blur(getByLabelText('text'));
+    expect(getByLabelText('text')).not.toHaveFocus();
   });
 
   it('fires blur event when an element is blurred', () => {
     const onBlur = jest.fn();
-    const root = mount(<input aria-label="text" onBlur={onBlur} />);
-    user.focus(root.getByLabelText('text'));
-    user.blur(root.getByLabelText('text'));
+    mount(<input aria-label="text" onBlur={onBlur} />);
+    user.focus(getByLabelText('text'));
+    user.blur(getByLabelText('text'));
     expect(onBlur).toHaveBeenCalledTimes(1);
   });
 });
 
 describe('inputs', () => {
   it('changes the value of an input', () => {
-    const root = mount(<input aria-label="text" />);
-    user.inputs(root.getByLabelText('text'), 'hello');
-    expect(root.getByLabelText('text')).toHaveValue('hello');
+    mount(<input aria-label="text" />);
+    user.inputs(getByLabelText('text'), 'hello');
+    expect(getByLabelText('text')).toHaveValue('hello');
   });
 
   it('changes the value of a checkbox', () => {
-    const root = mount(<input type="checkbox" aria-label="checkbox" />);
-    user.inputs(root.getByLabelText('checkbox'), true);
-    expect(root.getByLabelText('checkbox')).toHaveValue(true);
+    mount(<input type="checkbox" aria-label="checkbox" />);
+    user.inputs(getByLabelText('checkbox'), true);
+    expect(getByLabelText('checkbox')).toHaveValue(true);
   });
 
   it('changes the value of a textarea', () => {
-    const root = mount(<textarea aria-label="text" />);
-    user.inputs(root.getByLabelText('text'), 'hello');
-    expect(root.getByLabelText('text')).toHaveValue('hello');
+    mount(<textarea aria-label="text" />);
+    user.inputs(getByLabelText('text'), 'hello');
+    expect(getByLabelText('text')).toHaveValue('hello');
   });
 
   it('changes the value of a radio input', () => {
-    const root = mount(
+    mount(
       <div>
         <label>
           first
@@ -161,21 +162,21 @@ describe('inputs', () => {
         </label>
       </div>,
     );
-    user.inputs(root.getByLabelText('first'), true);
-    expect(root.getByLabelText('first')).toHaveValue(true);
-    expect(root.getByLabelText('second')).toHaveValue(false);
+    user.inputs(getByLabelText('first'), true);
+    expect(getByLabelText('first')).toHaveValue(true);
+    expect(getByLabelText('second')).toHaveValue(false);
   });
 });
 
 describe('selects', () => {
   it('selects an element in a select input based on text', () => {
-    const root = mount(
+    mount(
       <select aria-label="select">
         <option value="1">one</option>
         <option value="2">two</option>
       </select>,
     );
-    user.selects(root.getByLabelText('select'), root.getByText('two'));
-    expect(root.getByLabelText('select')).toHaveValue('2');
+    user.selects(getByLabelText('select'), getByText('two'));
+    expect(getByLabelText('select')).toHaveValue('2');
   });
 });
