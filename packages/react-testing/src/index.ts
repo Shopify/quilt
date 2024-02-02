@@ -4,6 +4,7 @@ export type {Node} from './types';
 export * from './mount';
 export * from './destroy';
 export * from './toReactString';
+export * from './queries';
 
 // As of React 18, we must specifically tell React it is operating in a unit-test-like environment
 // This enables the use of act() and ensures that warnings will be logged on unwrapped updates
