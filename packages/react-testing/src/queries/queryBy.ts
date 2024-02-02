@@ -43,11 +43,9 @@ export function queryAllByLabelText(matcher: string | RegExp): HTMLElement[] {
 
     // element has aria-label with the matching text
     if (fuzzyMatch(element.getAttribute('aria-label'), matcher)) {
-      console.log('pushing element: ', element.name);
       matches.push(element);
       // input has aria-labelledby pointing to an element with the matching text
     } else if (labelElement && fuzzyMatch(getNodeText(labelElement), matcher)) {
-      console.log('pushing element: ', element.name);
       matches.push(element);
     } else if (
       element instanceof HTMLInputElement ||
