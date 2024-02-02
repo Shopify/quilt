@@ -41,12 +41,7 @@ declare global {
   }
 }
 
-function toBeInDocument(
-  this: jest.MatcherUtils,
-  received: HTMLElement | Node<unknown> | null,
-) {
-  const element =
-    received instanceof HTMLElement ? received : received?.domNode;
+function toBeInDocument(this: jest.MatcherUtils, element: HTMLElement | null) {
   if (!element) {
     return {
       message: () =>
@@ -61,12 +56,7 @@ function toBeInDocument(
   };
 }
 
-function toHaveFocus(
-  this: jest.MatcherUtils,
-  received: HTMLElement | Node<unknown> | null,
-) {
-  const element =
-    received instanceof HTMLElement ? received : received?.domNode;
+function toHaveFocus(this: jest.MatcherUtils, element: HTMLElement | null) {
   if (!element) {
     return {
       message: () =>
@@ -93,10 +83,10 @@ function toHaveValue(
         pass = received.value === value;
         break;
       case 'checkbox':
-        pass = received.checked === value;
+        pass = received.checked === value || received.value === value;
         break;
       case 'radio':
-        pass = received.checked === value;
+        pass = received.checked === value || received.value === value;
         break;
       default:
         throw new Error(`toHaveValue does not support ${received.type}`);
