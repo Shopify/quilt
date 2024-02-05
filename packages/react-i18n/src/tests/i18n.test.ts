@@ -2372,6 +2372,38 @@ describe('I18n', () => {
       const result = i18n.translationKeyExists(key);
       expect(result).toBe(false);
     });
+
+    describe('when absolute is true', () => {
+      it('returns true if the key exists and is a string', () => {
+        const mockResult = 'translated string';
+        getTranslationTree.mockReturnValue(mockResult);
+
+        const i18n = new I18n(defaultTranslations, defaultDetails);
+        const result = i18n.translationKeyExists('hello', true);
+
+        expect(result).toBe(true);
+      });
+
+      it('returns false if the key exists and is an object', () => {
+        const mockResult = {hello: 'translated string'};
+        getTranslationTree.mockReturnValue(mockResult);
+
+        const i18n = new I18n(defaultTranslations, defaultDetails);
+        const result = i18n.translationKeyExists('hello', true);
+
+        expect(result).toBe(false);
+      });
+
+      it('returns false if the key does not exist', () => {
+        const mockResult = undefined;
+        getTranslationTree.mockReturnValue(mockResult);
+
+        const i18n = new I18n(defaultTranslations, defaultDetails);
+        const result = i18n.translationKeyExists('goodbye', true);
+
+        expect(result).toBe(false);
+      });
+    });
   });
 
   // we only test a few use cases as this method is simply a wrapper for the similarly
