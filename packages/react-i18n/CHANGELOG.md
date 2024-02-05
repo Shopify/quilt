@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.10.0
+
+### Minor Changes
+
+- [#2711](https://github.com/Shopify/quilt/pull/2711) [`3d072b067`](https://github.com/Shopify/quilt/commit/3d072b0670fc73acca3da383fb4c317db0054c79) Thanks [@ryanwilsonperkin](https://github.com/ryanwilsonperkin)! - Add absolute option to I18n#translationKeyExists
+
 ## 7.9.0
 
 ### Minor Changes
