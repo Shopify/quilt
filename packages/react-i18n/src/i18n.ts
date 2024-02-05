@@ -218,9 +218,10 @@ export class I18n {
     }
   }
 
-  translationKeyExists(id: string) {
+  translationKeyExists(id: string, absolute = false) {
     try {
-      getTranslationTree(id, this.translations, this.locale);
+      const result = getTranslationTree(id, this.translations, this.locale);
+      if (absolute) return typeof result === 'string';
       return true;
     } catch (error) {
       return false;
