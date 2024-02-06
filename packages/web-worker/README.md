@@ -37,12 +37,7 @@ When the resulting function is called, it will return a worker "instance". This 
 ```ts
 const worker = createWorker();
 
-// Assuming worker was:
-// export function hello(name) {
-//   return `Hello, ${name}`;
-// }
-
-const result = await worker.hello('world'); // 'Hello, world'
+const result = await worker.hello('world');
 ```
 
 Note that more complex workers are allowed; they can export multiple functions, including default exports, and it can accept complex argument types [with some restrictions](#limitations):
@@ -50,20 +45,11 @@ Note that more complex workers are allowed; they can export multiple functions, 
 ```ts
 const worker = createWorker();
 
-// Assuming worker was:
-// export default function hello(name) {
-//   return `Hello, ${name}`;
-// }
-//
-// export function getName(user) {
-//   return user.getDisplayName();
-// }
-
 const result = await worker.default(
   await worker.getName({
     getDisplayName: () => 'Tobi',
   }),
-); // 'Hello, Tobi'
+);
 ```
 
 ##### Terminating the worker
@@ -175,24 +161,6 @@ const worker = createWorker({
 });
 ```
 
-###### `createIframeWorkerMessenger()`
-
-The `createIframeWorkerMessenger` is provided to make it easy to create a worker that is not treated as same-origin to the parent page. This function will, for each worker, create an iframe with a restrictive `sandbox` attribute and an anonymous origin, and will force that iframe to create a worker. It then passes a `MessagePort` through to the worker as the `postMessage` interface to use so that messages go directly between the worker and the original page.
-
-```ts
-import {
-  createWorkerFactory,
-  createIframeWorkerMessenger,
-} from '@shopify/web-worker';
-
-const createWorker = createWorkerFactory(() => import('./worker'));
-const worker = createWorker({
-  createMessenger: createIframeWorkerMessenger,
-});
-```
-
-Note that this mechanism will always fail CORS checks on requests from the worker code unless the requested resource has the `Allow-Access-Control-Origin` header set to `*`.
-
 ##### Naming the worker file
 
 By default, worker files created using `createWorkerFactory` are given incrementing IDs as the file name. This strategy is generally less than ideal for long-term caching, as the name of the file depends on the order in which it was encountered during the build. For long-term caching, it is better to provide a static name for the worker file. This can be done by supplying the [`webpackChunkName` magic comment](https://webpack.js.org/api/module-methods/#magic-comments) before your import:
@@ -252,8 +220,7 @@ createWorkerFactory(workerStuff);
 When webpack attempts to process this import, it sees the loader syntax, and passes the worker script to this package’s [custom webpack loader](src/webpack-parts/loader.ts). This loader does most of the heavy lifting. It creates an in-memory module (using information it pulls off the `WebWorkerPlugin` instance it finds in the webpack compiler) that exposes the worker API using the `expose()` function from this library:
 
 ```ts
-// This is the imaginary module the loader creates and compiles
-import {expose} from '@shopify/web-worker';
+import {value expose} from '@shopify/web-worker';
 import * as api from './worker';
 expose(api);
 ```
