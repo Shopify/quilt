@@ -13,7 +13,5 @@ export type {
 } from './create';
 export {
   createWorkerMessenger,
-  createIframeWorkerMessenger,
-  createNullOriginIframeMessenger,
   createRemoteOriginIframeMessengerFactory,
 } from './messenger';
