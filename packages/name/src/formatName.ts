@@ -1,4 +1,5 @@
-import {FAMILY_NAME_GIVEN_NAME_ORDERING} from './constants';
+import {FAMILY_NAME_GIVEN_NAME_ORDERING_INDEXED_BY_LANGUAGE} from './constants';
+import {languageFromLocale} from './utilities';
 
 // Note: A similar Ruby implementation of this function also exists at https://github.com/Shopify/shopify-i18n/blob/main/lib/shopify-i18n/name_formatter.rb.
 export function formatName({
@@ -19,7 +20,10 @@ export function formatName({
 
   const isFullName = Boolean(options && options.full);
 
-  const customNameFormatter = FAMILY_NAME_GIVEN_NAME_ORDERING.get(locale);
+  const customNameFormatter =
+    FAMILY_NAME_GIVEN_NAME_ORDERING_INDEXED_BY_LANGUAGE.get(
+      languageFromLocale(locale),
+    );
 
   if (customNameFormatter) {
     return customNameFormatter(name.givenName, name.familyName, isFullName);

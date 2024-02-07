@@ -8,15 +8,14 @@ export enum UnicodeCharacterSet {
   Thai = '[\u0E01-\u0E3A\u0E40-\u0E5B]',
 }
 
-export const FAMILY_NAME_GIVEN_NAME_ORDERING = new Map([
+export const FAMILY_NAME_GIVEN_NAME_ORDERING_INDEXED_BY_LANGUAGE = new Map([
   ['ko', defaultFamilyNameGivenNameOrderingFormatter],
   [
     'ja',
     (givenName: string, familyName: string, full: boolean) =>
       full ? `${familyName}${givenName}` : `${familyName}様`,
   ],
-  ['zh-CN', defaultFamilyNameGivenNameOrderingFormatter],
-  ['zh-TW', defaultFamilyNameGivenNameOrderingFormatter],
+  ['zh', defaultFamilyNameGivenNameOrderingFormatter],
 ]);
 
 function defaultFamilyNameGivenNameOrderingFormatter(

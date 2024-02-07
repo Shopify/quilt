@@ -3,13 +3,13 @@ import {formatName} from '../formatName';
 describe('#formatName()', () => {
   it('returns an empty string when nothing is defined', () => {
     const name = {givenName: undefined, familyName: undefined};
-    const locale = 'en';
+    const locale = 'en-CA';
     expect(formatName({name, locale})).toBe('');
   });
 
   it('returns only the givenName when familyName is missing', () => {
     const name = {givenName: 'first'};
-    const locale = 'en';
+    const locale = 'en-CA';
     expect(
       formatName({
         name,
@@ -20,7 +20,7 @@ describe('#formatName()', () => {
 
   it('returns only the familyName when givenName is missing', () => {
     const name = {familyName: 'last'};
-    const locale = 'en';
+    const locale = 'en-CA';
     expect(
       formatName({
         name,
@@ -53,7 +53,7 @@ describe('#formatName()', () => {
 
   it('returns givenName for English', () => {
     const name = {givenName: 'first', familyName: 'last'};
-    const locale = 'en';
+    const locale = 'en-CA';
     expect(
       formatName({
         name,
@@ -64,7 +64,7 @@ describe('#formatName()', () => {
 
   it('returns custom name for Japanese', () => {
     const name = {givenName: 'first', familyName: 'last'};
-    const locale = 'ja';
+    const locale = 'ja-JP';
     expect(
       formatName({
         name,
@@ -96,7 +96,7 @@ describe('#formatName()', () => {
   });
 
   it('returns only the givenName when familyName is missing using full', () => {
-    const locale = 'en';
+    const locale = 'en-CA';
     const options = {full: true};
 
     let name: {givenName?: string; familyName?: string} = {
@@ -123,7 +123,7 @@ describe('#formatName()', () => {
 
   it('returns only the familyName when givenName is missing using full', () => {
     const name = {givenName: '', familyName: 'last'};
-    const locale = 'en';
+    const locale = 'en-CA';
     const options = {full: true};
 
     expect(
@@ -137,7 +137,7 @@ describe('#formatName()', () => {
 
   it('returns a string when familyName is undefined using full', () => {
     const name = {givenName: '', familyName: undefined};
-    const locale = 'en';
+    const locale = 'en-CA';
     const options = {full: true};
 
     expect(
@@ -151,7 +151,7 @@ describe('#formatName()', () => {
 
   it('returns a string when givenName and familyName are missing using full', () => {
     const name = {givenName: undefined, familyName: undefined};
-    const locale = 'en';
+    const locale = 'en-CA';
     const options = {full: true};
 
     expect(
@@ -193,7 +193,7 @@ describe('#formatName()', () => {
 
   it('returns givenName first for English using full', () => {
     const name = {givenName: 'first', familyName: 'last'};
-    const locale = 'en';
+    const locale = 'en-CA';
     const options = {full: true};
 
     expect(
@@ -207,7 +207,7 @@ describe('#formatName()', () => {
 
   it('returns familyName first and no space for Japanese', () => {
     const name = {givenName: 'first', familyName: 'last'};
-    const locale = 'ja';
+    const locale = 'ja-JP';
     const options = {full: true};
 
     expect(
@@ -221,7 +221,7 @@ describe('#formatName()', () => {
 
   it('returns familyName first and no space for Korean', () => {
     const name = {givenName: 'first', familyName: 'last'};
-    const locale = 'ko';
+    const locale = 'ko-KR';
     const options = {full: true};
 
     expect(
@@ -250,6 +250,20 @@ describe('#formatName()', () => {
   it('returns familyName first and no space for zh-TW', () => {
     const name = {givenName: 'first', familyName: 'last'};
     const locale = 'zh-TW';
+    const options = {full: true};
+
+    expect(
+      formatName({
+        name,
+        locale,
+        options,
+      }),
+    ).toBe('lastfirst');
+  });
+
+  it('behaves similarly if we pass language instead of locale', () => {
+    const name = {givenName: 'first', familyName: 'last'};
+    const locale = 'zh';
     const options = {full: true};
 
     expect(
