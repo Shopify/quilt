@@ -1,5 +1,12 @@
 # Changelog
 
+## 7.10.1
+
+### Patch Changes
+
+- Updated dependencies [[`b2cfd3b4d`](https://github.com/Shopify/quilt/commit/b2cfd3b4d4872cdcdd868f18326cedac2a14bfce)]:
+  - @shopify/name@1.0.1
+
 ## 7.10.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.1
+
+### Patch Changes
+
+- [#2714](https://github.com/Shopify/quilt/pull/2714) [`b2cfd3b4d`](https://github.com/Shopify/quilt/commit/b2cfd3b4d4872cdcdd868f18326cedac2a14bfce) Thanks [@mikegarfinkle](https://github.com/mikegarfinkle)! - Fixed japanese and korean name formatting.
+
 ## 1.0.0
 
 ### Major Changes
