@@ -99,7 +99,7 @@ GEM
     marcel (1.0.2)
     method_source (1.0.0)
     mini_mime (1.1.2)
-    mini_portile2 (2.8.1)
+    mini_portile2 (2.8.5)
     minitest (5.17.0)
     minitest-hooks (1.5.0)
       minitest (> 5.3)
@@ -115,8 +115,8 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.8)
-    nokogiri (1.14.3)
-      mini_portile2 (~> 2.8.0)
+    nokogiri (1.16.2)
+      mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     parallel (1.22.1)
     parser (3.2.0.0)
@@ -125,7 +125,7 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     public_suffix (5.0.1)
-    racc (1.6.2)
+    racc (1.7.3)
     rack (2.2.6.4)
     rack-proxy (0.7.6)
       rack
