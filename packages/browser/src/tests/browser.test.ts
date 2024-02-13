@@ -48,8 +48,7 @@ describe('Browser', () => {
 
   describe('isShopifyPOSApp', () => {
     it('returns true for Shopify POS', () => {
-      const userAgent =
-        'com.jadedpixel.pos Shopify POS/5.11.0 (iPad; iOS 9.3; Scale/2.00)';
+      const userAgent = 'Shopify POS/5.11.0 (iPad; iOS 9.3; Scale/2.00)';
 
       expect(new Browser({userAgent}).isShopifyPOSApp).toBe(true);
     });
