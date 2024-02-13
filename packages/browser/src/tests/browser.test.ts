@@ -46,6 +46,26 @@ describe('Browser', () => {
     });
   });
 
+  describe('isShopifyPOSApp', () => {
+    it('returns true for Shopify POS', () => {
+      const userAgent =
+        'com.jadedpixel.pos Shopify POS/5.11.0 (iPad; iOS 9.3; Scale/2.00)';
+
+      expect(new Browser({userAgent}).isShopifyPOSApp).toBe(true);
+    });
+
+    it('returns false for other UA strings', () => {
+      [
+        'some-fake-UI/3.0.1 (nonsense) Apple Microsoft (XML like salamander)',
+        'completely bogus UA',
+        'Mozilla/5.0 (Linux; Android 6.0; ALE-L23 Build/HuaweiALE-L23) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Mobile Safari/537.36',
+        'Shopify Mobile/Android/8.12.0 (Build 12005 with API 28 on Google Android SDK built for x86) MobileMiddlewareSupported Mozilla/5.0 (Linux; Android 9; Android SDK built for x86 Build/PSR1.180720.075; wv)  AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/69.0.3497.100 Mobile Safari/537.36',
+      ].forEach((userAgent) => {
+        expect(new Browser({userAgent}).isShopifyPOSApp).toBe(false);
+      });
+    });
+  });
+
   describe('isAndroidChrome', () => {
     it('returns true for Chrome on Android', () => {
       const userAgent =
