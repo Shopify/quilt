@@ -132,7 +132,7 @@ const defaultResolvers = {
       // GraphQL spec's max
       max: 2147483647,
     }),
-  Float: () => faker.number.float({precision: 0.01}),
+  Float: () => faker.number.float({fractionDigits: 2}),
   Boolean: () => faker.datatype.boolean(),
   ID: () => faker.string.uuid(),
 };
