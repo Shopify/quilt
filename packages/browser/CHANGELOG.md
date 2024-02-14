@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.2.0
+
+### Minor Changes
+
+- [#2721](https://github.com/Shopify/quilt/pull/2721) [`19a5b55ae`](https://github.com/Shopify/quilt/commit/19a5b55aef9bbfc5ba518e5076323805b7538fe0) Thanks [@chaitanyambilgikar](https://github.com/chaitanyambilgikar)! - New utility to check the user agent of the Shopify POS App
+
 ## 3.1.3
 
 ### Patch Changes
