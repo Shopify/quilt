@@ -84,8 +84,10 @@ jobs:
         with:
           node-version: 18.x
 
-      - name: Install dependencies
-        run: yarn --frozen-lockfile
+      - name: 📦 Install dependencies
+        run: |
+          npm install -g node-gyp
+          yarn --frozen-lockfile
 
       - name: Create an .npmrc
         env:

@@ -71,6 +71,7 @@ const builder = new Builder({
   addTypename: argv['add-typename'],
   enumFormat: argv['enum-format'],
   customScalars: normalizeCustomScalars(argv['custom-scalars']),
+  exportFormat: argv['export-format'],
 });
 
 function normalizeCustomScalars(customScalarOption: string) {

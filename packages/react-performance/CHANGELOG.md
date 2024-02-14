@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.0.2
+
+### Patch Changes
+
+- Updated dependencies [[`1d96be587`](https://github.com/Shopify/quilt/commit/1d96be587caff31e30895056294542b9742fbe7c)]:
+  - @shopify/performance@4.2.0
+
+## 4.0.1
+
+### Patch Changes
+
+- Updated dependencies [[`790e16ad8`](https://github.com/Shopify/quilt/commit/790e16ad849af7b5c2c41c0c0df3f1492b90d04b)]:
+  - @shopify/performance@4.1.0
+
 ## 4.0.0
 
 ### Major Changes

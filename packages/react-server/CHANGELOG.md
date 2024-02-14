@@ -1,5 +1,23 @@
 # Changelog
 
+## 5.0.1
+
+### Patch Changes
+
+- Updated dependencies [[`20cbe440a`](https://github.com/Shopify/quilt/commit/20cbe440a03a7b6c66f43cece9fa4db0d2c7c5c6)]:
+  - @shopify/react-async@5.3.0
+
+## 5.0.0
+
+### Major Changes
+
+- [#2659](https://github.com/Shopify/quilt/pull/2659) [`c67ce27c1`](https://github.com/Shopify/quilt/commit/c67ce27c13ac13b0a5ac760bf1614b123b35556b) Thanks [@patrickracicot](https://github.com/patrickracicot)! - Updates React.hydrate -> React.hydrateRoot
+
+  Marking this as breaking change as it will require consumers to upgrade to React 18.
+
+  Hydrating has been updated to support React.hydrateRoot. Apps that do not yet support React 18 will need to update to React 18 before updating to this version.
+  React 18 supports concurrent rendering, which requires a new API for hydrating the server-rendered HTML. This PR updates the `react-server` package to use the new API.
+
 ## 4.1.8
 
 ### Patch Changes

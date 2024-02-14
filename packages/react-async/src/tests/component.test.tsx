@@ -94,6 +94,19 @@ describe('createAsyncComponent()', () => {
         expect(renderLoading).toHaveBeenCalledTimes(1);
         expect(asyncComponent).not.toContainReactComponent(Loading);
       });
+
+      it('exposes renderLoading on the async component', () => {
+        const renderLoading = jest.fn(() => <Loading />);
+
+        const resolvable = createResolvablePromise(ResolvedComponent);
+
+        const AsyncComponent = createAsyncComponent({
+          load: () => resolvable.promise,
+          renderLoading,
+        });
+
+        expect(AsyncComponent.renderLoading).toBe(renderLoading);
+      });
     });
 
     describe('error', () => {

@@ -73,8 +73,8 @@ import {createPerson} from '../src/create';
 // string is not a member of an array, so we should not be able to assign anything to it.
 expectNotAssignable<ArrayElement<string>>('string');
 
-// createPerson expects an input of Person where firstName is a string. We pass a boolean and so will throw an argument error.
-expectError<typeof createPerson>(() => createPerson({firstName: true}));
+// createPerson expects an input of Person where firstName is a string. We pass a boolean, hence the expression will have a type error.
+expectError(createPerson({firstName: true}));
 ```
 
 ## Why not use `yarn type-check`?

@@ -46,7 +46,9 @@ jobs:
             ${{ runner.os }}-node${{ matrix.node-version }}-cache-v2-
 
       - name: 📦 Install dependencies
-        run: yarn --frozen-lockfile
+        run: |
+          npm install -g node-gyp
+          yarn --frozen-lockfile
 
       - name: 🔨 Build
         run: yarn build

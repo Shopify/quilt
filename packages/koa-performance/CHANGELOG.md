@@ -1,5 +1,23 @@
 # Changelog
 
+## 3.5.1
+
+### Patch Changes
+
+- Updated dependencies [[`1d96be587`](https://github.com/Shopify/quilt/commit/1d96be587caff31e30895056294542b9742fbe7c)]:
+  - @shopify/performance@4.2.0
+
+## 3.5.0
+
+### Minor Changes
+
+- [#2698](https://github.com/Shopify/quilt/pull/2698) [`790e16ad8`](https://github.com/Shopify/quilt/commit/790e16ad849af7b5c2c41c0c0df3f1492b90d04b) Thanks [@lemonmade](https://github.com/lemonmade)! - Add special performance event handling for time to last byte
+
+### Patch Changes
+
+- Updated dependencies [[`790e16ad8`](https://github.com/Shopify/quilt/commit/790e16ad849af7b5c2c41c0c0df3f1492b90d04b)]:
+  - @shopify/performance@4.1.0
+
 ## 3.4.8
 
 ### Patch Changes

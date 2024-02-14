@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.3.0
+
+### Minor Changes
+
+- [#2684](https://github.com/Shopify/quilt/pull/2684) [`20cbe440a`](https://github.com/Shopify/quilt/commit/20cbe440a03a7b6c66f43cece9fa4db0d2c7c5c6) Thanks [@melnikov-s](https://github.com/melnikov-s)! - Expose renderLoading on AsyncComponentType
+
 ## 5.2.3
 
 ### Patch Changes

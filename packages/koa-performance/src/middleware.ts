@@ -254,6 +254,7 @@ function getAnomalousNavigationDurationTag(
 
 const EVENT_METRIC_MAPPING = {
   [EventType.TimeToFirstByte]: LifecycleMetric.TimeToFirstByte,
+  [EventType.TimeToLastByte]: LifecycleMetric.TimeToLastByte,
   [EventType.TimeToFirstContentfulPaint]:
     LifecycleMetric.TimeToFirstContentfulPaint,
   [EventType.TimeToLargestContentfulPaint]:

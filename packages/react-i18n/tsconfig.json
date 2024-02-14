@@ -11,6 +11,7 @@
   ],
   "references": [
     {"path": "../dates"},
+    {"path": "../name"},
     {"path": "../function-enhancers"},
     {"path": "../i18n"},
     {"path": "../react-effect"},

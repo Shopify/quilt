@@ -12,6 +12,12 @@ import {
   isLessThanOneWeekAway,
   isLessThanOneYearAway,
 } from '@shopify/dates';
+import {
+  formatName as importedFormatName,
+  abbreviateName as importedAbbreviateName,
+  abbreviateBusinessName as importedAbbreviateBusinessName,
+  hasFamilyNameGivenNameOrdering as importedHasFamilyNameGivenNameOrdering,
+} from '@shopify/name';
 import {memoize} from '@shopify/function-enhancers';
 import {languageFromLocale, regionFromLocale} from '@shopify/i18n';
 
@@ -31,7 +37,6 @@ import {
   RTL_LANGUAGES,
   currencyDecimalPlaces,
   DEFAULT_DECIMAL_PLACES,
-  EASTERN_NAME_ORDER_FORMATTERS,
   CurrencyShortFormException,
   UnicodeCharacterSet,
 } from './constants';
@@ -45,7 +50,6 @@ import {
   memoizedNumberFormatter,
   memoizedPluralRules,
   convertFirstSpaceToNonBreakingSpace,
-  tryAbbreviateName,
   identifyScripts,
 } from './utilities';
 
@@ -214,9 +218,10 @@ export class I18n {
     }
   }
 
-  translationKeyExists(id: string) {
+  translationKeyExists(id: string, absolute = false) {
     try {
-      getTranslationTree(id, this.translations, this.locale);
+      const result = getTranslationTree(id, this.translations, this.locale);
+      if (absolute) return typeof result === 'string';
       return true;
     } catch (error) {
       return false;
@@ -366,29 +371,13 @@ export class I18n {
     lastName?: string,
     options?: {full?: boolean},
   ) {
-    if (!firstName) {
-      return lastName || '';
-    }
-    if (!lastName) {
-      return firstName;
-    }
-
-    const isFullName = Boolean(options && options.full);
-
-    const customNameFormatter =
-      EASTERN_NAME_ORDER_FORMATTERS.get(this.locale) ||
-      EASTERN_NAME_ORDER_FORMATTERS.get(this.language);
-
-    if (customNameFormatter) {
-      return customNameFormatter(firstName, lastName, isFullName);
-    }
-    if (isFullName) {
-      return `${firstName} ${lastName}`;
-    }
-    return firstName;
+    return importedFormatName({
+      name: {givenName: firstName, familyName: lastName},
+      locale: this.locale,
+      options,
+    });
   }
 
-  // Note: A similar Ruby implementation of this function also exists at https://github.com/Shopify/shopify-i18n/blob/main/lib/shopify-i18n/name_formatter.rb.
   abbreviateName({
     firstName,
     lastName,
@@ -398,10 +387,27 @@ export class I18n {
     lastName?: string;
     idealMaxLength?: number;
   }) {
-    return (
-      tryAbbreviateName({firstName, lastName, idealMaxLength}) ??
-      this.formatName(firstName, lastName)
-    );
+    return importedAbbreviateName({
+      name: {
+        givenName: firstName,
+        familyName: lastName,
+      },
+      locale: this.locale,
+      options: {idealMaxLength},
+    });
+  }
+
+  abbreviateBusinessName({
+    name,
+    idealMaxLength = 3,
+  }: {
+    name: string;
+    idealMaxLength?: number;
+  }) {
+    return importedAbbreviateBusinessName({
+      name,
+      idealMaxLength,
+    });
   }
 
   identifyScript(text: string) {
@@ -409,10 +415,7 @@ export class I18n {
   }
 
   hasEasternNameOrderFormatter() {
-    const easternNameOrderFormatter =
-      EASTERN_NAME_ORDER_FORMATTERS.get(this.locale) ||
-      EASTERN_NAME_ORDER_FORMATTERS.get(this.language);
-    return Boolean(easternNameOrderFormatter);
+    return importedHasFamilyNameGivenNameOrdering(this.locale);
   }
 
   // eslint-disable-next-line @typescript-eslint/member-ordering

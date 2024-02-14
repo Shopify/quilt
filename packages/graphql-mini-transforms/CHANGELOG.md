@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.3.2
+
+### Patch Changes
+
+- [#2692](https://github.com/Shopify/quilt/pull/2692) [`762a27333`](https://github.com/Shopify/quilt/commit/762a273337cb2d55633c379c6bd6deb760d73366) Thanks [@vsumner](https://github.com/vsumner)! - Update rollup plugin to ignore sourcemaps to prevent build warnings
+
 ## 5.3.1
 
 ### Patch Changes

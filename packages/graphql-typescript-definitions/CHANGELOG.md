@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.3.4
+
+### Patch Changes
+
+- [#2696](https://github.com/Shopify/quilt/pull/2696) [`7aca49bdf`](https://github.com/Shopify/quilt/commit/7aca49bdfee0ef986fa3e5a104d954f3fc70f310) Thanks [@calirvine](https://github.com/calirvine)! - Pass export-format CLI option to builder Config allowing cli users to change the type of generated Documents
+
 ## 3.3.3
 
 ### Patch Changes

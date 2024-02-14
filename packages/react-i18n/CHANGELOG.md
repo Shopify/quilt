@@ -1,5 +1,24 @@
 # Changelog
 
+## 7.10.1
+
+### Patch Changes
+
+- Updated dependencies [[`b2cfd3b4d`](https://github.com/Shopify/quilt/commit/b2cfd3b4d4872cdcdd868f18326cedac2a14bfce)]:
+  - @shopify/name@1.0.1
+
+## 7.10.0
+
+### Minor Changes
+
+- [#2711](https://github.com/Shopify/quilt/pull/2711) [`3d072b067`](https://github.com/Shopify/quilt/commit/3d072b0670fc73acca3da383fb4c317db0054c79) Thanks [@ryanwilsonperkin](https://github.com/ryanwilsonperkin)! - Add absolute option to I18n#translationKeyExists
+
+## 7.9.0
+
+### Minor Changes
+
+- [#2682](https://github.com/Shopify/quilt/pull/2682) [`fc90edd83`](https://github.com/Shopify/quilt/commit/fc90edd83103d4adfc45bf7ba75882438e4d0792) Thanks [@mikegarfinkle](https://github.com/mikegarfinkle)! - Added `abbreviateBusinessName` method. Also delegated all name related functions to the @shopify/name repo.
+
 ## 7.8.0
 
 ### Minor Changes
