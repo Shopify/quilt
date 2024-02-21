@@ -3,7 +3,11 @@ import {ApolloLink, Observable} from '@apollo/client';
 import type {ExecutionResult} from 'graphql';
 import {GraphQLError} from 'graphql';
 
-import type {GraphQLMock, MockGraphQLFunction} from '../types';
+import type {
+  GraphQLMock,
+  MockGraphQLFunction,
+  MockGraphQLObject,
+} from '../types';
 
 export class MockLink extends ApolloLink {
   constructor(private mock: GraphQLMock) {
@@ -12,6 +16,15 @@ export class MockLink extends ApolloLink {
 
   updateMock(mock: GraphQLMock) {
     this.mock = mock;
+  }
+
+  updateMockWithMerge(mock: MockGraphQLObject) {
+    if (typeof this.mock === 'function') {
+      throw new Error(
+        "Can't merge a GraphQL function mock with a GraphQL object mock",
+      );
+    }
+    this.mock = {...this.mock, ...mock};
   }
 
   request(operation: Operation): Observable<any> {
