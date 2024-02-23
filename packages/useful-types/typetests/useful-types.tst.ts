@@ -52,6 +52,10 @@ describe('DeepPartial', () => {
     expect<DeepPartial<ListObj>>().type.toMatch<{
       list?: {nested?: {required?: string | undefined}}[];
     }>();
+
+    expect<DeepPartial<ListObj>>().type.not.toMatch<{
+      list?: {required: string}[];
+    }>();
   });
 
   it('handles readonly arrays', () => {
@@ -60,6 +64,10 @@ describe('DeepPartial', () => {
     }
     expect<DeepPartial<ReadOnlyListObj>>().type.toMatch<{
       list?: ReadonlyArray<{}> | undefined;
+    }>();
+
+    expect<DeepPartial<ReadOnlyListObj>>().type.not.toMatch<{
+      list?: ReadonlyArray<undefined> | undefined;
     }>();
   });
 
@@ -74,6 +82,10 @@ describe('DeepPartial', () => {
 
     expect<DeepPartial<RespectArrayElements>>().type.toEqual<{
       list?: (string | number)[] | null;
+    }>();
+
+    expect<DeepPartial<RespectArrayElements>>().type.not.toMatch<{
+      list?: undefined[] | null;
     }>();
   });
 
