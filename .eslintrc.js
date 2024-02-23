@@ -84,8 +84,8 @@ module.exports = {
       files: [
         '**/tests/**/*.ts',
         '**/tests/**/*.tsx',
-        '**/*.test-d.ts',
-        '**/*.test-d.tsx',
+        '**/*.tst.ts',
+        '**/*.tst.tsx',
       ],
       rules: {
         // We disable `import/no-extraneous-dependencies` for test files because it
@@ -112,8 +112,8 @@ module.exports = {
     },
     {
       files: [
-        '**/*.test-d.ts',
-        '**/*.test-d.tsx',
+        '**/*.tst.ts',
+        '**/*.tst.tsx',
       ],
       rules: {
         'jest/valid-expect': 'off',
