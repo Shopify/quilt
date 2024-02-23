@@ -110,5 +110,14 @@ module.exports = {
         'import/order': 'off',
       },
     },
+    {
+      files: [
+        '**/*.test-d.ts',
+        '**/*.test-d.tsx',
+      ],
+      rules: {
+        'jest/valid-expect': 'off',
+      },
+    },
   ],
 };

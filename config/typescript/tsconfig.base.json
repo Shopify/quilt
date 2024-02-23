@@ -14,13 +14,13 @@
 
     // Strictness
     // Strict mode enables these options.
-    // Disable them temporarily while we fix up problematic behaviour from
+    // Disable them temporarily while we fix up problematic behavior from
     // the time before we wanted strict mode
     "strictBindCallApply": false,
     "strictFunctionTypes": false,
     "noImplicitAny": false,
     "useUnknownInCatchVariables": false,
-    // These values are are not controled by strict mode, though they are
+    // These values are not controlled by strict mode, though they are
     // enabled in the 'strictest' config that we inherit from.
     // These reach a level of pedanticness we aren't worried about
     "noImplicitOverride": false,

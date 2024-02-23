@@ -1,29 +1,38 @@
-import {
-  expectType,
-  expectAssignable,
-  expectNotAssignable,
-  expectNotType,
-} from 'tsd-lite';
+import {describe, it, expect} from 'tstyche';
 
 import type {Gid, ShopifyGid} from '../src';
 import {composeGid, composeGidFactory} from '../src';
 
-/**
- * Shopify GIDs
- */
+describe('composeGid', () => {
+  it('composes Gid using key and number id', () => {
+    expect(composeGid('Customers', 123)).type.toEqual<
+      ShopifyGid<'Customers'>
+    >();
+    expect(composeGid('Customers', 123)).type.toEqual<
+      Gid<'shopify', 'Customers'>
+    >();
 
-expectType<ShopifyGid<'Customers'>>(composeGid('Customers', 123));
-expectType<Gid<'shopify', 'Customers'>>(composeGid('Customers', 123));
-expectAssignable<string>(composeGid('Customers', 123));
-expectNotAssignable<ShopifyGid<'Orders'>>(composeGid('Customers', 123));
+    expect(composeGid('Customers', 123)).type.toMatch<string>();
+    expect(composeGid('Customers', 123)).type.not.toMatch<
+      ShopifyGid<'Orders'>
+    >();
+  });
+});
 
-/**
- * Custom GIDs
- */
+describe('composeGidFactory', () => {
+  it('composes custom Gid using key and number id', () => {
+    const composeCustomGid = composeGidFactory('custom-app');
 
-const composeCustomGid = composeGidFactory('custom-app');
+    expect(composeCustomGid('Customers', 123)).type.not.toEqual<
+      ShopifyGid<'Customers'>
+    >();
+    expect(composeCustomGid('Customers', 123)).type.toEqual<
+      Gid<'custom-app', 'Customers'>
+    >();
 
-expectNotType<ShopifyGid<'Customers'>>(composeCustomGid('Customers', 123));
-expectType<Gid<'custom-app', 'Customers'>>(composeCustomGid('Customers', 123));
-expectAssignable<string>(composeCustomGid('Customers', 123));
-expectNotAssignable<Gid<'custom-app', 'Orders'>>(composeGid('Customers', 123));
+    expect(composeCustomGid('Customers', 123)).type.toMatch<string>();
+    expect(composeGid('Customers', 123)).type.not.toMatch<
+      Gid<'custom-app', 'Orders'>
+    >();
+  });
+});

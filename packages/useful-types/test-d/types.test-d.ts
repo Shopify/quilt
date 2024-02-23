@@ -1,9 +1,4 @@
-import {
-  expectType,
-  expectAssignable,
-  expectNotAssignable,
-  expectNotType,
-} from 'tsd-lite';
+import {describe, it, expect} from 'tstyche';
 
 import type {
   ArrayElement,
@@ -13,377 +8,288 @@ import type {
   DeepReadonly,
 } from '../src/types';
 
-interface Person {
-  firstName: string;
-}
+describe('ArrayElement', () => {
+  it('infers the array element type', () => {
+    interface Person {
+      firstName: string;
+    }
 
-/**
- * ArrayElement<T>
- */
+    expect<ArrayElement<Person[]>>().type.toEqual<{firstName: string}>();
+    expect<ArrayElement<string[]>>().type.toBeString();
+    expect<ArrayElement<any[]>>().type.toBeAny();
+    expect<ArrayElement<(string | boolean)[]>>().type.toEqual<
+      string | boolean
+    >();
+  });
 
-expectType<ArrayElement<Person[]>>({firstName: 'foo'});
-
-expectAssignable<ArrayElement<string[]>>('string');
-expectAssignable<ArrayElement<any[]>>(true);
-expectAssignable<ArrayElement<(string | boolean)[]>>(false);
-expectAssignable<ArrayElement<string>>('string' as never);
-
-expectNotAssignable<ArrayElement<string>>('string');
-
-/**
- * DeepPartial<T>
- */
-
-interface Base {
-  required: string;
-  optional?: string;
-  nested?: Base;
-}
-
-expectAssignable<DeepPartial<Base>>({});
-expectAssignable<DeepPartial<Base>>({optional: 'test'});
-expectAssignable<DeepPartial<Base>>({required: undefined});
-expectAssignable<DeepPartial<Base>>({
-  nested: {nested: {nested: {required: 'test'}}},
+  it('when `T` is not an array, resolves to the `never` type', () => {
+    expect<ArrayElement<string>>().type.toBeNever();
+  });
 });
 
-interface ListObj {
-  list: Base[];
-}
+describe('DeepPartial', () => {
+  interface Base {
+    required: string;
+    optional?: string;
+    nested?: Base;
+  }
 
-expectAssignable<DeepPartial<ListObj>>({list: []});
-expectAssignable<DeepPartial<ListObj>>({list: undefined});
-expectAssignable<DeepPartial<ListObj>>({
-  list: [{nested: {required: undefined}}],
+  it('marks properties as optional recursively', () => {
+    expect<DeepPartial<Base>>().type.toMatch<{}>();
+    expect<DeepPartial<Base>>().type.toMatch<{optional?: string}>();
+    expect<DeepPartial<Base>>().type.toMatch<{required?: string}>();
+    expect<DeepPartial<Base>>().type.toMatch<{
+      nested?: {nested?: {nested?: {required?: string | undefined}}};
+    }>();
+  });
+
+  it('handles arrays', () => {
+    interface ListObj {
+      list: Base[];
+    }
+
+    expect<DeepPartial<ListObj>>().type.toMatch<{list?: {}[] | undefined}>();
+    expect<DeepPartial<ListObj>>().type.toMatch<{
+      list?: {nested?: {required?: string | undefined}}[];
+    }>();
+  });
+
+  it('handles readonly arrays', () => {
+    interface ReadOnlyListObj {
+      list: ReadonlyArray<Base>;
+    }
+    expect<DeepPartial<ReadOnlyListObj>>().type.toMatch<{
+      list?: ReadonlyArray<{}> | undefined;
+    }>();
+  });
+
+  it('returns primitives unaltered', () => {
+    expect<DeepPartial<string>>().type.toBeString();
+  });
+
+  it('respects array elements', () => {
+    interface RespectArrayElements {
+      list: (string | number)[] | null;
+    }
+
+    expect<DeepPartial<RespectArrayElements>>().type.toEqual<{
+      list?: (string | number)[] | null;
+    }>();
+  });
+
+  it('handles readonly objects', () => {
+    type PresetOption = Readonly<{
+      name?: string;
+      id: string;
+    }>;
+
+    type Preset = Readonly<{
+      options: ReadonlyArray<PresetOption>;
+      editableOptions: PresetOption[];
+    }>;
+
+    type PresetState = Readonly<{
+      list?: ReadonlyArray<Preset>;
+    }>;
+    type State = Readonly<{
+      preset: PresetState;
+    }>;
+
+    expect<DeepPartial<State>>().type.toMatch<{}>();
+
+    expect<DeepPartial<State>>().type.toMatch<{
+      readonly preset?: {
+        readonly list?: ReadonlyArray<{
+          readonly options?: ReadonlyArray<{readonly name?: string}>;
+        }>;
+      };
+    }>();
+
+    expect<DeepPartial<State>>().type.toMatch<{
+      readonly preset?: {} | undefined;
+    }>();
+
+    expect<DeepPartial<State>>().type.toMatch<{
+      readonly preset?: {
+        readonly list?: ReadonlyArray<{}> | undefined;
+      };
+    }>();
+
+    expect<DeepPartial<State>>().type.toMatch<{
+      readonly preset?: {
+        readonly list?: ReadonlyArray<{
+          readonly options?: ReadonlyArray<{}> | undefined;
+        }>;
+      };
+    }>();
+
+    expect<DeepPartial<State>>().type.toMatch<{
+      readonly preset?: {
+        readonly list?: ReadonlyArray<{
+          readonly editableOptions?: {}[] | undefined;
+        }>;
+      };
+    }>();
+  });
 });
 
-interface ReadOnlyListObj {
-  list: ReadonlyArray<Base>;
-}
+describe('IfEmptyObject', () => {
+  it('checks if an object is empty', () => {
+    expect<IfEmptyObject<{}, true>>().type.toEqual<true>();
+    expect<IfEmptyObject<{foo: string}, never, false>>().type.toEqual<false>();
 
-expectAssignable<DeepPartial<ReadOnlyListObj>>({list: []});
-expectAssignable<DeepPartial<ReadOnlyListObj>>({list: undefined});
-
-expectAssignable<DeepPartial<ReadOnlyListObj>>({
-  list: [{}],
+    expect<IfEmptyObject<{foo: string}, true>>().type.not.toEqual<true>();
+    expect<IfEmptyObject<boolean, true>>().type.not.toEqual<true>();
+  });
 });
 
-expectNotAssignable<DeepPartial<ReadOnlyListObj>>({
-  list: [undefined],
+describe.todo('IfAllOptionalKeys');
+
+describe.todo('IfAllNullableKeys');
+
+describe.todo('NonOptionalKeys');
+
+describe.todo('NonNullableKeys');
+
+describe.todo('NoInfer');
+
+describe.todo('NonReactStatics');
+
+describe.todo('ExtendedWindow');
+
+describe('DeepOmit', () => {
+  it('returns primitives unaltered', () => {
+    expect<DeepOmit<string, '__typename'>>().type.toBeString();
+    expect<DeepOmit<string, string>>().type.toBeString();
+    expect<DeepOmit<() => void, 'toString'>>().type.toEqual<() => void>();
+    expect<DeepOmit<number, 'toString'>>().type.toBeNumber();
+    expect<DeepOmit<boolean, 'valueOf'>>().type.toBeBoolean();
+    expect<DeepOmit<undefined, 'toString'>>().type.toBeUndefined();
+    expect<DeepOmit<null, 'toString'>>().type.toBeNull();
+    expect<DeepOmit<symbol, 'toString'>>().type.toBeSymbol();
+  });
+
+  it('does not omit on primitive types', () => {
+    const sample: DeepOmit<number, 'toString'> = Number(2);
+
+    expect<typeof sample.toString>().type.toEqual<(radix?: number) => string>();
+    expect<DeepOmit<string, 'string'>>().type.not.toBeNever();
+  });
+
+  it('does not omit on primitive union types', () => {
+    expect<DeepOmit<string | number, 'toString'>>().type.toEqual<
+      string | number
+    >();
+  });
+
+  it('omits key at any level of nesting', () => {
+    interface Obj {
+      __typename: string;
+      foo: string;
+      bar: {
+        __typename: string;
+        baz: string;
+      };
+    }
+
+    expect<DeepOmit<Obj, '__typename'>>().type.toEqual<{
+      foo: string;
+      bar: {
+        baz: string;
+      };
+    }>();
+
+    expect<DeepOmit<Obj, 'baz'>>().type.toEqual<{
+      __typename: string;
+      foo: string;
+      bar: {
+        __typename: string;
+      };
+    }>();
+  });
+
+  it('handles arrays', () => {
+    type NullableUnionArray = DeepOmit<
+      {bar: (string | number)[] | null; __typename: string},
+      '__typename'
+    >;
+
+    expect<NullableUnionArray>().type.toEqual<{
+      bar: (string | number)[] | null;
+    }>();
+  });
+
+  it('handles readonly arrays', () => {
+    interface Node {
+      __typename: 'string';
+      title: string;
+    }
+
+    type ReadOnlyNullableUnionArray = DeepOmit<
+      {bar: ReadonlyArray<Node>; __typename: string},
+      '__typename'
+    >;
+
+    expect<ReadOnlyNullableUnionArray>().type.toEqual<{
+      bar: ReadonlyArray<{title: string}>;
+    }>();
+  });
+
+  it('respects optional properties', () => {
+    interface RespectOptionalProps {
+      __typename: string;
+      foo: string;
+      bar?: {
+        __typename: string;
+        baz: number;
+      };
+    }
+
+    expect<DeepOmit<RespectOptionalProps, '__typename'>>().type.toEqual<{
+      foo: string;
+      bar?: {
+        baz: number;
+      };
+    }>();
+  });
 });
 
-expectAssignable<DeepPartial<string>>('test');
+describe.todo('DeepOmitArray');
 
-interface RespectArrayElements {
-  list: (string | number)[] | null;
-}
+describe.todo('PartialSome');
 
-/**
- * valid types ar null or any array with string, number, or both
- */
-expectAssignable<DeepPartial<RespectArrayElements>>({list: null});
-expectAssignable<DeepPartial<RespectArrayElements>>({list: []});
-expectAssignable<DeepPartial<RespectArrayElements>>({list: ['string']});
-expectAssignable<DeepPartial<RespectArrayElements>>({list: [2]});
-expectAssignable<DeepPartial<RespectArrayElements>>({list: ['string', 2]});
+describe.todo('RequireSome');
 
-/**
- * handles ReadOnly objects
- */
+describe('DeepReadonly', () => {
+  it('marks properties as readonly recursively', () => {
+    interface ObjectInterface {
+      prop?: string;
+      innerObj?: {
+        prop: string;
+      };
+      array?: string[];
+      map?: Map<string, string>;
+      set?: Set<string>;
+    }
 
-type PresetOption = Readonly<{
-  name?: string;
-  id: string;
-}>;
+    expect<DeepReadonly<ObjectInterface>>().type.toMatch<{
+      readonly prop?: string | undefined;
+    }>();
 
-type Preset = Readonly<{
-  options: ReadonlyArray<PresetOption>;
-  editableOptions: PresetOption[];
-}>;
+    expect<DeepReadonly<ObjectInterface>>().type.toMatch<{
+      readonly innerObj?: {readonly prop: string} | undefined;
+    }>();
 
-type PresetState = Readonly<{
-  list?: ReadonlyArray<Preset>;
-}>;
-type State = Readonly<{
-  preset: PresetState;
-}>;
+    expect<DeepReadonly<ObjectInterface>>().type.toMatch<{
+      readonly array?: ReadonlyArray<string> | undefined;
+    }>();
 
-expectAssignable<DeepPartial<State>>({});
-expectAssignable<DeepPartial<State>>({
-  preset: {
-    list: [{options: [{name: 'string'}]}],
-  },
+    expect<DeepReadonly<ObjectInterface>>().type.toMatch<{
+      readonly map?: ReadonlyMap<string, string> | undefined;
+    }>();
+
+    expect<DeepReadonly<ObjectInterface>>().type.toMatch<{
+      readonly set?: ReadonlySet<string> | undefined;
+    }>();
+  });
 });
-expectAssignable<DeepPartial<State>>({
-  preset: undefined,
-});
-
-expectNotAssignable<DeepPartial<State>>({
-  preset: {
-    list: [undefined],
-  },
-});
-
-expectNotAssignable<DeepPartial<State>>({
-  preset: {
-    list: [{options: [undefined]}],
-  },
-});
-expectNotAssignable<DeepPartial<State>>({
-  preset: {
-    list: [{editableOptions: [undefined]}],
-  },
-});
-
-/**
- * should not be able to add undefined, need to fix this
- */
-expectNotAssignable<DeepPartial<RespectArrayElements>>({
-  // this should error, undefined is not a valid type for list
-  list: [undefined, 'stable', 2],
-});
-
-/**
- * IfEmptyObject<T>
- */
-
-expectType<IfEmptyObject<{}, true>>(true);
-expectType<IfEmptyObject<{foo: string}, never, false>>(false);
-
-expectNotType<IfEmptyObject<{foo: string}, true>>(true);
-expectNotType<IfEmptyObject<boolean, true>>(true);
-
-/**
- * IfAllOptionalKeys
- */
-
-/**
- * IfAllNullableKeys
- */
-
-/**
- * NonOptionalKeys
- */
-
-/**
- * NonNullableKeys
- */
-
-/**
- * NoInfer
- */
-
-/**
- * NonReactStatics
- */
-
-/**
- * ExtendedWindow
- */
-
-/**
- * DeepOmit
- */
-
-/**
- * should return primitives unaltered
- */
-expectAssignable<DeepOmit<string, '__typename'>>('string');
-expectAssignable<DeepOmit<string, string>>('string');
-expectAssignable<DeepOmit<() => void, 'toString'>>(() => {});
-expectAssignable<DeepOmit<number, 'toString'>>(2);
-expectAssignable<DeepOmit<boolean, 'valueOf'>>(Boolean(0));
-expectAssignable<DeepOmit<undefined, 'toString'>>(undefined);
-expectAssignable<DeepOmit<null, 'toString'>>(null);
-expectAssignable<DeepOmit<Symbol, 'toString'>>(Symbol('string'));
-
-/**
- * does not omit on primitive types
- */
-const test: DeepOmit<number, 'toString'> = Number(2);
-expectType<typeof test.toString>((_radix?: number) => '');
-
-expectNotAssignable<DeepOmit<string, 'string'>>(undefined);
-
-interface Obj {
-  __typename: string;
-  foo: string;
-  bar: {
-    __typename: string;
-    baz: string;
-  };
-}
-
-/**
- * should omit key at any level of nesting
- * will recurse on {__typename: string; baz: string;}
- * should omit __typename
- */
-expectAssignable<DeepOmit<Obj, '__typename'>>({
-  foo: 'string',
-  bar: {
-    baz: 'string',
-  },
-});
-
-expectAssignable<DeepOmit<Obj, 'baz'>>({
-  __typename: 'string',
-  foo: 'string',
-  bar: {
-    __typename: 'string',
-  },
-});
-
-expectNotAssignable<DeepOmit<Obj, '__typename'>>({
-  __typename: 'string',
-});
-
-/**
- * DeepOmit<Obj>
- * will recurse on {__typename: string; baz: string;}
- * should omit __typename
- */
-
-expectNotAssignable<DeepOmit<Obj, '__typename'>>({
-  __typename: 'string',
-  foo: 'string',
-  bar: {
-    baz: 'string',
-  },
-});
-
-expectNotAssignable<DeepOmit<Obj, '__typename'>>({
-  foo: 'string',
-  bar: {
-    __typename: 'string',
-    baz: 'string',
-  },
-});
-
-type NullableUnionArray = DeepOmit<
-  {bar: (string | number)[] | null; __typename: string},
-  '__typename'
->;
-
-/**
- * will recurse on (string | number)[] | null
- * we want to allow null
- */
-expectAssignable<NullableUnionArray>({bar: null});
-
-/**
- * will recurse on (string | number)[] | null
- * we want to allow empty or valid arrays
- */
-expectAssignable<NullableUnionArray>({bar: []});
-expectAssignable<NullableUnionArray>({bar: ['string']});
-expectAssignable<NullableUnionArray>({bar: [2]});
-expectAssignable<NullableUnionArray>({bar: ['string', 2]});
-
-/**
- * should not allow invalid array elements
- */
-expectNotAssignable<NullableUnionArray>({bar: [undefined]});
-expectNotAssignable<NullableUnionArray>({bar: [null]});
-
-expectNotAssignable<NullableUnionArray>({bar: undefined});
-
-/**
- * handles readonly arrays
- */
-
-interface Node {
-  __typename: 'string';
-  title: string;
-}
-
-type ReadOnlyNullableUnionArray = DeepOmit<
-  {bar: ReadonlyArray<Node>; __typename: string},
-  '__typename'
->;
-
-expectNotAssignable<ReadOnlyNullableUnionArray>({
-  bar: [undefined],
-});
-expectNotAssignable<ReadOnlyNullableUnionArray>({
-  bar: [{__typename: 'string'}],
-});
-
-/**
- * DeepOmit of type {bar: (string| number)[]}
- * will recurse on (string | number)[]
- * will recurse on (string| number)
- * we want to allow string or number
- */
-expectAssignable<DeepOmit<string | number, 'toString'>>('string');
-expectAssignable<DeepOmit<string | number, 'toString'>>(2);
-expectNotAssignable<DeepOmit<string | number, 'toString'>>(null);
-expectNotAssignable<DeepOmit<string | number, 'toString'>>(undefined);
-
-interface RespectOptionalProps {
-  __typename: string;
-  foo: string;
-  bar?: {
-    __typename: string;
-    baz: number;
-  };
-}
-
-/**
- * respects optional bar
- */
-expectAssignable<DeepOmit<RespectOptionalProps, '__typename'>>({
-  foo: 'string',
-});
-
-expectAssignable<DeepOmit<RespectOptionalProps, '__typename'>>({
-  foo: 'string',
-  bar: undefined,
-});
-
-expectNotAssignable<DeepOmit<RespectOptionalProps, '__typename'>>({
-  __typename: 'string',
-  foo: 'string',
-});
-
-/**
- * DeepOmitArray
- */
-
-/**
- * PartialSome
- */
-
-/**
- * RequireSome
- */
-
-/**
- * DeepReadonly
- */
-
-interface ObjectInterface {
-  prop?: string;
-  innerObj?: {
-    prop: string;
-  };
-  array?: string[];
-  map?: Map<string, string>;
-  set?: Set<string>;
-}
-
-const readOnly = {} as DeepReadonly<ObjectInterface>;
-
-// @ts-expect-error can't delete from read only
-delete readOnly.prop;
-
-// @ts-expect-error read only property
-readOnly.prop = 'newValue';
-
-expectType<{readonly prop: string}>(readOnly.innerObj!);
-
-expectType<ReadonlyArray<string>>(readOnly.array!);
-
-expectType<ReadonlyMap<string, string>>(readOnly.map!);
-
-expectType<ReadonlySet<string>>(readOnly.set!);
