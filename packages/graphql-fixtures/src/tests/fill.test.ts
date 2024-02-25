@@ -2639,6 +2639,48 @@ describe('createFillers()', () => {
         });
       });
     });
+
+    it('has no duplicate ids in nested fields', () => {
+      const fill = createFillerForSchema(`
+        type Pet {
+          id: ID!
+        }
+
+        type Person {
+          pets: [Pet]!
+        }
+
+        type Query {
+          people: [Person!]!
+        }
+      `);
+
+      const document = createDocument<
+        {people: {pets: {id: string}[]}[]},
+        {people?: {pets?: {id?: string | null}[] | null}[] | null}
+      >(`
+        query Details {
+          people {
+            pets {
+              id
+            }
+          }
+        }
+      `);
+
+      const result = fill(document, {
+        people: Array.from(Array(100)).map(() => ({
+          pets: Array.from(Array(100)).map(() => ({})),
+        })),
+      });
+
+      const allIds = result.people
+        .flatMap((person) => person.pets)
+        .map((pet) => pet.id);
+
+      const allIdSet = new Set(allIds);
+      expect(allIdSet.size).toBe(allIds.length);
+    });
   });
 });
 
