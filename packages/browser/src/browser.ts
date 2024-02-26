@@ -48,6 +48,10 @@ export class Browser {
     return this.ua.getUA().includes('Shopify Mobile/', 0);
   }
 
+  get isShopifyPOSApp() {
+    return this.ua.getUA().includes('Shopify POS/', 0);
+  }
+
   get os() {
     return this.ua.getOS().name || '';
   }
