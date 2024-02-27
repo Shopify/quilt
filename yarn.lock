@@ -13947,10 +13947,10 @@ tsscmp@1.0.6:
   resolved "https://registry.yarnpkg.com/tsscmp/-/tsscmp-1.0.6.tgz#85b99583ac3589ec4bfef825b5000aa911d605eb"
   integrity sha512-LxhtAkPDTkVCMQjt2h6eBVY28KCjikZqZfMcC15YBeNjkgUpdCfBu5HoiOTDu86v6smE8yOjyEktJ8hlbANHQA==
 
-tstyche@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/tstyche/-/tstyche-1.0.0.tgz#e19f3829ccb25ef48334df0724b6f98dc298cebf"
-  integrity sha512-iIpktIBuWL0M+KgCO8TIgo+QGS+mD24ll+wAYCFsd8IkA3Lai0ETqGSilHo1PC59+2lf71qJmWShFZwMMH4i1g==
+tstyche@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/tstyche/-/tstyche-1.1.0.tgz#1dfb624a689161a92d6ba115691ec6083b0b23b3"
+  integrity sha512-ZvDeScrBJf6053bdOkGUtnfDn7414XjmjGWrDntQfSmtPvxv9HVJ+03GFK2O46hfoAI9L5Q22uw6xy5ZTBdPGg==
 
 tsutils@^3.21.0:
   version "3.21.0"

@@ -80,7 +80,7 @@
     "rimraf": "^2.6.2",
     "rollup": "^2.60.1",
     "rollup-plugin-node-externals": "^2.2.0",
-    "tstyche": "^1.0.0",
+    "tstyche": "^1.1.0",
     "typescript": "~5.0.2",
     "yalc": "^1.0.0-pre.50"
   },
