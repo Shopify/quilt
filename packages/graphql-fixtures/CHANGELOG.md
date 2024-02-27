@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.0.0
+
+### Major Changes
+
+- [#2655](https://github.com/Shopify/quilt/pull/2655) [`54defaeb6`](https://github.com/Shopify/quilt/commit/54defaeb6f15411afffed63ee7eb0e47bc198596) Thanks [@mdentremont](https://github.com/mdentremont)! - Update @faker-js/faker to ^8.0.0 (which is exported from graphql-fixtures).
+
 ## 4.0.1
 
 ### Patch Changes

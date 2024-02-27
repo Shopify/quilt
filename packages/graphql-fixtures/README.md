@@ -189,6 +189,6 @@ import widgetQuery from './WidgetQuery.graphql';
 const {fillOperation} = createFillers(schema);
 
 const fixture = fillOperation(widgetQuery, {
-  widgets: list([2, 4], {id: () => faker.random.uuid()}),
+  widgets: list([2, 4], {id: () => faker.string.uuid()}),
 });
 ```
