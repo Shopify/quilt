@@ -5,7 +5,8 @@ import type {DocumentNode} from 'graphql-typed';
 import type {QueryHookResult, QueryHookOptions} from './hooks';
 import {useQuery} from './hooks';
 
-interface QueryComponentOptions<Data, Variables> extends QueryHookOptions {
+interface QueryComponentOptions<Data, Variables extends OperationVariables>
+  extends QueryHookOptions {
   children: (result: QueryHookResult<Data, Variables>) => JSX.Element | null;
   query: DocumentNode<Data, Variables>;
 }
