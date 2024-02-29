@@ -27,10 +27,10 @@
     "@shopify/react-graphql": "^10.0.3",
     "@shopify/react-hooks": "^3.0.5",
     "@shopify/react-html": "^13.0.6",
-    "@shopify/react-network": "^5.0.15",
-    "@apollo/client": "^3.5.8"
+    "@shopify/react-network": "^5.0.15"
   },
   "peerDependencies": {
+    "@apollo/client": ">=3.5.8 || <4.0.0",
     "react": ">=16.8.0 <19.0.0"
   },
   "devDependencies": {
