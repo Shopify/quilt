@@ -1,5 +1,13 @@
 # Changelog
 
+## 7.1.0
+
+### Minor Changes
+
+- [#2708](https://github.com/Shopify/quilt/pull/2708) [`a224c11d7`](https://github.com/Shopify/quilt/commit/a224c11d7d329470d59c0b97484e75c36e6c8231) Thanks [@markbann](https://github.com/markbann)! - - upgrade @apollo/client to the latest (3.8.10)
+  - set `connectToDevTools` to false by default
+  - allow consumers to pass `defaultOptions` into the options of
+
 ## 7.0.1
 
 ### Patch Changes
