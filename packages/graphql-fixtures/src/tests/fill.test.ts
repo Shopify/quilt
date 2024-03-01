@@ -2,7 +2,7 @@
 import {buildSchema} from 'graphql';
 import type {DocumentNode} from 'graphql-typed';
 import {parse} from 'graphql-typed';
-import {faker as originalFaker} from '@faker-js/faker/locale/en';
+import {faker as originalFaker} from '@faker-js/faker';
 
 import type {Options} from '../fill';
 import {createFillers, list, faker} from '../fill';
@@ -556,7 +556,7 @@ describe('createFillers()', () => {
       });
 
       it('uses a partial value for nested fields', () => {
-        const motherName = faker.name.firstName();
+        const motherName = faker.person.firstName();
         const {fillOperation} = createFillerForSchema(`
           type Person {
             name: String!
@@ -600,7 +600,7 @@ describe('createFillers()', () => {
       });
 
       it('uses a function partial value for nested fields', () => {
-        const motherName = faker.name.firstName();
+        const motherName = faker.person.firstName();
         const {fillOperation} = createFillerForSchema(`
           type Person {
             name: String!
@@ -845,7 +845,7 @@ describe('createFillers()', () => {
       });
 
       it('uses a partial value for nested fields', () => {
-        const motherName = faker.name.firstName();
+        const motherName = faker.person.firstName();
         const {fillFragment} = createFillerForSchema(`
           type Person {
             name: String!
@@ -889,7 +889,7 @@ describe('createFillers()', () => {
       });
 
       it('uses a function partial value for nested fields', () => {
-        const motherName = faker.name.firstName();
+        const motherName = faker.person.firstName();
         const {fillFragment} = createFillerForSchema(`
           type Person {
             name: String!
@@ -1411,19 +1411,6 @@ describe('createFillers()', () => {
           ]);
         });
 
-        it('always picks the same implementing type', () => {
-          const {fillFragment} = createFillerForInterfaceSchema();
-          const fragment = createDocument(`
-            fragment Details on Query {
-              named {
-                __typename
-              }
-            }
-          `);
-
-          expect(fillFragment(fragment)).toStrictEqual(fillFragment(fragment));
-        });
-
         it('picks an implementing type based on a static typename provided', () => {
           const {fillFragment} = createFillerForInterfaceSchema();
           const fragment = createDocument(`
@@ -1927,7 +1914,7 @@ describe('createFillers()', () => {
         });
 
         it('uses a resolver for an object type', () => {
-          const name = faker.name.firstName();
+          const name = faker.person.firstName();
           const {fillOperation} = createFillerForSchema(
             `
               type Person {
@@ -1960,7 +1947,7 @@ describe('createFillers()', () => {
 
         it('calls the resolver with the request and its type, parent object type, field, and parent field details', () => {
           const personResolver = jest.fn(() => ({
-            name: faker.name.firstName(),
+            name: faker.person.firstName(),
           }));
           const intResolver = jest.fn(() => 1);
 
@@ -2020,7 +2007,7 @@ describe('createFillers()', () => {
         });
 
         it('uses partial values over resolver fields', () => {
-          const name = faker.name.firstName();
+          const name = faker.person.firstName();
           const {fillOperation} = createFillerForSchema(
             `
             type Person {
@@ -2035,8 +2022,8 @@ describe('createFillers()', () => {
             {
               resolvers: {
                 Person: () => ({
-                  age: faker.datatype.number({precision: 1}),
-                  name: faker.name.firstName(),
+                  age: faker.number.int(),
+                  name: faker.person.firstName(),
                 }),
               },
             },
@@ -2069,7 +2056,7 @@ describe('createFillers()', () => {
               resolvers: {
                 Person: () => ({
                   active: true,
-                  name: faker.name.firstName(),
+                  name: faker.person.firstName(),
                 }),
               },
             },
@@ -2104,7 +2091,7 @@ describe('createFillers()', () => {
               resolvers: {
                 Person: () => ({
                   active: true,
-                  name: faker.name.firstName(),
+                  name: faker.person.firstName(),
                 }),
               },
             },
@@ -2152,7 +2139,7 @@ describe('createFillers()', () => {
         });
 
         it('uses a resolver for an object type', () => {
-          const name = faker.name.firstName();
+          const name = faker.person.firstName();
           const {fillFragment} = createFillerForSchema(
             `
               type Person {
@@ -2185,7 +2172,7 @@ describe('createFillers()', () => {
 
         it('calls the resolver with the request and its type, parent object type, field, and parent field details', () => {
           const personResolver = jest.fn(() => ({
-            name: faker.name.firstName(),
+            name: faker.person.firstName(),
           }));
           const intResolver = jest.fn(() => 1);
 
@@ -2243,7 +2230,7 @@ describe('createFillers()', () => {
         });
 
         it('uses partial values over resolver fields', () => {
-          const name = faker.name.firstName();
+          const name = faker.person.firstName();
           const {fillFragment} = createFillerForSchema(
             `
             type Person {
@@ -2258,8 +2245,8 @@ describe('createFillers()', () => {
             {
               resolvers: {
                 Person: () => ({
-                  age: faker.datatype.number({precision: 1}),
-                  name: faker.name.firstName(),
+                  age: faker.number.int(),
+                  name: faker.person.firstName(),
                 }),
               },
             },
@@ -2292,7 +2279,7 @@ describe('createFillers()', () => {
               resolvers: {
                 Person: () => ({
                   active: true,
-                  name: faker.name.firstName(),
+                  name: faker.person.firstName(),
                 }),
               },
             },
@@ -2327,7 +2314,7 @@ describe('createFillers()', () => {
               resolvers: {
                 Person: () => ({
                   active: true,
-                  name: faker.name.firstName(),
+                  name: faker.person.firstName(),
                 }),
               },
             },

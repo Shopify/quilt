@@ -1,21 +1,21 @@
-import {faker} from '@faker-js/faker/locale/en';
+import {faker} from '@faker-js/faker';
 
 import {push, replace, remove} from '../utilities';
 
 describe('array-utilities', () => {
   describe('push', () => {
     it('returns array with new member appended', () => {
-      const array = [faker.address.latitude()];
+      const array = [faker.location.latitude()];
 
-      const newItem = faker.address.latitude();
+      const newItem = faker.location.latitude();
       const newArray = push(array, newItem);
 
       expect(newArray).toStrictEqual(array.concat([newItem]));
     });
 
     it('does not mutate original array', () => {
-      const array = [faker.address.latitude()];
-      const newItem = faker.address.latitude();
+      const array = [faker.location.latitude()];
+      const newItem = faker.location.latitude();
 
       const newArray = push(array, newItem);
 
@@ -27,20 +27,20 @@ describe('array-utilities', () => {
   describe('replace', () => {
     it('returns array with new value replacing given index', () => {
       const array = [
-        faker.address.latitude(),
-        faker.address.latitude(),
-        faker.address.latitude(),
+        faker.location.latitude(),
+        faker.location.latitude(),
+        faker.location.latitude(),
       ];
 
-      const newItem = faker.address.latitude();
+      const newItem = faker.location.latitude();
       const newArray = replace(array, 1, newItem);
 
       expect(newArray).toStrictEqual([array[0], newItem, array[2]]);
     });
 
     it('does not mutate original array', () => {
-      const array = [faker.address.latitude()];
-      const newItem = faker.address.latitude();
+      const array = [faker.location.latitude()];
+      const newItem = faker.location.latitude();
 
       const newArray = replace(array, 0, newItem);
 
@@ -52,9 +52,9 @@ describe('array-utilities', () => {
   describe('remove', () => {
     it('returns array with value at given index removed', () => {
       const array = [
-        faker.address.latitude(),
-        faker.address.latitude(),
-        faker.address.latitude(),
+        faker.location.latitude(),
+        faker.location.latitude(),
+        faker.location.latitude(),
       ];
 
       const newArray = remove(array, 1);
@@ -63,7 +63,7 @@ describe('array-utilities', () => {
     });
 
     it('does not mutate original array', () => {
-      const array = [faker.address.latitude()];
+      const array = [faker.location.latitude()];
 
       const newArray = remove(array, 0);
 

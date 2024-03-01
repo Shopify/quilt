@@ -1,4 +1,4 @@
-import {faker} from '@faker-js/faker/locale/en';
+import {faker} from '@faker-js/faker';
 import {Header} from '@shopify/network';
 import {createMockContext} from '@shopify/jest-koa-mocks';
 import {setAssets} from '@shopify/sewing-kit-koa';
@@ -44,7 +44,7 @@ describe('persistedGraphQLMiddleware', () => {
   });
 
   it('caches the query if there is a persisted query body and explicit GraphQL query when SendAndStore is set', async () => {
-    const id = faker.datatype.uuid();
+    const id = faker.string.uuid();
     const query = createQuery();
     const ctx = createContext({id, query, persisted: true});
     const cache = createCache();
@@ -62,7 +62,7 @@ describe('persistedGraphQLMiddleware', () => {
   });
 
   it('sets the body.query to a query returned by sewing-kit-koa', async () => {
-    const id = faker.datatype.uuid();
+    const id = faker.string.uuid();
     const query = createQuery();
     const ctx = createContext({id, persisted: true});
     setAssets(ctx, {graphQLSource: () => Promise.resolve(query)});
@@ -77,7 +77,7 @@ describe('persistedGraphQLMiddleware', () => {
   });
 
   it('saves the query returned by sewing-kit-koa to the cache when provided', async () => {
-    const id = faker.datatype.uuid();
+    const id = faker.string.uuid();
     const query = createQuery();
     const ctx = createContext({id, persisted: true});
     setAssets(ctx, {graphQLSource: () => Promise.resolve(query)});
@@ -93,7 +93,7 @@ describe('persistedGraphQLMiddleware', () => {
   });
 
   it('sets the body.query to a query returned by cache.get', async () => {
-    const id = faker.datatype.uuid();
+    const id = faker.string.uuid();
     const query = createQuery();
     const ctx = createContext({id, persisted: true});
 
@@ -138,7 +138,7 @@ function createQuery() {
 function createBody({
   query,
   persisted = true,
-  id = faker.datatype.uuid(),
+  id = faker.string.uuid(),
 }: {query?: string; persisted?: boolean; id?: string} = {}) {
   const extensions = persisted ? {persisted: {id}} : {};
 

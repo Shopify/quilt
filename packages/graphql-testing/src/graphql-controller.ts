@@ -1,4 +1,4 @@
-import type {InMemoryCacheConfig} from '@apollo/client';
+import type {DefaultOptions, InMemoryCacheConfig} from '@apollo/client';
 import {ApolloClient, ApolloLink, InMemoryCache} from '@apollo/client';
 
 import {MockLink, InflightLink} from './links';
@@ -9,6 +9,7 @@ import type {GraphQLMock, MockRequest, FindOptions} from './types';
 export interface Options {
   cacheOptions?: InMemoryCacheConfig;
   links?: ApolloLink[];
+  defaultOptions?: DefaultOptions;
 }
 
 interface ResolveAllFindOptions extends FindOptions {
@@ -29,7 +30,7 @@ export class GraphQL {
 
   constructor(
     mock: GraphQLMock = {},
-    {cacheOptions = {}, links = []}: Options = {},
+    {cacheOptions = {}, links = [], defaultOptions = {}}: Options = {},
   ) {
     const cache = new InMemoryCache(cacheOptions);
 
@@ -44,8 +45,10 @@ export class GraphQL {
     ]);
 
     this.client = new ApolloClient({
+      connectToDevTools: false,
       link,
       cache,
+      defaultOptions,
     });
   }
 

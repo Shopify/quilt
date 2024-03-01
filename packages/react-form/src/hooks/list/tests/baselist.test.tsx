@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
-import {faker} from '@faker-js/faker/locale/en';
+import {faker} from '@faker-js/faker';
 import {mount} from '@shopify/react-testing';
 
 import type {FieldListConfig} from '../baselist';
@@ -438,7 +438,7 @@ describe('useBaseList', () => {
         optionValue: faker.commerce.productMaterial(),
       };
       const wrapper = mount(<TestList list={[variant]} />);
-      const newPrice = faker.commerce.price(10, 80);
+      const newPrice = faker.commerce.price({min: 10, max: 80});
 
       wrapper
         .find(TextField, {name: 'price0'})!

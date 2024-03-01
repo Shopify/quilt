@@ -1,6 +1,6 @@
 {
   "name": "@shopify/graphql-testing",
-  "version": "7.0.1",
+  "version": "7.1.0",
   "license": "MIT",
   "description": "Utilities to create mock GraphQL factories",
   "main": "index.js",
@@ -31,12 +31,14 @@
     "node": "^14.17.0 || >=16.0.0"
   },
   "dependencies": {
-    "@apollo/client": "^3.5.8",
     "graphql": ">=14.5.0 <16.0.0",
     "jest-matcher-utils": "^26.6.2"
   },
   "devDependencies": {
     "graphql-typed": "^2.0.2"
+  },
+  "peerDependencies": {
+    "@apollo/client": ">=3.5.8 || <4.0.0"
   },
   "files": [
     "build/",
