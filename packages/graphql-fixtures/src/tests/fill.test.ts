@@ -2,7 +2,7 @@
 import {buildSchema} from 'graphql';
 import type {DocumentNode} from 'graphql-typed';
 import {parse} from 'graphql-typed';
-import {faker as originalFaker} from '@faker-js/faker';
+import {faker as originalFaker} from '@faker-js/faker/locale/en';
 
 import type {Options} from '../fill';
 import {createFillers, list, faker} from '../fill';

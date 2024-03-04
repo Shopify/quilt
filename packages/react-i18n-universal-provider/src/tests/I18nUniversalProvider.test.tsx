@@ -1,11 +1,13 @@
 import React from 'react';
-import {allLocales, faker} from '@faker-js/faker';
+import {faker} from '@faker-js/faker/locale/en';
 import {extract} from '@shopify/react-effect/server';
 import {createMount} from '@shopify/react-testing';
 import {HtmlManager, HtmlContext} from '@shopify/react-html';
 import {I18nContext, I18nManager} from '@shopify/react-i18n';
 
 import {I18nUniversalProvider} from '../I18nUniversalProvider';
+
+const allLocales = ['en', 'fr', 'de', 'es', 'pt_BR'];
 
 const mount = createMount<{htmlManager?: HtmlManager}>({
   render: (element, _, {htmlManager = new HtmlManager()}) => (
@@ -15,7 +17,7 @@ const mount = createMount<{htmlManager?: HtmlManager}>({
 
 describe('<I18nUniversalProvider />', () => {
   it('renders an I18nContext and creates an I18nManager using the given data', () => {
-    const locale = faker.helpers.objectKey(allLocales);
+    const locale = faker.helpers.arrayElement(allLocales);
     const currency = faker.finance.currencyCode();
     const country = faker.location.country();
     const timezone = faker.lorem.word();
@@ -45,7 +47,7 @@ describe('<I18nUniversalProvider />', () => {
 
   it('serializes i18n details and reuses them', async () => {
     const htmlManager = new HtmlManager();
-    const locale = faker.helpers.objectKey(allLocales);
+    const locale = faker.helpers.arrayElement(allLocales);
     const currency = faker.finance.currencyCode();
     const country = faker.location.country();
     const timezone = faker.lorem.word();
@@ -83,7 +85,7 @@ describe('<I18nUniversalProvider />', () => {
 
   it('overrides serialized data with defined overrides', async () => {
     const htmlManager = new HtmlManager();
-    const locale = faker.helpers.objectKey(allLocales);
+    const locale = faker.helpers.arrayElement(allLocales);
     const currency = faker.finance.currencyCode();
     const country = faker.location.country();
     const timezone = faker.lorem.word();
@@ -105,7 +107,7 @@ describe('<I18nUniversalProvider />', () => {
     );
 
     const overrideDetails = {
-      locale: faker.helpers.objectKey(allLocales),
+      locale: faker.helpers.arrayElement(allLocales),
       currency: undefined,
       country: faker.location.country(),
       timezone: undefined,

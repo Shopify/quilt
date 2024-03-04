@@ -39,6 +39,17 @@ module.exports = {
     '@typescript-eslint/await-thenable': 'off',
     'import/no-extraneous-dependencies': 'error',
     'import/consistent-type-specifier-style': 'error',
+    'no-restricted-imports': [
+      'error',
+      {
+        paths: [
+          {
+            name: '@faker-js/faker',
+            message: "Please use '@faker-js/faker/locale/en' instead",
+          },
+        ],
+      },
+    ],
   },
   overrides: [
     {
