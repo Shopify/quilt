@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.0.1
+
+### Patch Changes
+
+- [#2732](https://github.com/Shopify/quilt/pull/2732) [`46056a94c`](https://github.com/Shopify/quilt/commit/46056a94ce17ae47c8f8cab6714a84aae8815f3a) Thanks [@BPScott](https://github.com/BPScott)! - Import from faker from `faker-js/faker/locale/en` to avoid the overhead of loading non-english locales
+
 ## 5.0.0
 
 ### Major Changes
