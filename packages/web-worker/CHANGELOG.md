@@ -106,7 +106,7 @@
 
 ### Changed
 
-- Replaced this package with the contents of [`@remote-ui/web-workers`](https://github.com/Shopify/remote-ui/tree/main/packages/web-workers) as of version `1.5.7`. This change was made in order to deprecate `@remote-ui/web-workers`; anyone who was previously using that package should move to depending on this one (`@shopify/web-worker`) instead.
+- Replaced this package with the contents of [`@remote-ui/web-workers`](https://github.com/Shopify/remote-dom/tree/667a04b5c0e618436781164a2546390c984dd8ec/packages/web-workers) as of version `1.5.7`. This change was made in order to deprecate `@remote-ui/web-workers`; anyone who was previously using that package should move to depending on this one (`@shopify/web-worker`) instead.
 
 ## 2.1.5 - 2021-09-24
 
