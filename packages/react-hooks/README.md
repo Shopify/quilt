@@ -242,7 +242,7 @@ function Score({value}) {
 
 ### `useToggle()`
 
-This hook provides an object that contains a boolean state value and a set of memoised callbacks to toggle it, force it to true, and force it to false. It accepts one argument that is the initial value of the state. This is useful for toggling the active state of modals and popovers.
+This hook provides an object that contains a boolean state value and a set of memoised callbacks to toggle it, force it to true, and force it to false. It accepts one argument that is the initial value of the state or an initializer function returning the initial value. This is useful for toggling the active state of modals and popovers.
 
 ```tsx
 function MyComponent() {
