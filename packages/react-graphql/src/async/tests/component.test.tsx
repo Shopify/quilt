@@ -1,6 +1,6 @@
 import type {ReactElement} from 'react';
 import React from 'react';
-import {faker} from '@faker-js/faker';
+import {faker} from '@faker-js/faker/locale/en';
 import {ApolloClient, ApolloLink, InMemoryCache, gql} from '@apollo/client';
 import {getUsedAssets as baseGetUsedAssets} from '@shopify/react-async/testing';
 import {createMount} from '@shopify/react-testing';

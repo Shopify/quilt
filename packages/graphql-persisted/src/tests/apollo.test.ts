@@ -1,4 +1,4 @@
-import {faker} from '@faker-js/faker';
+import {faker} from '@faker-js/faker/locale/en';
 import {ApolloLink, gql} from '@apollo/client';
 
 import {createPersistedLink} from '../apollo';

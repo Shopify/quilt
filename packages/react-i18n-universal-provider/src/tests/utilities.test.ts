@@ -1,11 +1,13 @@
-import {allLocales, faker} from '@faker-js/faker';
+import {faker} from '@faker-js/faker/locale/en';
 
 import {combinedI18nDetails} from '../utilities';
+
+const allLocales = ['en', 'fr', 'de', 'es', 'pt_BR'];
 
 describe('combinedI18nDetails()', () => {
   it('merges two details objects together', () => {
     const details = {
-      locale: faker.helpers.objectKey(allLocales),
+      locale: faker.helpers.arrayElement(allLocales),
       country: faker.location.country(),
     };
     const overrides = {
@@ -20,7 +22,7 @@ describe('combinedI18nDetails()', () => {
   });
 
   it('overrides fields with defined overrides', () => {
-    const locale = faker.helpers.objectKey(allLocales);
+    const locale = faker.helpers.arrayElement(allLocales);
     const country = faker.location.country();
     const currency = faker.finance.currencyCode();
     const details = {
@@ -44,8 +46,11 @@ describe('combinedI18nDetails()', () => {
 
   describe('locale', () => {
     it('returns a details object with a locale field', () => {
-      const locale = faker.helpers.objectKey(allLocales);
-      const fallbackLocale = faker.helpers.objectKey(allLocales);
+      const [locale, fallbackLocale] = faker.helpers.arrayElements(
+        allLocales,
+        2,
+      );
+
       const details = {locale};
       const overrides = {locale: undefined, fallbackLocale};
 
@@ -56,8 +61,10 @@ describe('combinedI18nDetails()', () => {
     });
 
     it('favours an override locale if one is specified', () => {
-      const locale = faker.helpers.objectKey(allLocales);
-      const overrideLocale = faker.helpers.objectKey(allLocales);
+      const [locale, overrideLocale] = faker.helpers.arrayElements(
+        allLocales,
+        2,
+      );
       const details = {locale};
       const overrides = {locale: overrideLocale};
 
@@ -68,7 +75,7 @@ describe('combinedI18nDetails()', () => {
     });
 
     it('returns a details object with a fallback locale field if one is specified', () => {
-      const fallbackLocale = faker.helpers.objectKey(allLocales);
+      const fallbackLocale = faker.helpers.arrayElement(allLocales);
       const details = {};
       const overrides = {fallbackLocale};
 
