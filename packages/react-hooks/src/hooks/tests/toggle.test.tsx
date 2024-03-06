@@ -4,7 +4,11 @@ import {mount} from '@shopify/react-testing';
 import {useToggle} from '../toggle';
 
 describe('useToggle', () => {
-  function MockComponent({initialValueIsTrue = false}) {
+  function MockComponent({
+    initialValueIsTrue = false,
+  }: {
+    initialValueIsTrue?: boolean | (() => boolean);
+  }) {
     const {value, toggle, setTrue, setFalse} = useToggle(initialValueIsTrue);
 
     const activeText = value ? 'true' : 'false';
@@ -25,6 +29,16 @@ describe('useToggle', () => {
 
     const wrapperInitallyTrue = mount(<MockComponent initialValueIsTrue />);
     expect(wrapperInitallyTrue).toContainReactText('Value: true');
+
+    const wrapperInitallyFunctionFalse = mount(
+      <MockComponent initialValueIsTrue={() => false} />,
+    );
+    expect(wrapperInitallyFunctionFalse).toContainReactText('Value: false');
+
+    const wrapperInitallyFunctionTrue = mount(
+      <MockComponent initialValueIsTrue={() => true} />,
+    );
+    expect(wrapperInitallyFunctionTrue).toContainReactText('Value: true');
   });
 
   it('toggles the value when the toggle callback is triggered', () => {
