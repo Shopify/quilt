@@ -1,4 +1,5 @@
 import * as t from '@babel/types';
+import babelGenerator from '@babel/generator';
 import {pascalCase, camelCase, snakeCase} from 'change-case';
 import type {
   GraphQLSchema,
@@ -18,8 +19,12 @@ import {
 import {scalarTypeMap} from '../utilities';
 import {EnumFormat} from '../../types';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const generate = require('@babel/generator').default;
+// The version of @babel/generator we depend on has a strange build process
+// that doesn’t work consistently in ESM and non-ESM consumers. This hacky bit of
+// code makes sure we get the actual `generate()` function in both runtimes.
+const generate: typeof babelGenerator =
+  (babelGenerator as any as {default: typeof babelGenerator}).default ??
+  babelGenerator;
 
 export interface ScalarDefinition {
   name: string;

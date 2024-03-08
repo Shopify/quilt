@@ -10,7 +10,7 @@ import type {
 } from 'graphql';
 import {parse, Source, concatAST} from 'graphql';
 import chalk from 'chalk';
-import {mkdirp, readFile, writeFile} from 'fs-extra';
+import fsExtra from 'fs-extra';
 import type {GraphQLProjectConfig, GraphQLConfig} from 'graphql-config';
 import {loadConfigSync} from 'graphql-config';
 import {
@@ -27,6 +27,8 @@ import {AbstractGraphQLFilesystem} from './filesystem';
 import type {PrintDocumentOptions, PrintSchemaOptions} from './print';
 import {printDocument, generateSchemaTypes} from './print';
 import {EnumFormat, ExportFormat} from './types';
+
+const {mkdirp, readFile, writeFile} = fsExtra;
 
 export type {GraphQLFilesystem};
 export {AbstractGraphQLFilesystem, EnumFormat, ExportFormat};
