@@ -118,6 +118,13 @@ describe('Browser', () => {
 
       expect(new Browser({userAgent}).isMobile).toBe(false);
     });
+
+    it('returns true when the device is a POS Go device', () => {
+      const userAgent =
+        'Mozilla/5.0 (Linux; Android 10; WSC6X Build/QKQ1.200816.002) Firefox/69.0';
+
+      expect(new Browser({userAgent}).isMobile).toBe(true);
+    });
   });
 
   describe('isIOS', () => {
