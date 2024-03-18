@@ -1,5 +1,15 @@
 # Changelog
 
+## 6.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`a4eae7db3`](https://github.com/Shopify/quilt/commit/a4eae7db327a29a0fe6196fe8b8223c7aedeb89b)]:
+  - @shopify/react-hooks@3.1.0
+  - @shopify/react-graphql@10.1.1
+  - @shopify/react-network@5.0.16
+  - @shopify/react-html@13.0.7
+
 ## 6.1.0
 
 ### Minor Changes

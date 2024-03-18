@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-graphql",
-  "version": "10.1.0",
+  "version": "10.1.1",
   "license": "MIT",
   "description": "Tools for creating type-safe and asynchronous GraphQL components for React",
   "main": "index.js",
@@ -25,9 +25,9 @@
   },
   "dependencies": {
     "@shopify/async": "^4.0.3",
-    "@shopify/react-async": "^5.3.0",
+    "@shopify/react-async": "^5.3.1",
     "@shopify/react-effect": "^5.0.3",
-    "@shopify/react-hooks": "^3.0.5",
+    "@shopify/react-hooks": "^3.1.0",
     "@shopify/react-idle": "^3.1.2",
     "@shopify/useful-types": "^5.1.2",
     "graphql-typed": "^2.0.2",

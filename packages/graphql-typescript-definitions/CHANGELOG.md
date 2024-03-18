@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.3.5
+
+### Patch Changes
+
+- [#2737](https://github.com/Shopify/quilt/pull/2737) [`d523bc124`](https://github.com/Shopify/quilt/commit/d523bc124dc68239f6c8fd1f90de31dc1ac9393d) Thanks [@lemonmade](https://github.com/lemonmade)! - Fix GraphQL type generation in ESM projects
+
 ## 3.3.4
 
 ### Patch Changes
