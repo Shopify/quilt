@@ -37,7 +37,10 @@ export class Browser {
   }
 
   get isMobile() {
-    return MOBILE_DEVICE_TYPES.includes(this.ua.getDevice().type);
+    return (
+      MOBILE_DEVICE_TYPES.includes(this.ua.getDevice().type) ||
+      this.isPOSFirstPartyDevice()
+    );
   }
 
   get isDesktop() {
@@ -106,6 +109,13 @@ export class Browser {
     this.userAgent = userAgent;
     this.supported = supported;
     this.ua = new UAParser(userAgent);
+  }
+
+  // POS Go is a first party device that is not detected as a mobile device
+  isPOSFirstPartyDevice() {
+    return (
+      this.ua.getUA().includes('WSC6X') || this.ua.getUA().includes('WTH11')
+    );
   }
 }
 
