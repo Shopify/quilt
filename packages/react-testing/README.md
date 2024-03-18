@@ -236,14 +236,23 @@ import {createMount} from '@shopify/react-testing';
 
 interface Options {
   pathname: string;
+  beta: boolean
 }
 
 interface ExtendedOptions {
   graphQLResult: object;
 }
 
-const mount = createMount<Options, Options>({
-  context: (options) => options,
+const mount = createMount<Options, Context>({
+  context: (options) => {
+    const context: Content = {
+      pathname,
+      grahpQL: createGraphQL({
+        BetaFlags: {enabled: options.beta},
+      }),
+    }
+    return contenxt;
+  },
   render: (element, {pathname}) => (
     <Router pathname={pathname}>{element}</Router>
   ),
