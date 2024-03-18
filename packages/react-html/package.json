@@ -1,6 +1,6 @@
 {
   "name": "@shopify/react-html",
-  "version": "13.0.6",
+  "version": "13.0.7",
   "license": "MIT",
   "description": "A component to render your React app with no static HTML",
   "main": "index.js",
@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@shopify/react-effect": "^5.0.3",
-    "@shopify/react-hydrate": "^3.0.10",
+    "@shopify/react-hydrate": "^3.0.11",
     "@types/multistream": "^2.1.1",
     "multistream": "^2.1.1",
     "serialize-javascript": "^3.0.0"

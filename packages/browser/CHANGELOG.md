@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.2.1
+
+### Patch Changes
+
+- [#2739](https://github.com/Shopify/quilt/pull/2739) [`95b060fbd`](https://github.com/Shopify/quilt/commit/95b060fbdd32e260cc104cae821fd78a7a31aa00) Thanks [@chaitanyambilgikar](https://github.com/chaitanyambilgikar)! - Detect POS Go devices as mobile devices
+
 ## 3.2.0
 
 ### Minor Changes

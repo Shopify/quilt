@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.1.0
+
+### Minor Changes
+
+- [#2734](https://github.com/Shopify/quilt/pull/2734) [`a4eae7db3`](https://github.com/Shopify/quilt/commit/a4eae7db327a29a0fe6196fe8b8223c7aedeb89b) Thanks [@emileber](https://github.com/emileber)! - Introduce initializer function to useToggle
+
 ## 3.0.5
 
 ### Patch Changes
