@@ -60,6 +60,34 @@ export class StatsDClient {
       this.logger = logger;
     }
 
+    // consume global tags from STATSD_DEFAULT_TAGS environment variable
+    // The default format is: STATSD_DEFAULT_TAGS="tag1:value1,tag2:value2"
+    // eslint-disable-next-line no-process-env
+    const defaultTagsEnv = process.env.STATSD_DEFAULT_TAGS;
+    if (defaultTagsEnv) {
+      let tags = defaultTagsEnv.split(',');
+      if (!options.globalTags) {
+        options.globalTags = [];
+      }
+      if (Array.isArray(options.globalTags)) {
+        // check for duplicate tags
+        options.globalTags.forEach((tag) => {
+          const [key] = tag.split(':');
+          // remove duplicate tag
+          tags = tags.filter((t) => !t.startsWith(`${key}:`));
+        });
+        options.globalTags.push(...tags);
+      } else if (typeof options.globalTags === 'object') {
+        for (const tag of tags) {
+          const [key, value] = tag.split(':');
+          if (key && value && !options.globalTags[key]) {
+            options.globalTags[key] = value;
+          }
+          options.globalTags[key] = value;
+        }
+      }
+    }
+
     this.options = {
       ...options,
       errorHandler: statsdOptions.errorHandler

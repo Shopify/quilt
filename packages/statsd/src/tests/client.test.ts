@@ -27,16 +27,69 @@ describe('StatsDClient', () => {
   const tags = {[tagName]: tagValue};
   const sampleRate = 0.5;
 
-  it('passes all the options to the statsd client', () => {
-    const statsDClient = new StatsDClient(defaultOptions);
 
-    expect(statsDClient).toBeDefined();
-    expect(StatsDMock).toHaveBeenCalledTimes(1);
-    expect(StatsDMock).toHaveBeenCalledWith({
-      ...defaultOptions,
-      errorHandler: expect.any(Function),
+  describe('constructor', () => {
+    it('reads from process.env.STATSD_DEFAULT_TAGS and sets the globalTags option in the childClient', () => {
+      // Arrange
+      process.env.STATSD_DEFAULT_TAGS = 'tag1:value1,tag2:value2';
+      const expectedTags = ['aaa:A', 'tag1:value1', 'tag2:value2'];
+
+      // Act
+      const statsDClient = new StatsDClient({
+        ...defaultOptions,
+        globalTags: ['aaa:A'],
+      });
+
+      // Assert
+      expect(statsDClient).toBeDefined();
+      expect(StatsDMock).toHaveBeenCalledTimes(1);
+      expect(StatsDMock).toHaveBeenCalledWith({
+        ...defaultOptions,
+        globalTags: expectedTags,
+        errorHandler: expect.any(Function),
+      });
+
+      // Clean up
+      delete process.env.STATSD_DEFAULT_TAGS;
+    });
+
+    it('sets the globalTags option in the childClient when passed as an object', () => {
+      // Arrange
+      process.env.STATSD_DEFAULT_TAGS = 'foo:bar';
+      const expectedTags = {
+        tag1: 'value1',
+        tag2: 'value2',
+      };
+      const options = {
+        ...defaultOptions,
+        globalTags: expectedTags,
+      };
+
+      // Act
+      const statsDClient = new StatsDClient(options);
+
+      // Assert
+      expect(statsDClient).toBeDefined();
+      expect(StatsDMock).toHaveBeenCalledTimes(1);
+      expect(StatsDMock).toHaveBeenCalledWith({
+        ...options,
+        errorHandler: expect.any(Function),
+      });
+    });
+
+
+    it('passes all the options to the statsd client', () => {
+      const statsDClient = new StatsDClient(defaultOptions);
+
+      expect(statsDClient).toBeDefined();
+      expect(StatsDMock).toHaveBeenCalledTimes(1);
+      expect(StatsDMock).toHaveBeenCalledWith({
+        ...defaultOptions,
+        errorHandler: expect.any(Function),
+      });
     });
   });
+
 
   describe('distribution', () => {
     it('passes distribution metrics to the statsd client', () => {
@@ -90,9 +143,12 @@ describe('StatsDClient', () => {
       expect(errorHandler).toHaveBeenCalledWith(error);
     });
 
-    it("calls logger's log on the promise when the client returns an error and there is no errorHandler in options", () => {
-      function logger() {}
-      logger.log = () => {};
+    it('calls logger\'s log on the promise when the client returns an error and there is no errorHandler in options', () => {
+      function logger() {
+      }
+
+      logger.log = () => {
+      };
       const logSpy = jest.spyOn(logger, 'log');
 
       const statsDClient = new StatsDClient({...defaultOptions, logger});
@@ -162,9 +218,12 @@ describe('StatsDClient', () => {
       expect(errorHandler).toHaveBeenCalledWith(error);
     });
 
-    it("calls logger's log on the promise when the client returns an error and there is no errorHandler in options", () => {
-      function logger() {}
-      logger.log = () => {};
+    it('calls logger\'s log on the promise when the client returns an error and there is no errorHandler in options', () => {
+      function logger() {
+      }
+
+      logger.log = () => {
+      };
       const logSpy = jest.spyOn(logger, 'log');
 
       const statsDClient = new StatsDClient({...defaultOptions, logger});
@@ -234,9 +293,12 @@ describe('StatsDClient', () => {
       expect(errorHandler).toHaveBeenCalledWith(error);
     });
 
-    it("calls logger's log on the promise when the client returns an error and there is no errorHandler in options", () => {
-      function logger() {}
-      logger.log = () => {};
+    it('calls logger\'s log on the promise when the client returns an error and there is no errorHandler in options', () => {
+      function logger() {
+      }
+
+      logger.log = () => {
+      };
       const logSpy = jest.spyOn(logger, 'log');
 
       const statsDClient = new StatsDClient({...defaultOptions, logger});
@@ -328,9 +390,12 @@ describe('StatsDClient', () => {
       expect(errorHandler).toHaveBeenCalledWith(error);
     });
 
-    it("calls logger's log on the promise when the client returns an error and there is no errorHandler in options", () => {
-      function logger() {}
-      logger.log = () => {};
+    it('calls logger\'s log on the promise when the client returns an error and there is no errorHandler in options', () => {
+      function logger() {
+      }
+
+      logger.log = () => {
+      };
       const logSpy = jest.spyOn(logger, 'log');
 
       const statsDClient = new StatsDClient({...defaultOptions, logger});
@@ -349,7 +414,7 @@ describe('StatsDClient', () => {
   });
 
   describe('close', () => {
-    it("calls statsd client's close function", () => {
+    it('calls statsd client\'s close function', () => {
       const statsDClient = new StatsDClient(defaultOptions);
       statsDClient.close();
 
@@ -373,9 +438,12 @@ describe('StatsDClient', () => {
       expect(errorHandler).toHaveBeenCalledWith(error);
     });
 
-    it("calls logger's log on the promise when the client returns an error and there is no errorHandler in options", () => {
-      function logger() {}
-      logger.log = () => {};
+    it('calls logger\'s log on the promise when the client returns an error and there is no errorHandler in options', () => {
+      function logger() {
+      }
+
+      logger.log = () => {
+      };
       const logSpy = jest.spyOn(logger, 'log');
 
       const statsDClient = new StatsDClient({...defaultOptions, logger});
