@@ -58,6 +58,9 @@ jobs:
           yarn lint
           yarn ci:lint-docs
 
+      - name: Type tests
+        run: yarn test:types
+
       - name: Unit tests
         run: yarn test "^(?:(?!(address|react-server|web-worker)).)*$"
         env:

@@ -1,10 +1,12 @@
 # Testing exported TypeScript types
 
-## Setting up tsd tests
+We use [`tstyche`](https://github.com/tstyche/tstyche) to test TypeScript types. Visit [https://tstyche.org](https://tstyche.org) to view the full documentation of the tool.
 
-We use [jest-runner-tsd](https://github.com/jest-community/jest-runner-tsd) to test TypeScript types. Type test filenames end in `.test-d.ts` (similar to how `.test.ts` is used to denote runtime tests). Create a `test-d` folder in a package and populate it with your `.test-d.ts` test files.
+## Setting up type tests
 
-Example:
+Type test filenames have the `.tst.*` suffix, similar to how `.test.*` is used to denote runtime tests. Differently from the functional tests, the type test files are only statically analyzed by the TypeScript compiler, but not executed (hence the missing `e` in the suffix).
+
+To create a type test project in a package, add a `typetests` folder with `tsconfig.json` file and populate it with your `.tst.ts` test files:
 
 ```
 📂 packages
@@ -15,68 +17,97 @@ Example:
 │     └── types.ts
 ├──── 📂 tests (runtime tests)
 │     └── create.test.ts
-└──── 📂 test-d (typescript definition tests)
-      └── types.test-d.ts
+└──── 📂 typetests (type tests)
+│     ├── create.tst.ts
+│     └── tsconfig.json
 ```
 
-Type tests are ran as part of the standard `yarn test` jest execution.
+The TSConfig file will be used by a code editor and TSTyche. It can extend the `tsconfig.base.json` file:
+
+```json
+{
+  "extends": "../../../config/typescript/tsconfig.base.json",
+  "compilerOptions": {
+    "emitDeclarationOnly": false,
+    "strict": true,
+    "types": []
+  },
+  "references": [{"path": ".."}]
+}
+```
+
+To run the type tests, use the `yarn test:types` command.
 
 ## Useful tests
 
-Assuming you have some source types in `./src/types.ts`
+TSTyche compares types using the familiar `expect` style assertions (to learn more, see: [https://tstyche.org/reference/expect-api](https://tstyche.org/reference/expect-api)).
 
-```tsx
-export interface Person {
-  firstName: string;
-}
+For example, here is how the `ArrayElement` utility type is tested:
 
-export type ArrayElement<T> = T extends (infer U)[] ? U : never;
-```
-
-and an exported function in `./src/create.ts`
-
-```tsx
-import {Person} from './types';
-
-export function createPerson(input?: Person): Person {
-  return {
-    firstName: input?.firstName ?? 'bob',
-  };
-}
-```
-
-You can test types using [`tsd-lite`](https://github.com/mrazauskas/tsd-lite)'s assertion methods.
-
-Check positive scenarios, that a value of a given type matches or is assignable to your value. Use the most strict assertion possible.
-
-```tsx
-import {expectType, expectAssignable} from 'tsd-lite';
-
-import type {ArrayElement, Person} from '../src/types';
-import {createPerson} from '../src/create';
-
-// strict checks value type equality
-expectType<ArrayElement<Person[]>>(createPerson());
-
-// loose checks value assignable to type
-expectAssignable<ArrayElement<string[]>>('foo');
-```
-
-Also check that values which do not match your type are not assignable, especially when you include conditional logic in a generic type.
-
-```tsx
-import {expectError, expectNotAssignable} from 'tsd-lite';
+```ts
+import {describe, it, expect} from 'tstyche';
 
 import type {ArrayElement} from '../src/types';
-import {createPerson} from '../src/create';
 
-// string is not a member of an array, so we should not be able to assign anything to it.
-expectNotAssignable<ArrayElement<string>>('string');
+describe('ArrayElement', () => {
+  it('infers the array element type', () => {
+    expect<ArrayElement<(string | boolean)[]>>().type.toEqual<
+      string | boolean
+    >();
 
-// createPerson expects an input of Person where firstName is a string. We pass a boolean, hence the expression will have a type error.
-expectError(createPerson({firstName: true}));
+    expect<ArrayElement<string[]>>().type.toBeString();
+    expect<ArrayElement<any[]>>().type.toBeAny();
+  });
+
+  it('when `T` is not an array, resolves to the `never` type', () => {
+    expect<ArrayElement<string>>().type.toBeNever();
+  });
+});
+```
+
+If the resulting type is more complex, the `.toMatch()` matcher can be helpful to test partial match:
+
+```ts
+import {describe, it, expect} from 'tstyche';
+
+import type {DeepReadonly} from '../src/types';
+
+describe('DeepReadonly', () => {
+  interface Person {
+    firstName: string;
+    lastName?: string | undefined;
+  }
+
+  it('marks the properties as readonly recursively', () => {
+    expect<DeepReadonly<Person>>().type.toMatch<{
+      readonly firstName: string;
+    }>();
+
+    expect<DeepReadonly<Person>>().type.toMatch<{
+      readonly lastName?: string | undefined;
+    }>();
+  });
+});
+```
+
+If a generic type has conditional logic, remember to cover all the branches. You can negate the condition by prepend `.not` before a matcher:
+
+```ts
+import {describe, it, expect} from 'tstyche';
+
+import type {IfEmptyObject} from '../src/types';
+
+describe('IfEmptyObject', () => {
+  it('checks if an object is empty', () => {
+    expect<IfEmptyObject<{}, true>>().type.toEqual<true>();
+    expect<IfEmptyObject<{foo: string}, never, false>>().type.toEqual<false>();
+
+    expect<IfEmptyObject<{foo: string}, true>>().type.not.toEqual<true>();
+    expect<IfEmptyObject<boolean, true>>().type.not.toEqual<true>();
+  });
+});
 ```
 
 ## Why not use `yarn type-check`?
 
-Typechecking quilt source code ensures that there are no type errors in the source code. TSD allows us to assert that types built by quilt packages implement the logical constraints we intend them to. You can test error cases, negative cases, and a range of positive cases. This leads to more resilient types and easier refactoring of types.
+Typechecking quilt source code ensures that there are no type errors in the source code. TSTyche allows us to assert that types built by quilt packages implement the logical constraints we intend them to. You can test error cases, negative cases, and a range of positive cases. This leads to more resilient types and easier refactoring.

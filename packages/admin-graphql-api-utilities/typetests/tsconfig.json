@@ -1,0 +1,17 @@
+{
+  "extends": "../../../config/typescript/tsconfig.base.json",
+  "compilerOptions": {
+    "emitDeclarationOnly": false,
+    "strict": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "exactOptionalPropertyTypes": true,
+
+    "types": []
+  },
+  "include": ["**/*"],
+  "exclude": [],
+
+  "references": [{"path": ".."}]
+}

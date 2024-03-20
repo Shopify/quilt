@@ -1,6 +1,0 @@
-{
-  "compilerOptions": {
-    "strict": true
-  },
-  "references": [{"path": ".."}]
-}
