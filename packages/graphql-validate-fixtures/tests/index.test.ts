@@ -6,10 +6,27 @@ import * as glob from 'glob';
 import {stripFullFilePaths} from '../../../tests/utilities';
 import type {Options} from '../src/index';
 import {evaluateFixtures} from '../src/index';
+import type {Evaluation} from '../build/ts';
 
 const rootFixtureDirectory = join(__dirname, 'fixtures');
 
 describe('evaluateFixtures()', () => {
+  it('handles fixtures from queries with fragments without errors', async () => {
+    const result = await evaluateFixturesForFixturePath('fragments');
+    expect(result[0].validationErrors).toHaveLength(0);
+  });
+
+  it('handles fixtures using schemas defined with json without errors', async () => {
+    const result = await evaluateFixturesForFixturePath('fragments');
+    expect(result[0].validationErrors).toHaveLength(0);
+  });
+
+  it('handles fixtures and typescript-defined queries without errors', async () => {
+    expect(
+      await evaluateFixturesForFixturePath('typescript-all-clear'),
+    ).toMatchSnapshot();
+  });
+
   it('handles fixtures without errors', async () => {
     expect(await evaluateFixturesForFixturePath('all-clear')).toMatchSnapshot();
   });
@@ -60,7 +77,7 @@ describe('evaluateFixtures()', () => {
 async function evaluateFixturesForFixturePath(
   fixture: string,
   options?: Partial<Options>,
-) {
+): Promise<Evaluation[]> {
   try {
     const result = await evaluateFixtures(detailsForFixture(fixture), {
       cwd: join(rootFixtureDirectory, fixture),

@@ -248,38 +248,162 @@ function validateValueAgainstObjectFieldDescription(
     return [];
   }
 
-  const {fields = [], fragmentSpreads = [], type} = fieldDescription;
+  const {
+    fields: currentValueFields = [],
+    fragmentSpreads = [],
+    inlineFragments = [],
+    type: currentValueType,
+  } = fieldDescription;
 
-  const fragmentFields: Field[] = [];
+  const fragmentSpreadFields: Field[] = [];
+  const inlineFragmentFields: Field[] = [];
 
-  if (fragmentSpreads) {
-    fragmentSpreads
-      .map((spread) => ast.fragments[spread])
-      .forEach((fragment) => {
-        fragment.fields.forEach((field) => {
-          if (fields.some(({fieldName}) => fieldName === field.fieldName)) {
-            return;
-          }
+  if (fragmentSpreads.length !== 0) {
+    fragmentSpreadFields.push(
+      ...getFragmentSpreadsFields(
+        fragmentSpreads,
+        currentValueFields,
+        currentValueType,
+        value,
+        ast,
+      ),
+    );
+  }
 
-          const isGuaranteedTypeMatch = fragment.possibleTypes.includes(
-            makeTypeNullable(type),
-          );
-
-          fragmentFields.push(
-            isGuaranteedTypeMatch
-              ? field
-              : {...field, type: makeTypeNullable(field.type)},
-          );
-        });
-      });
+  if (inlineFragments.length !== 0) {
+    inlineFragmentFields.push(
+      ...getInlineFragmentsFields(
+        inlineFragments,
+        currentValueFields,
+        currentValueType,
+        value,
+        ast,
+      ),
+    );
   }
 
   return validateValueAgainstFields(
     value,
-    fields.concat(fragmentFields),
+    currentValueFields.concat(fragmentSpreadFields, inlineFragmentFields),
     keyPath,
     ast,
   );
+}
+
+function getInlineFragmentsFields(
+  inlineFragments: any[],
+  currentValueFields: any[],
+  currentValueType,
+  currentValue: any,
+  ast: AST,
+) {
+  const inlineFragmentFields: Field[] = [];
+
+  inlineFragments
+    .filter(
+      (nestedFragment) =>
+        nestedFragment.typeCondition.name === currentValue.__typename,
+    )
+    .forEach((inlineFragment) => {
+      inlineFragment.fields.forEach((inlineFragmentField: Field) => {
+        if (isFieldContainedInFields(inlineFragmentField, currentValueFields)) {
+          return;
+        }
+
+        if (!isFieldContainedInObjectKeys(inlineFragmentField, currentValue)) {
+          return;
+        }
+
+        const isGuaranteedTypeMatch = inlineFragment.possibleTypes.includes(
+          makeTypeNullable(currentValueType),
+        );
+
+        inlineFragmentFields.push(
+          isGuaranteedTypeMatch
+            ? inlineFragmentField
+            : {
+                ...inlineFragmentField,
+                type: makeTypeNullable(inlineFragmentField.type),
+              },
+        );
+      });
+
+      if (inlineFragment.fragmentSpreads.length !== 0) {
+        const inlineFragmentFragmentSpreadsFields = getFragmentSpreadsFields(
+          inlineFragment.fragmentSpreads,
+          currentValueFields,
+          currentValueType,
+          currentValue,
+          ast,
+        );
+
+        inlineFragmentFragmentSpreadsFields
+          .filter((fragmentSpreadField) =>
+            Object.keys(currentValue).includes(fragmentSpreadField.fieldName),
+          )
+          .map((fragmentSpreadField) =>
+            inlineFragmentFields.push(fragmentSpreadField),
+          );
+      }
+    });
+
+  return inlineFragmentFields;
+}
+
+function getFragmentSpreadsFields(
+  fragmentSpreads: any[],
+  currentValueFields: any[],
+  currentValueType,
+  currentValue: any,
+  ast: AST,
+): Field[] {
+  const fragmentSpreadFields: Field[] = [];
+
+  fragmentSpreads
+    .map((spread) => ast.fragments[spread])
+    .forEach((fragment) => {
+      fragment.fields.forEach((fragmentField) => {
+        if (isFieldContainedInFields(fragmentField, currentValueFields)) {
+          return;
+        }
+
+        const isGuaranteedTypeMatch = fragment.possibleTypes.includes(
+          makeTypeNullable(currentValueType),
+        );
+
+        fragmentSpreadFields.push(
+          isGuaranteedTypeMatch
+            ? fragmentField
+            : {...fragmentField, type: makeTypeNullable(fragmentField.type)},
+        );
+      });
+
+      if (fragment.fragmentSpreads.length !== 0) {
+        const nestedFragmentSpreads = fragment.fragmentSpreads.map(
+          (spread) => ast.fragments[spread],
+        );
+
+        fragmentSpreadFields.push(
+          ...getInlineFragmentsFields(
+            nestedFragmentSpreads,
+            currentValueFields,
+            currentValueType,
+            currentValue,
+            ast,
+          ),
+        );
+      }
+    });
+
+  return fragmentSpreadFields;
+}
+
+function isFieldContainedInObjectKeys(field: Field, value: any) {
+  return Object.keys(value).some((key) => key === field.fieldName);
+}
+
+function isFieldContainedInFields(field: Field, fields: Field[]) {
+  return fields.some(({fieldName}) => fieldName === field.fieldName);
 }
 
 function makeTypeNullable(type: GraphQLType) {
