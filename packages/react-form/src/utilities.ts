@@ -248,3 +248,7 @@ export function makeCleanDynamicLists(dynamicLists?: DynamicListBag) {
     });
   }
 }
+
+export function isNumericString(value: any): value is string {
+  return typeof value === 'string' && value !== '' && !isNaN(Number(value));
+}
