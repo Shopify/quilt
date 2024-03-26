@@ -48,6 +48,7 @@ export default function useQuery<
     notifyOnNetworkStatusChange,
     context,
     ssr = true,
+    onCompleted,
   } = options;
 
   const variables: Variables = options.variables || ({} as any);
@@ -176,6 +177,11 @@ export default function useQuery<
           ) {
             return;
           }
+
+          if (onCompleted && !status.loading && !status.error) {
+            onCompleted(status.data);
+          }
+
           invalidateCurrentResult();
         },
         (error) => {
