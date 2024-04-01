@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.4.0
+
+### Minor Changes
+
+- [#2743](https://github.com/Shopify/quilt/pull/2743) [`224609455`](https://github.com/Shopify/quilt/commit/2246094558e46d40285327a13d79a106b32e3b72) Thanks [@ryanwilsonperkin](https://github.com/ryanwilsonperkin)! - Allow restriction on allowed metric names in StatsDClient
+
 ## 4.3.0
 
 ### Minor Changes
