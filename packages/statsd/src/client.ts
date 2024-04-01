@@ -150,8 +150,10 @@ export class StatsDClient<Stat extends string = string> {
     });
   }
 
-  childClient(options?: Omit<ChildOptions, 'client'>) {
-    return new StatsDClient<Stat>({client: this, ...options});
+  childClient<ChildStat extends string = Stat>(
+    options?: Omit<ChildOptions, 'client'>,
+  ) {
+    return new StatsDClient<ChildStat>({client: this, ...options});
   }
 
   addGlobalTags(globalTags: Tags) {
