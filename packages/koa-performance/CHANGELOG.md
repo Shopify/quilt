@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.5.2
+
+### Patch Changes
+
+- Updated dependencies [[`224609455`](https://github.com/Shopify/quilt/commit/2246094558e46d40285327a13d79a106b32e3b72)]:
+  - @shopify/statsd@4.4.0
+
 ## 3.5.1
 
 ### Patch Changes
