@@ -31,7 +31,7 @@ export interface MetricOptions {
 
 export type Options = ClientOptions | ChildOptions;
 
-export class StatsDClient {
+export class StatsDClient<Stat extends string = string> {
   protected statsd: StatsD;
   protected logger: Logger = console;
   protected options: ClientOptions;
@@ -77,7 +77,7 @@ export class StatsDClient {
   }
 
   distribution(
-    stat: string | string[],
+    stat: Stat | Stat[],
     value: number,
     tags?: Tags,
     options: MetricOptions = {},
@@ -94,7 +94,7 @@ export class StatsDClient {
   }
 
   timing(
-    stat: string | string[],
+    stat: Stat | Stat[],
     value: number,
     tags?: Tags,
     options: MetricOptions = {},
@@ -111,7 +111,7 @@ export class StatsDClient {
   }
 
   gauge(
-    stat: string | string[],
+    stat: Stat | Stat[],
     value: number,
     tags?: Tags,
     options: MetricOptions = {},
@@ -128,7 +128,7 @@ export class StatsDClient {
   }
 
   increment(
-    stat: string | string[],
+    stat: Stat | Stat[],
     tags?: Tags,
     options: MetricOptions = {},
     value = 1,
@@ -150,8 +150,10 @@ export class StatsDClient {
     });
   }
 
-  childClient(options?: Omit<ChildOptions, 'client'>) {
-    return new StatsDClient({client: this, ...options});
+  childClient<ChildStat extends string = Stat>(
+    options?: Omit<ChildOptions, 'client'>,
+  ) {
+    return new StatsDClient<ChildStat>({client: this, ...options});
   }
 
   addGlobalTags(globalTags: Tags) {
