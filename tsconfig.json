@@ -34,6 +34,7 @@
     {"path": "./packages/name"},
     {"path": "./packages/network"},
     {"path": "./packages/performance"},
+    {"path": "./packages/phone"},
     {"path": "./packages/polyfills"},
     {"path": "./packages/predicates"},
     {"path": "./packages/react-app-bridge-universal-provider"},
