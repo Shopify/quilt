@@ -7,6 +7,7 @@ interface Options {
   globalObject?: string;
   plugins?: ReadonlyArray<WebpackPluginInstance>;
   filename?: string;
+  publicPathGlobalVariable?: string;
 }
 
 export class WebWorkerPlugin implements WebpackPluginInstance {

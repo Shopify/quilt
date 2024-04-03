@@ -127,6 +127,7 @@ The `WebWorkerPlugin` helps coordinate a few things during webpack compilation a
 
 - `globalObject`: allows you to customize the [`options.output.globalObject`](https://webpack.js.org/configuration/output/#outputglobalobject) option passed to the child Webpack compiler. By default, this is set to `self`, which works well in workers, but if you have a different global object that must be used, you can pass it here.
 - `plugins`: an array of [webpack plugins](https://webpack.js.org/plugins/) to include in the child compilation of the worker. This library automatically includes a few plugins that will generate output code appropriate for workers.
+- `publicPathGlobalVariable`: a global variable name to be read when prefixing the worker's script path. When this option is set, the loader assumes the global variable will always be defined. By default, this value is `__webpack_public_path__` which is always defined.
 
 #### Tests
 

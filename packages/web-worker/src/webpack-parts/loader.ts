@@ -12,6 +12,7 @@ const moduleWrapperCache = new Map<string, string | false>();
 export interface Options {
   name?: string;
   wrapperModule?: string;
+  publicPathGlobalVariable?: string;
 }
 
 export function pitch(this: LoaderContext<Options>, request: string) {
@@ -135,9 +136,13 @@ export function pitch(this: LoaderContext<Options>, request: string) {
         return callback!(finalError);
       }
 
+      const publicPathGlobalVariable =
+        plugin.options.publicPathGlobalVariable ?? '__webpack_public_path__';
       return callback!(
         null,
-        `export default __webpack_public_path__ + ${JSON.stringify(entry)};`,
+        `export default ${publicPathGlobalVariable} + ${JSON.stringify(
+          entry,
+        )};`,
       );
     },
   );
