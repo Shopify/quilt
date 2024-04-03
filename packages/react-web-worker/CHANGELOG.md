@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.0.15
+
+### Patch Changes
+
+- Updated dependencies [[`f019b983e`](https://github.com/Shopify/quilt/commit/f019b983eb45d317468ca8a4b258192ac05fd0be)]:
+  - @shopify/web-worker@6.1.0
+
 ## 5.0.14
 
 ### Patch Changes

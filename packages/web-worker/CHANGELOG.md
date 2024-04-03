@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.1.0
+
+### Minor Changes
+
+- [#2747](https://github.com/Shopify/quilt/pull/2747) [`f019b983e`](https://github.com/Shopify/quilt/commit/f019b983eb45d317468ca8a4b258192ac05fd0be) Thanks [@robin-drexler](https://github.com/robin-drexler)! - Allow to override worker public path
+
 ## 6.0.5
 
 ### Patch Changes
