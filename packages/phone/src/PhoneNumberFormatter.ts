@@ -118,7 +118,7 @@ export default class PhoneNumberFormatter {
 }
 
 function getCountryCodeFromRegionCode(regionCode: string): number {
-  return parseInt(phoneUtil().getCountryCodeForRegion(regionCode), 10);
+  return phoneUtil().getCountryCodeForRegion(regionCode);
 }
 
 export function getRegionCodeFromNumber(phoneNumber: string): string {

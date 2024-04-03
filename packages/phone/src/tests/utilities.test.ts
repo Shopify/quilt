@@ -148,7 +148,7 @@ describe('Utilities', () => {
     it('returns the result of calling isValidNumber on the phoneUtil instance', () => {
       mockPhoneInstance.isValidNumber.mockImplementation(() => true);
 
-      expect(validatePhoneNumber('')).toBeTrue();
+      expect(validatePhoneNumber('')).toBe(true);
     });
 
     it('returns false if there is an error', () => {
@@ -156,7 +156,7 @@ describe('Utilities', () => {
         throw new Error('test');
       });
 
-      expect(validatePhoneNumber('')).toBeFalse();
+      expect(validatePhoneNumber('')).toBe(false);
     });
   });
 });
