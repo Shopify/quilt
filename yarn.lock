@@ -3226,6 +3226,11 @@
   dependencies:
     globby "*"
 
+"@types/google-libphonenumber@^7.4.16":
+  version "7.4.30"
+  resolved "https://registry.yarnpkg.com/@types/google-libphonenumber/-/google-libphonenumber-7.4.30.tgz#a47ed8f1f237bd43edbd1c8aff24400b0fd9b2fe"
+  integrity sha512-Td1X1ayRxePEm6/jPHUBs2tT6TzW1lrVB6ZX7ViPGellyzO/0xMNi+wx5nH6jEitjznq276VGIqjK5qAju0XVw==
+
 "@types/graceful-fs@^4.1.3":
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/@types/graceful-fs/-/graceful-fs-4.1.5.tgz#21ffba0d98da4350db64891f92a9e5db3cdb4e15"
@@ -8136,6 +8141,11 @@ globby@^9.2.0:
     ignore "^4.0.3"
     pify "^4.0.1"
     slash "^2.0.0"
+
+google-libphonenumber@^3.2.17:
+  version "3.2.34"
+  resolved "https://registry.yarnpkg.com/google-libphonenumber/-/google-libphonenumber-3.2.34.tgz#ef29b53be0f9fb517aaa53d26a541150f86ec921"
+  integrity sha512-CLwkp0lZvMywh6dCh0T3Fm8XsfJhLAupc8AECwYkJNQBPW8wQPrv/tV0oFKCs8FMw+pTQyNPZoycgBzYjqtTZQ==
 
 gopd@^1.0.1:
   version "1.0.1"

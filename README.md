@@ -13,7 +13,7 @@ These libraries compose together to help you create performant modern JS apps th
 
 ## Usage
 
-The Quilt repo is managed as a monorepo that is composed of 70 npm packages and one Ruby gem.
+The Quilt repo is managed as a monorepo that is composed of 71 npm packages and one Ruby gem.
 Each package/gem has its own `README.md` and documentation describing usage.
 
 ### Package Index
@@ -52,6 +52,7 @@ Each package/gem has its own `README.md` and documentation describing usage.
 | [@shopify/name](packages/name) | <a href="https://badge.fury.io/js/%40shopify%2Fname"><img src="https://badge.fury.io/js/%40shopify%2Fname.svg" width="200px" /></a> | Name-related utilities |
 | [@shopify/network](packages/network) | <a href="https://badge.fury.io/js/%40shopify%2Fnetwork"><img src="https://badge.fury.io/js/%40shopify%2Fnetwork.svg" width="200px" /></a> | Common values related to dealing with the network |
 | [@shopify/performance](packages/performance) | <a href="https://badge.fury.io/js/%40shopify%2Fperformance"><img src="https://badge.fury.io/js/%40shopify%2Fperformance.svg" width="200px" /></a> | Primitives for collecting browser performance metrics |
+| [@shopify/phone](packages/phone) | <a href="https://badge.fury.io/js/%40shopify%2Fphone"><img src="https://badge.fury.io/js/%40shopify%2Fphone.svg" width="200px" /></a> | Phone number utilities for formatting phone numbers |
 | [@shopify/polyfills](packages/polyfills) | <a href="https://badge.fury.io/js/%40shopify%2Fpolyfills"><img src="https://badge.fury.io/js/%40shopify%2Fpolyfills.svg" width="200px" /></a> | Blessed polyfills for web platform features |
 | [@shopify/predicates](packages/predicates) | <a href="https://badge.fury.io/js/%40shopify%2Fpredicates"><img src="https://badge.fury.io/js/%40shopify%2Fpredicates.svg" width="200px" /></a> | A set of common JavaScript predicates |
 | [@shopify/react-app-bridge-universal-provider](packages/react-app-bridge-universal-provider) | <a href="https://badge.fury.io/js/%40shopify%2Freact-app-bridge-universal-provider"><img src="https://badge.fury.io/js/%40shopify%2Freact-app-bridge-universal-provider.svg" width="200px" /></a> | A self-serializing/deserializing `app-bridge-react` provider that works for isomorphic applications |
