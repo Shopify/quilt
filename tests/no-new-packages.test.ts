@@ -41,6 +41,7 @@ describe('no new packages', () => {
       'name',
       'network',
       'performance',
+      'phone',
       'polyfills',
       'predicates',
       'react-app-bridge-universal-provider',
