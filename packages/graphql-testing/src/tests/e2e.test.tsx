@@ -1,11 +1,12 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {GraphQLError} from 'graphql';
-import {gql} from '@apollo/client';
+import {gql, useApolloClient} from '@apollo/client';
 import type {DocumentNode} from 'graphql-typed';
-import {mount} from '@shopify/react-testing';
+import {mount, createMount} from '@shopify/react-testing';
 import {ApolloProvider, useQuery, ApolloError} from '@shopify/react-graphql';
 
 import {createGraphQLFactory} from '..';
+import type {GraphQL} from '..';
 
 const createGraphQL = createGraphQLFactory();
 
@@ -533,6 +534,72 @@ describe('graphql-testing', () => {
       });
 
       expect(petContainer).toContainReactText('Garfield');
+    });
+
+    it('resolveAll() waits for all operations to resolve', async () => {
+      const mountWithGraphQL = createMount<{}, {graphQL: GraphQL}, true>({
+        context({graphQL}) {
+          return {
+            graphQL,
+          };
+        },
+        render(element, {graphQL}) {
+          return (
+            <ApolloProvider client={graphQL.client}>{element}</ApolloProvider>
+          );
+        },
+        afterMount(root) {
+          const {graphQL} = root.context;
+          graphQL.wrap((perform) => root.act(perform));
+        },
+      });
+      const createPetPersonGraphQL = () =>
+        createGraphQL({
+          Pet: () => {
+            return {pet: {__typename: 'Cat', name: 'Garfield'}};
+          },
+          Person: () => {
+            return {person: {__typename: 'Person', name: 'Jon Arbuckle'}};
+          },
+        });
+
+      function MyComponent() {
+        const {data: petData} = useQuery(petQuery);
+        const client = useApolloClient();
+        const [personData, setPersonData] = useState<{name: string} | null>(
+          null,
+        );
+
+        useEffect(() => {
+          if (petData?.pet) {
+            (async () => {
+              const personData = await client.query({
+                query: personQuery,
+              });
+
+              setPersonData(personData.data.person);
+            })();
+          }
+        }, [client, petData?.pet]);
+
+        return <div>{personData?.name}</div>;
+      }
+
+      // using resolveNext, we don't get what we want
+      const graphQL1 = createPetPersonGraphQL();
+      const component1 = await mountWithGraphQL(<MyComponent />, {
+        graphQL: graphQL1,
+      });
+      await graphQL1.resolveNext();
+      expect(component1).not.toContainReactText('Jon Arbuckle');
+
+      // using resolveAll, we do
+      const graphQL2 = createPetPersonGraphQL();
+      const component2 = await mountWithGraphQL(<MyComponent />, {
+        graphQL: graphQL2,
+      });
+      await graphQL2.resolveAll();
+      expect(component2).toContainReactText('Jon Arbuckle');
     });
   });
 });
