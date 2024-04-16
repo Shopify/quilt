@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.3.3
+
+### Patch Changes
+
+- [#2760](https://github.com/Shopify/quilt/pull/2760) [`6efb94586`](https://github.com/Shopify/quilt/commit/6efb94586f4d85553606e24184aa790518fece7c) Thanks [@ryanwilsonperkin](https://github.com/ryanwilsonperkin)! - Prevent bad cache entry for jest and jest-simple transforms referencing stale node_modules paths
+
 ## 5.3.2
 
 ### Patch Changes
