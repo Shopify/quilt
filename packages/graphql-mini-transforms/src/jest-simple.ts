@@ -21,9 +21,7 @@ const transformer: Transformer = {
 
     const utilityImports = `
         var {print, parse} = require('graphql');
-        var {cleanDocument, toSimpleDocument} = require(${JSON.stringify(
-          `${__dirname}/document.js`,
-        )});
+        var {cleanDocument, toSimpleDocument} = require('graphql-mini-transforms');
       `;
 
     const importSource = imports
