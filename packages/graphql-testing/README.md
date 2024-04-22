@@ -42,28 +42,40 @@ The call to the function returned by `createGraphQLFactory` (`createGraphQL` in 
 
 The following method and properties are available on the `GraphQL` object:
 
-#### `resolveAll()`
+#### `resolveNext()`
+
+_Note:_ Prefer `graphQL.resolveAll()` over this for almost all use cases.
 
 By default, the mock client will hold all the graphQL operations triggered by your application in a pending state. To resolve all pending graphQL operations, call `graphQL.resolveAll()`, which returns a promise that resolves once all the operations have completed.
 
 ```js
-await graphQL.resolveAll();
+await graphQL.resolveNext();
 ```
 
-You can also pass a `query`, `mutation` or `filter` option to `resolveAll`. `query` and `mutation` will filter the pending operations and only resolve the ones with a matching operation. `filter` allows you to write your own custom filter function based upon the operation, for instace this will allow you to filter by the variables passed to the query. If `filter` is passed in addition to `query` or `mutation` then both filters shall be applied.
+You can also pass a `query`, `mutation` or `filter` option to `resolveNext`. `query` and `mutation` will filter the pending operations and only resolve the ones with a matching operation. `filter` allows you to write your own custom filter function based upon the operation, for instace this will allow you to filter by the variables passed to the query. If `filter` is passed in addition to `query` or `mutation` then both filters shall be applied.
 
 ```js
-await graphQL.resolveAll({query: petQuery});
+await graphQL.resolveNext({query: petQuery});
 ```
 
 ```js
-await graphQL.resolveAll({
+await graphQL.resolveNext({
   query: petQuery,
   filter: (operation) => operation.variables.id === '1',
 });
 ```
 
 Note that, until a GraphQL operation has been resolved, it does not appear in the `operations` list described below.
+
+#### `resolveAll()`
+
+Similar to `resolveNext()`, but this will wait for any newly created GraphQL operations to finish. This is useful in the cases that one graphql call is loaded, which kicks off another GraphQL query/mutation.
+
+The signature for `resolveAll` is identical to the signature for `resolveNext`.
+
+```js
+await graphQL.resolveAll();
+```
 
 #### `waitForQueryUpdates()`
 

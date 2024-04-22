@@ -59,32 +59,19 @@ export class GraphQL {
     this.mockLink.updateMock(mock);
   }
 
-  async resolveAll(options: ResolveAllFindOptions = {}) {
-    let requestFilter: ((operation: MockRequest) => boolean) | undefined;
-
-    if (Object.keys(options).length) {
-      const finalOperationName = operationNameFromFindOptions(options);
-      requestFilter = ({operation}) => {
-        const nameMatchesOrWasNotSet = finalOperationName
-          ? finalOperationName === operation.operationName
-          : true;
-
-        const customFilterMatchesOrWasNotSet = options.filter
-          ? options.filter(operation)
-          : true;
-
-        return nameMatchesOrWasNotSet && customFilterMatchesOrWasNotSet;
-      };
-    }
-
+  async resolveNext(options: ResolveAllFindOptions = {}) {
     await this.withWrapper(async () => {
-      const allPendingRequests = Array.from(this.pendingRequests);
-      const matchingRequests = requestFilter
-        ? allPendingRequests.filter(requestFilter)
-        : allPendingRequests;
-
-      await Promise.all(matchingRequests.map(({resolve}) => resolve()));
+      await Promise.all(
+        this.getMatchingRequests(options).map(({resolve}) => resolve()),
+      );
     });
+  }
+
+  async resolveAll(options: ResolveAllFindOptions = {}) {
+    await this.resolveNext(options);
+    while (this.getMatchingRequests(options).length > 0) {
+      await this.resolveNext(options);
+    }
   }
 
   async waitForQueryUpdates() {
@@ -98,6 +85,25 @@ export class GraphQL {
 
   wrap(wrapper: Wrapper) {
     this.wrappers.push(wrapper);
+  }
+
+  private getMatchingRequests(options: ResolveAllFindOptions) {
+    const requestFilter = Object.keys(options).length
+      ? ({operation}: MockRequest) => {
+          const finalOperationName = operationNameFromFindOptions(options);
+          const nameMatchesOrWasNotSet = finalOperationName
+            ? finalOperationName === operation.operationName
+            : true;
+
+          const customFilterMatchesOrWasNotSet = options.filter
+            ? options.filter(operation)
+            : true;
+
+          return nameMatchesOrWasNotSet && customFilterMatchesOrWasNotSet;
+        }
+      : () => true;
+
+    return Array.from(this.pendingRequests).filter(requestFilter);
   }
 
   private handleCreate = (request: MockRequest) => {
