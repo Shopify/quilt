@@ -93,15 +93,6 @@ function project(packageName, overrideOptions = {}) {
   };
 }
 
-function typesProject(packageName, overrideOptions = {}) {
-  return project(packageName, {
-    displayName: {name: packageName, color: 'blue'},
-    runner: 'jest-runner-tsd',
-    testRegex: ['.+\\.test-d\\.(ts|tsx)$'],
-    ...overrideOptions,
-  });
-}
-
 module.exports = {
   cacheDirectory: `${root}/.cache/jest`,
   watchPlugins: [
@@ -115,7 +106,6 @@ module.exports = {
     // Everything else is the `packages/*` folders
     ...packageMapping.flatMap(({name}) => [
       project(name, configOverrides[name]),
-      typesProject(name, configOverrides[name]),
     ]),
   ],
 };
