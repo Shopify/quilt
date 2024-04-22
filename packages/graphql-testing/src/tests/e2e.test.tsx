@@ -344,6 +344,82 @@ describe('graphql-testing', () => {
     expect(myComponent).toContainReactText('Garfield2');
   });
 
+  it('allows for merged mock updates after it has been initialized', async () => {
+    const MyComponentWithTwoQueries = () => {
+      const queryResult = useQuery(personQuery, {variables: {id: '1'}});
+      const {data, refetch} = queryResult;
+
+      return (
+        <>
+          <div>{data?.person?.name}</div>{' '}
+          <button onClick={() => refetch()} type="button">
+            Refetch Person
+          </button>
+          <MyComponent id="123" />
+        </>
+      );
+    };
+
+    const mockPetQueryData = {pet: {__typename: 'Cat', name: 'Garfield'}};
+
+    const graphQL = createGraphQL({
+      Pet: mockPetQueryData,
+    });
+
+    const mockPersonQueryData = {
+      person: {__typename: 'Person', name: 'Jon Arbuckle'},
+    };
+
+    graphQL.updateWithMerge({
+      Person: mockPersonQueryData,
+    });
+
+    const myComponent = mount(
+      <ApolloProvider client={graphQL.client}>
+        <MyComponentWithTwoQueries />
+      </ApolloProvider>,
+    );
+
+    graphQL.wrap((resolve) => myComponent.act(resolve));
+    await graphQL.resolveAll();
+
+    expect(myComponent).toContainReactText('Garfield');
+    expect(myComponent).toContainReactText('Jon Arbuckle');
+
+    const newMockPetQueryData = {pet: {__typename: 'Cat', name: 'Garfield2'}};
+    graphQL.updateWithMerge({
+      // Partial update of pet mock
+      Pet: newMockPetQueryData,
+    });
+
+    const request = myComponent
+      .find('button', {children: 'Refetch!'})!
+      .trigger('onClick');
+    await graphQL.resolveAll();
+    await request;
+
+    expect(myComponent).toContainReactText('Garfield2');
+    expect(myComponent).toContainReactText('Jon Arbuckle');
+
+    const newMockPersonQueryData = {
+      person: {__typename: 'Person', name: 'Jon Arbuckle Jr.'},
+    };
+
+    graphQL.updateWithMerge({
+      // Partial update of person mock
+      Person: newMockPersonQueryData,
+    });
+
+    const personRequest = myComponent
+      .find('button', {children: 'Refetch Person'})!
+      .trigger('onClick');
+    await graphQL.resolveAll();
+    await personRequest;
+
+    expect(myComponent).toContainReactText('Garfield2');
+    expect(myComponent).toContainReactText('Jon Arbuckle Jr.');
+  });
+
   it('handles fetchMore', async () => {
     const graphQL = createGraphQL({
       Pets: ({
