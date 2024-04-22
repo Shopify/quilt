@@ -33,11 +33,9 @@ dev up
 
 We are adding documentation as we go in the [Web Foundations repo](https://github.com/Shopify/web-foundations). There you will find our [decision records](https://github.com/Shopify/web-foundations/tree/main/handbook/Decision%20Records), [principles](https://github.com/Shopify/web-foundations/tree/main/handbook/Principles), [best practices](https://github.com/Shopify/web-foundations/tree/main/handbook/Best%20Practices) and [styleguides](https://github.com/Shopify/web-foundations/blob/main/handbook/Styleguides) for writing and [testing](https://github.com/Shopify/web-foundations/blob/main/handbook/Best%20Practices/Testing.md) different kinds of components.
 
-The [documentation](../documentation) directory in this repo covers the more granular technical aspects of this project. Of particular note for new folks are the following:
+The [documentation](../documentation) directory in this repo covers the more granular technical aspects of this project with a set of guides to help you get started developing with `quilt`. Of particular note for new folks are the following:
 
-- [Guides](../documentation/guides): a set of guides to help you get started developing with `quilt`. Of particular note for developers just starting on the project is our guide to [creating a new package](../documentation/guides/creating-a-new-package.md).
-- [FAQ](../documentation/FAQ.md): common questions about the project in general, as well as some of the technical pieces within.
-- [Resources](../documentation/resources.md): good resources for understanding this project’s tech stack.
+- [Creating a new package](../documentation/creating-a-new-package.md) is particularly aimed at developers just starting on the project.
 - [Getting started](../documentation/getting-started.md): some tools we recommend for getting the most out of this project.
 
 ## 🎩 in a local project
@@ -91,7 +89,7 @@ Another option, if you'd like to break work down into reviewable chunks, is to u
 
 ## Releasing
 
-The release process currently involves some manual steps to complete. Please drop a notice in the `#help-admin-web-platform` Slack channel when you're ready to merge a new PR into `main`, and we will orchestrate a new release. The repo owner can follow [this guide](../documentation/guides/release-and-deploy.md) to create a release.
+The release process currently involves some manual steps to complete. Please drop a notice in the `#help-admin-web-platform` Slack channel when you're ready to merge a new PR into `main`, and we will orchestrate a new release. The repo owner can follow [this guide](../documentation/release-and-deploy.md) to create a release.
 
 **Note** Version numbers in `package.json` files and `CHANGELOG.md` files should never be altered manually. This will be done via scripts as part of the release process.
 
