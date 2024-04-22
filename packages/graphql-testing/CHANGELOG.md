@@ -1,5 +1,11 @@
 # Changelog
 
+## 8.0.0
+
+### Major Changes
+
+- [#2755](https://github.com/Shopify/quilt/pull/2755) [`2fdf9c5d3`](https://github.com/Shopify/quilt/commit/2fdf9c5d36f82ebf6d28daa3851ec3787c1ac4da) Thanks [@jas7457](https://github.com/jas7457)! - Change graphQL.resolveAll() to additionally wait for any newly-pending gql calls
+
 ## 7.1.0
 
 ### Minor Changes
