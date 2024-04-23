@@ -7,7 +7,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "typescript.tsdk": "./node_modules/typescript/lib",
   "flow.enabled": false,
   "files.exclude": {
