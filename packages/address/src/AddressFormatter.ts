@@ -32,13 +32,19 @@ export default class AddressFormatter {
     return loadCountry(this.locale, countryCode, {includeHiddenZones});
   }
 
-  async getCountries({includeHiddenZones = false} = {}): Promise<Country[]> {
+  async getCountries({
+    includeHiddenZones = false,
+    signupOnly = false,
+  } = {}): Promise<Country[]> {
     const cacheKey = this.cacheKey(this.locale, includeHiddenZones);
     const cachedCountries = ORDERED_COUNTRIES_CACHE.get(cacheKey);
 
     if (cachedCountries) return cachedCountries;
 
-    const countries = await loadCountries(this.locale, {includeHiddenZones});
+    const countries = await loadCountries(this.locale, {
+      includeHiddenZones,
+      signupOnly,
+    });
     ORDERED_COUNTRIES_CACHE.set(cacheKey, countries);
 
     return countries;
