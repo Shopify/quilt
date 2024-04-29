@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.0.3
+
+### Patch Changes
+
+- [#2718](https://github.com/Shopify/quilt/pull/2718) [`591e65366`](https://github.com/Shopify/quilt/commit/591e653663440408588447159d1758273b189d47) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump @babel/traverse from 7.17.9 to 7.23.2
+
+- Updated dependencies [[`591e65366`](https://github.com/Shopify/quilt/commit/591e653663440408588447159d1758273b189d47)]:
+  - @shopify/react-async@5.3.2
+  - @shopify/react-cookie@2.0.17
+  - @shopify/react-html@13.0.8
+  - @shopify/react-hydrate@3.0.12
+  - @shopify/react-network@5.0.17
+
 ## 5.0.2
 
 ### Patch Changes

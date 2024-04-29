@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.2.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @shopify/jest-dom-mocks@5.0.1
+
 ## 3.2.2
 
 ### Patch Changes

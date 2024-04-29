@@ -1,6 +1,6 @@
 {
   "name": "@shopify/graphql-persisted",
-  "version": "5.0.2",
+  "version": "5.0.3",
   "license": "MIT",
   "description": "Apollo and Koa integrations for persisted GraphQL queries.",
   "typesVersions": {

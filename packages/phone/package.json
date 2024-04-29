@@ -1,6 +1,6 @@
 {
   "name": "@shopify/phone",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "description": "Phone number utilities for formatting phone numbers",
   "main": "index.js",

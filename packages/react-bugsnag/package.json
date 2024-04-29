@@ -31,7 +31,7 @@
     "react": ">=16.8.0 <19.0.0"
   },
   "devDependencies": {
-    "@shopify/react-testing": "^5.1.4"
+    "@shopify/react-testing": "^5.1.5"
   },
   "files": [
     "build/",
