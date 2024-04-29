@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.2.1
+
+### Patch Changes
+
+- [#2766](https://github.com/Shopify/quilt/pull/2766) [`18115130e`](https://github.com/Shopify/quilt/commit/18115130e056145c75ce3d7ad37bc183f292f4e1) Thanks [@alex-amaral](https://github.com/alex-amaral)! - Add `signupOnly` parameter to fetch supported countries for shop creation
+
 ## 4.2.0
 
 ### Minor Changes
