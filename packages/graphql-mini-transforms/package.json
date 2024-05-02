@@ -57,7 +57,7 @@
     "webpack": "^5.38.0"
   },
   "peerDependencies": {
-    "rollup": "^3.0.0",
+    "rollup": "^3.0.0 || ^4.0.0",
     "webpack": "^5.38.0"
   },
   "peerDependenciesMeta": {
