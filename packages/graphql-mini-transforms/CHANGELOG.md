@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.3.4
+
+### Patch Changes
+
+- [#2767](https://github.com/Shopify/quilt/pull/2767) [`957132820`](https://github.com/Shopify/quilt/commit/9571328209ef77c247f957c68f63eb5c1c971a86) Thanks [@BPScott](https://github.com/BPScott)! - Allow rollup ^4.0.0 as a peer dependency
+
 ## 5.3.3
 
 ### Patch Changes
