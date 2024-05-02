@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.1.2
+
+### Patch Changes
+
+- [#2767](https://github.com/Shopify/quilt/pull/2767) [`957132820`](https://github.com/Shopify/quilt/commit/9571328209ef77c247f957c68f63eb5c1c971a86) Thanks [@BPScott](https://github.com/BPScott)! - Allow webpack-virtual-modules ^0.6.0 as a peer dependency
+
 ## 6.1.1
 
 ### Patch Changes
