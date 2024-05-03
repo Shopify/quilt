@@ -138,6 +138,22 @@ describe('AddressFormatter', () => {
       expect(fetch.calls()).toHaveLength(2);
     });
 
+    it('does call the API again for the countries if is fetching for signup only.', async () => {
+      const addressFormatter = new AddressFormatter('fr');
+      await addressFormatter.getCountries({signupOnly: true});
+      await addressFormatter.getCountries();
+
+      expect(fetch.calls()).toHaveLength(2);
+    });
+
+    it('does not call the API again for the countries if is fetching for signup only again.', async () => {
+      const addressFormatter = new AddressFormatter('de');
+      await addressFormatter.getCountries({signupOnly: true});
+      await addressFormatter.getCountries({signupOnly: true});
+
+      expect(fetch.calls()).toHaveLength(1);
+    });
+
     it('returns hidden zones when `includeHiddenZones` is `true`.', async () => {
       const addressFormatter = new AddressFormatter('en');
       const loadedCountries = await addressFormatter.getCountries({

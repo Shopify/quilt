@@ -72,7 +72,7 @@ Update the current locale of the formatter. Following requests will be in the gi
 
 Loads and returns data about a given country in the current locale. Country and province names are localized. Province names are sorted based on the locale.
 
-#### `async .getCountries(): Promise<Country[]>`
+#### `async .getCountries({includeHiddenZones: boolean, signupOnly: boolean}): Promise<Country[]>`
 
 Loads and returns data for all countries in the current locale. Countries are sorted based on the locale. Zones are also ordered based on the locale.
 

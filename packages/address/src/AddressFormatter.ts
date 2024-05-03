@@ -24,9 +24,13 @@ export default class AddressFormatter {
 
   async getCountry(
     countryCode: string,
-    {includeHiddenZones = false} = {},
+    {includeHiddenZones = false, signupOnly = false} = {},
   ): Promise<Country> {
-    const country = this.loadCountryFromCache(countryCode, includeHiddenZones);
+    const country = this.loadCountryFromCache(
+      countryCode,
+      includeHiddenZones,
+      signupOnly,
+    );
     if (country) return country;
 
     return loadCountry(this.locale, countryCode, {includeHiddenZones});
@@ -36,7 +40,7 @@ export default class AddressFormatter {
     includeHiddenZones = false,
     signupOnly = false,
   } = {}): Promise<Country[]> {
-    const cacheKey = this.cacheKey(this.locale, includeHiddenZones);
+    const cacheKey = this.cacheKey(this.locale, includeHiddenZones, signupOnly);
     const cachedCountries = ORDERED_COUNTRIES_CACHE.get(cacheKey);
 
     if (cachedCountries) return cachedCountries;
@@ -96,17 +100,23 @@ export default class AddressFormatter {
     return buildOrderedFields(country);
   }
 
-  private cacheKey(locale: string, includeHiddenZones: boolean) {
-    /* Cache list of countries per locale, both with and without hidden zones included */
-    return `${locale}-${includeHiddenZones}`;
+  private cacheKey(
+    locale: string,
+    includeHiddenZones: boolean,
+    signupOnly: boolean,
+  ) {
+    /* Cache list of countries per locale, both with and without hidden zones
+    and if is signup only included */
+    return `${locale}-${includeHiddenZones}-${signupOnly}`;
   }
 
   private loadCountryFromCache(
     countryCode: string,
     includeHiddenZones: boolean,
+    signupOnly: boolean,
   ) {
     const cachedCountries = ORDERED_COUNTRIES_CACHE.get(
-      this.cacheKey(this.locale, includeHiddenZones),
+      this.cacheKey(this.locale, includeHiddenZones, signupOnly),
     );
     if (!cachedCountries) return null;
 
