@@ -1,5 +1,17 @@
 # Changelog
 
+## 6.1.2
+
+### Patch Changes
+
+- [#2767](https://github.com/Shopify/quilt/pull/2767) [`957132820`](https://github.com/Shopify/quilt/commit/9571328209ef77c247f957c68f63eb5c1c971a86) Thanks [@BPScott](https://github.com/BPScott)! - Allow webpack-virtual-modules ^0.6.0 as a peer dependency
+
+## 6.1.1
+
+### Patch Changes
+
+- [#2718](https://github.com/Shopify/quilt/pull/2718) [`591e65366`](https://github.com/Shopify/quilt/commit/591e653663440408588447159d1758273b189d47) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump @babel/traverse from 7.17.9 to 7.23.2
+
 ## 6.1.0
 
 ### Minor Changes

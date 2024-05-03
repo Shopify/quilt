@@ -14,9 +14,12 @@ import query from './graphqlQuery';
 
 export const loadCountries: (
   locale: string,
-  options?: {includeHiddenZones?: boolean},
+  options?: {includeHiddenZones?: boolean; signupOnly?: boolean},
 ) => Promise<Country[]> = memoizeAsync(
-  async (locale: string, {includeHiddenZones = false} = {}) => {
+  async (
+    locale: string,
+    {includeHiddenZones = false, signupOnly = false} = {},
+  ) => {
     const response = await fetch(GRAPHQL_ENDPOINT, {
       method: 'POST',
       headers: HEADERS,
@@ -26,6 +29,7 @@ export const loadCountries: (
         variables: {
           locale: locale.replace(/-/, '_').toUpperCase(),
           includeHiddenZones,
+          signupOnly,
         },
       }),
     });
