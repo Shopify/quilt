@@ -1,12 +1,17 @@
 import React from 'react';
 import {flushSync} from 'react-dom';
 import type {Root as ReactRoot} from 'react-dom/client';
-import {act} from 'react-dom/test-utils';
 import {findCurrentFiberUsingSlowPath} from 'react-reconciler/reflection.js';
 
 import {TestWrapper} from './TestWrapper';
 import {Element} from './element';
-import {createRoot, getInternals, enqueueTask, isLegacyReact} from './compat';
+import {
+  createRoot,
+  getInternals,
+  enqueueTask,
+  isLegacyReact,
+  act,
+} from './compat';
 import type {
   Fiber,
   Node,
