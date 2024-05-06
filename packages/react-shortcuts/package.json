@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@shopify/jest-dom-mocks": "^5.0.1",
-    "@shopify/react-testing": "^5.1.5"
+    "@shopify/react-testing": "^5.2.0"
   },
   "sideEffects": false,
   "files": [
