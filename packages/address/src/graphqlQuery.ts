@@ -1,6 +1,6 @@
 const query = `
-query countries($locale: SupportedLocale!, $signupOnly: Boolean) {
-  countries(locale: $locale, signupOnly: $signupOnly) {
+query countries($locale: SupportedLocale!) {
+  countries(locale: $locale) {
     name
     code
     continent
