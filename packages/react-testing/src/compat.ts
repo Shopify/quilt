@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 import type {Root as ReactRoot} from 'react-dom/client';
+import {act as oldAct} from 'react-dom/test-utils';
 
 import type {ReactInstance, Fiber} from './types';
 
@@ -37,6 +38,16 @@ export function createRoot(element: HTMLElement): ReactRoot {
 }
 
 export const isLegacyReact = parseInt(React.version, 10) < 18;
+
+export const act: typeof oldAct = (() => {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const {act} = require('react');
+    return act ?? oldAct;
+  } catch {
+    return oldAct;
+  }
+})();
 
 // https://github.com/facebook/react/blob/12adaffef7105e2714f82651ea51936c563fe15c/packages/shared/enqueueTask.js#L13
 let enqueueTaskImpl: any = null;
