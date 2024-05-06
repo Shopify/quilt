@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.2.2
+
+### Patch Changes
+
+- [#2771](https://github.com/Shopify/quilt/pull/2771) [`7923cc804`](https://github.com/Shopify/quilt/commit/7923cc804e5b2147b99f7270ec3c5028d08ba799) Thanks [@alex-amaral](https://github.com/alex-amaral)! - Removing specific filter for countries
+
 ## 4.2.1
 
 ### Patch Changes

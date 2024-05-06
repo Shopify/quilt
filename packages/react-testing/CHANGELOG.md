@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.0
+
+### Minor Changes
+
+- [#2773](https://github.com/Shopify/quilt/pull/2773) [`8498746a7`](https://github.com/Shopify/quilt/commit/8498746a7478a33ad64b3e3e99a4a7a02e5ae41a) Thanks [@jas7457](https://github.com/jas7457)! - Change act to use from 'react' if it exists, fallback to 'react-dom/test-utils'
+
 ## 5.1.5
 
 ### Patch Changes
