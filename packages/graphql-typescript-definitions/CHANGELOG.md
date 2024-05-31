@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.4.0
+
+### Minor Changes
+
+- [#2779](https://github.com/Shopify/quilt/pull/2779) [`efa7e4871`](https://github.com/Shopify/quilt/commit/efa7e48719c71243ec0ff6b2012c3e6e1b253b21) Thanks [@BPScott](https://github.com/BPScott)! - Add `--enum-style=type` option to allow codegen to generate string union types from grahpql enums
+
+### Patch Changes
+
+- [#2778](https://github.com/Shopify/quilt/pull/2778) [`12f780698`](https://github.com/Shopify/quilt/commit/12f7806982f7b0b890792e9d389cbf6055a68362) Thanks [@BPScott](https://github.com/BPScott)! - Add graphql `^16.0.0` as an allowable graphql dependency version
+
+- Updated dependencies [[`12f780698`](https://github.com/Shopify/quilt/commit/12f7806982f7b0b890792e9d389cbf6055a68362)]:
+  - graphql-tool-utilities@3.0.4
+  - graphql-typed@2.0.3
+
 ## 3.3.6
 
 ### Patch Changes

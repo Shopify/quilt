@@ -1,5 +1,14 @@
 # Changelog
 
+## 5.3.5
+
+### Patch Changes
+
+- [#2778](https://github.com/Shopify/quilt/pull/2778) [`12f780698`](https://github.com/Shopify/quilt/commit/12f7806982f7b0b890792e9d389cbf6055a68362) Thanks [@BPScott](https://github.com/BPScott)! - Add graphql `^16.0.0` as an allowable graphql dependency version
+
+- Updated dependencies [[`12f780698`](https://github.com/Shopify/quilt/commit/12f7806982f7b0b890792e9d389cbf6055a68362)]:
+  - graphql-typed@2.0.3
+
 ## 5.3.4
 
 ### Patch Changes
