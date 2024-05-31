@@ -5,6 +5,11 @@ export enum EnumFormat {
   ScreamingSnakeCase = 'screaming-snake-case',
 }
 
+export enum EnumStyle {
+  Enum = 'enum',
+  Type = 'type',
+}
+
 export enum ExportFormat {
   Document = 'document',
   TypedDocumentNode = 'typedDocumentNode',
