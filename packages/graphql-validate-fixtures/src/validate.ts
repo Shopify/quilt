@@ -261,9 +261,9 @@ function validateValueAgainstObjectFieldDescription(
             return;
           }
 
-          const isGuaranteedTypeMatch = fragment.possibleTypes.includes(
-            makeTypeNullable(type),
-          );
+          const isGuaranteedTypeMatch = (
+            fragment.possibleTypes as GraphQLType[]
+          ).includes(makeTypeNullable(type));
 
           fragmentFields.push(
             isGuaranteedTypeMatch

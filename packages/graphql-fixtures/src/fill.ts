@@ -12,6 +12,7 @@ import {
   isListType,
   isAbstractType,
   isScalarType,
+  isInputObjectType,
 } from 'graphql';
 import type {DocumentNode, GraphQLOperation} from 'graphql-typed';
 import type {IfEmptyObject, IfAllNullableKeys} from '@shopify/useful-types';
@@ -439,6 +440,10 @@ function fillType<Request extends GraphQLRequest<any, any, any> | null>(
 
   if (field.fieldName === '__typename') {
     return parent.name;
+  } else if (isInputObjectType(unwrappedType)) {
+    // We almost certainly won't ever have to deal with an InputObjectType.
+    // This is mostly here to keep typescript happy
+    return unwrappedType.name;
   } else if (isEnumType(unwrappedType) || isScalarType(unwrappedType)) {
     return createValue(
       partial,
