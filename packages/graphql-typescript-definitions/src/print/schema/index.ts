@@ -17,7 +17,7 @@ import {
 } from 'graphql';
 
 import {scalarTypeMap} from '../utilities';
-import {EnumFormat} from '../../types';
+import {EnumFormat, EnumStyle} from '../../types';
 
 // The version of @babel/generator we depend on has a strange build process
 // that doesn’t work consistently in ESM and non-ESM consumers. This hacky bit of
@@ -33,6 +33,7 @@ export interface ScalarDefinition {
 
 export interface Options {
   enumFormat?: EnumFormat;
+  enumStyle?: EnumStyle;
   customScalars?: {[key: string]: ScalarDefinition};
 }
 
@@ -57,27 +58,32 @@ export function generateSchemaTypes(
     }
 
     if (isEnumType(type)) {
-      const enumType = tsEnumForType(type, options);
+      if (options.enumStyle === EnumStyle.Type) {
+        const enumType = tsTypeAliasForType(type);
+        exportFileBody.push(t.exportNamedDeclaration(enumType));
+      } else {
+        const enumType = tsEnumForType(type, options);
 
-      definitions.set(
-        `${enumType.id.name}.ts`,
-        generate(
-          t.file(t.program([t.exportNamedDeclaration(enumType, [])]), [], []),
-        ).code,
-      );
+        definitions.set(
+          `${enumType.id.name}.ts`,
+          generate(
+            t.file(t.program([t.exportNamedDeclaration(enumType, [])]), [], []),
+          ).code,
+        );
 
-      importFileBody.unshift(
-        t.importDeclaration(
-          [t.importSpecifier(enumType.id, enumType.id)],
-          t.stringLiteral(`./${enumType.id.name}`),
-        ),
-      );
+        importFileBody.push(
+          t.importDeclaration(
+            [t.importSpecifier(enumType.id, enumType.id)],
+            t.stringLiteral(`./${enumType.id.name}`),
+          ),
+        );
 
-      exportFileBody.unshift(
-        t.exportNamedDeclaration(null, [
-          t.exportSpecifier(enumType.id, enumType.id),
-        ]),
-      );
+        exportFileBody.push(
+          t.exportNamedDeclaration(null, [
+            t.exportSpecifier(enumType.id, enumType.id),
+          ]),
+        );
+      }
     } else if (isScalarType(type)) {
       const {customScalars = {}} = options;
       const customScalarDefinition = customScalars[type.name];
@@ -196,6 +202,17 @@ function makeCustomScalarImportNameSafe(importName: string, typeName: string) {
   return `__${typeName}__${importName}`;
 }
 
+function tsTypeAliasForType(type: GraphQLEnumType) {
+  return t.typeAlias(
+    t.identifier(type.name),
+    null,
+    t.unionTypeAnnotation(
+      type
+        .getValues()
+        .map((value) => t.stringLiteralTypeAnnotation(value.name)),
+    ),
+  );
+}
 function tsEnumForType(
   type: GraphQLEnumType,
   {enumFormat}: Pick<Options, 'enumFormat'>,

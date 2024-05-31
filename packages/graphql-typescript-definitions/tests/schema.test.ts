@@ -3,7 +3,7 @@ import {buildSchema} from 'graphql';
 import {stripIndent} from 'common-tags';
 
 import {generateSchemaTypes} from '../src/print/schema';
-import {EnumFormat} from '../src/types';
+import {EnumFormat, EnumStyle} from '../src/types';
 
 describe('printSchema()', () => {
   describe('enum', () => {
@@ -199,7 +199,7 @@ describe('printSchema()', () => {
     `);
   });
 
-  it('generates files per enum', () => {
+  it('generates files per enum if enumstyle is "enum"', () => {
     const schema = buildSchema(`
       enum Gandalf {
         WHITE
@@ -211,8 +211,49 @@ describe('printSchema()', () => {
         SHALL_NOT_PASS
       }
     `);
-    expect(generateSchemaTypes(schema).has('Gandalf.ts')).toBe(true);
-    expect(generateSchemaTypes(schema).has('Permissions.ts')).toBe(true);
+    const schemaTypes = generateSchemaTypes(schema);
+    expect(schemaTypes.get('index.ts')).toBe(stripIndent`
+    import { Gandalf } from \"./Gandalf\";
+    import { Permissions } from \"./Permissions\";
+    export { Gandalf };
+    export { Permissions };
+    `);
+    expect(schemaTypes.get('Gandalf.ts')).toBe(stripIndent`
+    export enum Gandalf {
+      WHITE = "WHITE",
+      GREY = "GREY",
+    }
+    `);
+    expect(schemaTypes.get('Permissions.ts')).toBe(stripIndent`
+    export enum Permissions {
+      SHALL_PASS = "SHALL_PASS",
+      SHALL_NOT_PASS = "SHALL_NOT_PASS",
+    }
+    `);
+  });
+
+  it('generates union types in index file if enumstyle is "type"', () => {
+    const schema = buildSchema(`
+      enum Gandalf {
+        WHITE
+        GREY
+      }
+
+      enum Permissions {
+        SHALL_PASS
+        SHALL_NOT_PASS
+      }
+    `);
+    const schemaTypes = generateSchemaTypes(schema, {
+      enumStyle: EnumStyle.Type,
+    });
+
+    expect(schemaTypes.get('index.ts')).toBe(stripIndent`
+    export type Gandalf = "WHITE" | "GREY";
+    export type Permissions = "SHALL_PASS" | "SHALL_NOT_PASS";
+    `);
+    expect(schemaTypes.has('Gandalf.ts')).toBe(false);
+    expect(schemaTypes.has('Permissions.ts')).toBe(false);
   });
 
   it('prints a complex schema', () => {
@@ -245,11 +286,12 @@ describe('printSchema()', () => {
       }
     `);
 
-    expect(generateSchemaTypes(schema).get('index.ts')).toContain(stripIndent`
-      import { Season } from "./Season";
+    const schemaTypes = generateSchemaTypes(schema);
+    expect(schemaTypes.get('index.ts')).toBe(stripIndent`
       import { Episode } from "./Episode";
-      export { Season };
+      import { Season } from "./Season";
       export { Episode };
+      export { Season };
       export type Date = string;
       export interface InputOne {
         dates: (Date | null)[];

@@ -190,7 +190,7 @@ Note that the above example assumes that you specify the `--add-typename` argume
 
 #### Schema Types
 
-Input types (enums, input objects, and custom scalars) are generated once, in a central location, and imported within each typing file. You can use these definitions to reference the schema types in other application code as well; in particular, GraphQL enums are turned into corresponding TypeScript `enum`s. The schema types directory is specified using the `--schema-types-path` argument (detailed below), and the format for the generated enums can be specified using the `--enum-format` option.
+Input types (enums, input objects, and custom scalars) are generated once, in a central location, and imported within each typing file. You can use these definitions to reference the schema types in other application code as well. If `--enum-style=enum` (the default) is set then GraphQL enums are turned into corresponding TypeScript `enum`s, else if `--enum-style=type` is set then GraphQL enums are created as string union types. The schema types directory is specified using the `--schema-types-path` argument (detailed below), and the format for the generated typescript enums can be specified using the `--enum-format` option.
 
 ### CLI
 
@@ -209,6 +209,8 @@ As noted above, the configuration of your schema and GraphQL documents is done v
 - `--enum-format`: specifies output format for enum types (default = `undefined`)
   - Options: `camel-case`, `pascal-case`, `snake-case`, `screaming-snake-case`
   - `undefined` results in using the unchanged name from the schema (verbatim)
+- `--enum-style`: specifies if the graphql enum types should be created as typescript enums or string unions types. (default = 'enum')
+  - Options: `enum` (exports typescript enums), `type` (exports a string union type, that has no runtime impact)
 - `--custom-scalars`: specifies custom types to use in place of scalar types in your GraphQL schema. See below for details.
 
 #### Examples
@@ -283,6 +285,7 @@ As with the CLI, you can pass options to customize the build and behavior:
 
 - `watch`
 - `enumFormat` (use the exported `EnumFormat` enum)
+- `enumStyle` (use the exported `EnumStyle` enum)
 - `graphQLFiles`
 - `schemaPath`
 - `schemaTypesPath`

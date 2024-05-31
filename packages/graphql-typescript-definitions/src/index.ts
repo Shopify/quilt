@@ -26,12 +26,12 @@ import type {GraphQLFilesystem} from './filesystem';
 import {AbstractGraphQLFilesystem} from './filesystem';
 import type {PrintDocumentOptions, PrintSchemaOptions} from './print';
 import {printDocument, generateSchemaTypes} from './print';
-import {EnumFormat, ExportFormat} from './types';
+import {EnumFormat, EnumStyle, ExportFormat} from './types';
 
 const {mkdirp, readFile, writeFile} = fsExtra;
 
 export type {GraphQLFilesystem};
-export {AbstractGraphQLFilesystem, EnumFormat, ExportFormat};
+export {AbstractGraphQLFilesystem, EnumFormat, EnumStyle, ExportFormat};
 
 export interface Options extends PrintDocumentOptions, PrintSchemaOptions {
   addTypename: boolean;
