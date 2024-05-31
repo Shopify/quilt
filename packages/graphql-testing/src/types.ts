@@ -1,4 +1,4 @@
-import type {DocumentNode} from 'graphql';
+import type {DocumentNode, ExecutionResult} from 'graphql';
 import type {GraphQLRequest, Operation} from '@apollo/client';
 
 export interface FindOptions {
@@ -6,7 +6,7 @@ export interface FindOptions {
   mutation?: DocumentNode;
 }
 
-export type MockGraphQLResponse = Error | object;
+export type MockGraphQLResponse = Error | ExecutionResult['data'];
 export type MockGraphQLFunction = (
   request: GraphQLRequest,
 ) => MockGraphQLResponse;

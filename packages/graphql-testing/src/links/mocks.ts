@@ -19,7 +19,7 @@ export class MockLink extends ApolloLink {
       const {mock} = this;
       const {operationName = ''} = operation;
 
-      let response: object | null = null;
+      let response: Error | ExecutionResult['data'] | null = null;
 
       if (typeof mock === 'function') {
         response = mock(operation);

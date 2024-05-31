@@ -24,7 +24,7 @@
     "node": "^14.17.0 || >=16.0.0"
   },
   "peerDependencies": {
-    "graphql": ">=14.5.0 <16.0.0"
+    "graphql": ">=14.5.0 <17.0.0"
   },
   "files": [
     "build/",
