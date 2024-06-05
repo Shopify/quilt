@@ -4,9 +4,23 @@ import {parse} from 'graphql';
 import type {DocumentNode} from 'graphql';
 import type {Plugin, PluginContext} from 'rollup';
 
-import {cleanDocument, extractImports, toSimpleDocument} from './document';
+import {cleanDocument, extractImports, formatDocument} from './document';
+import type {OutputFormat} from './document';
 
-export function graphql({simple = false}: {simple?: boolean} = {}): Plugin {
+interface Options {
+  /** @deprecated Use `format: 'simple'` instead. */
+  simple?: boolean;
+
+  /**
+   * Controls the runtime code that will be generated for the GraphQL document.
+   */
+  format?: OutputFormat;
+}
+
+export function graphql({
+  simple = false,
+  format = simple ? 'simple' : 'document',
+}: Options = {}): Plugin {
   return {
     name: '@shopify/graphql-mini-transforms',
     async transform(code, id) {
@@ -30,8 +44,7 @@ export function graphql({simple = false}: {simple?: boolean} = {}): Plugin {
       );
 
       const document = cleanDocument(loadedDocument);
-
-      const exported = simple ? toSimpleDocument(document) : document;
+      const exported = formatDocument(document, format);
 
       return {code: `export default ${JSON.stringify(exported)}`, map: null};
     },
