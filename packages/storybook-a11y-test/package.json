@@ -35,12 +35,12 @@
     "puppeteer": "^13.2.0"
   },
   "devDependencies": {
-    "@storybook/react": "^6.4.15",
+    "@storybook/react": "^6.5.16",
     "react": "^18.1.0"
   },
   "peerDependencies": {
-    "@storybook/addon-a11y": ">=6.4.0",
-    "@storybook/addons": ">=6.4.0"
+    "@storybook/addon-a11y": ">=6.5.0",
+    "@storybook/addons": ">=6.5.0"
   },
   "files": [
     "build/",
