@@ -19,7 +19,7 @@ jobs:
         # or failure will fall back to the previous behavior of downloading
         # directly from node dist.
         # https://github.com/actions/setup-node
-        node-version: ['14', '16', '18']
+        node-version: ['18', '20']
         react-version: ['17', '18']
     timeout-minutes: 15
 
