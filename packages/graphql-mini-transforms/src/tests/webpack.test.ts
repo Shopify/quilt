@@ -221,7 +221,7 @@ describe('graphql-mini-transforms/webpack', () => {
       expect(
         await extractDocumentExport(
           originalSource,
-          createLoaderContext({query: {simple: true}}),
+          createLoaderContext({query: {format: 'simple'}}),
         ),
       ).toHaveProperty('source', expectedSource);
     });
@@ -229,7 +229,7 @@ describe('graphql-mini-transforms/webpack', () => {
     it('has an id property that is a sha256 hash of the query document', async () => {
       const result = await extractDocumentExport(
         `query Shop { shop { id } }`,
-        createLoaderContext({query: {simple: true}}),
+        createLoaderContext({query: {format: 'simple'}}),
       );
 
       expect(result).toHaveProperty(
@@ -241,7 +241,7 @@ describe('graphql-mini-transforms/webpack', () => {
     it('has a name property that is the name of the first operation', async () => {
       const result = await extractDocumentExport(
         `query Shop { shop { id } }`,
-        createLoaderContext({query: {simple: true}}),
+        createLoaderContext({query: {format: 'simple'}}),
       );
 
       expect(result).toHaveProperty('name', 'Shop');
@@ -250,10 +250,27 @@ describe('graphql-mini-transforms/webpack', () => {
     it('has an undefined name when there are no named operations', async () => {
       const result = await extractDocumentExport(
         `query { shop { id } }`,
-        createLoaderContext({query: {simple: true}}),
+        createLoaderContext({query: {format: 'simple'}}),
       );
 
       expect(result).not.toHaveProperty('name');
+    });
+  });
+
+  describe('simple-persisted', () => {
+    it('provides a simple representation of the GraphQL document, with the source set to an empty string', async () => {
+      const simpleResult = await extractDocumentExport(
+        `query Shop { shop { id } }`,
+        createLoaderContext({query: {format: 'simple'}}),
+      );
+      const persistedResult = await extractDocumentExport(
+        `query Shop { shop { id } }`,
+        createLoaderContext({query: {format: 'simple-persisted'}}),
+      );
+
+      const expected = {...simpleResult, source: ''};
+
+      expect(persistedResult).toStrictEqual(expected);
     });
   });
 });

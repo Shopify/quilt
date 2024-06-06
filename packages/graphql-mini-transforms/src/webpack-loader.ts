@@ -4,11 +4,19 @@ import type {LoaderContext} from 'webpack';
 import type {DocumentNode} from 'graphql';
 import {parse} from 'graphql';
 
-import {cleanDocument, extractImports, toSimpleDocument} from './document';
+import {cleanDocument, extractImports, formatDocument} from './document';
+import type {OutputFormat} from './document';
 
 interface Options {
+  /** @deprecated Use `format: 'simple'` instead. */
   simple?: boolean;
+
+  /**
+   * Controls the runtime code that will be generated for the GraphQL document.
+   */
+  format?: OutputFormat;
 }
+
 export default async function graphQLLoader(
   this: LoaderContext<Options>,
   source: string | Buffer,
@@ -16,7 +24,8 @@ export default async function graphQLLoader(
   this.cacheable();
 
   const done = this.async();
-  const {simple = false} = this.getOptions();
+  const {simple = false, format = simple ? 'simple' : 'document'} =
+    this.getOptions();
 
   if (done == null) {
     throw new Error(
@@ -28,7 +37,8 @@ export default async function graphQLLoader(
     const document = cleanDocument(
       await loadDocument(source, this.context, this),
     );
-    const exported = simple ? toSimpleDocument(document) : document;
+
+    const exported = formatDocument(document, format);
 
     done(
       null,
