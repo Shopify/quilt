@@ -911,7 +911,6 @@ describe('I18n', () => {
         expect(sanitizeSpaces(result)).toBe(expected);
       },
     );
-    /* eslint-enable jest/no-if */
   });
 
   describe('#formatCurrency() form:explicit', () => {
@@ -946,7 +945,6 @@ describe('I18n', () => {
         expect(sanitizeSpaces(result)).toBe(expected);
       },
     );
-    /* eslint-enable jest/no-if */
   });
 
   describe('#formatCurrency() form:explicit with negative amount', () => {
@@ -981,7 +979,6 @@ describe('I18n', () => {
         expect(sanitizeSpaces(result)).toBe(expected);
       },
     );
-    /* eslint-enable jest/no-if */
   });
 
   describe('#formatCurrency() form:none', () => {
@@ -1080,7 +1077,6 @@ describe('I18n', () => {
         expect(sanitizeSpaces(result)).toBe(expected);
       },
     );
-    /* eslint-enable jest/no-if */
   });
 
   describe('#formatCurrency() form:short with negative amount', () => {
@@ -1114,7 +1110,6 @@ describe('I18n', () => {
         expect(sanitizeSpaces(result)).toBe(expected);
       },
     );
-    /* eslint-enable jest/no-if */
   });
 
   describe('#unformatCurrency()', () => {
