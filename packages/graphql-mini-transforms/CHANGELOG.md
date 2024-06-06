@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.4.0
+
+### Minor Changes
+
+- [#2783](https://github.com/Shopify/quilt/pull/2783) [`ae1adc100`](https://github.com/Shopify/quilt/commit/ae1adc100d3ad846473f61fd497f789bb0595c5a) Thanks [@lemonmade](https://github.com/lemonmade)! - Add support for omitting GraphQL source text
+
 ## 5.3.5
 
 ### Patch Changes
