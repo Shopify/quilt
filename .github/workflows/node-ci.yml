@@ -20,7 +20,7 @@ jobs:
         # directly from node dist.
         # https://github.com/actions/setup-node
         node-version: ['18', '20']
-        react-version: ['17', '18']
+        react-version: ['18']
     timeout-minutes: 15
 
     steps:
