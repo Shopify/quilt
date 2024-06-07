@@ -1,6 +1,6 @@
 {
   "name": "@shopify/jest-dom-mocks",
-  "version": "5.0.1",
+  "version": "5.1.0",
   "license": "MIT",
   "description": "Jest mocking utilities for working with the DOM",
   "main": "index.js",
@@ -23,7 +23,7 @@
     "node": ">=18.12.0"
   },
   "dependencies": {
-    "@shopify/async": "^4.0.4",
+    "@shopify/async": "^4.1.0",
     "@types/fetch-mock": "^7.3.3",
     "fetch-mock": "^9.11.0",
     "promise": "^8.0.3"

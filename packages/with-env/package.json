@@ -1,6 +1,6 @@
 {
   "name": "@shopify/with-env",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "license": "MIT",
   "description": "A utility for executing code under a specific `NODE_ENV`",
   "main": "index.js",

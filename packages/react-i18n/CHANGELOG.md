@@ -1,5 +1,24 @@
 # Changelog
 
+## 7.11.0
+
+### Minor Changes
+
+- [#2785](https://github.com/Shopify/quilt/pull/2785) [`97f8f6cf5`](https://github.com/Shopify/quilt/commit/97f8f6cf5f0f5c8adc03ff6d907fb16d878fbece) Thanks [@vsumner](https://github.com/vsumner)! - Drop support for node 14 and 16. Support node LTS and up.
+
+- [#2787](https://github.com/Shopify/quilt/pull/2787) [`f50049004`](https://github.com/Shopify/quilt/commit/f500490042d922b66a6781c3450f876a83a120cb) Thanks [@vsumner](https://github.com/vsumner)! - Drop support for React 17
+
+### Patch Changes
+
+- Updated dependencies [[`97f8f6cf5`](https://github.com/Shopify/quilt/commit/97f8f6cf5f0f5c8adc03ff6d907fb16d878fbece), [`f50049004`](https://github.com/Shopify/quilt/commit/f500490042d922b66a6781c3450f876a83a120cb)]:
+  - @shopify/dates@2.1.0
+  - @shopify/function-enhancers@3.1.0
+  - @shopify/i18n@2.1.0
+  - @shopify/name@1.1.0
+  - @shopify/react-effect@5.1.0
+  - @shopify/react-hooks@3.2.0
+  - @shopify/useful-types@5.2.0
+
 ## 7.10.3
 
 ### Patch Changes

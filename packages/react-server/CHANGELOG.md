@@ -1,5 +1,23 @@
 # Changelog
 
+## 5.1.0
+
+### Minor Changes
+
+- [#2785](https://github.com/Shopify/quilt/pull/2785) [`97f8f6cf5`](https://github.com/Shopify/quilt/commit/97f8f6cf5f0f5c8adc03ff6d907fb16d878fbece) Thanks [@vsumner](https://github.com/vsumner)! - Drop support for node 14 and 16. Support node LTS and up.
+
+### Patch Changes
+
+- Updated dependencies [[`97f8f6cf5`](https://github.com/Shopify/quilt/commit/97f8f6cf5f0f5c8adc03ff6d907fb16d878fbece), [`f50049004`](https://github.com/Shopify/quilt/commit/f500490042d922b66a6781c3450f876a83a120cb)]:
+  - @shopify/network@3.3.0
+  - @shopify/react-async@5.4.0
+  - @shopify/react-cookie@2.1.0
+  - @shopify/react-effect@5.1.0
+  - @shopify/react-html@13.1.0
+  - @shopify/react-hydrate@3.1.0
+  - @shopify/react-network@5.1.0
+  - @shopify/sewing-kit-koa@9.3.0
+
 ## 5.0.3
 
 ### Patch Changes

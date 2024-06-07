@@ -1,6 +1,6 @@
 {
   "name": "@shopify/dates",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "license": "MIT",
   "description": "Lightweight date operations library",
   "main": "index.js",
@@ -24,10 +24,10 @@
     "node": ">=18.12.0"
   },
   "dependencies": {
-    "@shopify/function-enhancers": "^3.0.1"
+    "@shopify/function-enhancers": "^3.1.0"
   },
   "devDependencies": {
-    "@shopify/jest-dom-mocks": "^5.0.1"
+    "@shopify/jest-dom-mocks": "^5.1.0"
   },
   "files": [
     "build/",
