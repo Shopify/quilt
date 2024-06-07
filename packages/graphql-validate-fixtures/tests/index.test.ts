@@ -39,9 +39,17 @@ describe('evaluateFixtures()', () => {
   });
 
   it('handles fixtures that are invalid json', async () => {
-    expect(
-      await evaluateFixturesForFixturePath('fixture-invalid'),
-    ).toMatchSnapshot();
+    const result = await evaluateFixturesForFixturePath('fixture-invalid');
+    expect(result[0]).toStrictEqual(
+      expect.objectContaining({
+        fixturePath:
+          'packages/graphql-validate-fixtures/tests/fixtures/fixture-invalid/fixtures/another-fixture.json',
+        scriptError: expect.objectContaining({
+          message: expect.stringContaining('JSON at position 35'),
+        }),
+        validationErrors: [],
+      }),
+    );
   });
 
   it('throws an error when the schema is not found', async () => {

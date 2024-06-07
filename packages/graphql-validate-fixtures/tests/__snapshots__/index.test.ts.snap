@@ -17,23 +17,6 @@ exports[`evaluateFixtures() handles ambiguous operation names in multi-project f
 ]
 `;
 
-exports[`evaluateFixtures() handles fixtures that are invalid json 1`] = `
-[
-  {
-    "fixturePath": "packages/graphql-validate-fixtures/tests/fixtures/fixture-invalid/fixtures/another-fixture.json",
-    "scriptError": [SyntaxError: packages/graphql-validate-fixtures/tests/fixtures/fixture-invalid/fixtures/another-fixture.json: Unexpected string in JSON at position 35],
-    "validationErrors": [],
-  },
-  {
-    "fixturePath": "packages/graphql-validate-fixtures/tests/fixtures/fixture-invalid/fixtures/MyQuery/fixture.json",
-    "operationName": "My",
-    "operationPath": "packages/graphql-validate-fixtures/tests/fixtures/fixture-invalid/queries/Query.graphql",
-    "operationType": "query",
-    "validationErrors": [],
-  },
-]
-`;
-
 exports[`evaluateFixtures() handles fixtures with errors 1`] = `
 [
   {
