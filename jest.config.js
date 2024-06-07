@@ -52,6 +52,8 @@ const moduleNameMapperForPackages = Object.entries(
 
 const moduleNameMapper = {
   ...moduleNameMapperForPackages,
+  '^react-dom((/.*)?)$': `react-dom${REACT_VERSION}$1`,
+  '^react((/.*)?)$': `react${REACT_VERSION}$1`,
 };
 
 const configOverrides = {
