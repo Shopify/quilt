@@ -101,6 +101,7 @@ export function toSimpleDocument<
 ): SimpleDocument<Data, Variables, DeepPartial> {
   return {
     id: document.id,
+    type: operationTypeForDocument(document),
     name: operationNameForDocument(document),
     source: includeSource ? document.loc?.source?.body! : '',
   };
@@ -118,6 +119,13 @@ export function formatDocument(document: DocumentNode, format: OutputFormat) {
       return toSimpleDocument(document, {includeSource: false});
     }
   }
+}
+
+function operationTypeForDocument(document: DocumentNode) {
+  return document.definitions.find(
+    (definition): definition is OperationDefinitionNode =>
+      definition.kind === 'OperationDefinition',
+  )?.operation;
 }
 
 function operationNameForDocument(document: DocumentNode) {

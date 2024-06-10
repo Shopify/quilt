@@ -22,6 +22,7 @@ export interface DocumentNode<Data = {}, Variables = {}, DeepPartial = {}>
 export interface SimpleDocument<Data = {}, Variables = {}, DeepPartial = {}>
   extends GraphQLOperation<Data, Variables, DeepPartial> {
   readonly id: string;
+  readonly type?: 'query' | 'mutation' | 'subscription';
   readonly name?: string;
   readonly source: string;
 }
