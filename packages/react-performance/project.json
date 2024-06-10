@@ -1,0 +1,21 @@
+{
+  "name": "@shopify/react-performance",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/react-performance",
+  "prefix": "@shopify",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "packages/react-performance/jest.config.js",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true
+        }
+      }
+    }
+  }
+}

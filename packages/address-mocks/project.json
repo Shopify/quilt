@@ -1,0 +1,21 @@
+{
+  "name": "@shopify/address-mocks",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/address-mocks",
+  "prefix": "@shopify",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "packages/address-mocks/jest.config.js",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true
+        }
+      }
+    }
+  }
+}

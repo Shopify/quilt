@@ -1,0 +1,46 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "defaultBase": "main",
+  "defaultProject": "@shopify/address",
+  "cli": {
+    "warnings": {
+      "versionMismatch": false
+    },
+    "packageManager": "yarn",
+    "analytics": false
+  },
+  "namedInputs": {
+    "prod": [
+      "!{projectRoot}/**/*.test.*"
+    ]
+  },
+  "targetDefaults": {
+    "test": {
+      "inputs": [
+        "default",
+        "^prod"
+      ]
+    }
+  },
+  "plugins": [
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint",
+        "extensions": ["ts", "tsx", "js", "jsx", "html", "vue"]
+      }
+    },
+    {
+      "plugin": "@nx/rollup/plugin",
+      "options": {
+        "buildTargetName": "build"
+      }
+    },
+    {
+      "plugin": "@nx/jest/plugin",
+      "options": {
+        "targetName": "test"
+      }
+    }
+  ]
+}

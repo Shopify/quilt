@@ -1,0 +1,21 @@
+{
+  "name": "@shopify/statsd",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/statsd",
+  "prefix": "@shopify",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "packages/statsd/jest.config.js",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true
+        }
+      }
+    }
+  }
+}
