@@ -238,6 +238,15 @@ describe('graphql-mini-transforms/webpack', () => {
       );
     });
 
+    it('has a type property that is the operation type of the first operation in the document', async () => {
+      const result = await extractDocumentExport(
+        `query Shop { shop { id } }`,
+        createLoaderContext({query: {format: 'simple'}}),
+      );
+
+      expect(result).toHaveProperty('type', 'query');
+    });
+
     it('has a name property that is the name of the first operation', async () => {
       const result = await extractDocumentExport(
         `query Shop { shop { id } }`,
