@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.0.0
+
+### Patch Changes
+
+- Updated dependencies [[`bdebd9197`](https://github.com/Shopify/quilt/commit/bdebd919729fa9f2145aa7003395316081afadef)]:
+  - graphql-typed@2.2.0
+
 ## 4.0.0
 
 ### Minor Changes
