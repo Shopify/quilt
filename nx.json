@@ -22,12 +22,14 @@
       ]
     }
   },
+  "parallel": 1,
   "plugins": [
     {
       "plugin": "@nx/eslint/plugin",
       "options": {
         "targetName": "lint",
-        "extensions": ["ts", "tsx", "js", "jsx", "html", "vue"]
+        "extensions": ["ts", "tsx", "js", "jsx", "html"],
+        "eslintConfig": "./.eslintrc.js"
       }
     },
     {

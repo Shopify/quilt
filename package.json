@@ -47,7 +47,7 @@
     "@rollup/plugin-node-resolve": "^13.0.0",
     "@shopify/app-bridge": "^2.0.3",
     "@shopify/eslint-plugin": "^45.0.0",
-    "@tsconfig/node-lts": "^20.1.3",
+    "@tsconfig/node-lts": "^18.12.1",
     "@tsconfig/strictest": "^2.0.0",
     "@tsd/typescript": "^5.4.5",
     "@types/babel__core": "^7.1.7",

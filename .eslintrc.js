@@ -6,6 +6,7 @@ module.exports = {
     'plugin:@shopify/jest',
     'plugin:@shopify/prettier',
   ],
+  root: true,
   parserOptions: {
     project: ['./tsconfig.eslint.json'],
   },
