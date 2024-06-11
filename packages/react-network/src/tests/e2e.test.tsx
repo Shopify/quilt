@@ -13,9 +13,11 @@ describe('e2e', () => {
       // This function only adds network details on the first pass,
       // which lets us verify that it was cleared out when the second pass
       // has finished.
+      /* eslint-disable jest/no-conditional-in-test */
       if (pass > 0) {
         return;
       }
+      /* eslint-enable jest/no-conditional-in-test */
 
       useStatus(StatusCode.NotFound);
       networkManager.cookies.setCookie('foo', 'bar');

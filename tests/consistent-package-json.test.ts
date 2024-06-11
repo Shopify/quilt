@@ -86,7 +86,7 @@ packages.forEach(
             // We want to make sure the first set of items are always in a fixed
             // order. Most importantly, the `!build/*.tsbuildinfo` exclusion must be
             // after `build`.
-            /* eslint-disable jest/no-if */
+            /* eslint-disable jest/no-conditional-in-test */
             if (packageJSON?.bin) {
               expectedPackageJSON.files.unshift('bin/*');
             }
@@ -158,10 +158,12 @@ packages.forEach(
               // types/typesVersions is referenced when using `moduleResolution: node`
               // types in the exports field is referenced when using `moduleResolution: node16`
               // Ensure that they are the same
+              /* eslint-disable jest/no-conditional-in-test */
               const baseKey =
                 key === '.'
                   ? packageJSON.types
                   : packageJSON.typesVersions['*'][key.replace(/^\.\//, '')][0];
+              /* eslint-enable jest/no-conditional-in-test */
 
               expect(packageJSON.exports[key].types).toStrictEqual(baseKey);
             });

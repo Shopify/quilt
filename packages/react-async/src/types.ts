@@ -58,29 +58,11 @@ export interface AsyncComponentType<
   renderLoading: ((props: Props) => ReactNode) | undefined;
 }
 
-export type PreloadOptions<T> = T extends AsyncHookTarget<
-  any,
-  infer U,
-  any,
-  any
->
-  ? U
-  : never;
+export type PreloadOptions<T> =
+  T extends AsyncHookTarget<any, infer U, any, any> ? U : never;
 
-export type PrefetchOptions<T> = T extends AsyncHookTarget<
-  any,
-  any,
-  infer U,
-  any
->
-  ? U
-  : never;
+export type PrefetchOptions<T> =
+  T extends AsyncHookTarget<any, any, infer U, any> ? U : never;
 
-export type KeepFreshOptions<T> = T extends AsyncHookTarget<
-  any,
-  any,
-  any,
-  infer U
->
-  ? U
-  : never;
+export type KeepFreshOptions<T> =
+  T extends AsyncHookTarget<any, any, any, infer U> ? U : never;

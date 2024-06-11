@@ -8,6 +8,7 @@ describe('useSerialized', () => {
   it('serializes promise results', async () => {
     function MockComponent() {
       const [foo, Serialize] = useSerialized('foo');
+      /* eslint-disable-next-line jest/no-conditional-in-test */
       return <Serialize data={() => foo || Promise.resolve('foo_value')} />;
     }
 

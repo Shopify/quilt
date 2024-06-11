@@ -117,12 +117,14 @@ describe('I18nManager', () => {
       it('excludes translations that are undefined', () => {
         const id = createID();
         const manager = new I18nManager({...basicDetails, locale: 'en-US'});
+        /* eslint-disable jest/no-conditional-in-test */
         manager.register({
           id,
           translations(locale: string) {
             return locale === 'en' ? en : undefined;
           },
         });
+        /* eslint-enable jest/no-conditional-in-test */
         expect(manager.state([id])).toMatchObject({
           loading: false,
           translations: [en],
@@ -236,11 +238,13 @@ describe('I18nManager', () => {
           id,
           fallback,
           translations(locale: string) {
+            /* eslint-disable jest/no-conditional-in-test */
             if (locale === 'fr-CA') {
               return frCATranslation.promise;
             } else if (locale === 'fr') {
               return frTranslation.promise;
             }
+            /* eslint-enable jest/no-conditional-in-test */
 
             return undefined;
           },
@@ -265,11 +269,13 @@ describe('I18nManager', () => {
           id,
           fallback,
           translations(locale: string) {
+            /* eslint-disable jest/no-conditional-in-test */
             if (locale === 'fr-CA') {
               return frCATranslation.promise;
             } else if (locale === 'fr') {
               return frTranslation.promise;
             }
+            /* eslint-enable jest/no-conditional-in-test */
 
             return undefined;
           },
@@ -294,11 +300,13 @@ describe('I18nManager', () => {
           id,
           fallback,
           translations(locale: string) {
+            /* eslint-disable jest/no-conditional-in-test */
             if (locale === 'fr-CA') {
               return frCATranslation.promise;
             } else if (locale === 'fr') {
               return frTranslation.promise;
             }
+            /* eslint-enable jest/no-conditional-in-test */
 
             return undefined;
           },
@@ -323,11 +331,13 @@ describe('I18nManager', () => {
         manager.register({
           id,
           translations(locale: string) {
+            /* eslint-disable jest/no-conditional-in-test */
             if (locale === 'fr-CA') {
               return frCATranslation.promise;
             } else if (locale === 'fr') {
               return frTranslation.promise;
             }
+            /* eslint-enable jest/no-conditional-in-test */
 
             return undefined;
           },
@@ -358,11 +368,13 @@ describe('I18nManager', () => {
         manager.register({
           id,
           translations(locale: string) {
+            /* eslint-disable jest/no-conditional-in-test */
             if (locale === 'fr-CA') {
               return frCATranslation.promise;
             } else if (locale === 'fr') {
               return frTranslation.promise;
             }
+            /* eslint-enable jest/no-conditional-in-test */
 
             return undefined;
           },

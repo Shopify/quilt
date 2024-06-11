@@ -42,12 +42,14 @@ readChangelogs().forEach(({packageChangelogPath, packageChangelog}) => {
     });
 
     it('does not contain duplicate headers', () => {
+      /* eslint-disable jest/no-conditional-in-test */
       const headerLines = packageChangelog
         .split('\n')
         .filter(
           (line) => HEADER_START_REGEX.exec(line) || /## Unreleased/.exec(line),
         )
         .sort();
+      /* eslint-enable jest/no-conditional-in-test */
       const uniqueHeaderLines = headerLines.filter(
         (element, index, array) => array.indexOf(element) === index,
       );

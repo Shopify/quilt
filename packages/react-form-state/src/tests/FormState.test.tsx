@@ -1086,9 +1086,11 @@ describe('<FormState />', () => {
 
       let shouldSucceed = false;
       function onSubmit() {
+        /* eslint-disable jest/no-conditional-in-test */
         if (shouldSucceed) {
           return [];
         }
+        /* eslint-enable jest/no-conditional-in-test */
 
         return Promise.resolve(submitErrors);
       }
@@ -1410,6 +1412,7 @@ describe('<FormState />', () => {
           }}
           validators={{
             product(productName) {
+              /* eslint-disable-next-line jest/no-conditional-in-test */
               return productName === badProductName
                 ? clientValidationError.message
                 : undefined;
@@ -1462,6 +1465,7 @@ describe('<FormState />', () => {
           }}
           validators={{
             product(productName) {
+              /* eslint-disable-next-line jest/no-conditional-in-test */
               return productName === badProductName ? 'product bad' : undefined;
             },
           }}
@@ -1516,6 +1520,7 @@ describe('<FormState />', () => {
           }}
           validators={{
             product(productName) {
+              /* eslint-disable-next-line jest/no-conditional-in-test */
               return productName === badProductName
                 ? clientValidationError.message
                 : undefined;

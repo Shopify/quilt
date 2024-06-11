@@ -69,7 +69,7 @@ describe('tryAbbreviateBusinessName()', () => {
         idealMaxLength: testCase.idealMaxLength,
       });
       // UNLESS Node version ≤ 14, in which case returns undefined as Intl.Segmenter is not available in this context
-      // eslint-disable-next-line jest/no-if
+      // eslint-disable-next-line jest/no-conditional-in-test
       if (nodeMajorVersion() <= 14) {
         // eslint-disable-next-line jest/no-conditional-expect
         expect(abbreviatedName).toBeUndefined();
@@ -112,7 +112,7 @@ describe('tryAbbreviateBusinessName()', () => {
         name: testCase.name,
       });
       // UNLESS Node version ≤ 14, in which case returns undefined as Intl.Segmenter is not available in this context
-      // eslint-disable-next-line jest/no-if
+      // eslint-disable-next-line jest/no-conditional-in-test
       if (nodeMajorVersion() <= 14) {
         // eslint-disable-next-line jest/no-conditional-expect
         expect(abbreviatedName).toBeUndefined();
@@ -143,7 +143,7 @@ describe('tryAbbreviateBusinessName()', () => {
         idealMaxLength: testCase.idealMaxLength,
       });
       // UNLESS Node version ≤ 14, in which case returns undefined as Intl.Segmenter is not available in this context
-      // eslint-disable-next-line jest/no-if
+      // eslint-disable-next-line jest/no-conditional-in-test
       if (nodeMajorVersion() <= 14) {
         // eslint-disable-next-line jest/no-conditional-expect
         expect(abbreviatedName).toBeUndefined();

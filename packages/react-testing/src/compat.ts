@@ -17,6 +17,7 @@ export function getInternals(instance: ReactInstance): Fiber {
 
 /** Shim to provide createRoot backwards compatibility for React < 18 */
 function createRootShim(element: HTMLElement): ReactRoot {
+  /* eslint-disable react/no-deprecated */
   return {
     render(children: React.ReactChild | Iterable<React.ReactNode>): void {
       ReactDOM.render(children as any, element as any);
@@ -25,6 +26,7 @@ function createRootShim(element: HTMLElement): ReactRoot {
       ReactDOM.unmountComponentAtNode(element as any);
     },
   };
+  /* eslint-enable react/no-deprecated */
 }
 
 /** Uses React >= 18 createRoot if available or falls back to shim*/

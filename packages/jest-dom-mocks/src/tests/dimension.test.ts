@@ -71,6 +71,7 @@ describe('Dimension mocks', () => {
 
       dimension.mock({
         scrollWidth(element) {
+          /* eslint-disable-next-line jest/no-conditional-in-test */
           return element.id === 'testId' ? 200 : 0;
         },
       });

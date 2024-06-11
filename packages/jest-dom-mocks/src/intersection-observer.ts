@@ -47,9 +47,8 @@ export default class IntersectionObserverMock {
       (this.observers = setter(this.observers));
 
     /* eslint-disable @typescript-eslint/no-extraneous-class */
-    (
-      global as any
-    ).IntersectionObserverEntry = class IntersectionObserverEntry {};
+    (global as any).IntersectionObserverEntry =
+      class IntersectionObserverEntry {};
     /* eslint-enable @typescript-eslint/no-extraneous-class */
     Object.defineProperty(
       IntersectionObserverEntry.prototype,

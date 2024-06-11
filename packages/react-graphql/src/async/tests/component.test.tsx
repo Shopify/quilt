@@ -147,7 +147,7 @@ describe('createAsyncQueryComponent()', () => {
 
       const client = createMockApolloClient();
       const watchQuerySpy = jest.spyOn(client, 'watchQuery');
-      watchQuerySpy.mockImplementation(() => ({subscribe() {}} as any));
+      watchQuerySpy.mockImplementation(() => ({subscribe() {}}) as any);
 
       const variables = {name: faker.person.firstName()};
       const asyncQuery = mount(<AsyncQuery.Prefetch variables={variables} />, {
@@ -206,7 +206,7 @@ describe('createAsyncQueryComponent()', () => {
 
       const client = createMockApolloClient();
       const watchQuerySpy = jest.spyOn(client, 'watchQuery');
-      watchQuerySpy.mockImplementation(() => ({subscribe() {}} as any));
+      watchQuerySpy.mockImplementation(() => ({subscribe() {}}) as any);
 
       const variables = {name: faker.person.firstName()};
       const asyncQuery = mount(<AsyncQuery.KeepFresh variables={variables} />, {

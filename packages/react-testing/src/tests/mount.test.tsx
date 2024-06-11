@@ -76,7 +76,7 @@ describe('createMount()', () => {
     function Wrapper({children}) {
       const [showChildren, setShowChildren] = useState(true);
       toggleTestMount = () => setShowChildren((show) => !show);
-      // eslint-disable-next-line jest/no-if
+      // eslint-disable-next-line jest/no-conditional-in-test
       return showChildren ? children : null;
     }
 

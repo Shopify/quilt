@@ -51,9 +51,8 @@ export async function evaluateFixtures(
 async function getOperationsForProject(
   projectConfig: GraphQLProjectConfig,
 ): Promise<GraphQLProjectAST> {
-  const operationPaths = await getGraphQLProjectIncludedFilePaths(
-    projectConfig,
-  );
+  const operationPaths =
+    await getGraphQLProjectIncludedFilePaths(projectConfig);
 
   const operationSources = await Promise.all(
     operationPaths.map(loadOperationSource),
