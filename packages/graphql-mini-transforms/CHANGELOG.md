@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.6.0
+
+### Minor Changes
+
+- [#2789](https://github.com/Shopify/quilt/pull/2789) [`bdebd9197`](https://github.com/Shopify/quilt/commit/bdebd919729fa9f2145aa7003395316081afadef) Thanks [@lemonmade](https://github.com/lemonmade)! - Add `type` field to `SimpleDocument` type
+
+### Patch Changes
+
+- Updated dependencies [[`bdebd9197`](https://github.com/Shopify/quilt/commit/bdebd919729fa9f2145aa7003395316081afadef)]:
+  - graphql-typed@2.2.0
+
 ## 5.5.0
 
 ### Minor Changes
