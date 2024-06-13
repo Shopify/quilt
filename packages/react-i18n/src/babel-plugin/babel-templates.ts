@@ -132,10 +132,10 @@ function generateImportDefinition(
   explicitFileName?: string,
 ) {
   if (explicitFileName) {
-    return `import(/* webpackChunkName: "${bindingId}-i18n" */ "./${TRANSLATION_DIRECTORY_NAME}/${explicitFileName}.json")`;
+    return `import(/* webpackChunkName: "${bindingId}-i18n-${explicitFileName}" */ "./${TRANSLATION_DIRECTORY_NAME}/${explicitFileName}.json")`;
   }
 
-  return `import(/* webpackChunkName: "${bindingId}-i18n", webpackMode: "lazy-once" */ \`./${TRANSLATION_DIRECTORY_NAME}/\${locale}.json\`)`;
+  return `import(/* webpackChunkName: "${bindingId}-i18n-[request]", webpackMode: "lazy-once" */ \`./${TRANSLATION_DIRECTORY_NAME}/\${locale}.json\`)`;
 }
 
 function generateLocaleReturnCheck(

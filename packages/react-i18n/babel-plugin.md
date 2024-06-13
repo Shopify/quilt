@@ -89,7 +89,7 @@ useI18n({
     }
 
     return import(
-      /* webpackChunkName: "MyComponent_<hash>-i18n", webpackMode: "lazy-once" */ `./translations/${locale}.json`
+      /* webpackChunkName: "MyComponent_<hash>-i18n-[request]", webpackMode: "lazy-once" */ `./translations/${locale}.json`
     ).then((dict) => dict && dict.default);
   },
 });

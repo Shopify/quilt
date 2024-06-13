@@ -434,7 +434,7 @@ describe('babel-plugin-react-i18n', () => {
                   return;
                 }
 
-                return import(/* webpackChunkName: "MyComponent_${defaultHash}-i18n" */ "./${TRANSLATION_DIRECTORY_NAME}/fr.json").then((dict) => dict && dict.default);
+                return import(/* webpackChunkName: "MyComponent_${defaultHash}-i18n-fr" */ "./${TRANSLATION_DIRECTORY_NAME}/fr.json").then((dict) => dict && dict.default);
               }
             });
             return i18n.translate('key');
@@ -469,11 +469,11 @@ describe('babel-plugin-react-i18n', () => {
 
                 switch (locale) {
                   case "de":
-                    return import(/* webpackChunkName: "MyComponent_${defaultHash}-i18n" */ "./${TRANSLATION_DIRECTORY_NAME}/de.json").then(returnDefault);
+                    return import(/* webpackChunkName: "MyComponent_${defaultHash}-i18n-de" */ "./${TRANSLATION_DIRECTORY_NAME}/de.json").then(returnDefault);
                   case "fr":
-                    return import(/* webpackChunkName: "MyComponent_${defaultHash}-i18n" */ "./${TRANSLATION_DIRECTORY_NAME}/fr.json").then(returnDefault);
+                    return import(/* webpackChunkName: "MyComponent_${defaultHash}-i18n-fr" */ "./${TRANSLATION_DIRECTORY_NAME}/fr.json").then(returnDefault);
                   case "zh-TW":
-                    return import(/* webpackChunkName: "MyComponent_${defaultHash}-i18n" */ "./${TRANSLATION_DIRECTORY_NAME}/zh-TW.json").then(returnDefault);
+                    return import(/* webpackChunkName: "MyComponent_${defaultHash}-i18n-zh-TW" */ "./${TRANSLATION_DIRECTORY_NAME}/zh-TW.json").then(returnDefault);
                 }
               }
             });
@@ -568,7 +568,7 @@ function createExpectedTranslationsOption(
       return;
     }
 
-    return import(/* webpackChunkName: "MyComponent_${defaultHash}-i18n", webpackMode: "lazy-once" */ \`./${TRANSLATION_DIRECTORY_NAME}/$\{locale}.json\`).then((dict) => dict && dict.default);
+    return import(/* webpackChunkName: "MyComponent_${defaultHash}-i18n-[request]", webpackMode: "lazy-once" */ \`./${TRANSLATION_DIRECTORY_NAME}/$\{locale}.json\`).then((dict) => dict && dict.default);
   }
 `;
 }
