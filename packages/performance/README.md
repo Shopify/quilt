@@ -135,6 +135,11 @@ Learn more about [DOM Content Loaded](https://developer.mozilla.org/en-US/docs/W
 The time from when a user first interacts with your site to the time when the browser is able to respond to that interaction.
 Learn more about [first Input Delay](https://developers.google.com/web/updates/2018/05/first-input-delay).
 
+##### Cumulative Layout Shift (`EventType.CumulativeLayoutShift`)
+
+CLS is a measure of the largest burst of layout shift scores for every unexpected layout shift that occurs during the entire lifespan of a page.
+Learn more about [Cumulative Layout Shift](https://web.dev/cls/)
+
 ##### Load Event (`EventType.Load`)
 
 The time until the DOM and all its styles and synchronous scripts have loaded.
