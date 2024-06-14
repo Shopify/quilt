@@ -34,8 +34,8 @@
     "packages/*"
   ],
   "devDependencies": {
-    "@babel/core": "^7.14.6",
-    "@babel/preset-env": "^7.16.4",
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
     "@babel/preset-react": "^7.16.0",
     "@babel/preset-typescript": "^7.16.0",
     "@changesets/changelog-github": "^0.4.7",
