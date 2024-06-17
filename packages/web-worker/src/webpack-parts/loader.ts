@@ -120,7 +120,7 @@ export function pitch(this: LoaderContext<Options>, request: string) {
   }
 
   workerCompiler.runAsChild(
-    (error?: Error, entries?: Chunk[], compilation?: Compilation) => {
+    (error: Error | null, entries?: Chunk[], compilation?: Compilation) => {
       let finalError: Error | undefined;
 
       if (!error && compilation?.errors && compilation.errors.length) {

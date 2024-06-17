@@ -103,7 +103,8 @@ export default function createContext<
 
   res.set = undefined as any;
 
-  const context = app.createContext(req, res) as MockContext & CustomProperties;
+  const context = app.createContext(req, res as any) as MockContext &
+    CustomProperties;
   Object.assign(context, extensions);
   context.cookies = createMockCookies(cookies);
 
