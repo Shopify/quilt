@@ -252,8 +252,8 @@ If the translation source uses a different placeholder format, like Shopify's th
 ```jsonc
 {
   "general": {
-    "details": "See {{ link }}" // Mustache format
-  }
+    "details": "See {{ link }}", // Mustache format
+  },
 }
 ```
 
