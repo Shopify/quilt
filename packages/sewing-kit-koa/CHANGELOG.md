@@ -1,5 +1,11 @@
 # Changelog
 
+## 9.3.1
+
+### Patch Changes
+
+- [#2795](https://github.com/Shopify/quilt/pull/2795) [`8fa47ffa2`](https://github.com/Shopify/quilt/commit/8fa47ffa22bfdd98c9dc8f94e0ab913d7fef1ba0) Thanks [@iAmNathanJ](https://github.com/iAmNathanJ)! - fix: babel transformations for node targets
+
 ## 9.3.0
 
 ### Minor Changes
