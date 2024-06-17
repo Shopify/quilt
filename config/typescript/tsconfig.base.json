@@ -8,7 +8,7 @@
     "composite": true,
     "emitDeclarationOnly": true,
     "declarationMap": true,
-    "lib": ["dom", "dom.iterable", "es2023"],
+    "lib": ["dom", "dom.iterable", "es2022"],
     "module": "es2022",
     "jsx": "react",
     "target": "es2022",
