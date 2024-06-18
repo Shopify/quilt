@@ -13,7 +13,7 @@ import url from 'url';
 import {fileURLToPath} from 'url';
 import chalk from 'chalk';
 import {rollup} from 'rollup';
-import loadConfigFile from 'rollup/loadConfigFile';
+import {loadConfigFile} from 'rollup/loadConfigFile';
 import glob from 'glob';
 
 const repoRoot = url.fileURLToPath(new URL('..', import.meta.url));
