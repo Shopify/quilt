@@ -96,8 +96,8 @@ Pluralization of cardinal numbers is handled by providing the cardinal pluraliza
   "cars": {
     // All the children of `cars` are in a "cardinal pluralization context"
     "one": "I have {count} car",
-    "other": "I have {count} cars"
-  }
+    "other": "I have {count} cars",
+  },
 }
 ```
 
@@ -155,7 +155,7 @@ These keys are derived from the [CLDR's explicit 0 and 1 rules](https://unicode-
   //   * missing the required `one` sibling cardinal pluralization key (in which case the `one` key needs to be added)
   //   * meant to be part of an ordinal pluralization context (in which case it needs to be placed under an "ordinal"
   //     key and the other sibling ordinal pluralization keys need to be added)
-  "other": "Other"
+  "other": "Other",
 }
 ```
 
@@ -172,8 +172,8 @@ For example, even though `zero` is a required cardinal pluralization key for som
   "cars": {
     "zero": "I have no cars", // 🚫 INVALID: `zero` is not a required cardinal pluralization key for English!
     "one": "I have {count} car",
-    "other": "I have {count} cars"
-  }
+    "other": "I have {count} cars",
+  },
 }
 ```
 
@@ -199,9 +199,9 @@ Pluralization of ordinal numbers is handled by providing the ordinal pluralizati
       "one": "This is my {ordinal}st car", // Used for 1, 21, 31, 41, 51, 61, 71, 81, 101, 1001, …
       "two": "This is my {ordinal}nd car", // Used for 2, 22, 32, 42, 52, 62, 72, 82, 102, 1002, …
       "few": "This is my {ordinal}rd car", // Used for 3, 23, 33, 43, 53, 63, 73, 83, 103, 1003, …
-      "other": "This is my {ordinal}th car" // Used for 0, 4~18, 100, 1000, 10000, 100000, 1000000, …
-    }
-  }
+      "other": "This is my {ordinal}th car", // Used for 0, 4~18, 100, 1000, 10000, 100000, 1000000, …
+    },
+  },
 }
 ```
 
@@ -235,9 +235,9 @@ For example, even though `many` is a required cardinal pluralization key for som
       "one": "This is my {amount}st car",
       "two": "This is my {amount}nd car",
       "few": "This is my {amount}rd car",
-      "other": "This is my {amount}th car"
-    }
-  }
+      "other": "This is my {amount}th car",
+    },
+  },
 }
 ```
 
@@ -307,9 +307,9 @@ The `JSON+Comments` can be parsed using a `JSON5` parser, or a `JSON` parser tha
         context comment for `grandchild_1`!
       */
       "grandchild_1": "I am the first grandchild of `parent`!",
-      "grandchild_2": "I am the second grandchild of `parent`!" /* This is a trailing context comment for `grandchild_2`! */
-    }
-  }
+      "grandchild_2": "I am the second grandchild of `parent`!" /* This is a trailing context comment for `grandchild_2`! */,
+    },
+  },
 }
 ```
 

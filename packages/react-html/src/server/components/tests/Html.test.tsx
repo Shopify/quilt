@@ -40,6 +40,7 @@ describe('<Html />', () => {
 
   it('does not hide the body contents in other environments', () => {
     const html = mount(<Html {...mockProps} />);
+    /* eslint-disable-next-line jest/no-conditional-in-test */
     const styles = html.find('body')!.prop('style') || {};
     expect(styles).not.toHaveProperty('visibility');
   });
@@ -206,6 +207,7 @@ describe('<Html />', () => {
       );
       const headContents = html.find('head')!.descendants;
 
+      /* eslint-disable jest/no-conditional-in-test */
       const syncScriptsIndex = headContents.findIndex((element) => {
         return element.is(Script) && !element.prop('defer');
       });
@@ -213,6 +215,7 @@ describe('<Html />', () => {
       const deferredScriptsIndex = headContents.findIndex(
         (element) => element.is(Script) && Boolean(element.prop('defer')),
       );
+      /* eslint-enable jest/no-conditional-in-test */
 
       expect(syncScriptsIndex).toBeLessThan(deferredScriptsIndex);
     });

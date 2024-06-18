@@ -16,9 +16,11 @@ import {mount, createMount} from '../mount';
 describe('@shopify/react-testing', () => {
   it('does not time out with large trees', () => {
     function RecurseMyself({times}: {times: number}) {
+      /* eslint-disable jest/no-conditional-in-test */
       if (times <= 0) {
         return <div>finished</div>;
       }
+      /* eslint-enable jest/no-conditional-in-test */
       return <RecurseMyself times={times - 1} />;
     }
     expect(() => {
@@ -263,13 +265,13 @@ describe('@shopify/react-testing', () => {
       function MyComponent() {
         const [clicked, setClicked] = useState(false);
 
-        /* eslint-disable jest/no-if */
+        /* eslint-disable jest/no-conditional-in-test */
         return clicked ? (
           <div>Clicked!</div>
         ) : (
           <Clickable onClick={setClicked.bind(null, true)} />
         );
-        /* eslint-enable jest/no-if */
+        /* eslint-enable jest/no-conditional-in-test */
       }
 
       const myComponent = mount(<MyComponent />);

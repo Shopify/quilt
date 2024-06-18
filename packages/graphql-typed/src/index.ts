@@ -27,25 +27,14 @@ export interface SimpleDocument<Data = {}, Variables = {}, DeepPartial = {}>
   readonly source: string;
 }
 
-export type GraphQLData<T> = T extends GraphQLOperation<infer Data, any, any>
-  ? Data
-  : never;
+export type GraphQLData<T> =
+  T extends GraphQLOperation<infer Data, any, any> ? Data : never;
 
-export type GraphQLVariables<T> = T extends GraphQLOperation<
-  any,
-  infer Variables,
-  any
->
-  ? Variables
-  : never;
+export type GraphQLVariables<T> =
+  T extends GraphQLOperation<any, infer Variables, any> ? Variables : never;
 
-export type GraphQLDeepPartial<T> = T extends GraphQLOperation<
-  any,
-  any,
-  infer DeepPartial
->
-  ? DeepPartial
-  : never;
+export type GraphQLDeepPartial<T> =
+  T extends GraphQLOperation<any, any, infer DeepPartial> ? DeepPartial : never;
 
 export const parse: <Data = {}, Variables = {}, DeepPartial = {}>(
   source: string | Source,

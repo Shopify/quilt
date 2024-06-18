@@ -42,6 +42,7 @@ describe('typescript project references', () => {
           packageName,
           'tsconfig.json',
         );
+        /* eslint-disable-next-line jest/no-conditional-in-test */
         const internalReferences = tsconfigJson.references || [];
 
         const internalPackages = internalReferences

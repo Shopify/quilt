@@ -226,9 +226,11 @@ describe('koa-metrics', () => {
         ctx.response.length = length;
         const originalGet = ctx.response.get;
         ctx.response.get = (headerName) => {
+          /* eslint-disable jest/no-conditional-in-test */
           if (headerName === 'Content-Length') {
             return String(length);
           }
+          /* eslint-enable jest/no-conditional-in-test */
           return originalGet(headerName);
         };
       });
@@ -272,9 +274,11 @@ describe('koa-metrics', () => {
         ctx.response.length = 7500;
         const originalGet = ctx.response.get;
         ctx.response.get = (headerName) => {
+          /* eslint-disable jest/no-conditional-in-test */
           if (headerName === 'Content-Length') {
             return '7500';
           }
+          /* eslint-enable jest/no-conditional-in-test */
           return originalGet(headerName);
         };
       });

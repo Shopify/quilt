@@ -408,9 +408,8 @@ export class Builder extends EventEmitter {
     filesystem: GraphQLFilesystem,
     projectConfig: GraphQLProjectConfig,
   ) {
-    const filePaths = await filesystem.getGraphQLProjectIncludedFilePaths(
-      projectConfig,
-    );
+    const filePaths =
+      await filesystem.getGraphQLProjectIncludedFilePaths(projectConfig);
 
     return Promise.all(
       filePaths.map((filePath) =>

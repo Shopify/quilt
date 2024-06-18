@@ -35,13 +35,16 @@ export function findTranslationBuckets(rootDir) {
     .split('\n')
     .sort();
 
-  return files.reduce((acc, translationPath) => {
-    const translationsDir = path.dirname(translationPath);
-    if (!acc[translationsDir]) {
-      acc[translationsDir] = [];
-    }
+  return files.reduce(
+    (acc, translationPath) => {
+      const translationsDir = path.dirname(translationPath);
+      if (!acc[translationsDir]) {
+        acc[translationsDir] = [];
+      }
 
-    acc[translationsDir].push(translationPath);
-    return acc;
-  }, {} as {[key: string]: string[]});
+      acc[translationsDir].push(translationPath);
+      return acc;
+    },
+    {} as {[key: string]: string[]},
+  );
 }

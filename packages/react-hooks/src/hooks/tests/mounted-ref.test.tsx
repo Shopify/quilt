@@ -21,6 +21,7 @@ describe('useMountedRef()', () => {
     function MockComponent() {
       const [count, setCount] = useState(1);
       const triggerRerender = useCallback(() => setCount((cnt) => cnt + 1), []);
+      /* eslint-disable-next-line jest/no-conditional-in-test */
       const result = useMountedRef().current ? 'isMounted' : 'notMounted';
 
       return (

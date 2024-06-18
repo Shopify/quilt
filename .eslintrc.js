@@ -55,6 +55,10 @@ module.exports = {
     {
       files: ['**/*.ts', '**/*.tsx'],
       rules: {
+        '@typescript-eslint/consistent-indexed-object-style': [
+          'error',
+          'index-signature',
+        ],
         // Enforce camelCase naming convention and PascalCase class and interface names
         '@typescript-eslint/naming-convention': [
           'error',

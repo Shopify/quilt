@@ -1073,6 +1073,7 @@ describe('web-worker', () => {
 
       const path = '/app/ping';
 
+      /* eslint-disable jest/no-conditional-in-test */
       server.use((ctx, next) => {
         if (ctx.originalUrl === path) {
           ctx.type = 'text';
@@ -1083,6 +1084,7 @@ describe('web-worker', () => {
 
         return next();
       });
+      /* eslint-enable jest/no-conditional-in-test */
 
       await workspace.write(
         mainFile,

@@ -212,9 +212,11 @@ describe('useBaseList', () => {
         ];
         const validation = {
           price: (value: string) => {
+            /* eslint-disable jest/no-conditional-in-test */
             if (value.length < 1) {
               return 'Price must be specified';
             }
+            /* eslint-enable jest/no-conditional-in-test */
             return undefined;
           },
         };
@@ -376,15 +378,17 @@ describe('useBaseList', () => {
           ) => {
             const {optionName} = listItem;
 
+            /* eslint-disable jest/no-conditional-in-test */
             const anyDupes = siblings.some(
               (sibling) =>
                 sibling.optionName.value === optionName.value &&
                 sibling.optionValue.value === value,
             );
-            // eslint-disable-next-line jest/no-if
+
             if (anyDupes) {
               return 'No duplicates allowed';
             }
+            /* eslint-enable jest/no-conditional-in-test */
             return undefined;
           },
         };

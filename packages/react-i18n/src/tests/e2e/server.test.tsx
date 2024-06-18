@@ -88,12 +88,14 @@ describe('server', () => {
 
   it('extracts async translations', async () => {
     const manager = new I18nManager({locale: 'fr-CA'});
+    /* eslint-disable jest/no-conditional-in-test */
     const element = (
       <I18nContext.Provider value={manager}>
         <WithAsyncI18nComponent />
         <Effect perform={() => manager.loading && manager.resolve()} />
       </I18nContext.Provider>
     );
+    /* eslint-enable jest/no-conditional-in-test */
 
     await extract(element);
     const markup = renderToStaticMarkup(element);
@@ -110,6 +112,7 @@ describe('server', () => {
 
   it('handles nested translation connections', async () => {
     const manager = new I18nManager({locale: 'fr'});
+    /* eslint-disable jest/no-conditional-in-test */
     const element = (
       <I18nContext.Provider value={manager}>
         <WithAsyncI18nComponent>
@@ -118,6 +121,7 @@ describe('server', () => {
         <Effect perform={() => manager.loading && manager.resolve()} />
       </I18nContext.Provider>
     );
+    /* eslint-enable jest/no-conditional-in-test */
 
     await extract(element);
     const markup = renderToStaticMarkup(element);

@@ -11,6 +11,8 @@
     "lib": ["dom", "dom.iterable", "es2022"],
     "module": "es2022",
     "jsx": "react",
+    "target": "es2022",
+    "moduleResolution": "node",
 
     // Strictness
     // Strict mode enables these options.

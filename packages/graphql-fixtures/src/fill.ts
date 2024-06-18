@@ -76,20 +76,13 @@ export type DeepThunk<Request, T> =
 export type GraphQLFillerData<
   Operation extends GraphQLOperation,
   Request = undefined,
-> = Operation extends GraphQLOperation<
-  infer Data,
-  infer Variables,
-  infer PartialData
->
-  ? Thunk<
-      undefined extends Request
-        ? GraphQLRequest<
-            Data,
-            undefined extends Variables ? {} : Variables,
-            PartialData
-          >
-        : Request,
-      DeepThunk<
+> =
+  Operation extends GraphQLOperation<
+    infer Data,
+    infer Variables,
+    infer PartialData
+  >
+    ? Thunk<
         undefined extends Request
           ? GraphQLRequest<
               Data,
@@ -97,10 +90,18 @@ export type GraphQLFillerData<
               PartialData
             >
           : Request,
-        PartialData
+        DeepThunk<
+          undefined extends Request
+            ? GraphQLRequest<
+                Data,
+                undefined extends Variables ? {} : Variables,
+                PartialData
+              >
+            : Request,
+          PartialData
+        >
       >
-    >
-  : never;
+    : never;
 
 export interface Options<
   Request extends GraphQLRequest<any, any, any> | null = GraphQLRequest<

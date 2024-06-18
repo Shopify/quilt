@@ -123,7 +123,7 @@ describe('tryAbbreviateName()', () => {
       familyName: '재현',
     });
     // UNLESS Node version ≤ 14, in which case returns undefined as Intl.Segmenter is not available in this context
-    // eslint-disable-next-line jest/no-if
+    // eslint-disable-next-line jest/no-conditional-in-test
     if (nodeMajorVersion() <= 14) {
       // eslint-disable-next-line jest/no-conditional-expect
       expect(abbreviation).toBeUndefined();
@@ -140,7 +140,7 @@ describe('tryAbbreviateName()', () => {
       idealMaxLength: 1,
     });
     // UNLESS Node version ≤ 14, in which case returns undefined as Intl.Segmenter is not available in this context
-    // eslint-disable-next-line jest/no-if
+    // eslint-disable-next-line jest/no-conditional-in-test
     if (nodeMajorVersion() <= 14) {
       // eslint-disable-next-line jest/no-conditional-expect
       expect(abbreviation).toBeUndefined();
@@ -171,7 +171,7 @@ describe('tryAbbreviateName()', () => {
       familyName: 'อภัยวงศ์',
     });
     // UNLESS Node version ≤ 14, in which case returns undefined as Intl.Segmenter is not available in this context
-    // eslint-disable-next-line jest/no-if
+    // eslint-disable-next-line jest/no-conditional-in-test
     if (nodeMajorVersion() <= 14) {
       // eslint-disable-next-line jest/no-conditional-expect
       expect(abbreviation).toBeUndefined();
@@ -187,7 +187,7 @@ describe('tryAbbreviateName()', () => {
       familyName: 'อภัยวงศ์',
     });
     // UNLESS Node version ≤ 14, in which case returns undefined as Intl.Segmenter is not available in this context
-    // eslint-disable-next-line jest/no-if
+    // eslint-disable-next-line jest/no-conditional-in-test
     if (nodeMajorVersion() <= 14) {
       // eslint-disable-next-line jest/no-conditional-expect
       expect(abbreviation).toBeUndefined();
@@ -200,6 +200,7 @@ describe('tryAbbreviateName()', () => {
       givenName: undefined,
       familyName: 'อภัยวงศ์',
     });
+    /* eslint-disable jest/no-conditional-in-test */
     if (nodeMajorVersion() <= 14) {
       // eslint-disable-next-line jest/no-conditional-expect
       expect(abbreviation).toBeUndefined();
@@ -207,6 +208,7 @@ describe('tryAbbreviateName()', () => {
       // eslint-disable-next-line jest/no-conditional-expect
       expect(abbreviation).toBe('อ');
     }
+    /* eslint-enable jest/no-conditional-in-test */
   });
 });
 

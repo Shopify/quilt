@@ -227,13 +227,13 @@ describe('Root', () => {
       function MyComponent() {
         const [renderThrower, setRenderThrower] = React.useState(false);
 
-        /* eslint-disable jest/no-if */
+        /* eslint-disable jest/no-conditional-in-test */
         return renderThrower ? (
           <Thrower />
         ) : (
           <button type="button" onClick={() => setRenderThrower(true)} />
         );
-        /* eslint-enable jest/no-if */
+        /* eslint-enable jest/no-conditional-in-test */
       }
 
       const root = new Root(<MyComponent />);

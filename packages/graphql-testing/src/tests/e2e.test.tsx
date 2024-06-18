@@ -359,7 +359,7 @@ describe('graphql-testing', () => {
           {cursor: 'd', node: {__typename: 'Cat', name: 'Not Odie'}},
         ].map((item) => ({__typename: 'Edge', ...item}));
 
-        // eslint-disable-next-line jest/no-if
+        // eslint-disable-next-line jest/no-conditional-in-test
         const startPosition = after
           ? fullData.findIndex((item) => item.cursor === after) + 1
           : 0;
@@ -571,6 +571,7 @@ describe('graphql-testing', () => {
         );
 
         useEffect(() => {
+          /* eslint-disable jest/no-conditional-in-test */
           if (petData?.pet) {
             (async () => {
               const personData = await client.query({
@@ -580,6 +581,7 @@ describe('graphql-testing', () => {
               setPersonData(personData.data.person);
             })();
           }
+          /* eslint-enable jest/no-conditional-in-test */
         }, [client, petData?.pet]);
 
         return <div>{personData?.name}</div>;

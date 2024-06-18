@@ -353,7 +353,7 @@ function runBuild(
     const compiler: Compiler = webpack(contextConfig);
     // We use memfs.fs to prevent webpack from outputting to our actual FS
     // from https://github.com/webpack/webpack/blob/4837c3ddb9da8e676c73d97460e19689dd9d4691/test/configCases/types/filesystems/webpack.config.js#L8
-    compiler.outputFileSystem = memfs.fs;
+    compiler.outputFileSystem = memfs.fs as any;
 
     compiler.run((err, stats) => {
       if (err) {
@@ -368,12 +368,12 @@ function runBuild(
 
       // the Stats type is incorrect from webpack v5.39.1
       // https://github.com/webpack/webpack/blob/5d297327bc1f208de16c29f5c9b31d2b8a06bce4/types.d.ts#L1848
-      const fs = ((stats as any).stats[0] as Stats).compilation
-        .inputFileSystem as typeof memfs.fs;
+      const fs = ((stats! as any).stats[0] as Stats).compilation
+        .inputFileSystem;
 
       const sources = basePaths.map((basePath) => {
         try {
-          return fs.readFileSync(path.join(pathFromRoot, basePath)).toString();
+          return fs.readFileSync!(path.join(pathFromRoot, basePath)).toString();
         } catch {
           return null;
         }

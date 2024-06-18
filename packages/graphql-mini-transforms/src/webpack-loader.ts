@@ -83,11 +83,11 @@ async function loadDocument(
       const source = await new Promise<string>((resolve, reject) => {
         loader.fs.readFile(
           resolvedPath,
-          (error: Error | null, result: string) => {
+          (error: Error | null, result?: Buffer) => {
             if (error) {
               reject(error);
             } else {
-              resolve(result);
+              resolve(result ? result.toString() : '');
             }
           },
         );

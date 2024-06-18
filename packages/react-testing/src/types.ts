@@ -25,33 +25,32 @@ type Merge<T> = {[K in keyof T]: PickTypeOf<T, K>} & {
 type IsArrayIndex<T extends string> = `${number}` extends T
   ? true
   : string extends T
-  ? true
-  : T extends `${infer Head}${infer Rest}`
-  ? Head extends '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
-    ? Rest extends ''
-      ? true
-      : IsArrayIndex<Rest>
-    : false
-  : false;
+    ? true
+    : T extends `${infer Head}${infer Rest}`
+      ? Head extends '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+        ? Rest extends ''
+          ? true
+          : IsArrayIndex<Rest>
+        : false
+      : false;
 
-type ExtractProperty<Props, PropKeys extends any[]> = Merge<
-  Extract<Props, object>
-> extends infer MergedProps
-  ? PropKeys[0] extends undefined
-    ? Props
-    : PropKeys[0] extends keyof MergedProps
-    ? IfNever<
-        Extract<MergedProps[PropKeys[0]], ReadonlyArray<any>>,
-        unknown
-      > extends ReadonlyArray<infer ArrayType>
-      ? PropKeys[1] extends undefined
-        ? MergedProps[PropKeys[0]]
-        : IsArrayIndex<PropKeys[1]> extends true
-        ? ExtractProperty<ArrayType, Rest<Rest<PropKeys>>>
+type ExtractProperty<Props, PropKeys extends any[]> =
+  Merge<Extract<Props, object>> extends infer MergedProps
+    ? PropKeys[0] extends undefined
+      ? Props
+      : PropKeys[0] extends keyof MergedProps
+        ? IfNever<
+            Extract<MergedProps[PropKeys[0]], ReadonlyArray<any>>,
+            unknown
+          > extends ReadonlyArray<infer ArrayType>
+          ? PropKeys[1] extends undefined
+            ? MergedProps[PropKeys[0]]
+            : IsArrayIndex<PropKeys[1]> extends true
+              ? ExtractProperty<ArrayType, Rest<Rest<PropKeys>>>
+              : never
+          : ExtractProperty<MergedProps[PropKeys[0]], Rest<PropKeys>>
         : never
-      : ExtractProperty<MergedProps[PropKeys[0]], Rest<PropKeys>>
-    : never
-  : never;
+    : never;
 
 type Split<
   String extends string,
@@ -59,28 +58,26 @@ type Split<
 > = string extends String
   ? string[]
   : String extends ''
-  ? []
-  : String extends `${infer T}${Delimiter}${infer U}`
-  ? [T, ...Split<U, Delimiter>]
-  : [String];
+    ? []
+    : String extends `${infer T}${Delimiter}${infer U}`
+      ? [T, ...Split<U, Delimiter>]
+      : [String];
 
 type NormalizeKeypath<Path extends string> =
   Path extends `${infer A}.[${infer B}].${infer C}`
     ? NormalizeKeypath<`${A}.${B}.${C}`>
     : Path extends `${infer A}[${infer B}].${infer C}`
-    ? NormalizeKeypath<`${A}.${B}.${C}`>
-    : Path extends `${infer A}[${infer B}]${infer C}`
-    ? NormalizeKeypath<`${A}.${B}.${C}`>
-    : Path;
+      ? NormalizeKeypath<`${A}.${B}.${C}`>
+      : Path extends `${infer A}[${infer B}]${infer C}`
+        ? NormalizeKeypath<`${A}.${B}.${C}`>
+        : Path;
 
-export type ExtractKeypath<Props, Keypath extends string> = ExtractProperty<
-  Props,
-  Split<NormalizeKeypath<Keypath>, '.'>
-> extends infer R
-  ? R extends KeyPathFunction
-    ? R
-    : never
-  : never;
+export type ExtractKeypath<Props, Keypath extends string> =
+  ExtractProperty<Props, Split<NormalizeKeypath<Keypath>, '.'>> extends infer R
+    ? R extends KeyPathFunction
+      ? R
+      : never
+    : never;
 
 type IfNever<C, F> = IsNeverType<C> extends true ? F : C;
 type IsUnknown<T> = unknown extends T
@@ -89,11 +86,8 @@ type IsUnknown<T> = unknown extends T
     : true
   : false;
 
-type IsSkippedType<Props, Path extends string> = IsUnknown<Props> extends true
-  ? true
-  : string extends Path
-  ? true
-  : false;
+type IsSkippedType<Props, Path extends string> =
+  IsUnknown<Props> extends true ? true : string extends Path ? true : false;
 
 export type KeyPathFunction = Function | ((...args: any[]) => any);
 
@@ -101,32 +95,34 @@ export type TriggerKeypathParams<
   Props,
   Path extends string,
   ExtractedFunction extends KeyPathFunction,
-> = IsSkippedType<Props, Path> extends false
-  ? [
-      keypath: IsNeverType<ExtractedFunction> extends true ? never : Path,
-      ...args: ExtractedFunction extends (...args: any[]) => any
-        ? DeepPartialArguments<Parameters<ExtractedFunction>>
-        : any[],
-    ]
-  : [keypath: string, ...args: unknown[]];
+> =
+  IsSkippedType<Props, Path> extends false
+    ? [
+        keypath: IsNeverType<ExtractedFunction> extends true ? never : Path,
+        ...args: ExtractedFunction extends (...args: any[]) => any
+          ? DeepPartialArguments<Parameters<ExtractedFunction>>
+          : any[],
+      ]
+    : [keypath: string, ...args: unknown[]];
 
 export type TriggerKeypathReturn<
   Props,
   Path extends string,
   ExtractedFunction extends KeyPathFunction,
-> = IsSkippedType<Props, Path> extends false
-  ? ExtractedFunction extends (...args: any[]) => any
-    ? ReturnType<ExtractedFunction>
-    : any
-  : any;
+> =
+  IsSkippedType<Props, Path> extends false
+    ? ExtractedFunction extends (...args: any[]) => any
+      ? ReturnType<ExtractedFunction>
+      : any
+    : any;
 
 export type PropsFor<T extends string | ComponentType<any>> = T extends string
   ? T extends keyof JSX.IntrinsicElements
     ? JSX.IntrinsicElements[T]
     : HTMLAttributes<T>
   : T extends ComponentType<any>
-  ? ComponentPropsWithoutRef<T>
-  : never;
+    ? ComponentPropsWithoutRef<T>
+    : never;
 
 export type UnknowablePropsFor<
   T extends string | ComponentType<any> | unknown,
@@ -145,10 +141,10 @@ type DeepPartialObject<T extends object> = {[K in keyof T]?: DeepPartial<T[K]>};
 type DeepPartial<T> = T extends (infer U)[]
   ? DeepPartialArray<U>
   : T extends ReadonlyArray<infer U>
-  ? DeepPartialReadonlyArray<U>
-  : T extends object
-  ? DeepPartialObject<T>
-  : T;
+    ? DeepPartialReadonlyArray<U>
+    : T extends object
+      ? DeepPartialObject<T>
+      : T;
 
 export type DeepPartialArguments<T> = {
   [K in keyof T]?: DeepPartial<T[K]>;

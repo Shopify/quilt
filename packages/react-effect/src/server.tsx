@@ -29,7 +29,6 @@ export function extract(
     afterEachPass,
   }: Options = {},
 ) {
-  // eslint-disable-next-line react/jsx-no-constructed-context-values
   const manager = new EffectManager({include});
   const element = (
     <EffectContext.Provider value={manager}>

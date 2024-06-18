@@ -32,6 +32,7 @@ describe('translations', () => {
 
   it('uses a translation getter', () => {
     function WithI18nComponent() {
+      /* eslint-disable jest/no-conditional-in-test */
       const [i18n] = useI18n({
         id: 'MyComponent',
         translations(locale) {
@@ -45,6 +46,7 @@ describe('translations', () => {
           throw new Error('No translations found');
         },
       });
+      /* eslint-enable jest/no-conditional-in-test */
 
       return <div>{i18n.translate('hello')}</div>;
     }
