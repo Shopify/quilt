@@ -1,6 +1,6 @@
 {
   "name": "graphql-fixtures",
-  "version": "7.0.0",
+  "version": "8.0.0",
   "license": "MIT",
   "description": "Utilities for generating fixture objects from GraphQL documents.",
   "main": "index.js",
@@ -25,12 +25,12 @@
   },
   "dependencies": {
     "@faker-js/faker": "^8.4.0",
-    "@shopify/useful-types": "^5.2.0",
+    "@shopify/useful-types": "^5.3.0",
     "graphql": ">=14.5.0 <17.0.0",
     "graphql-tool-utilities": "^3.1.0"
   },
   "peerDependencies": {
-    "graphql-typed": "^2.2.0"
+    "graphql-typed": "^2.3.0"
   },
   "files": [
     "build/",

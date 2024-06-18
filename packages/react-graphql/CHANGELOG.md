@@ -1,5 +1,20 @@
 # Changelog
 
+## 10.3.0
+
+### Minor Changes
+
+- [#2791](https://github.com/Shopify/quilt/pull/2791) [`d691952`](https://github.com/Shopify/quilt/commit/d691952749248efd274a2a9a67c8879b9241c892) Thanks [@vsumner](https://github.com/vsumner)! - Update typescript, eslint, and prettier
+
+### Patch Changes
+
+- Updated dependencies [[`d691952`](https://github.com/Shopify/quilt/commit/d691952749248efd274a2a9a67c8879b9241c892)]:
+  - graphql-typed@2.3.0
+  - @shopify/react-effect@5.2.0
+  - @shopify/useful-types@5.3.0
+  - @shopify/react-async@5.5.0
+  - @shopify/react-hooks@3.3.0
+
 ## 10.2.1
 
 ### Patch Changes

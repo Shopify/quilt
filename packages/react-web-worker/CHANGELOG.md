@@ -1,5 +1,14 @@
 # Changelog
 
+## 5.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`d691952`](https://github.com/Shopify/quilt/commit/d691952749248efd274a2a9a67c8879b9241c892)]:
+  - @shopify/useful-types@5.3.0
+  - @shopify/react-hooks@3.3.0
+  - @shopify/web-worker@6.3.0
+
 ## 5.1.0
 
 ### Minor Changes

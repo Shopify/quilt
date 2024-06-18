@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`d691952`](https://github.com/Shopify/quilt/commit/d691952749248efd274a2a9a67c8879b9241c892)]:
+  - @shopify/react-hooks@3.3.0
+  - @shopify/react-html@13.2.0
+  - @shopify/react-i18n@7.12.0
+
 ## 3.1.0
 
 ### Minor Changes
