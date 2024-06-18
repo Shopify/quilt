@@ -5,9 +5,25 @@ import {writeFileSync} from 'fs-extra';
 
 const root = resolve(__dirname + '/..');
 
-const jestConfigTemplate = readFileSync('./scripts/nx-jest-config.txt', 'utf8');
+const jestConfigTemplate = readFileSync(
+  './scripts/templates/nx-jest-config.template',
+  'utf8',
+);
 const nxProjectTemplate = readFileSync(
-  './scripts/nx-project-template.txt',
+  './scripts/templates/nx-project-template.template',
+  'utf8',
+);
+
+const eslintIgnoreTemplate = readFileSync(
+  './scripts/templates/eslintignore.template',
+  'utf8',
+);
+const eslintRcTemplate = readFileSync(
+  './scripts/templates/eslintrc.template',
+  'utf8',
+);
+const tsconfigEslintTemplate = readFileSync(
+  './scripts/templates/tsconfig-eslint.template',
   'utf8',
 );
 
@@ -56,6 +72,21 @@ const main = () => {
   console.log('Done Generating NX configurations...');
   console.log(`Total Jest configurations generated: ${totalJest}`);
   console.log(`Total NX configurations generated: ${totalNx}`);
+
+  console.log('Generating Eslint configurations...');
+  let totalEslint = 0;
+  packageMapping.map(({name, packageName}) => {
+    let eslintRc = eslintRcTemplate;
+    writeFileSync(`./packages/${name}/.eslintrc.json`, eslintRc);
+    let eslintIgnore = eslintIgnoreTemplate;
+    writeFileSync(`./packages/${name}/.eslintignore`, eslintIgnore);
+    let tsconfigEslint = tsconfigEslintTemplate;
+    writeFileSync(`./packages/${name}/tsconfig.eslint.json`, tsconfigEslint);
+    totalEslint++;
+  });
+
+  console.log('Done Generating Eslint configurations...');
+  console.log(`Total Eslint configurations generated: ${totalEslint}`);
 };
 
 main();

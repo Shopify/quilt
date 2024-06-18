@@ -1,0 +1,12 @@
+{
+  "extends": ["../../.eslintrc.js"],
+  "ignorePatterns": ["./jest.config.js"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "rules": {
+        "import/namespace": "off"
+      }
+    }
+  ]
+}
