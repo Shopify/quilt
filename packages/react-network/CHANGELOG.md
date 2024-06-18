@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.2.0
+
+### Minor Changes
+
+- [#2791](https://github.com/Shopify/quilt/pull/2791) [`d691952`](https://github.com/Shopify/quilt/commit/d691952749248efd274a2a9a67c8879b9241c892) Thanks [@vsumner](https://github.com/vsumner)! - Update typescript, eslint, and prettier
+
+### Patch Changes
+
+- Updated dependencies [[`d691952`](https://github.com/Shopify/quilt/commit/d691952749248efd274a2a9a67c8879b9241c892)]:
+  - @shopify/react-effect@5.2.0
+  - @shopify/react-hooks@3.3.0
+  - @shopify/react-universal-provider@3.1.1
+
 ## 5.1.0
 
 ### Minor Changes
