@@ -11,9 +11,82 @@ import {
   keyFromEdges,
   isGid,
   isGidFactory,
+  parseGidObject,
 } from '..';
 
 describe('admin-graphql-api-utilities', () => {
+  describe('parseGidObject()', () => {
+    it('parses a standard GID', () => {
+      expect(parseGidObject('gid://shopify/Collection/123')).toStrictEqual({
+        namespace: 'shopify',
+        type: 'Collection',
+        id: '123',
+        queryString: undefined,
+      });
+    });
+
+    it('parses a GID with a non-numeric ID', () => {
+      expect(parseGidObject('gid://shopify/Collection/foo')).toStrictEqual({
+        namespace: 'shopify',
+        type: 'Collection',
+        id: 'foo',
+        queryString: undefined,
+      });
+    });
+
+    it('parses a GID with single-digit components', () => {
+      expect(parseGidObject('gid://s/C/1')).toStrictEqual({
+        namespace: 's',
+        type: 'C',
+        id: '1',
+        queryString: undefined,
+      });
+    });
+
+    it('parses a standard GID with params', () => {
+      expect(
+        parseGidObject(
+          'gid://shopify/Collection/123?title=hello%sworld&tags=large+blue',
+        ),
+      ).toStrictEqual({
+        namespace: 'shopify',
+        type: 'Collection',
+        id: '123',
+        queryString: '?title=hello%sworld&tags=large+blue',
+      });
+    });
+
+    it('throws on GID with extraneous components', () => {
+      const gid = 'gid://shopify/A/B/C/D/E/F/G/123';
+      expect(() => parseGidObject(gid)).toThrow(`Invalid gid: ${gid}`);
+    });
+
+    it('throws on GID with missing namespace', () => {
+      const gid = 'gid:///Collection/123';
+      expect(() => parseGidObject(gid)).toThrow(`Invalid gid: ${gid}`);
+    });
+
+    it('throws on GID with missing prefix', () => {
+      const gid = '//shopify/Collection/123';
+      expect(() => parseGidObject(gid)).toThrow(`Invalid gid: ${gid}`);
+    });
+
+    it('throws on GID with invalid prefix', () => {
+      const gid = '@#$%^&^*()/Foo/123';
+      expect(() => parseGidObject(gid)).toThrow(`Invalid gid: ${gid}`);
+    });
+
+    it('throws on GID with spaces', () => {
+      const gid = 'gid://shopify/Some Collection/123';
+      expect(() => parseGidObject(gid)).toThrow(`Invalid gid: ${gid}`);
+    });
+
+    it('throws on GID with invalid identifiers', () => {
+      const gid = 'gid://-_-_-_-/--------/__________';
+      expect(() => parseGidObject(gid)).toThrow(`Invalid gid: ${gid}`);
+    });
+  });
+
   describe('parseGidType()', () => {
     it('returns the type from a GID without param', () => {
       const parsedType = parseGidType(
@@ -40,10 +113,6 @@ describe('admin-graphql-api-utilities', () => {
           `Invalid gid: ${key}/${id}`,
         ),
       );
-    });
-
-    it('returns the id portion of an unprefixed gid', () => {
-      ['1', '1a', v4()].forEach((id) => expect(parseGid(id)).toBe(id));
     });
 
     it('returns the id portion of a gid for integer ids', () => {
@@ -175,6 +244,7 @@ describe('admin-graphql-api-utilities', () => {
       expect(isGid('gid:/shopify/Section/123')).toBe(false);
       expect(isGid('//shopify/Section/123')).toBe(false);
       expect(isGid('gid://shopify/Section/123 456')).toBe(false);
+      expect(isGid('123')).toBe(false);
     });
   });
 

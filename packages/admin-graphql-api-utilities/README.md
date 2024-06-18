@@ -27,6 +27,19 @@ parseGidType('gid://shopify/Customer/12345');
 // → 'Customer'
 ```
 
+### `parseGidObject(gid: string): GidObject`
+
+Given a Gid string, parse the components into an object.
+
+#### Example Usage
+
+```typescript
+import {parseGidObject} from '@shopify/admin-graphql-api-utilities';
+
+parseGidObject('gid://shopify/Customer/12345');
+// → {namespace: 'shopify', type: 'Customer', id: '12345'}
+```
+
 ### `function parseGid(gid: string): string`
 
 Given a Gid string, parse out the id.
