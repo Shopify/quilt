@@ -278,13 +278,13 @@ function findCommonAncestorPath(...paths) {
     a === b
       ? a
       : path.parse(a).root !== path.parse(b).root
-      ? null
-      : [
-          ...commonArrayMembers(
-            path.normalize(a).split(path.sep),
-            path.normalize(b).split(path.sep),
-          ),
-        ].join(path.sep),
+        ? null
+        : [
+            ...commonArrayMembers(
+              path.normalize(a).split(path.sep),
+              path.normalize(b).split(path.sep),
+            ),
+          ].join(path.sep),
   );
 }
 /* eslint-enable */

@@ -10,16 +10,11 @@
     "analytics": false
   },
   "namedInputs": {
-    "prod": [
-      "!{projectRoot}/**/*.test.*"
-    ]
+    "prod": ["!{projectRoot}/**/*.test.*"]
   },
   "targetDefaults": {
     "test": {
-      "inputs": [
-        "default",
-        "^prod"
-      ]
+      "inputs": ["default", "^prod"]
     }
   },
   "parallel": 1,
