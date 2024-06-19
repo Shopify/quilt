@@ -8,5 +8,6 @@
     "../../config/typescript/*.d.ts",
     "./src/**/*.ts",
     "./src/**/*.tsx"
-  ]
+  ],
+  "references": [{"path": "../function-enhancers"}]
 }
