@@ -39,6 +39,26 @@ describe('useMedia and useMediaLayout', () => {
       expect(mediaRemoveSpy).toHaveBeenCalled();
     });
 
+    it('only installs a single listener, shared between hooks', () => {
+      const media = mediaQueryList({
+        matches: true,
+      });
+      const mediaAddSpy = jest.spyOn(media, 'addListener');
+      const mediaRemoveSpy = jest.spyOn(media, 'removeListener');
+
+      matchMedia.setMedia(() => media);
+
+      const mockComponent1 = mount(<MockComponent mediaQuery="print" />);
+      const mockComponent2 = mount(<MockComponent mediaQuery="print" />);
+      expect(mediaAddSpy).toHaveBeenCalledTimes(1);
+
+      mockComponent1.unmount();
+      expect(mediaRemoveSpy).not.toHaveBeenCalled();
+
+      mockComponent2.unmount();
+      expect(mediaRemoveSpy).toHaveBeenCalled();
+    });
+
     it('installs new listeners when mediaQuery used by hook changes', () => {
       const media = mediaQueryList({
         matches: true,
@@ -80,7 +100,7 @@ describe('useMedia and useMediaLayout', () => {
       expect(mockComponent.text()).toContain('did not match');
     });
 
-    it('rerenders when the media changes from !match=>match', () => {
+    it('rerenders single when the media changes from !match=>match', () => {
       const media = mediaQueryList({
         matches: false,
       });
@@ -104,6 +124,38 @@ describe('useMedia and useMediaLayout', () => {
       });
 
       expect(mockComponent.text()).toContain('matched');
+    });
+
+    it('rerenders multiple components when the media changes from !match=>match', () => {
+      const media = mediaQueryList({
+        matches: false,
+      });
+      const addListenerSpy = jest.spyOn(media, 'addListener');
+      matchMedia.setMedia(() => media);
+
+      const mockComponent = mount(
+        // eslint-disable-next-line @shopify/jsx-prefer-fragment-wrappers
+        <div>
+          <MockComponent mediaQuery="print" />
+          <MockComponent mediaQuery="print" />
+        </div>,
+      );
+      expect(mockComponent.text()).toContain('did not match');
+
+      expect(addListenerSpy).toHaveBeenCalledTimes(1);
+      mockComponent.act(() => {
+        matchMedia.setMedia(() =>
+          mediaQueryList({
+            matches: true,
+          }),
+        );
+
+        // setMedia API does not actually invoke the listeners registered by the hook, so we must invoke manually
+        const [listener] = addListenerSpy.mock.calls[0];
+        (listener as any)({...media, matches: true});
+      });
+
+      expect(mockComponent.text()).toMatch(/matched.*matched/);
     });
   });
 });
