@@ -5,6 +5,13 @@
   "description": "Address mocks for `@shopify/address`",
   "main": "index.js",
   "types": "./build/ts/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "utilities": [
+        "./build/ts/utilities.d.ts"
+      ]
+    }
+  },
   "publishConfig": {
     "access": "public",
     "@shopify:registry": "https://registry.npmjs.org"
@@ -33,7 +40,10 @@
     "!build/ts/**/tests/",
     "index.js",
     "index.mjs",
-    "index.esnext"
+    "index.esnext",
+    "utilities.js",
+    "utilities.mjs",
+    "utilities.esnext"
   ],
   "module": "index.mjs",
   "esnext": "index.esnext",
@@ -43,6 +53,12 @@
       "esnext": "./index.esnext",
       "import": "./index.mjs",
       "require": "./index.js"
+    },
+    "./utilities": {
+      "types": "./build/ts/utilities.d.ts",
+      "esnext": "./utilities.esnext",
+      "import": "./utilities.mjs",
+      "require": "./utilities.js"
     }
   }
 }

@@ -1,7 +1,4 @@
-import type {
-  LoadCountriesResponse,
-  LoadCountryResponse,
-} from '@shopify/address-consts';
+import type {Fixtures} from '../types';
 
 import countryCAFr from './country_ca_fr';
 import countryCAEn from './country_ca_en';
@@ -11,15 +8,6 @@ import countriesEn from './countries_en';
 import countriesJa from './countries_ja';
 import countriesAF from './countries_af';
 import countriesFR from './countries_fr';
-
-interface Fixtures {
-  countries: {
-    [key: string]: LoadCountriesResponse;
-  };
-  country: {
-    [key: string]: LoadCountryResponse;
-  };
-}
 
 export const fixtures: Fixtures = {
   countries: {
