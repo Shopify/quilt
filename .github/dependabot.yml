@@ -1,0 +1,86 @@
+version: 2
+
+registries:
+  github-com:
+    type: git
+    url: https://github.com
+    username: ${{secrets.DEPENDENCIES_GITHUB_USER}}
+    password: ${{secrets.DEPENDENCIES_GITHUB_TOKEN}}
+
+  npm-registry-npm-shopify-io-node:
+    type: npm-registry
+    url: https://npm.shopify.io/node
+    token: ${{secrets.NPM_REGISTRY_NPM_SHOPIFY_IO_NODE_TOKEN}}
+
+  ruby-shopify:
+    type: rubygems-server
+    url: https://pkgs.shopify.io/basic/gems/ruby
+    username: ${{secrets.RUBYGEMS_SERVER_PKGS_SHOPIFY_IO_USERNAME}}
+    password: ${{secrets.RUBYGEMS_SERVER_PKGS_SHOPIFY_IO_PASSWORD}}
+
+updates:
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: weekly
+      day: tuesday
+      time: '09:00'
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 100
+    groups:
+      actions:
+        patterns:
+          - '*'
+
+  - package-ecosystem: npm
+    directory: '/'
+    schedule:
+      interval: weekly
+      day: tuesday
+      time: '09:00'
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 100
+    registries: '*'
+    groups:
+      patch:
+        patterns:
+          - '*'
+        update-types:
+          - patch
+      minor:
+        patterns:
+          - '*'
+        update-types:
+          - minor
+      major:
+        patterns:
+          - '*'
+        update-types:
+          - major
+
+  - package-ecosystem: bundler
+    directory: '/'
+    schedule:
+      interval: weekly
+      day: tuesday
+      time: '09:00'
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 100
+    registries: '*'
+    insecure-external-code-execution: allow
+    groups:
+      patch:
+        patterns:
+          - '*'
+        update-types:
+          - patch
+      minor:
+        patterns:
+          - '*'
+        update-types:
+          - minor
+      major:
+        patterns:
+          - '*'
+        update-types:
+          - major
