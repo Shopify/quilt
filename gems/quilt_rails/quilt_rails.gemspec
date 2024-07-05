@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'railties', '>= 3.2.0'
   spec.add_dependency 'activesupport', '>= 3.2.0'
-  spec.add_dependency 'rails-reverse-proxy', '~> 0.9.0'
+  spec.add_dependency 'rails-reverse-proxy', '>= 0.9.0'
   spec.add_dependency 'statsd-instrument', '>= 2.8.0'
 
   spec.add_development_dependency 'rails', '>= 7.0'
