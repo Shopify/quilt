@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.3.1
+
+### Patch Changes
+
+- Updated dependencies [[`d691952`](https://github.com/Shopify/quilt/commit/d691952749248efd274a2a9a67c8879b9241c892)]:
+  - @shopify/jest-dom-mocks@5.2.0
+
 ## 3.3.0
 
 ### Minor Changes
