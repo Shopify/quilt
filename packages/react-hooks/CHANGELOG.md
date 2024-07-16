@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.1.0
+
+### Minor Changes
+
+- [`0fc2d54`](https://github.com/Shopify/quilt/commit/0fc2d5448681c1ae6abb2308810e7572768d3b08) Thanks [@melnikov-s](https://github.com/melnikov-s)! - Make useMedia options an optional param
+
 ## 4.0.0
 
 ### Major Changes
