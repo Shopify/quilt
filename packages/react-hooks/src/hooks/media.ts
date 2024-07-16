@@ -3,7 +3,7 @@ import {useState, useEffect, useLayoutEffect} from 'react';
 type EffectHook = typeof useEffect | typeof useLayoutEffect;
 
 function createUseMediaFactory(useEffectHook: EffectHook) {
-  return (query: string, {initialValue}: {initialValue?: boolean}) => {
+  return (query: string, {initialValue}: {initialValue?: boolean} = {}) => {
     const [match, setMatch] = useState(() =>
       initialValue === undefined
         ? window.matchMedia(query).matches
