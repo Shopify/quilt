@@ -5,7 +5,7 @@ type EffectHook = typeof useEffect | typeof useLayoutEffect;
 function createUseMediaFactory(useEffectHook: EffectHook) {
   return (query: string, {initialValue}: {initialValue?: boolean} = {}) => {
     const [match, setMatch] = useState(() =>
-      initialValue === undefined
+      initialValue === undefined && typeof window !== 'undefined'
         ? window.matchMedia(query).matches
         : Boolean(initialValue),
     );
