@@ -95,7 +95,7 @@ describe('useQuery', () => {
       );
     });
 
-    it('return loading=false, networkStatus and the data once the query resolved', async () => {
+    it('returns loading=false, networkStatus and the data once the query resolved', async () => {
       function MockQuery({children}) {
         const results = useQuery(petQuery);
         return children(results);
@@ -118,6 +118,26 @@ describe('useQuery', () => {
           data: mockData,
         }),
       );
+    });
+
+    it('calls onCompleted function when the query resolved', async () => {
+      const mockedOnCompleted = jest.fn();
+      function MockQuery({children}) {
+        const results = useQuery(petQuery, {
+          onCompleted: mockedOnCompleted,
+        });
+        return children(results);
+      }
+
+      const graphQL = createGraphQL({PetQuery: mockData});
+      const renderPropSpy = jest.fn(() => null);
+
+      await mountWithGraphQL(<MockQuery>{renderPropSpy}</MockQuery>, {
+        graphQL,
+      });
+
+      expect(mockedOnCompleted).toHaveBeenCalledTimes(1);
+      expect(mockedOnCompleted).toHaveBeenCalledWith(mockData);
     });
 
     it('keeps the same data when the variables stay deep-equal', async () => {
