@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.1.2
+
+### Patch Changes
+
+- [#2813](https://github.com/Shopify/quilt/pull/2813) [`1171b00`](https://github.com/Shopify/quilt/commit/1171b0022561c062d45d1463a284b7c5049cd8e8) Thanks [@melnikov-s](https://github.com/melnikov-s)! - Do not throw when using useMedia in SSR without providing an initialValue
+
 ## 4.1.1
 
 ### Patch Changes
