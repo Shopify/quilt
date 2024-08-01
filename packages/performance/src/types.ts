@@ -6,6 +6,7 @@ export enum EventType {
   TimeToLargestContentfulPaint = 'ttlcp',
   DomContentLoaded = 'dcl',
   FirstInputDelay = 'fid',
+  CumulativeLayoutShift = 'cls',
   Load = 'load',
   LongTask = 'longtask',
   Usable = 'usable',
@@ -61,6 +62,11 @@ export interface FirstInputDelayEvent extends BasicEvent {
   metadata?: undefined;
 }
 
+export interface CumulativeLayoutShift extends BasicEvent {
+  type: EventType.CumulativeLayoutShift;
+  metadata?: undefined;
+}
+
 export interface LoadEvent extends BasicEvent {
   type: EventType.Load;
   metadata?: undefined;
@@ -103,6 +109,7 @@ export type LifecycleEvent =
   | TimeToLargestContentfulPaintEvent
   | DomContentLoadedEvent
   | FirstInputDelayEvent
+  | CumulativeLayoutShift
   | LoadEvent;
 
 export type Event =
@@ -122,6 +129,7 @@ export interface EventMap {
   [EventType.TimeToLargestContentfulPaint]: TimeToLargestContentfulPaintEvent;
   [EventType.DomContentLoaded]: DomContentLoadedEvent;
   [EventType.FirstInputDelay]: FirstInputDelayEvent;
+  [EventType.CumulativeLayoutShift]: CumulativeLayoutShift;
   [EventType.Load]: LoadEvent;
   [EventType.ScriptDownload]: ScriptDownloadEvent;
   [EventType.StyleDownload]: StyleDownloadEvent;
