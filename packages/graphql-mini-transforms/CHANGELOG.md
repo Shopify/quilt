@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.7.1
+
+### Patch Changes
+
+- [#2815](https://github.com/Shopify/quilt/pull/2815) [`accab3a`](https://github.com/Shopify/quilt/commit/accab3ae3b1a5f7d729e83825c17f8acc1efa736) Thanks [@BPScott](https://github.com/BPScott)! - Fix typing of "enforce" in vite transform
+
 ## 5.7.0
 
 ### Minor Changes

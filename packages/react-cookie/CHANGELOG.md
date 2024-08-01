@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.1.4
+
+### Patch Changes
+
+- Updated dependencies [[`1171b00`](https://github.com/Shopify/quilt/commit/1171b0022561c062d45d1463a284b7c5049cd8e8)]:
+  - @shopify/react-hooks@4.1.2
+  - @shopify/react-network@5.2.3
+
 ## 2.1.3
 
 ### Patch Changes
