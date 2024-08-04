@@ -96,9 +96,9 @@ export function pitch(this: LoaderContext<Options>, request: string) {
   const workerOptions = {
     filename:
       plugin.options.filename ??
-      addWorkerSubExtension(compiler.options.output.filename ?? '[worker].js'),
+      addWorkerSubExtension(compiler.options.output.filename ?? '[name].js'),
     chunkFilename: addWorkerSubExtension(
-      compiler.options.output.chunkFilename ?? '[worker].js',
+      compiler.options.output.chunkFilename ?? '[name].js',
     ),
     globalObject: (plugin && plugin.options.globalObject) || 'self',
   };
