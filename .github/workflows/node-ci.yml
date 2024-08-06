@@ -24,17 +24,17 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         name: Checkout
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         name: Use Node.js ${{ matrix.node-version }}
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'yarn'
           check-latest: true
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         name: Restore cache
         with:
           path: |
