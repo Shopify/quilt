@@ -1,0 +1,4 @@
+module.exports = {
+  displayName: '{{packageName}}',
+  preset: '../../jest.preset.js',
+};
