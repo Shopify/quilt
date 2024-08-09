@@ -5,6 +5,7 @@ import {babel} from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import externals from 'rollup-plugin-node-externals';
+import json from '@rollup/plugin-json';
 
 /** @typedef {import('rollup').RollupOptions} RollupOptions */
 
@@ -34,6 +35,7 @@ export function buildConfig(
   if (commonjs || esmodules) {
     configs.push({
       input,
+      strictDeprecations: true,
       plugins: buildPlugins({browserslistEnv, packageJsonPath}),
       output: buildOutputs({
         commonjs: path.resolve(cwd, 'build/cjs'),
@@ -45,6 +47,7 @@ export function buildConfig(
   if (esnext) {
     configs.push({
       input,
+      strictDeprecations: true,
       plugins: buildPlugins({browserslistEnv: 'esnext', packageJsonPath}),
       output: buildOutputs({esnext: path.resolve(cwd, 'build/esnext')}),
     });
@@ -94,6 +97,7 @@ function buildPlugins({packageJsonPath, browserslistEnv}) {
     externals({deps: true, packagePath: packageJsonPath}),
     nodeResolve({extensions: ['.js', '.jsx', '.ts', '.tsx']}),
     commonjs(),
+    json(),
     babel({
       rootMode: 'upward',
       // Options specific to @rollup/plugin-babel, these can not be
@@ -119,7 +123,7 @@ function buildOutputs({commonjs = '', esmodules = '', esnext = ''}) {
       format: 'cjs',
       dir: commonjs,
       preserveModules: true,
-      entryFileNames: '[name][assetExtname].js',
+      entryFileNames: '[name].js',
       exports: 'named',
     });
   }
@@ -129,7 +133,7 @@ function buildOutputs({commonjs = '', esmodules = '', esnext = ''}) {
       format: 'esm',
       dir: esmodules,
       preserveModules: true,
-      entryFileNames: '[name][assetExtname].mjs',
+      entryFileNames: '[name].mjs',
     });
   }
 
@@ -138,7 +142,7 @@ function buildOutputs({commonjs = '', esmodules = '', esnext = ''}) {
       format: 'esm',
       dir: esnext,
       preserveModules: true,
-      entryFileNames: '[name][assetExtname].esnext',
+      entryFileNames: '[name].esnext',
     });
   }
 
