@@ -41,7 +41,11 @@ import {
   UnicodeCharacterSet,
 } from './constants';
 import type {I18nError} from './errors';
-import {MissingCurrencyCodeError, MissingCountryError} from './errors';
+import {
+  MissingCurrencyCodeError,
+  MissingCountryError,
+  InvalidRangeError,
+} from './errors';
 import type {TranslateOptions as RootTranslateOptions} from './utilities';
 import {
   getCurrencySymbol,
@@ -76,6 +80,7 @@ const NEGATIVE_SIGN = '-';
 const REGEX_DIGITS = /\d/g;
 const REGEX_NON_DIGITS = /\D/g;
 const REGEX_PERIODS = /\./g;
+const RANGE_SIGN = '–';
 
 export class I18n {
   readonly locale: string;
@@ -322,6 +327,28 @@ export class I18n {
       .filter((part) => part.type !== 'literal' && part.type !== 'percentSign')
       .map((part) => part.value)
       .join('');
+  }
+
+  formatPercentageRange(
+    minAmount: number,
+    maxAmount: number,
+    options: Intl.NumberFormatOptions = {},
+  ) {
+    if (minAmount > maxAmount) {
+      throw new InvalidRangeError(minAmount, maxAmount);
+    }
+
+    if (minAmount === maxAmount) {
+      return this.formatPercentage(minAmount, options);
+    }
+
+    const minFormattedAmount = this.formatPercentage(minAmount, {
+      ...options,
+      percentageSignDisplay: 'never',
+    });
+    const maxFormattedAmount = this.formatPercentage(maxAmount, options);
+
+    return `${minFormattedAmount}${RANGE_SIGN}${maxFormattedAmount}`;
   }
 
   formatDate(

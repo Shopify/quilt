@@ -1401,6 +1401,26 @@ describe('I18n', () => {
     });
   });
 
+  describe('#formatPercentageRange()', () => {
+    it('throws an error if no minAmount is greater than maxAcount', () => {
+      const i18n = new I18n(defaultTranslations, {locale: 'en'});
+
+      expect(() => i18n.formatPercentageRange(0.1, 0.05)).toThrow(
+        'Invalid range: min (0.1) is greater than max (0.05).',
+      );
+    });
+
+    it('formats the range as a percentage if minAmount and maxAmount are equal', () => {
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      expect(i18n.formatPercentageRange(0.5, 0.5)).toBe('50%');
+    });
+
+    it('formats the range as an interval if minAmount is lower than maxAmount', () => {
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      expect(i18n.formatPercentageRange(0.05, 0.1)).toBe('5–10%');
+    });
+  });
+
   describe('#formatDate()', () => {
     const timezone = 'Australia/Sydney';
 

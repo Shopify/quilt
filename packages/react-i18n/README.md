@@ -137,6 +137,7 @@ The provided `i18n` object exposes many useful methods for internationalizing yo
 - `formatPercentage()`: formats a number as a percentage according to the locale.
   - if `percentageSignDisplay: 'never'` is given, then the percentage sign will be omitted. Example: `0.5 => 50`
   - if `percentageSignDisplay` is omitted, or if `percentageSignDisplay: 'auto'` is given, then the number will be formatted `as: percent`. Example: `0.5 => 50%`
+- `formatPercentageRange()`: formats a range as a percentage according to the locale. Example: `(5, 10) => 5–10%`.
 - `formatDate()`: formats a date according to the locale. The `defaultTimezone` value supplied to the i18n `I18nContext.Provider` component will be used when no custom `timezone` is provided. Assign the `style` option to a `DateStyle` value to use common formatting options.
   - `DateStyle.Long`: e.g., `Thursday, December 20, 2012`
   - `DateStyle.Short`: e.g., `Dec 20, 2012`

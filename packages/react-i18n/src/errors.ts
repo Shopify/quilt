@@ -1,5 +1,11 @@
 import type {Replacements} from './types';
 
+export class InvalidRangeError extends Error {
+  constructor(min: number, max: number) {
+    super(`Invalid range: min (${min}) is greater than max (${max}).`);
+  }
+}
+
 export class MissingTranslationError extends Error {
   constructor(key: string, locale: string) {
     super(`Missing translation for key: ${key} in locale: ${locale}`);
