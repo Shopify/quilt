@@ -54,7 +54,7 @@ import {
 } from './utilities';
 
 export interface NumberFormatOptions extends Intl.NumberFormatOptions {
-  as?: 'number' | 'currency' | 'percent';
+  as?: 'decimal' | 'currency' | 'percent';
   precision?: number;
 }
 
