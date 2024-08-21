@@ -1390,10 +1390,14 @@ describe('I18n', () => {
   describe('#formatPercentage()', () => {
     it('formats the number as a percentage', () => {
       const i18n = new I18n(defaultTranslations, defaultDetails);
-      const expected = Intl.NumberFormat(defaultDetails.locale, {
-        style: 'percent',
-      }).format(50);
-      expect(i18n.formatPercentage(50)).toBe(expected);
+      expect(i18n.formatPercentage(0.5)).toBe('50%');
+    });
+
+    it('formats the number as a percentage omitting the percentage symbol', () => {
+      const i18n = new I18n(defaultTranslations, defaultDetails);
+      expect(i18n.formatPercentage(0.5, {percentageSignDisplay: 'never'})).toBe(
+        '50',
+      );
     });
   });
 

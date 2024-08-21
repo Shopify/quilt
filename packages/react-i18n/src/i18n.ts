@@ -62,6 +62,10 @@ export interface CurrencyFormatOptions extends NumberFormatOptions {
   form?: 'auto' | 'short' | 'explicit' | 'none';
 }
 
+export interface PercentageFormatOptions extends Intl.NumberFormatOptions {
+  percentageSignDisplay?: 'auto' | 'never';
+}
+
 export interface TranslateOptions {
   scope: RootTranslateOptions<any>['scope'];
 }
@@ -300,8 +304,24 @@ export class I18n {
     return parseFloat(normalizedValue).toFixed(decimalPlaces);
   }
 
-  formatPercentage(amount: number, options: Intl.NumberFormatOptions = {}) {
-    return this.formatNumber(amount, {as: 'percent', ...options});
+  formatPercentage(amount: number, options: PercentageFormatOptions = {}) {
+    const {percentageSignDisplay = 'auto', ...otherOptions} = options;
+
+    if (percentageSignDisplay === 'auto') {
+      return this.formatNumber(amount, {as: 'percent', ...otherOptions});
+    }
+
+    const {locale} = this;
+
+    const parts = memoizedNumberFormatter(locale, {
+      style: 'percent',
+      ...otherOptions,
+    }).formatToParts(amount);
+
+    return parts
+      .filter((part) => part.type !== 'literal' && part.type !== 'percentSign')
+      .map((part) => part.value)
+      .join('');
   }
 
   formatDate(
