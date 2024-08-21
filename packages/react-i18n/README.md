@@ -134,7 +134,9 @@ The provided `i18n` object exposes many useful methods for internationalizing yo
   - if `form: 'explicit'` is given, then the result will be the same as for `short`, but will append the ISO 4217 code if it is not already present
   - if `form` is omitted, or if `form: 'auto'` is given, then `explicit` will be selected if the `currency` option does not match the `defaultCurrency`, otherwise `short` is selected. If either `currency` or `defaultCurrency` is not defined then `short` is selected.
 - `unformatCurrency()`: converts a localized currency string to a currency string parseable by JavaScript. Example: `€ 1,25 => 1.25`
-- `formatPercentage()`: formats a number as a percentage according to the locale. Convenience function that simply _auto-assigns_ the `as` option to `percent` and calls `formatNumber()`.
+- `formatPercentage()`: formats a number as a percentage according to the locale.
+  - if `percentageSignDisplay: 'never'` is given, then the percentage sign will be omitted. Example: `0.5 => 50`
+  - if `percentageSignDisplay` is omitted, or if `percentageSignDisplay: 'auto'` is given, then the number will be formatted `as: percent`. Example: `0.5 => 50%`
 - `formatDate()`: formats a date according to the locale. The `defaultTimezone` value supplied to the i18n `I18nContext.Provider` component will be used when no custom `timezone` is provided. Assign the `style` option to a `DateStyle` value to use common formatting options.
   - `DateStyle.Long`: e.g., `Thursday, December 20, 2012`
   - `DateStyle.Short`: e.g., `Dec 20, 2012`
