@@ -189,13 +189,9 @@ export interface Fiber {
   memoizedState: unknown;
 }
 
-export type ReactInstance =
-  | {
-      _reactInternals: Fiber;
-    }
-  | {
-      _reactInternalFiber: Fiber;
-    };
+export interface ReactInstance {
+  _reactInternals: Fiber;
+}
 
 export type Predicate = (node: Node<unknown>) => boolean;
 

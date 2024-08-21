@@ -1,17 +1,12 @@
 import React from 'react';
+import {createRoot} from 'react-dom/client';
 import {flushSync} from 'react-dom';
 import type {Root as ReactRoot} from 'react-dom/client';
 import {findCurrentFiberUsingSlowPath} from 'react-reconciler/reflection.js';
 
 import {TestWrapper} from './TestWrapper';
 import {Element} from './element';
-import {
-  createRoot,
-  getInternals,
-  enqueueTask,
-  isLegacyReact,
-  act,
-} from './compat';
+import {act} from './compat';
 import type {
   Fiber,
   Node,
@@ -316,11 +311,6 @@ export class Root<Props> implements Node<Props> {
     this.destroyed = true;
     await mountedPromise;
     this.actCallbacks.forEach((callback) => callback());
-
-    if (isLegacyReact) {
-      // flush macro task for react 17 only
-      await new Promise((resolve) => enqueueTask(resolve));
-    }
   }
 
   setProps(props: Partial<Props>) {
@@ -346,7 +336,7 @@ export class Root<Props> implements Node<Props> {
     if (this.wrapper == null) {
       this.root = null;
     } else if (this.mounted) {
-      const rootFiber = getInternals(this.wrapper.rootRef as any);
+      const rootFiber = (this.wrapper.rootRef as any)._reactInternals;
       const topElement = fiberToElement(
         findCurrentFiberUsingSlowPath(rootFiber),
         this,
