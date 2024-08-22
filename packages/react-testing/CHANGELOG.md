@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.0.0
+
+### Major Changes
+
+- [#2820](https://github.com/Shopify/quilt/pull/2820) [`df5d12a`](https://github.com/Shopify/quilt/commit/df5d12ae4b070a39198644a02e5908720248d719) Thanks [@alex-page](https://github.com/alex-page)! - Remove React 17 compatability
+
 ## 5.4.0
 
 ### Minor Changes

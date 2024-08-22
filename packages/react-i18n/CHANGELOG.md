@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.13.0
+
+### Minor Changes
+
+- [#2824](https://github.com/Shopify/quilt/pull/2824) [`17f340c`](https://github.com/Shopify/quilt/commit/17f340c27ef728c1c573244fba27bf4083bc46cc) Thanks [@karrocon](https://github.com/karrocon)! - Option to format percentage without percentage sign
+
 ## 7.12.3
 
 ### Patch Changes
