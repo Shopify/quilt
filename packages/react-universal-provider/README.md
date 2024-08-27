@@ -67,7 +67,6 @@ It is particularly useful for simple object or primitive that need to be sync up
 
 The list below show a few packages with more complex universal provider:
 
-[@shopify/react-app-bridge-universal-provider](../react-app-bridge-universal-provider)
 [@shopify/react-csrf-universal-provider](../react-csrf-universal-provider)
 [@shopify/react-graphql-universal-provider`](../react-graphql-universal-provider)
 [@shopify/react-i18n-universal-provider](../react-i18n-universal-provider)
