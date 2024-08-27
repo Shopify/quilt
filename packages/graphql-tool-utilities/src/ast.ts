@@ -8,7 +8,8 @@ import type {
   LegacyInlineFragment,
   LegacyOperation,
 } from 'apollo-codegen-core/lib/compiler/legacyIR';
-import {compileToLegacyIR as compileToIR} from 'apollo-codegen-core/lib/compiler/legacyIR';
+// Explicit js extension as it is required for the esm build
+import {compileToLegacyIR as compileToIR} from 'apollo-codegen-core/lib/compiler/legacyIR.js';
 
 export enum OperationType {
   Query = 'query',
