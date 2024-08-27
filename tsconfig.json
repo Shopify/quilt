@@ -29,7 +29,6 @@
     {"path": "./packages/koa-performance"},
     {"path": "./packages/koa-shopify-graphql-proxy"},
     {"path": "./packages/koa-shopify-webhooks"},
-    {"path": "./packages/logger"},
     {"path": "./packages/mime-types"},
     {"path": "./packages/name"},
     {"path": "./packages/network"},

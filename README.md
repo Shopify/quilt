@@ -13,7 +13,7 @@ These libraries compose together to help you create performant modern JS apps th
 
 ## Usage
 
-The Quilt repo is managed as a monorepo that is composed of 71 npm packages and one Ruby gem.
+The Quilt repo is managed as a monorepo that is composed of 70 npm packages and one Ruby gem.
 Each package/gem has its own `README.md` and documentation describing usage.
 
 ### Package Index
@@ -47,7 +47,6 @@ Each package/gem has its own `README.md` and documentation describing usage.
 | [@shopify/koa-performance](packages/koa-performance) | <a href="https://badge.fury.io/js/%40shopify%2Fkoa-performance"><img src="https://badge.fury.io/js/%40shopify%2Fkoa-performance.svg" width="200px" /></a> | Creating middleware that sends performance-related data through StatsD |
 | [@shopify/koa-shopify-graphql-proxy](packages/koa-shopify-graphql-proxy) | <a href="https://badge.fury.io/js/%40shopify%2Fkoa-shopify-graphql-proxy"><img src="https://badge.fury.io/js/%40shopify%2Fkoa-shopify-graphql-proxy.svg" width="200px" /></a> | A wrapper around `koa-better-http-proxy` which allows easy proxying of GraphQL requests from an embedded Shopify app |
 | [@shopify/koa-shopify-webhooks](packages/koa-shopify-webhooks) | <a href="https://badge.fury.io/js/%40shopify%2Fkoa-shopify-webhooks"><img src="https://badge.fury.io/js/%40shopify%2Fkoa-shopify-webhooks.svg" width="200px" /></a> | Receive webhooks from Shopify with ease |
-| [@shopify/logger](packages/logger) | <a href="https://badge.fury.io/js/%40shopify%2Flogger"><img src="https://badge.fury.io/js/%40shopify%2Flogger.svg" width="200px" /></a> | Opinionated logger for production-scale applications |
 | [@shopify/mime-types](packages/mime-types) | <a href="https://badge.fury.io/js/%40shopify%2Fmime-types"><img src="https://badge.fury.io/js/%40shopify%2Fmime-types.svg" width="200px" /></a> | MIME type consistency |
 | [@shopify/name](packages/name) | <a href="https://badge.fury.io/js/%40shopify%2Fname"><img src="https://badge.fury.io/js/%40shopify%2Fname.svg" width="200px" /></a> | Name-related utilities |
 | [@shopify/network](packages/network) | <a href="https://badge.fury.io/js/%40shopify%2Fnetwork"><img src="https://badge.fury.io/js/%40shopify%2Fnetwork.svg" width="200px" /></a> | Common values related to dealing with the network |
