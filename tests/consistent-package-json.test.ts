@@ -30,8 +30,6 @@ const KNOWN_TEMPLATE_KEYS = [
 
 const GLOB_PATH = './*';
 
-const SINGLE_ENTRYPOINT_EXCEPTIONS = ['graphql-persisted'];
-
 const ROOT_PATH = resolve(__dirname, '..');
 const packagesPath = join(ROOT_PATH, 'packages');
 const rawPackageJSONTemplate = readFileSync(
@@ -69,33 +67,20 @@ packages.forEach(
           expect(packageJSON.description).toBeDefined();
         });
 
-        if (SINGLE_ENTRYPOINT_EXCEPTIONS.includes(packageName)) {
-          it('specifies publishable files, including at least one entrypoint', () => {
-            expect(packageJSON.files).toStrictEqual(
-              expect.arrayContaining([
-                'build/',
-                '!build/*.tsbuildinfo',
-                '!build/ts/**/tests/',
-              ]),
-            );
-            expect(packageJSON.files.length).toBeGreaterThan(2);
-          });
-        } else {
-          it('specifies publishable files, including index entrypoints', () => {
-            // Don't use arrayContaining here as it does not guarantee order
-            // We want to make sure the first set of items are always in a fixed
-            // order. Most importantly, the `!build/*.tsbuildinfo` exclusion must be
-            // after `build`.
-            /* eslint-disable jest/no-conditional-in-test */
-            if (packageJSON?.bin) {
-              expectedPackageJSON.files.unshift('bin/*');
-            }
-            /* eslint-enable */
-            expect(
-              packageJSON.files.slice(0, expectedPackageJSON.files.length),
-            ).toStrictEqual(expectedPackageJSON.files);
-          });
-        }
+        it('specifies publishable files, including index entrypoints', () => {
+          // Don't use arrayContaining here as it does not guarantee order
+          // We want to make sure the first set of items are always in a fixed
+          // order. Most importantly, the `!build/*.tsbuildinfo` exclusion must be
+          // after `build`.
+          /* eslint-disable jest/no-conditional-in-test */
+          if (packageJSON?.bin) {
+            expectedPackageJSON.files.unshift('bin/*');
+          }
+          /* eslint-enable */
+          expect(
+            packageJSON.files.slice(0, expectedPackageJSON.files.length),
+          ).toStrictEqual(expectedPackageJSON.files);
+        });
 
         it('specifies Quilt deep-link homepage', () => {
           expect(packageJSON.homepage).toBe(expectedPackageJSON.homepage);
@@ -133,42 +118,40 @@ packages.forEach(
           );
         });
 
-        if (!SINGLE_ENTRYPOINT_EXCEPTIONS.includes(packageName)) {
-          it('specifies the expected main', () => {
-            expect(packageJSON.main).toBe(expectedPackageJSON.main);
+        it('specifies the expected main', () => {
+          expect(packageJSON.main).toBe(expectedPackageJSON.main);
+        });
+
+        it('specifies the expected types', () => {
+          expect(packageJSON.types).toBe(expectedPackageJSON.types);
+        });
+
+        it('specifies either default and types OR types, esnext, import, and require as the ordered keys in the exports map', () => {
+          const exportsKeys = Object.keys(packageJSON.exports).filter(
+            (key) => key !== GLOB_PATH,
+          );
+
+          exportsKeys.forEach((key) => {
+            expect(packageJSON.exports[key]).toBeObject();
+
+            expect(Object.keys(packageJSON.exports[key])).toBeOneOf([
+              ['types', 'default'],
+              ['types', 'esnext', 'import', 'require'],
+            ]);
+
+            // types/typesVersions is referenced when using `moduleResolution: node`
+            // types in the exports field is referenced when using `moduleResolution: node16`
+            // Ensure that they are the same
+            /* eslint-disable jest/no-conditional-in-test */
+            const baseKey =
+              key === '.'
+                ? packageJSON.types
+                : packageJSON.typesVersions['*'][key.replace(/^\.\//, '')][0];
+            /* eslint-enable jest/no-conditional-in-test */
+
+            expect(packageJSON.exports[key].types).toStrictEqual(baseKey);
           });
-
-          it('specifies the expected types', () => {
-            expect(packageJSON.types).toBe(expectedPackageJSON.types);
-          });
-
-          it('specifies either default and types OR types, esnext, import, and require as the ordered keys in the exports map', () => {
-            const exportsKeys = Object.keys(packageJSON.exports).filter(
-              (key) => key !== GLOB_PATH,
-            );
-
-            exportsKeys.forEach((key) => {
-              expect(packageJSON.exports[key]).toBeObject();
-
-              expect(Object.keys(packageJSON.exports[key])).toBeOneOf([
-                ['types', 'default'],
-                ['types', 'esnext', 'import', 'require'],
-              ]);
-
-              // types/typesVersions is referenced when using `moduleResolution: node`
-              // types in the exports field is referenced when using `moduleResolution: node16`
-              // Ensure that they are the same
-              /* eslint-disable jest/no-conditional-in-test */
-              const baseKey =
-                key === '.'
-                  ? packageJSON.types
-                  : packageJSON.typesVersions['*'][key.replace(/^\.\//, '')][0];
-              /* eslint-enable jest/no-conditional-in-test */
-
-              expect(packageJSON.exports[key].types).toStrictEqual(baseKey);
-            });
-          });
-        }
+        });
       });
 
       it(`ensures packages included in dependencies are used`, () => {
