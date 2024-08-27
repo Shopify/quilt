@@ -5,7 +5,6 @@ const PACKAGES_WITHOUT_SHOPIFY_PREFIX = [
   'graphql-tool-utilities',
   'graphql-typed',
   'graphql-typescript-definitions',
-  'graphql-validate-fixtures',
 ];
 
 export function shouldSkipShopifyPrefix(packageName: string) {
