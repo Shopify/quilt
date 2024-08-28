@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.3.1
+
+### Patch Changes
+
+- Updated dependencies [[`88f1cbe`](https://github.com/Shopify/quilt/commit/88f1cbed60807594537c52da1d2af1ae74c60795)]:
+  - graphql-tool-utilities@3.1.1
+
 ## 3.3.0
 
 ### Minor Changes
