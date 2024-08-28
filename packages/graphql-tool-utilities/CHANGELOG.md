@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.1.1
+
+### Patch Changes
+
+- [#2830](https://github.com/Shopify/quilt/pull/2830) [`88f1cbe`](https://github.com/Shopify/quilt/commit/88f1cbed60807594537c52da1d2af1ae74c60795) Thanks [@BPScott](https://github.com/BPScott)! - Fix import of apollo-codegen-core when using the mjs version of the package
+
 ## 3.1.0
 
 ### Minor Changes

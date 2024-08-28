@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.13.1
+
+### Patch Changes
+
+- [#2821](https://github.com/Shopify/quilt/pull/2821) [`8c53994`](https://github.com/Shopify/quilt/commit/8c53994e82c094a731e772e249e7eabe9863e5d2) Thanks [@alex-page](https://github.com/alex-page)! - Update NumberFortmatOptions to use typescript 5.5 values 'currency' | 'decimal' | 'percent'
+
 ## 7.13.0
 
 ### Minor Changes
