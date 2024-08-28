@@ -46,6 +46,6 @@
   },
   "devDependencies": {
     "@shopify/jest-dom-mocks": "^5.2.0",
-    "@shopify/react-testing": "^5.4.0"
+    "@shopify/react-testing": "^6.0.0"
   }
 }
