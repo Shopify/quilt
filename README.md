@@ -13,7 +13,7 @@ These libraries compose together to help you create performant modern JS apps th
 
 ## Usage
 
-The Quilt repo is managed as a monorepo that is composed of 68 npm packages and one Ruby gem.
+The Quilt repo is managed as a monorepo that is composed of 67 npm packages and one Ruby gem.
 Each package/gem has its own `README.md` and documentation describing usage.
 
 ### Package Index
@@ -33,7 +33,6 @@ Each package/gem has its own `README.md` and documentation describing usage.
 | [graphql-config-utilities](packages/graphql-config-utilities) | <a href="https://badge.fury.io/js/graphql-config-utilities"><img src="https://badge.fury.io/js/graphql-config-utilities.svg" width="200px" /></a> | Common utilities for graphql-config |
 | [graphql-fixtures](packages/graphql-fixtures) | <a href="https://badge.fury.io/js/graphql-fixtures"><img src="https://badge.fury.io/js/graphql-fixtures.svg" width="200px" /></a> | Utilities for generating fixture objects from GraphQL documents. |
 | [graphql-mini-transforms](packages/graphql-mini-transforms) | <a href="https://badge.fury.io/js/graphql-mini-transforms"><img src="https://badge.fury.io/js/graphql-mini-transforms.svg" width="200px" /></a> | Transformers for importing .graphql files in various build tools. |
-| [@shopify/graphql-persisted](packages/graphql-persisted) | <a href="https://badge.fury.io/js/%40shopify%2Fgraphql-persisted"><img src="https://badge.fury.io/js/%40shopify%2Fgraphql-persisted.svg" width="200px" /></a> | Apollo and Koa integrations for persisted GraphQL queries. |
 | [@shopify/graphql-testing](packages/graphql-testing) | <a href="https://badge.fury.io/js/%40shopify%2Fgraphql-testing"><img src="https://badge.fury.io/js/%40shopify%2Fgraphql-testing.svg" width="200px" /></a> | Utilities to create mock GraphQL factories |
 | [graphql-tool-utilities](packages/graphql-tool-utilities) | <a href="https://badge.fury.io/js/graphql-tool-utilities"><img src="https://badge.fury.io/js/graphql-tool-utilities.svg" width="200px" /></a> | Common utilities for GraphQL developer tools |
 | [graphql-typed](packages/graphql-typed) | <a href="https://badge.fury.io/js/graphql-typed"><img src="https://badge.fury.io/js/graphql-typed.svg" width="200px" /></a> | A more strongly typed version of GraphQL's DocumentNode. |

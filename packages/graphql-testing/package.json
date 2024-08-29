@@ -35,7 +35,8 @@
     "jest-matcher-utils": "^26.6.2"
   },
   "devDependencies": {
-    "graphql-typed": "^2.3.0"
+    "graphql-typed": "^2.3.0",
+    "@apollo/client": "^3.5.8"
   },
   "peerDependencies": {
     "@apollo/client": ">=3.5.8 || <4.0.0"

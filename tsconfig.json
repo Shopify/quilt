@@ -15,7 +15,6 @@
     {"path": "./packages/graphql-config-utilities"},
     {"path": "./packages/graphql-fixtures"},
     {"path": "./packages/graphql-mini-transforms"},
-    {"path": "./packages/graphql-persisted"},
     {"path": "./packages/graphql-testing"},
     {"path": "./packages/graphql-tool-utilities"},
     {"path": "./packages/graphql-typed"},
