@@ -13,7 +13,7 @@ These libraries compose together to help you create performant modern JS apps th
 
 ## Usage
 
-The Quilt repo is managed as a monorepo that is composed of 69 npm packages and one Ruby gem.
+The Quilt repo is managed as a monorepo that is composed of 68 npm packages and one Ruby gem.
 Each package/gem has its own `README.md` and documentation describing usage.
 
 ### Package Index
@@ -38,7 +38,6 @@ Each package/gem has its own `README.md` and documentation describing usage.
 | [graphql-tool-utilities](packages/graphql-tool-utilities) | <a href="https://badge.fury.io/js/graphql-tool-utilities"><img src="https://badge.fury.io/js/graphql-tool-utilities.svg" width="200px" /></a> | Common utilities for GraphQL developer tools |
 | [graphql-typed](packages/graphql-typed) | <a href="https://badge.fury.io/js/graphql-typed"><img src="https://badge.fury.io/js/graphql-typed.svg" width="200px" /></a> | A more strongly typed version of GraphQL's DocumentNode. |
 | [graphql-typescript-definitions](packages/graphql-typescript-definitions) | <a href="https://badge.fury.io/js/graphql-typescript-definitions"><img src="https://badge.fury.io/js/graphql-typescript-definitions.svg" width="200px" /></a> | Generate TypeScript definition files from .graphql documents |
-| [graphql-validate-fixtures](packages/graphql-validate-fixtures) | <a href="https://badge.fury.io/js/graphql-validate-fixtures"><img src="https://badge.fury.io/js/graphql-validate-fixtures.svg" width="200px" /></a> | Validates JSON fixtures for GraphQL responses against the associated operations and schema |
 | [@shopify/i18n](packages/i18n) | <a href="https://badge.fury.io/js/%40shopify%2Fi18n"><img src="https://badge.fury.io/js/%40shopify%2Fi18n.svg" width="200px" /></a> | Generic i18n-related utilities |
 | [@shopify/jest-dom-mocks](packages/jest-dom-mocks) | <a href="https://badge.fury.io/js/%40shopify%2Fjest-dom-mocks"><img src="https://badge.fury.io/js/%40shopify%2Fjest-dom-mocks.svg" width="200px" /></a> | Jest mocking utilities for working with the DOM |
 | [@shopify/jest-koa-mocks](packages/jest-koa-mocks) | <a href="https://badge.fury.io/js/%40shopify%2Fjest-koa-mocks"><img src="https://badge.fury.io/js/%40shopify%2Fjest-koa-mocks.svg" width="200px" /></a> | Utilities to easily stub Koa context and cookies |
