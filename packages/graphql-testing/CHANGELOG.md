@@ -1,5 +1,14 @@
 # Changelog
 
+## 8.2.1
+
+### Patch Changes
+
+- [#2832](https://github.com/Shopify/quilt/pull/2832) [`e1fd441`](https://github.com/Shopify/quilt/commit/e1fd441e259c4454e59b932320c68dc693a38067) Thanks [@nattydodd](https://github.com/nattydodd)! - MockGraphQLResponse should allow an ExecutionResult containing any data.
+  GraphQL v15 defaulted ExecutionResult's data to be an object containing any keys
+  but v16 narrowed that down to use `unknown` instead of `any`. This change
+  explicitly uses the default behaviour of allowing any from v15.
+
 ## 8.2.0
 
 ### Minor Changes
