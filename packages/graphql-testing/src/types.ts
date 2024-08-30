@@ -6,7 +6,9 @@ export interface FindOptions {
   mutation?: DocumentNode;
 }
 
-export type MockGraphQLResponse = Error | ExecutionResult['data'];
+export type MockGraphQLResponse =
+  | Error
+  | ExecutionResult<{[key: string]: any}>['data'];
 export type MockGraphQLFunction = (
   request: GraphQLRequest,
 ) => MockGraphQLResponse;
