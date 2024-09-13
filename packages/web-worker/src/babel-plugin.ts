@@ -1,14 +1,17 @@
 import {resolve} from 'path';
 import {runInNewContext} from 'vm';
 
-import type {NodePath, Binding} from '@babel/traverse';
 import type {
   PluginObj,
+  BabelFile,
+  NodePath,
   types as babelTypes,
   template as babelTemplate,
 } from '@babel/core';
 
 import type {Options as LoaderOptions} from './webpack-parts/loader';
+
+type Binding = BabelFile['scope']['bindings'][string];
 
 export const DEFAULT_PACKAGES_TO_PROCESS = {
   // eslint-disable-next-line @typescript-eslint/naming-convention

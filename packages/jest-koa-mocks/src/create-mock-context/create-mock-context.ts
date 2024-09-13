@@ -112,5 +112,5 @@ export default function createContext<
   context.request.body = requestBody;
   context.request.rawBody = rawBody;
 
-  return context as Context;
+  return context as MockContext;
 }
