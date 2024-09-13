@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.3.1
+
+### Patch Changes
+
+- [#2835](https://github.com/Shopify/quilt/pull/2835) [`408f6be`](https://github.com/Shopify/quilt/commit/408f6be2aeeaf2f6997d4157c1c6aaeec51d1cb9) Thanks [@jesstelford](https://github.com/jesstelford)! - Use correct type for exported MockContext
+
 ## 5.3.0
 
 ### Minor Changes

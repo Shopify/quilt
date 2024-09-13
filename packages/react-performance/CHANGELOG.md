@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.1.1
+
+### Patch Changes
+
+- [#2819](https://github.com/Shopify/quilt/pull/2819) [`8972373`](https://github.com/Shopify/quilt/commit/89723734839349aa26c4b015f4f188cf9fc75cc2) Thanks [@brendo](https://github.com/brendo)! - Move @shopify/network to a dependency, not devDependency
+
 ## 4.1.0
 
 ### Minor Changes
