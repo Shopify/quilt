@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.3.1
+
+### Patch Changes
+
+- [#2835](https://github.com/Shopify/quilt/pull/2835) [`3a1077c`](https://github.com/Shopify/quilt/commit/3a1077c2d2d8a55797d83e330c5a9607e42da78b) Thanks [@jesstelford](https://github.com/jesstelford)! - Ensure the correct babel types are used internally
+
 ## 6.3.0
 
 ### Minor Changes
