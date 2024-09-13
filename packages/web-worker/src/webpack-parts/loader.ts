@@ -78,6 +78,7 @@ export function pitch(this: LoaderContext<Options>, request: string) {
       wrapperContent = cachedContent;
     } else if (cachedContent == null) {
       try {
+        // @ts-expect-error readFileSync is available here
         wrapperContent = this.fs.readFileSync(wrapperModule).toString();
         moduleWrapperCache.set(wrapperModule, wrapperContent ?? false);
       } catch (error) {
