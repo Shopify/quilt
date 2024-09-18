@@ -19,13 +19,15 @@ describe('typescript project references', () => {
   const quiltReferences = references.map(prefixPackageName);
 
   it('includes all the packages', () => {
+    const packageNameRegex = new RegExp(
+      `${basePackagePath}/(?<packageName>[\\w._-]+)/package\\.json$`,
+      'i',
+    );
     const packages = glob
       .sync(resolve(basePackagePath, '*/package.json'))
       .map(
         (packageJsonPath) =>
-          /quilt\/packages\/(?<packageName>[\w._-]+)\/package\.json$/i.exec(
-            packageJsonPath,
-          ).groups.packageName,
+          packageJsonPath.match(packageNameRegex).groups.packageName,
       )
       .filter((packageName) => !EXCLUDED_PACKAGES.includes(packageName));
 
