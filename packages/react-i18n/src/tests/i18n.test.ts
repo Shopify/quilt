@@ -1,7 +1,5 @@
 import {clock} from '@shopify/jest-dom-mocks';
 
-import './matchers';
-
 import {I18n} from '../i18n';
 import {LanguageDirection} from '../types';
 import {DateStyle, Weekday} from '../constants';

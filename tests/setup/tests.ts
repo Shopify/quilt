@@ -1,4 +1,3 @@
-import '../matchers';
 import '../../packages/react-testing/src/matchers';
 import '../../packages/graphql-testing/src/matchers';
 
