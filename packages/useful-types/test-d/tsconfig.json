@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "strict": true
+    "strict": true,
+    "lib": ["dom", "dom.iterable", "es2022"]
   },
   "references": [{"path": ".."}]
 }
