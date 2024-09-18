@@ -131,13 +131,23 @@ packages.forEach(
             (key) => key !== GLOB_PATH,
           );
 
-          exportsKeys.forEach((key) => {
-            expect(packageJSON.exports[key]).toBeObject();
+          const possibleResults = [
+            ['types', 'default'],
+            ['types', 'esnext', 'import', 'require'],
+          ];
 
-            expect(Object.keys(packageJSON.exports[key])).toBeOneOf([
-              ['types', 'default'],
-              ['types', 'esnext', 'import', 'require'],
-            ]);
+          exportsKeys.forEach((key) => {
+            expect(packageJSON.exports[key]).toMatchObject({
+              types: expect.anything(),
+            });
+
+            // The result of exports key could be one of two shapes
+            // Its value should be one of items in the possibleResults array
+            // We don't want to test against "an object containing keys", as the
+            // order of the keys is important
+            expect(possibleResults).toStrictEqual(
+              expect.arrayContaining([Object.keys(packageJSON.exports[key])]),
+            );
 
             // types/typesVersions is referenced when using `moduleResolution: node`
             // types in the exports field is referenced when using `moduleResolution: node16`

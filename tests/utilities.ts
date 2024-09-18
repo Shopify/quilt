@@ -1,7 +1,7 @@
 import {resolve, sep} from 'path';
 
 // For packages that have been emptied pending removal
-export const EXCLUDED_PACKAGES = [];
+export const EXCLUDED_PACKAGES: string[] = [];
 
 const rootDirectory = `${resolve(__dirname, '..')}${sep}`;
 const regex = new RegExp(rootDirectory, 'g');

@@ -1182,7 +1182,7 @@ describe('createFillers()', () => {
             }
           `);
 
-          expect(fillOperation(document)).toBeOneOf([
+          const possibleResults = [
             {
               named: {
                 __typename: 'Person',
@@ -1203,7 +1203,13 @@ describe('createFillers()', () => {
                 name: expect.any(String),
               },
             },
-          ]);
+          ];
+
+          // The result of fillOperation is random based on a seed.
+          // Its value should be one of items in the possibleResults array
+          expect(possibleResults).toStrictEqual(
+            expect.arrayContaining([fillOperation(document)]),
+          );
         });
 
         it('always picks the same implementing type', () => {
@@ -1387,7 +1393,7 @@ describe('createFillers()', () => {
             }
           `);
 
-          expect(fillFragment(fragment)).toBeOneOf([
+          const possibleResults = [
             {
               named: {
                 __typename: 'Person',
@@ -1408,7 +1414,13 @@ describe('createFillers()', () => {
                 name: expect.any(String),
               },
             },
-          ]);
+          ];
+
+          // The result of fillFragment is random based on a seed.
+          // Its value should be one of items in the possibleResults array
+          expect(possibleResults).toStrictEqual(
+            expect.arrayContaining([fillFragment(fragment)]),
+          );
         });
 
         it('picks an implementing type based on a static typename provided', () => {
@@ -1607,7 +1619,7 @@ describe('createFillers()', () => {
             }
           `);
 
-          expect(fillOperation(document)).toBeOneOf([
+          const possibleResults = [
             {
               named: {
                 __typename: 'Person',
@@ -1625,7 +1637,13 @@ describe('createFillers()', () => {
                 __typename: 'Dog',
               },
             },
-          ]);
+          ];
+
+          // The result of fillOperation is random based on a seed.
+          // Its value should be one of items in the possibleResults array
+          expect(possibleResults).toStrictEqual(
+            expect.arrayContaining([fillOperation(document)]),
+          );
         });
 
         it('picks a member type based on a static typename provided', () => {
@@ -1754,7 +1772,7 @@ describe('createFillers()', () => {
             }
           `);
 
-          expect(fillFragment(fragment)).toBeOneOf([
+          const possibleResults = [
             {
               named: {
                 __typename: 'Person',
@@ -1772,7 +1790,13 @@ describe('createFillers()', () => {
                 __typename: 'Dog',
               },
             },
-          ]);
+          ];
+
+          // The result of fillFragment is random based on a seed.
+          // Its value should be one of items in the possibleResults array
+          expect(possibleResults).toStrictEqual(
+            expect.arrayContaining([fillFragment(fragment)]),
+          );
         });
 
         it('picks a member type based on a static typename provided', () => {
