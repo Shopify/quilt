@@ -1,5 +1,3 @@
-import './matchers';
-
 import {animationFrame} from '@shopify/jest-dom-mocks';
 
 import {I18nManager} from '../manager';
@@ -447,8 +445,6 @@ describe('I18nManager', () => {
       await manager.resolve();
 
       const translationsByID = manager.extract();
-      expect(Object.keys(translationsByID)).toBeArrayOfUniqueItems();
-
       const translations = Object.values(translationsByID);
       expect(translations).toContain(enUS);
       expect(translations).toContain(en);

@@ -2,8 +2,6 @@
  * @jest-environment node
  */
 
-import '../matchers';
-
 import React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {extract, Effect} from '@shopify/react-effect/server';
@@ -105,7 +103,6 @@ describe('server', () => {
     const translations = manager.extract();
 
     const extractedTranslations = Object.values(translations);
-    expect(Object.keys(translations)).toBeArrayOfUniqueItems();
     expect(extractedTranslations).toContain(frCATranslations);
     expect(extractedTranslations).toContain(frTranslations);
   });
