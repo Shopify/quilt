@@ -78,18 +78,17 @@ export function pitch(this: LoaderContext<Options>, request: string) {
       wrapperContent = cachedContent;
     } else if (cachedContent == null) {
       try {
-        if (this.fs?.readFileSync) { 
+        if (this.fs?.readFileSync) {
           wrapperContent = this.fs.readFileSync(wrapperModule).toString();
           moduleWrapperCache.set(wrapperModule, wrapperContent ?? false);
         } else {
-          throw new Error("readFileSync is undefined");
+          throw new Error('readFileSync is undefined');
         }
       } catch (error) {
         moduleWrapperCache.set(wrapperModule, false);
       }
     }
   }
-
 
   if (wrapperContent) {
     plugin.virtualModules.writeModule(
