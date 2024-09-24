@@ -1,5 +1,12 @@
 # Changelog
 
+## 6.4.0
+
+### Minor Changes
+
+- [#2816](https://github.com/Shopify/quilt/pull/2816) [`4638287`](https://github.com/Shopify/quilt/commit/46382871c238fe6563e093697b508f500842b80d) Thanks [@admirsaheta](https://github.com/admirsaheta)! - - Allow `output.chunkFilename` to be a function or string.
+  - `compiler.options.output.filename` and `compiler.options.output.chunkFilename` now default to `[name].js` when undefined.
+
 ## 6.3.1
 
 ### Patch Changes
