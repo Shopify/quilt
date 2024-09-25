@@ -1,5 +1,13 @@
 # `@shopify/react-web-worker`
 
+> [!CAUTION]
+>
+> `@shopify/react-web-worker` is deprecated.
+>
+> Shopifolk, see
+> [Shopify/quilt-internal](https://github.com/shopify/quilt-internal) for
+> information on the latest packages available for use internally.
+
 [![Build Status](https://github.com/Shopify/quilt/workflows/Node-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ANode-CI)
 [![Build Status](https://github.com/Shopify/quilt/workflows/Ruby-CI/badge.svg?branch=main)](https://github.com/Shopify/quilt/actions?query=workflow%3ARuby-CI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md) [![npm version](https://badge.fury.io/js/%40shopify%2Freact-web-worker.svg)](https://badge.fury.io/js/%40shopify%2Freact-web-worker.svg) [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@shopify/react-web-worker.svg)](https://img.shields.io/bundlephobia/minzip/@shopify/react-web-worker.svg)

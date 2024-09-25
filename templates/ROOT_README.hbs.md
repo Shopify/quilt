@@ -1,4 +1,16 @@
 [comment]: # (NOTE: This file is generated and should not be modify directly. Update `templates/ROOT_README.hbs.md` instead)
+
+> [!CAUTION]
+> Quilt is no longer maintained. The packages listed below are deprecated.
+>
+> Functionality can be replaced with more modern and maintained open source
+> projects, or implemented in userland along side the latest versions of
+> koa/react/etc.
+>
+> Shopifolk, see
+> [Shopify/quilt-internal](https://github.com/shopify/quilt-internal) for
+> information on the latest packages available for use internally.
+
 # Quilt
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md)
@@ -18,18 +30,18 @@ Each package/gem has its own `README.md` and documentation describing usage.
 
 ### Package Index
 
-| Package | Version | Description |
-| ------- | ------- | ----------- |
+| Package | Version | Status | Description |
+| ------- | ------- | ------ | ----------- |
 {{#each jsPackages}}
-| [{{name}}](packages/{{unscopedName}}) | <a href="https://badge.fury.io/js/{{urlEncodedName}}"><img src="https://badge.fury.io/js/{{urlEncodedName}}.svg" width="200px" /></a> | {{{description}}} |
+| [{{name}}](packages/{{unscopedName}}) | <a href="https://badge.fury.io/js/{{urlEncodedName}}"><img src="https://badge.fury.io/js/{{urlEncodedName}}.svg" width="200px" /></a> | ⚠️ Deprecated | {{{description}}} |
 {{/each}}
 
 ### Gem Index
 
-| Gem | Version | Description |
-| --- | ------- | ----------- |
+| Gem | Version | Status | Description |
+| --- | ------- | ------ | ----------- |
 {{#each gems}}
-| [{{name}}](gems/{{name}}) | <a href="https://badge.fury.io/rb/{{name}}"><img src="https://badge.fury.io/rb/{{name}}.svg" width="200px" /></a> | {{{description}}} |
+| [{{name}}](gems/{{name}}) | <a href="https://badge.fury.io/rb/{{name}}"><img src="https://badge.fury.io/rb/{{name}}.svg" width="200px" /></a> | ⚠️ Deprecated | {{{description}}} |
 {{/each}}
 
 ## Want to contribute?
