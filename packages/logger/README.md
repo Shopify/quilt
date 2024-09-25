@@ -1,5 +1,13 @@
 # `@shopify/logger`
 
+> [!CAUTION]
+>
+> `` is deprecated.
+>
+> Shopifolk, see
+> [Shopify/quilt-internal](https://github.com/shopify/quilt-internal) for
+> information on the latest packages available for use internally.
+
 ⚠️ DEPRECATED
 
 This package has been deprecated and should no longer be used.
