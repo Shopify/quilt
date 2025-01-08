@@ -11,6 +11,7 @@ import {
   TimeUnit,
   isLessThanOneWeekAway,
   isLessThanOneYearAway,
+  mapDeprecatedTimezones,
 } from '@shopify/dates';
 import {
   formatName as importedFormatName,
@@ -132,7 +133,7 @@ export class I18n {
     this.locale = locale;
     this.defaultCountry = country;
     this.defaultCurrency = currency;
-    this.defaultTimezone = timezone;
+    this.defaultTimezone = this.normalizeTimezone(timezone);
     this.pseudolocalize = pseudolocalize;
     this.defaultInterpolate = interpolate;
     this.onError = onError || this.defaultOnError;
@@ -330,17 +331,21 @@ export class I18n {
   ): string {
     const {locale, defaultTimezone} = this;
     const {timeZone = defaultTimezone} = options;
+    const normalizedTimezone = this.normalizeTimezone(timeZone);
 
     const {style = undefined, ...formatOptions} = options || {};
 
     if (style) {
       switch (style) {
         case DateStyle.Humanize:
-          return this.humanizeDate(date, {...formatOptions, timeZone});
+          return this.humanizeDate(date, {
+            ...formatOptions,
+            timeZone: normalizedTimezone,
+          });
         case DateStyle.DateTime:
           return this.formatDateTime(date, {
             ...formatOptions,
-            timeZone,
+            timeZone: normalizedTimezone,
             ...dateStyle[style],
           });
         default:
@@ -348,7 +353,10 @@ export class I18n {
       }
     }
 
-    return formatDate(date, locale, {...formatOptions, timeZone});
+    return formatDate(date, locale, {
+      ...formatOptions,
+      timeZone: normalizedTimezone,
+    });
   }
 
   ordinal(amount: number) {
@@ -824,5 +832,9 @@ export class I18n {
 
   private defaultOnError(error: I18nError) {
     throw error;
+  }
+
+  private normalizeTimezone(timeZone?: string) {
+    return timeZone ? mapDeprecatedTimezones(timeZone) : undefined;
   }
 }

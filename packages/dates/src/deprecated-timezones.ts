@@ -28,6 +28,7 @@ export const deprecatedTimezones: {[key: string]: string} = {
   'Canada/Yukon': 'America/Whitehorse',
   'Chile/Continental': 'America/Santiago',
   'Chile/EasterIsland': 'Pacific/Easter',
+  'Europe/Kyiv': 'Europe/Kiev',
   Cuba: 'America/Havana',
   Egypt: 'Africa/Cairo',
   Eire: 'Europe/Dublin',
