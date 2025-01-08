@@ -387,12 +387,12 @@ export class I18n {
   }
 
   formatName(
-    firstName?: string,
-    lastName?: string,
+    givenName?: string | null,
+    familyName?: string | null,
     options?: {full?: boolean},
   ) {
     return importedFormatName({
-      name: {givenName: firstName, familyName: lastName},
+      name: {givenName, familyName},
       locale: this.locale,
       options,
     });

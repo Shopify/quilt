@@ -1,10 +1,29 @@
+import * as nonEmptyOrUndefinedFunction from '../utilities/nonEmptyOrUndefined';
 import {formatName} from '../formatName';
 
 describe('#formatName()', () => {
-  it('returns an empty string when nothing is defined', () => {
-    const name = {givenName: undefined, familyName: undefined};
+  it('calls nonEmptyOrUndefined on givenName and familyName', () => {
+    const nonEmptyOrUndefinedSpy = jest
+      .spyOn(nonEmptyOrUndefinedFunction, 'nonEmptyOrUndefined')
+      .mockImplementation(jest.fn());
+
+    formatName({name: {}, locale: ''});
+
+    expect(nonEmptyOrUndefinedSpy).toHaveBeenCalledTimes(2);
+
+    nonEmptyOrUndefinedSpy.mockRestore();
+  });
+
+  it('returns undefined', () => {
+    const testCases = [undefined, null, ' ', ''];
     const locale = 'en-CA';
-    expect(formatName({name, locale})).toBe('');
+
+    testCases.forEach((givenName) => {
+      testCases.forEach((familyName) => {
+        const name = {givenName, familyName};
+        expect(formatName({name, locale})).toBeUndefined();
+      });
+    });
   });
 
   it('returns only the givenName when familyName is missing', () => {
@@ -135,7 +154,7 @@ describe('#formatName()', () => {
     ).toBe('last');
   });
 
-  it('returns a string when familyName is undefined using full', () => {
+  it('returns undefined when familyName is undefined using full', () => {
     const name = {givenName: '', familyName: undefined};
     const locale = 'en-CA';
     const options = {full: true};
@@ -146,10 +165,10 @@ describe('#formatName()', () => {
         locale,
         options,
       }),
-    ).toBe('');
+    ).toBeUndefined();
   });
 
-  it('returns a string when givenName and familyName are missing using full', () => {
+  it('returns undefined when givenName and familyName are missing using full', () => {
     const name = {givenName: undefined, familyName: undefined};
     const locale = 'en-CA';
     const options = {full: true};
@@ -160,7 +179,7 @@ describe('#formatName()', () => {
         locale,
         options,
       }),
-    ).toBe('');
+    ).toBeUndefined();
   });
 
   it('defaults to givenName familyName for unknown locale using full', () => {
