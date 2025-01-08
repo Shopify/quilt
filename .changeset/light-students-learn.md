@@ -1,5 +1,5 @@
 ---
-'@shopify/react-i18n': patch
+'@shopify/dates': patch
 ---
 
 Map deprecated timezone
