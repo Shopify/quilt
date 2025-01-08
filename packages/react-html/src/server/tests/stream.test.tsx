@@ -15,7 +15,7 @@ describe('stream', () => {
 
 function streamResponse(stream: NodeJS.ReadableStream) {
   return new Promise<string>((resolve) => {
-    let response: string;
+    let response = '';
 
     stream.on('data', (data) => (response += data));
     stream.on('end', () => resolve(response));
