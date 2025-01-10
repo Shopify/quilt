@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.1
+
+### Patch Changes
+
+- [#2842](https://github.com/Shopify/quilt/pull/2842) [`d2c9fae`](https://github.com/Shopify/quilt/commit/d2c9fae1a2a62f3c9f5f327c4a7351b33c8a88de) Thanks [@ginabak](https://github.com/ginabak)! - Correctly support deprecated timezones in older browsers when calling `formatDate()`. For example, modern browsers support both `Europe/Kyiv` and (the now deprecated) `Europe/Kiev`, but browsers as recent as Chrome 131 on MacOS only support `Europe/Kiev`. Note: This is a purely internal change which should not effect the result of calling `formatDate()`.
+
 ## 2.1.0
 
 ### Minor Changes
