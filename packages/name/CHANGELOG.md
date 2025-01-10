@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.0
+
+### Minor Changes
+
+- [#2844](https://github.com/Shopify/quilt/pull/2844) [`c294df9`](https://github.com/Shopify/quilt/commit/c294df930ba5ad21163f6b3cb6fb6ab586062cdc) Thanks [@trishrempel](https://github.com/trishrempel)! - Update formatName and abbreviateName to return a string or undefined
+
 ## 1.2.0
 
 ### Minor Changes
