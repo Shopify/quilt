@@ -1,3 +1,5 @@
+import {mapDeprecatedTimezones} from '../map-deprecated-timezones';
+
 const intl = new Map<string, Intl.DateTimeFormat>();
 export function memoizedGetDateTimeFormat(
   locales?: string | string[],
@@ -58,7 +60,12 @@ export function formatDate(
     }).format(adjustedDate);
   }
 
-  return memoizedGetDateTimeFormat(locales, options).format(date);
+  return memoizedGetDateTimeFormat(locales, {
+    ...options,
+    timeZone: options.timeZone
+      ? mapDeprecatedTimezones(options.timeZone)
+      : undefined,
+  }).format(date);
 }
 
 export function dateTimeFormatCacheKey(
