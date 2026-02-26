@@ -1,5 +1,11 @@
-director: Delaney Manders
+org_line: Shopify Core
 owners:
-  - themallen
+  - Shopify/web-foundation
   - tzvipm
+  - TheMallen
+audience: partner
 classification: library
+ci_url: https://travis-ci.org/Shopify/quilt
+slack_channels:
+  - quilt
+  - web-foundation-tech

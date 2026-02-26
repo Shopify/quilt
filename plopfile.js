@@ -1,5 +1,9 @@
+const {readdirSync, existsSync} = require('fs');
+const path = require('path');
+
+const packageNames = getPackageNames();
+
 module.exports = function(plop) {
-  // controller generator
   plop.setGenerator('package', {
     description: 'create a new package from scratch',
     prompts: [
@@ -7,6 +11,16 @@ module.exports = function(plop) {
         type: 'input',
         name: 'name',
         message: "What should this package's name be? Ex. react-utilities",
+      },
+      {
+        type: 'input',
+        name: 'description',
+        message: "What should this package's description be?",
+      },
+      {
+        type: 'confirm',
+        name: 'usedInBrowser',
+        message: 'Is this package intended for use in the browser?',
       },
     ],
     actions: [
@@ -35,6 +49,37 @@ module.exports = function(plop) {
         path: 'packages/{{name}}/src/test/index.test.ts',
         templateFile: 'templates/test.hbs.ts',
       },
+      sharedActions.docs,
     ],
   });
+
+  plop.setGenerator('docs', {
+    description: 'Generate root repo documentation',
+    prompts: [],
+    actions() {
+      return [sharedActions.docs];
+    },
+  });
 };
+
+const sharedActions = {
+  docs: {
+    type: 'add',
+    path: 'README.md',
+    templateFile: 'templates/ROOT_README.hbs.md',
+    force: true,
+    data: {packageNames},
+  },
+};
+
+function getPackageNames() {
+  const packagesPath = path.join(__dirname, 'packages');
+  return readdirSync(packagesPath).filter(packageName => {
+    const packageJSONPath = path.join(
+      packagesPath,
+      packageName,
+      'package.json',
+    );
+    return existsSync(packageJSONPath);
+  });
+}

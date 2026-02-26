@@ -3,16 +3,16 @@
   "version": "1.0.0",
   "description": "Shopify's javascript application utilities",
   "engines": {
-    "node": ">=v8.9.4",
+    "node": ">=8.10.0",
     "yarn": ">=1.3.2"
   },
   "scripts": {
     "publish": "lerna publish",
     "prebuild": "yarn run clean",
     "build": "lerna run build",
-    "lint": "yarn eslint **/*.{ts,tsx} ",
-    "pretest": "yarn build",
-    "test": "jest",
+    "lint": "yarn eslint '**/*.{ts,tsx}'",
+    "ci:lint-docs": "yarn generate docs && test -z \"$(git status --porcelain)\" || echo 'The root README has not been updated. Run `yarn generate docs` in the root of your quilt directory and try again.'",
+    "test": "jest --maxWorkers=3",
     "check": "lerna run check",
     "release": "lerna publish && git push --follow-tags",
     "clean": "rimraf './packages/**/*.{js,d.ts}'",
@@ -20,48 +20,40 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TheMallen/lerna-tests.git"
+    "url": "git+https://github.com/Shopify/quilt.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Shopify Inc.",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/TheMallen/lerna-tests/issues"
+    "url": "https://github.com/shopify/quilt/issues"
   },
-  "homepage": "https://github.com/TheMallen/lerna-tests#readme",
+  "homepage": "https://github.com/shopify/quilt#readme",
   "private": true,
   "workspaces": [
     "packages/*"
   ],
   "devDependencies": {
-    "@types/jest": "^22.2.1",
+    "@types/enzyme-adapter-react-16": "^1.0.3",
+    "@types/jest": "^23.1.1",
+    "@types/react-helmet": "^5.0.6",
+    "codecov": "^3.0.2",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "eslint": "^4.19.1",
-    "eslint-plugin-shopify": "^20.0.0",
+    "eslint": "^5.0.0",
+    "eslint-plugin-shopify": "^24.0.0",
     "graphql-tag": "^2.8.0",
-    "jest": "^22.4.3",
+    "isomorphic-fetch": "^2.2.1",
+    "jest": "^23.2.0",
     "jest-transform-graphql": "^2.1.0",
-    "lerna": "^2.9.0",
+    "lerna": "^3.3.0",
     "plop": "^2.0.0",
+    "prettier": "^1.14.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-helmet": "^5.2.0",
     "rimraf": "^2.6.2",
-    "ts-jest": "^22.4.2",
-    "typescript": "~2.7.2"
+    "ts-jest": "^23.0.0",
+    "typescript": "~3.0.1"
   },
-  "jest": {
-    "setupFiles": [
-      "./test/setup.ts"
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest",
-      "\\.(gql|graphql)$": "jest-transform-graphql"
-    },
-    "testRegex": ".*\\.test\\.tsx?$"
-  }
+  "dependencies": {}
 }

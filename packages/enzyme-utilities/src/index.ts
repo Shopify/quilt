@@ -1,7 +1,11 @@
 import {ReactWrapper, CommonWrapper} from 'enzyme';
 import {get} from 'lodash';
 
-export type AnyWrapper = ReactWrapper<any, any> | CommonWrapper<any, any>;
+export type AnyWrapper =
+  | ReactWrapper<any, any>
+  | ReactWrapper<any, never>
+  | CommonWrapper<any, any>
+  | CommonWrapper<any, never>;
 
 export function trigger(wrapper: AnyWrapper, keypath: string, ...args: any[]) {
   if (wrapper.length === 0) {
@@ -41,4 +45,8 @@ export function trigger(wrapper: AnyWrapper, keypath: string, ...args: any[]) {
 
 function updateRoot(wrapper: AnyWrapper) {
   (wrapper as any).root().update();
+}
+
+export function findById(wrapper: ReactWrapper<any, any>, id: string) {
+  return wrapper.find({id}).first();
 }

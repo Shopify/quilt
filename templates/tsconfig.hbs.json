@@ -7,6 +7,9 @@
     "rootDir": "./src"
   },
   "include": [
-    "src/**/*.ts"
-  ]
+    "../../config/typescript/**/*",
+    "./src/**/*.ts",
+    "./src/**/*.tsx"
+  ],
+  "exclude": ["**/*.test.ts", "**/*.test.tsx"]
 }

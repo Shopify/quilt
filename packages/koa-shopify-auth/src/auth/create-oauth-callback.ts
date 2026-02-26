@@ -1,39 +1,35 @@
 import {Context} from 'koa';
 import querystring from 'querystring';
-import crypto from 'crypto';
 
-import {AuthConfig} from './types';
+import {AuthConfig} from '../types';
+import Error from './errors';
+import validateHmac from './validate-hmac';
 
 export default function createOAuthCallback(config: AuthConfig) {
   return async function oAuthCallback(ctx: Context) {
-    const {query} = ctx;
-    const {code, hmac, shop} = query;
+    const {query, cookies} = ctx;
+    const {code, hmac, shop, state: nonce} = query;
+    const {apiKey, secret, afterAuth} = config;
 
-    const map = {...query};
-    delete map.signature;
-    delete map.hmac;
-
-    const message = querystring.stringify(map);
-    const generatedHash = crypto
-      .createHmac('sha256', config.secret)
-      .update(message)
-      .digest('hex');
-
-    if (generatedHash !== hmac) {
-      ctx.throw(400, 'HMAC validation failed');
-      return;
+    if (nonce == null || cookies.get('shopifyNonce') !== nonce) {
+      ctx.throw(403, Error.NonceMatchFailed);
     }
 
     if (shop == null) {
-      ctx.throw(400, 'Expected a shop query parameter');
+      ctx.throw(400, Error.ShopParamMissing);
+      return;
+    }
+
+    if (validateHmac(hmac, secret, query) === false) {
+      ctx.throw(400, Error.InvalidHMAC);
       return;
     }
 
     /* eslint-disable camelcase */
     const accessTokenQuery = querystring.stringify({
       code,
-      client_id: config.apiKey,
-      client_secret: config.secret,
+      client_id: apiKey,
+      client_secret: secret,
     });
     /* eslint-enable camelcase */
 
@@ -50,7 +46,7 @@ export default function createOAuthCallback(config: AuthConfig) {
     );
 
     if (!accessTokenResponse.ok) {
-      ctx.throw(401, 'Could not fetch access token');
+      ctx.throw(401, Error.AccessTokenFetchFailure);
       return;
     }
 
@@ -62,9 +58,13 @@ export default function createOAuthCallback(config: AuthConfig) {
       ctx.session.accessToken = accessToken;
     }
 
-    ctx.state.shop = shop;
-    ctx.state.accessToken = accessToken;
+    ctx.state.shopify = {
+      shop,
+      accessToken,
+    };
 
-    await config.afterAuth(ctx);
+    if (afterAuth) {
+      await afterAuth(ctx);
+    }
   };
 }

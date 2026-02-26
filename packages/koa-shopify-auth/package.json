@@ -1,19 +1,37 @@
 {
   "name": "@shopify/koa-shopify-auth",
-  "version": "1.0.2",
+  "version": "3.1.0",
   "license": "MIT",
   "description": "",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "publishConfig": {
-    "@shopify:registry": "https://packages.shopify.io/shopify/node/npm/"
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org"
   },
   "scripts": {
-    "build": "tsc",
-    "prepublish": "yarn run build"
+    "build": "tsc --p tsconfig.build.json",
+    "prepublishOnly": "yarn run build"
   },
   "author": "Shopify Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shopify/quilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shopify/quilt/issues"
+  },
+  "homepage": "https://github.com/Shopify/quilt/blob/master/packages/koa-shopify-auth/README.md",
   "dependencies": {
+    "@shopify/jest-koa-mocks": "^2.0.10",
     "@types/koa": "^2.0.44",
-    "koa": "^2.5.0"
+    "koa": "^2.5.0",
+    "nonce": "^1.0.4",
+    "safe-compare": "^1.1.2"
+  },
+  "devDependencies": {
+    "@shopify/jest-dom-mocks": "^2.0.8",
+    "@types/safe-compare": "^1.1.0",
+    "typescript": "~3.0.1"
   }
 }

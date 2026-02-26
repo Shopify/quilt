@@ -1,1 +1,3 @@
-export {default as createVerifyRequest} from './create-verify-request';
+import createVerifyRequest from './verify-request';
+
+export default createVerifyRequest;
